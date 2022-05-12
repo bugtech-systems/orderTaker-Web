@@ -1,20 +1,26 @@
-import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
-import Forgot from "./components/Forgot/Forgot";
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar/Navbar';
+import { Outlet } from "react-router-dom";
+import Grid from '@mui/material/Grid';
+import Sidebar from './components/Sidebar/Sidebar';
+import { useLocation } from 'react-router-dom'; 
 
+function App() {
+  const [title, setTitle] = useState(null);
+  const location = useLocation();
+  
+  useEffect(() => {
+    const parsedTitle = location.pathname.replace(/\W/g, ' ');
+    setTitle(parsedTitle);
+  }, [location]);
 
-const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot" element={<Forgot />} />
-        <Route path="/" element={<Login />} />
-      </Routes>
-    </Router>
+    <Grid container>
+      <Sidebar />
+      <Navbar title={title} />
+      <Outlet />
+    </Grid>
   );
-};
+}
 
 export default App;
