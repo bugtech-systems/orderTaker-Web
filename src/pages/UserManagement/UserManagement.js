@@ -16,31 +16,27 @@ import { DataGrid } from '@mui/x-data-grid';
 
 export default function PositionedTooltips() {
   const columns = [
+    { field: 'role', headerName: 'Role', width: 190},
     { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'request', headerName: 'Requests', width: 200 },
-    { field: 'department', headerName: 'Department', width: 130 },
-    { field: 'dateCreated', headerName: 'Date Created', width: 130 },
-    { field: 'status', headerName: 'Status', width: 130 },
-    { field: 'action', headerName: 'Action', width: 130 },
+    { field: 'request', headerName: 'Request', width: 200 },
+    { field: 'status', headerName: 'Status', width: 200 },
+    { field: 'action', headerName: 'Actions', width: 200 },
 
   ];
   
   const rows = [
-    { id: '1', name: 'Juan DelaCruz', request: 'Product Re-stock', department: 'Metro Staff', dateCreated: 'May 6 2022', status: 'Pending Request', action: 'Approved'},
-    { id: '2', name: 'Juan Tamad', request: 'Updated Menu List', department: 'Cashier', dateCreated: 'May 6 2022', status: 'Pending Request', action: 'Decline'},
-    { id: '3', name: 'Juan Pedro', request: 'Add Inventory', department: 'Cook', dateCreated: 'May 6 2022', status: 'Pending Request', action: 'For Review'},
-    { id: '4', name: 'Juan Wamport', request: 'Purchased', department: 'Human Resource', dateCreated: 'May 6 2022', status: 'Pending Request', action: 'Approved'},
-    { id: '5', name: 'Juan Angbit', request: 'Prodcut Request', department: 'Supply Chain', dateCreated: 'May 6 2022', status: 'Pending Request', action: 'Approved'},
+    { id: '1', role: 'admin', name: 'Juan DelaCruz', request: 'Product Re-stock',  status: 'Pending Request', action: 'Approved'},
+    { id: '2', role: 'user', name: 'Juan Tamad', request: 'Add Inventory', status: 'Pending Request', action: 'Decline'},
+    { id: '3', role: 'admin', name: 'Juan Pedro', request: 'Purchased', status: 'Pending Request', action: 'For Review'},
+    { id: '4', role: 'admin', name: 'Juan Wamport', request: 'Product Request',  status: 'Pending Request', action: 'Approved'},
+    { id: '5', role: 'admin', name: 'Juan Angbit', request: 'Purchased', status: 'Pending Request', action: 'Approved'},
   ];
 
 
   return (
-    <Box sx={{ width: 1000, marginLeft: '330px', paddingTop: '30px'}}>
+    <Box sx={{ width: 1000, marginLeft: '320px', paddingTop: '40px'}}>
       <Grid container justifyContent="center">
         <Grid item xs={6}>
-          <Tooltip placement="left-start">
-            <h2>Dashboard</h2>
-          </Tooltip>
           <br />
           <Paper
                 component="form"
@@ -62,7 +58,7 @@ export default function PositionedTooltips() {
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
-              checkboxSelection
+              disablecheckboxSelection
               sortable
               disableColumnMenu
               disableColumnFilter
@@ -70,7 +66,7 @@ export default function PositionedTooltips() {
             />
           </div>
         </Grid>
-        <Grid item container xs={6} alignItems="flex-end" direction="column" paddingTop="82px" >
+        <Grid item container xs={6} alignItems="flex-end" direction="column" paddingTop="38px" >
           <Grid item marginLeft="2px"> 
             <Tooltip title="Filter" placement="right">
               <Button>

@@ -27,8 +27,8 @@ export const mainNavbarItems = [
     {
         id: 3,
         icon: <GroupsOutlinedIcon />,
-        label: 'User Request',
-        route: 'UserRequest',
+        label: 'User Management',
+        route: 'UserManagement',
     },
     {
         id: 4,

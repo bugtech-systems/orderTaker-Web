@@ -16,8 +16,8 @@ function App() {
 
   return (
     <Grid container>
-      <Sidebar />
-      <Navbar title={title} />
+      {/* <Sidebar />
+      <Navbar title={title} /> */}
       <Outlet />
     </Grid>
   );

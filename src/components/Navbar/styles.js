@@ -3,15 +3,14 @@ export const headerStyles = {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#e9ecef',
-        border: '0.5 solid black',
     },
     topRow: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'end',
         alignItems: 'center',
-        marginBottom: '1px',
+        marginTop: '2px',
+        marginBottom: '3px',
         '*': {
             marginRight: '5px',
         },

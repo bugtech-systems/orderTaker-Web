@@ -13,7 +13,7 @@ import Register from "./pages/Register/Register";
 import Forgot from "./pages/Forgot/Forgot";
 import Dashboard from "./pages/Dashboard/Dashboard"
 import MenuList from "./pages/MenuList/MenuList"
-import UserRequest from "./pages/UserRequest/UserRequest"
+import UserManagement from "./pages/UserManagement/UserManagement"
 import Inventory from "./pages/DailyInventory/DailyInventory"
 import Reports from "./pages/Reports/Reports"
 import { dashboardTheme } from './dashboardTheme';
@@ -29,7 +29,7 @@ ReactDOM.render(
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/menulist" element={<MenuList />} />
-      <Route path="/userrequest" element={<UserRequest />} />
+      <Route path="/usermanagement" element={<UserManagement />} />
       <Route path="/inventory" element={<Inventory />} />
       <Route path="/reports" element={<Reports />} />
       </Route>
