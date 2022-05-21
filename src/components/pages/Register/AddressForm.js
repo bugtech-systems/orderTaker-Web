@@ -14,11 +14,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function AddressForm() {
     
-        //dropdown Gender
+        //dropdown Gender/Roles
         const [gender, setGender] = React.useState('');
-
-        const handleChange = (event) => {
-          setGender(event.target.value);
+        const [roles, setRoles] = React.useState('');
+        const [values, setValues] = React.useState({});
+        const handleChange = prop => (event) => {
+          setValues({...values, [prop]: event.target.value})
         };  
 
   return (
@@ -49,7 +50,7 @@ export default function AddressForm() {
                                 variant="standard"
                             />
                             </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                 <TextField
                     id="date"
                     label="Birthdate"
@@ -69,10 +70,11 @@ export default function AddressForm() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={gender}
+                    value={values.gender}
                     label="Gender"
+                    variant="standard"
                     endIcon={<KeyboardArrowDownIcon />}
-                    onChange={handleChange}
+                    onChange={handleChange('gender')}
                   >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>
@@ -80,16 +82,7 @@ export default function AddressForm() {
                  </FormControl>
                 </Grid>
 
-                <Grid item xs={12}>
-                <TextField
-                    id="address1"
-                    name="address1"
-                    label="Address"
-                    fullWidth
-                    autoComplete=""
-                    variant="standard"
-                />
-                </Grid>
+                
             <Grid item xs={6}>
             <TextField
                 id="contactnumber"
@@ -100,23 +93,7 @@ export default function AddressForm() {
                 variant="standard"
             />
             </Grid>
-      </Grid>
-            <Typography variant="h6" gutterBottom sx={{ mt: 5}}>
-              Login Credentials
-            </Typography>
-            <Grid container spacing={3}>
-            <Grid item xs={12} sm={4}>
-                <TextField
-                    required
-                    id="username"
-                    name="username"
-                    label="Username"
-                    fullWidth
-                    autoComplete="username"
-                    variant="standard"
-                />
-                </Grid>
-                      <Grid item xs={7} >
+            <Grid item xs={6} >
                        <TextField
                           required
                           id="email"
@@ -128,7 +105,52 @@ export default function AddressForm() {
                           variant="standard"
                         />
                       </Grid>
-                <Grid item xs={12} sm={4}>
+                      <Grid item xs={12}>
+                <TextField
+                    id="address1"
+                    name="address1"
+                    label="Address"
+                    fullWidth
+                    autoComplete=""
+                    variant="standard"
+                />
+                </Grid>
+      </Grid>
+            <Typography variant="h6" gutterBottom sx={{ mt: 5}}>
+              Login Credentials
+            </Typography>
+            <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+                <TextField
+                    required
+                    id="username"
+                    name="username"
+                    label="Username"
+                    fullWidth
+                    autoComplete="username"
+                    variant="standard"
+                />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Roles</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={values.roles}
+                    label="Roles"
+                    endIcon={<KeyboardArrowDownIcon />}
+                    onChange={handleChange('roles')}
+                    variant="standard"
+                    >
+                    <MenuItem value={10}>Admin</MenuItem>
+                    <MenuItem value={20}>User</MenuItem>
+                    <MenuItem value={30}>Super Admin</MenuItem>
+                   </Select>
+                 </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
                     <TextField
                         required
                         id="password"
@@ -140,7 +162,7 @@ export default function AddressForm() {
                         variant="standard"
                     />
                     </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={6}>
                     <TextField
                         required
                         id="confirmPassword"

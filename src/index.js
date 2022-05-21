@@ -9,7 +9,7 @@ import {
   Route
 } from "react-router-dom";
 
-import Login from "./components/pages/Login/Login";
+import LoginIn from "./components/pages/Login/Login";
 import Register from "./components/pages/Register/Register";
 import Forgot from "./components/pages/ForgotPassword/Forgot";
 import Dashboard from "./components/pages/Dashboard/Dashboard"
@@ -19,10 +19,10 @@ ReactDOM.render(
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-      <Route path="/Dashboard" element={<Dashboard />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/Forgot" element={<Forgot />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/login" element={<LoginIn />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/forgot" element={<Forgot />} />
       </Route>
     </Routes>
   </BrowserRouter>,
