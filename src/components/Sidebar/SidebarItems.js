@@ -16,7 +16,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 
 
 //logo
-import Alayon from '../../assets/AlayonLogo.png'
+import Alayon from '../assets/AlayonLogo.png'
 
 export const categories = [
   {
@@ -27,7 +27,7 @@ export const categories = [
         icon: <DashboardIcon />,
         active: true,
       },
-      { id: 'User Management', icon: <ManageAccountsIcon /> },
+      { id: 'User Management', icon: <ManageAccountsIcon />, label: 'Login', route: 'login'  },
       { id: 'Inventory', icon: <InventoryIcon /> },
       { id: 'Sales', icon: <BarChartIcon /> },
       {id: 'Settings', icon: <SettingsIcon />,
@@ -37,7 +37,7 @@ export const categories = [
   {
     id: 'Back to Main Page',
     children: [
-      { id: 'Exit to App', icon: <ExitToAppIcon />,  path: '/Login' },
+      { id: 'Exit to App', icon: <ExitToAppIcon />, label: 'Login', route: 'Login' },
     ],
   },
 ];

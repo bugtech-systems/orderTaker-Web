@@ -98,7 +98,7 @@ theme = {
           padding: 0,
           [theme.breakpoints.up('md')]: {
             padding: 0,
-            minWidth: 281,
+            minWidth: 335,
           },
         },
       },
