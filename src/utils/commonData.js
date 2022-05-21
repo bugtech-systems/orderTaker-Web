@@ -1,6 +1,6 @@
 // const apiUrl = 'http://192.168.1.4:23000/api';
 // const apiUrl = '/api';
-const apiUrl = 'http://localhost:23000/api';
+const apiUrl = '/api';
 // const apiUrl = 'http://localhost:23000/api';
 
 const webopt = 'https://developer.globelabs.com.ph/dialog/oauth/kA8aH5keEgCMLTKkRbieqkCGeAroH5KL'
