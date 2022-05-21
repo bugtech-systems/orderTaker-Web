@@ -140,13 +140,12 @@ export default function SignIn() {
             </Button> */}
             <Grid container>
               <Grid item xs>
-                <Link to="/forgot" variant="body2">
-                  Forgot password?
-                </Link>
+               
               </Grid>
               <Grid item>
+                <span>Don't have an account? </span>
                 <Link to="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Sign Up"}
                 </Link>
               </Grid>
             </Grid>

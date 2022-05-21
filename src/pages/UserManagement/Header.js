@@ -18,16 +18,16 @@ import Typography from '@mui/material/Typography';
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 function Header(props) {
+  // const []
   const { onDrawerToggle } = props;
 
   return (
     <React.Fragment>
       <AppBar component="div" position="static" elevation={5} sx={{ zIndex: 0, width: '100%' }}>
-        <Tabs value={0} textColor="inherit">
+        <Tabs value={0} textColor="inherit" centered >
           <Tab label="Users" />
-          <Tab label="Sign-in method" />
-          <Tab label="Templates" />
-          <Tab label="Usage" />
+          <Tab label="Access Request" />
+          <Tab label="Blocked" />
         </Tabs>
       </AppBar>
     </React.Fragment>

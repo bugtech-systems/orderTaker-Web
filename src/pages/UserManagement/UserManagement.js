@@ -22,6 +22,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 //Components
 import Header from './Header';
+import UserLists from '../../components/Lists/UserLists';
+
 
 let theme = createTheme({
     palette: {
@@ -181,7 +183,7 @@ export default function Content() {
   return (
     <>
     <Header onDrawerToggle={handleDrawerToggle} />
-    <Box component="main" sx={{ flex: 1, py: 6, px: 4 }}>
+    <Box component="main" sx={{ flex: 1, py: 2, px: 2 }}>
     <Paper sx={{ width: '100%', margin: 'auto',  overflow: 'hidden' }}>
       <AppBar
         position="static"
@@ -206,9 +208,9 @@ export default function Content() {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" sx={{ mr: 1 }}>
+              {/* <Button variant="contained" sx={{ mr: 1 }}>
                 Add user
-              </Button>
+              </Button> */}
               <Tooltip title="Reload">
                 <IconButton>
                   <RefreshIcon color="inherit" sx={{ display: 'block' }} />
@@ -218,9 +220,7 @@ export default function Content() {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
-        No users for this project yet
-      </Typography>
+            <UserLists/>
     </Paper>
     </Box>
   </>

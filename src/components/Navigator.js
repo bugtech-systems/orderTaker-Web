@@ -38,14 +38,14 @@ const categories = [
       {
         id: 'inventory', title: 'Inventory',
         icon: <PendingActionsIcon />,
-        path: '/inventory'
+        path: '/app/inventory'
       },
-      { id: 'sales', title: 'Sales', icon: <BarChartIcon />, path: '/sales'
+      { id: 'sales', title: 'Sales', icon: <BarChartIcon />, path: '/app/sales'
     },
       {
         id: 'settings', title: 'Settings',
         icon: <SettingsIcon />,
-        path: '/settings'
+        path: '/app/settings'
       },
     ],
   },
@@ -103,7 +103,7 @@ export default function Navigator(props) {
             </ListItem>
             {children.map(({ id, title, icon, path }) => (
                 <Link to={path}  key={id} style={{textDecoration: 'none'}} onClick={() => {
-                  dispatch({type: SET_HEADER_TITLE, payload: title})
+                  dispatch({type: SET_HEADER_TITLE, payload: String(title).toUpperCase()})
                   if(id == 'logout'){
                     dispatch(logout())
                   }

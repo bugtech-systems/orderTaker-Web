@@ -17,8 +17,9 @@ import Header from '../components/Header';
 //Pages
 import UserManagement from './UserManagement/UserManagement';
 import Dashboard from './Dashboard/Dashboard';
-
-
+import Settings from './Settings/Settings';
+import Sales from './Sales/Sales';
+import Inventory from './Inventory/Inventory';
 
 
 
@@ -27,7 +28,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        ALAYON ADMIN
       </Link>{' '}
       {new Date().getFullYear()}.
     </Typography>
@@ -214,10 +215,11 @@ function MainLayout() {
           <Switch>
 
         <Box sx={{  bgcolor: '#eaeff1', flexGrow: 1 }}>
-
-        
           <Route path="/app/dashboard" component={Dashboard} />
            <Route path="/app/user-management" component={UserManagement} /> 
+           <Route path="/app/inventory" component={Inventory} /> 
+           <Route path="/app/sales" component={Sales} /> 
+           <Route path="/app/settings" component={Settings} /> 
           </Box>
           </Switch>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
