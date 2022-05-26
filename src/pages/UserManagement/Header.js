@@ -25,8 +25,8 @@ function Header(props) {
     <React.Fragment>
       <AppBar component="div" position="static" elevation={5} sx={{ zIndex: 0, width: '100%' }}>
         <Tabs value={0} textColor="inherit" centered >
-          <Tab label="Users" />
           <Tab label="Access Request" />
+          <Tab label="Users" />
           <Tab label="Blocked" />
         </Tabs>
       </AppBar>
