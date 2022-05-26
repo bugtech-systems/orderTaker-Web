@@ -221,14 +221,100 @@ const deleteOrder_itemById = (id) => {
 
 //Notifications
 
+const createNotification = (data) => {
+    return axios.post(constant.apiUrl + "/notification", data);
+};
+
+const getNotifications = () => {
+    return axios.get(constant.apiUrl + "/notifications");
+};
+
+const getNotificationById = (id) => {
+    return axios.get(constant.apiUrl + `/notification/${id}`);
+};
+
+
+const updateNotificationById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/notification/${id}`, data);
+};
+
+const deleteNotificationById = (id) => {
+    return axios.delete(constant.apiUrl + `/notification/${id}`);
+};
+
 
 //Inventories
+
+const createInventory = (data) => {
+    return axios.post(constant.apiUrl + "/inventory", data);
+};
+
+const getInventories = () => {
+    return axios.get(constant.apiUrl + "/inventories");
+};
+
+const getInventoryById = (id) => {
+    return axios.get(constant.apiUrl + `/inventory/${id}`);
+};
+
+
+const updateInventoryById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/inventory/${id}`, data);
+};
+
+const deleteInventoryById = (id) => {
+    return axios.delete(constant.apiUrl + `/inventory/${id}`);
+};
 
 
 //Categories
 
+const createCategory = (data) => {
+    return axios.post(constant.apiUrl + "/category", data);
+};
+
+const getCategories = () => {
+    return axios.get(constant.apiUrl + "/categories");
+};
+
+const getCategoryById = (id) => {
+    return axios.get(constant.apiUrl + `/category/${id}`);
+};
+
+
+const updateCategoryById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/category/${id}`, data);
+};
+
+const deleteCategoryById = (id) => {
+    return axios.delete(constant.apiUrl + `/category/${id}`);
+};
+
+
 
 //Business
+
+const createBusiness = (data) => {
+    return axios.post(constant.apiUrl + "/business", data);
+};
+
+const getBusinesses = () => {
+    return axios.get(constant.apiUrl + "/businesses");
+};
+
+const getBusinessById = (id) => {
+    return axios.get(constant.apiUrl + `/business/${id}`);
+};
+
+
+const updateBusinessById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/business/${id}`, data);
+};
+
+const deleteBusinessById = (id) => {
+    return axios.delete(constant.apiUrl + `/business/${id}`);
+};
+
 
 
 
@@ -276,52 +362,52 @@ export default {
     deletePaymentById,
 
     //Pricings
-    // createPricing,
-    // getPricings,
-    // getPricingById,
-    // updatePricingById,
-    // deletePricingById,
+    createPricing,
+    getPricings,
+    getPricingById,
+    updatePricingById,
+    deletePricingById,
 
     //Orders
-    // createOrder,
-    // getOrders,
-    // getOrderById,
-    // updateOrderById,
-    // deleteOrderById,
+    createOrder,
+    getOrders,
+    getOrderById,
+    updateOrderById,
+    deleteOrderById,
 
     //Order_items
-    // createOrder_item,
-    // getOrder_items,
-    // getOrder_itemById,
-    // updateOrder_itemById,
-    // deleteOrder_itemById,
+    createOrder_item,
+    getOrder_items,
+    getOrder_itemById,
+    updateOrder_itemById,
+    deleteOrder_itemById,
 
     //Notifications
-    // createNotification,
-    // getNotifications,
-    // getNotificationById,
-    // updateNotificationById,
-    // deleteNotificationById,
+    createNotification,
+    getNotifications,
+    getNotificationById,
+    updateNotificationById,
+    deleteNotificationById,
 
 
     //Inventories
-    // createInventory,
-    // getInventories,
-    // getInventoryById,
-    // updateInventoryById,
-    // deleteInventoryById,
+    createInventory,
+    getInventories,
+    getInventoryById,
+    updateInventoryById,
+    deleteInventoryById,
 
     //Categories
-    // createCategory,
-    // getCategories,
-    // getCategory,
-    // updateCategoryById,
-    // deleteCategoryById,
+    createCategory,
+    getCategories,
+    getCategory,
+    updateCategoryById,
+    deleteCategoryById,
 
     //Business
-    // createBusiness,
-    // getBusinesses,
-    // getBusiness,
-    // updateBusinessById,
-    // deleteBusinessById,
+    createBusiness,
+    getBusinesses,
+    getBusiness,
+    updateBusinessById,
+    deleteBusinessById,
 };

@@ -853,3 +853,1002 @@ export const deletePaymentById = (id) => async (dispatch) => {
     }
   );
 };  
+
+
+//Pricing actions
+
+export const createPricing = (data) => async (dispatch) => {
+  return await CrudService.createPricing(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getPricings = () => async (dispatch) => {
+  return await CrudService.getPricings().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getPricingById = (id) => async (dispatch) => {
+  return await CrudService.getPricingById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updatePricingById = (id, data) => async (dispatch) => {
+  return await CrudService.updatePricingById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deletePricingtById = (id) => async (dispatch) => {
+  return await CrudService.deletePricingById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
+//Order actions
+
+export const createOrder = (data) => async (dispatch) => {
+  return await CrudService.createOrder(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getOrders = () => async (dispatch) => {
+  return await CrudService.getOrders().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getOrderById = (id) => async (dispatch) => {
+  return await CrudService.getOrderById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updateOrderById = (id, data) => async (dispatch) => {
+  return await CrudService.updateOrderById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteOrderById = (id) => async (dispatch) => {
+  return await CrudService.deleteOrderById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
+//Order_items actions
+
+export const createOrder_item = (data) => async (dispatch) => {
+  return await CrudService.createOrder_item(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getOrder_items = () => async (dispatch) => {
+  return await CrudService.getOrder_items().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getOrder_itemById = (id) => async (dispatch) => {
+  return await CrudService.getOrder_itemById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updateOrder_itemById = (id, data) => async (dispatch) => {
+  return await CrudService.updateOrder_itemById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteOrder_itemById = (id) => async (dispatch) => {
+  return await CrudService.deleteOrder_itemById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
+
+//Notification actions
+
+export const createNotification = (data) => async (dispatch) => {
+  return await CrudService.createNotification(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getNotifications = () => async (dispatch) => {
+  return await CrudService.getNotifications().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getNotificationById = (id) => async (dispatch) => {
+  return await CrudService.getNotificationById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updateNotificationById = (id, data) => async (dispatch) => {
+  return await CrudService.updateNotificationById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteNotificationById = (id) => async (dispatch) => {
+  return await CrudService.deleteNotificationById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
+
+//Inventory actions
+
+export const createInventory = (data) => async (dispatch) => {
+  return await CrudService.createInventory(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getInventories = () => async (dispatch) => {
+  return await CrudService.getInventories().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getInventoryById = (id) => async (dispatch) => {
+  return await CrudService.getInventoryById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updateInventoryById = (id, data) => async (dispatch) => {
+  return await CrudService.updateInventoryById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteInventoryById = (id) => async (dispatch) => {
+  return await CrudService.deleteInventoryById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
+
+//Category actions
+export const createCategory = (data) => async (dispatch) => {
+  return await CrudService.createCategory(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getCategories = () => async (dispatch) => {
+  return await CrudService.getCategories().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getCategoryById = (id) => async (dispatch) => {
+  return await CrudService.getCategoryById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updateCategoryById = (id, data) => async (dispatch) => {
+  return await CrudService.updateCategoryById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteCategoryById = (id) => async (dispatch) => {
+  return await CrudService.deleteCategoryById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
+
+//Business Actions
+
+export const createBusiness = (data) => async (dispatch) => {
+  return await CrudService.createBusiness(data).then(
+    ({ data }) => {
+      console.log('Create RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('CREATE ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getBusinesses = () => async (dispatch) => {
+  return await CrudService.getBusinesses().then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const getBusinessById = (id) => async (dispatch) => {
+  return await CrudService.getBusinessById(id).then(
+    ({ data }) => {
+      console.log('GET RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('GET ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const updateBusinessById = (id, data) => async (dispatch) => {
+  return await CrudService.updateBusinessById(id, data).then(
+    ({ data }) => {
+      console.log('Update RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Update ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteBusinessById = (id) => async (dispatch) => {
+  return await CrudService.deleteBusinessById(id).then(
+    ({ data }) => {
+      console.log('Delete RESPONSE')
+      console.log(data)
+      return Promise.resolve(data);
+    },
+    (error) => {
+      console.log('Delete ERROR')
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};  
+
