@@ -17,6 +17,9 @@ import BusinessForm from './BusinessForm';
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 
+import TesterPage from '../../TesterPage';
+
+
 
 
 const steps = ['Personal Information', 'Business Information'];
@@ -60,6 +63,7 @@ export default function Checkout() {
       >
       </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <TesterPage/>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Create an Account
