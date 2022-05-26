@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+  Link
+} from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,15 +13,12 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './AddressForm';
+import BasicForm from './BasicForm';
 import BusinessForm from './BusinessForm';
 
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-
-import TesterPage from '../../TesterPage';
-
 
 
 
@@ -27,9 +27,9 @@ const steps = ['Personal Information', 'Business Information'];
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
-    case 1:
       return <BusinessForm />;
+    case 1:
+      return <BasicForm />;
     default:
       throw new Error('Unknown step');
   }
@@ -63,10 +63,12 @@ export default function Checkout() {
       >
       </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-      <TesterPage/>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Create an Account
+          </Typography>
+          <Typography component="h6" variant="h6" align="center">
+            Already have an account?  <Link to="/login" style={{textDecoration: 'none', fontWeight: '550'}}>Sign In</Link>
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (

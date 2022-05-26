@@ -29,7 +29,7 @@ export default function AddressForm() {
         Personal Information
       </Typography>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} lg={6}>
                 <TextField
                     required
                     id="firstName"
@@ -40,7 +40,7 @@ export default function AddressForm() {
                     variant="standard"
                 />
                 </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} lg={6}>
                             <TextField
                                 required
                                 id="lastName"
@@ -51,21 +51,21 @@ export default function AddressForm() {
                                 variant="standard"
                             />
                             </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} lg={6}>
                 <TextField
                     id="date"
                     label="Birthdate"
                     type="date"
                     variant="standard"
                     defaultValue=""
-                    sx={{ width: 180 }}
+                    fullWidth
                     InputLabelProps={{
                     shrink: true,
                     }}
                 />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} lg={6}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                   <Select
@@ -76,6 +76,7 @@ export default function AddressForm() {
                     variant="standard"
                     endIcon={<KeyboardArrowDownIcon />}
                     onChange={handleChange('gender')}
+                    fullWidth
                   >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>

@@ -12,7 +12,7 @@ export default function BusinessForm() {
         Business Information
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} >
           <TextField
             required
             id="businessName"
@@ -22,32 +22,33 @@ export default function BusinessForm() {
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        
+        <Grid item xs={12} lg={6}>
+          <TextField
+            required
+            id="contact"
+            label="Business Contact #"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <TextField
+            required
+            id="email"
+            label="Email Address"
+            // helperText="Business Email"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} >
           <TextField
             required
             id="businessAddress"
             label="Business Address"
-            fullWidth
-            autoComplete=""
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="contact"
-            label="Contact"
-            fullWidth
-            autoComplete=""
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="email"
-            label="Email"
-            helperText="Company Email"
             fullWidth
             autoComplete=""
             variant="standard"
