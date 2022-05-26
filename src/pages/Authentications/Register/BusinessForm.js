@@ -5,7 +5,10 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function BusinessForm() {
+
+export default function BusinessForm({values, onChange}) {
+
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -20,6 +23,8 @@ export default function BusinessForm() {
             fullWidth
             autoComplete=""
             variant="standard"
+            value={values.name}
+            onChange={onChange('name')}
           />
         </Grid>
         
@@ -31,6 +36,8 @@ export default function BusinessForm() {
             fullWidth
             autoComplete=""
             variant="standard"
+            value={values.contact}
+            onChange={onChange('contact')}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -42,6 +49,8 @@ export default function BusinessForm() {
             fullWidth
             autoComplete=""
             variant="standard"
+            value={values.email_address}
+            onChange={onChange('email_address')}
           />
         </Grid>
         <Grid item xs={12} >
@@ -52,12 +61,17 @@ export default function BusinessForm() {
             fullWidth
             autoComplete=""
             variant="standard"
+            value={values.address}
+            onChange={onChange('address')}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} lg={12} 
+        style={{flexGrow: 1,  display: 'flex'}}
+        >
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}
             label="Remember Business Information details for next time"
+          
           />
         </Grid>
       </Grid>

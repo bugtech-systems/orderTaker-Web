@@ -400,14 +400,14 @@ export default {
     //Categories
     createCategory,
     getCategories,
-    getCategory,
+    getCategoryById,
     updateCategoryById,
     deleteCategoryById,
 
     //Business
     createBusiness,
     getBusinesses,
-    getBusiness,
+    getBusinessById,
     updateBusinessById,
     deleteBusinessById,
 };

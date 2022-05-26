@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Link
 } from "react-router-dom";
@@ -24,21 +24,33 @@ import { useDispatch, useSelector } from "react-redux";
 
 const steps = ['Personal Information', 'Business Information'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <BusinessForm />;
-    case 1:
-      return <BasicForm />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+
 
 const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [values, setValues] = useState({});
+
+  const handleChange = prop => event => {
+    setValues({...values, [prop]: event.target.value})
+  }
+
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <BusinessForm
+          values={values}
+          onChange={handleChange}
+        />;
+      case 1:
+        return <BasicForm />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -48,6 +60,8 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+
+  console.log(values)
 
   return (
     <ThemeProvider theme={theme}>
@@ -65,11 +79,11 @@ export default function Checkout() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
-            Create an Account
+            CREATE ACCOUNT
           </Typography>
-          <Typography component="h6" variant="h6" align="center">
+        {activeStep <= 1 &&  <Typography component="h6" variant="h6" align="center">
             Already have an account?  <Link to="/login" style={{textDecoration: 'none', fontWeight: '550'}}>Sign In</Link>
-          </Typography>
+          </Typography> }
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
               <Step key={label}>
@@ -83,9 +97,11 @@ export default function Checkout() {
                 <Typography variant="h5" gutterBottom>
                   Thank you for signing up
                 </Typography>
-                <Typography variant="body2">
-                  If there's anything we can do or improve our service better, please let us know and email us here. 
-                </Typography>
+                <Link to="/login"  style={{textDecoration: 'none', fontWeight: '550'}}>
+                <Button variant='contained'>
+                  Let's Get Started!
+                </Button>
+                </Link>
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -102,7 +118,7 @@ export default function Checkout() {
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    {activeStep === steps.length - 1 ? 'Confirm' : 'Submit'}
+                    {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                   </Button>
                 </Box>
               </React.Fragment>

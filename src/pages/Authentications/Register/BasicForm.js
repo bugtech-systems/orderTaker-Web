@@ -122,62 +122,30 @@ export default function AddressForm() {
               Login Credentials
             </Typography>
             <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} lg={12}>
                 <TextField
-                    required
+                    // required
                     id="username"
                     name="username"
                     label="Username"
                     fullWidth
-                    autoComplete="username"
+                    // autoComplete="username"
                     variant="standard"
                 />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Roles</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={values.roles}
-                    label="Roles"
-                    endIcon={<KeyboardArrowDownIcon />}
-                    onChange={handleChange('roles')}
-                    variant="standard"
-                    >
-                    {roles && roles.map((a,index) => {
-                      return (
-                        <MenuItem key={a.index} value={a._id}>{String(a.title).toUpperCase()}</MenuItem>
-                      ) 
-                    })}
-                   </Select>
-                 </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} lg={12}>
                     <TextField
-                        required
+                        // required
                         id="password"
                         name="password"
                         label="Password"
                         type="password"
                         fullWidth
-                        autoComplete="password"
+                        // autoComplete="password"
                         variant="standard"
                     />
                     </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        label="Confirm Password"
-                        type="password"
-                        fullWidth
-                        autoComplete="confirmPassword"
-                        variant="standard"
-                    />
-                  </Grid>
+            
                 </Grid>
     </React.Fragment>
   );
