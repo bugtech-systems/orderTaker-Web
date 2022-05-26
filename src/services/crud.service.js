@@ -31,6 +31,205 @@ const deleteRoleById = (id) => {
 
 //Users
 
+const createUser = (data) => {
+    return axios.post(constant.apiUrl + "/user", data);
+};
+
+const getUsers = () => {
+    return axios.get(constant.apiUrl + "/users");
+};
+
+const getUserById = (id) => {
+    return axios.get(constant.apiUrl + `/user/${id}`);
+};
+
+
+const updateUserById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/user/${id}`, data);
+};
+
+const deleteUserById = (id) => {
+    return axios.delete(constant.apiUrl + `/user/${id}`);
+};
+
+
+//Customers
+const createCustomer = (data) => {
+    return axios.post(constant.apiUrl + "/customer", data);
+};
+
+const getCustomers = () => {
+    return axios.get(constant.apiUrl + "/customers");
+};
+
+const getCustomerById = (id) => {
+    return axios.get(constant.apiUrl + `/customer/${id}`);
+};
+
+
+const updateCustomerById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/customer/${id}`, data);
+};
+
+const deleteCustomerById = (id) => {
+    return axios.delete(constant.apiUrl + `/customer/${id}`);
+};
+
+
+
+//Purchases
+const createPurchases = (data) => {
+    return axios.post(constant.apiUrl + "/purchases", data);
+};
+
+const getPurchases = () => {
+    return axios.get(constant.apiUrl + "/purchases");
+};
+
+const getPurchaseById = (id) => {
+    return axios.get(constant.apiUrl + `/purchase/${id}`);
+};
+
+
+const updatePurchaseById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/purchase/${id}`, data);
+};
+
+const deletePurchaseById = (id) => {
+    return axios.delete(constant.apiUrl + `/purchase/${id}`);
+};
+
+//Products
+const createProduct = (data) => {
+    return axios.post(constant.apiUrl + "/product", data);
+};
+
+const getProducts = () => {
+    return axios.get(constant.apiUrl + "/products");
+};
+
+const getProductById = (id) => {
+    return axios.get(constant.apiUrl + `/product/${id}`);
+};
+
+
+const updateProductById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/product/${id}`, data);
+};
+
+const deleteProductById = (id) => {
+    return axios.delete(constant.apiUrl + `/product/${id}`);
+};
+
+
+//Payments
+const createPayment = (data) => {
+    return axios.post(constant.apiUrl + "/payment", data);
+};
+
+const getPayments = () => {
+    return axios.get(constant.apiUrl + "/payments");
+};
+
+const getPaymentById = (id) => {
+    return axios.get(constant.apiUrl + `/payment/${id}`);
+};
+
+
+const updatePaymentById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/payment/${id}`, data);
+};
+
+const deletePaymentById = (id) => {
+    return axios.delete(constant.apiUrl + `/payment/${id}`);
+};
+
+
+ //Pricings
+
+const createPricing = (data) => {
+    return axios.post(constant.apiUrl + "/pricing", data);
+};
+
+const getPricings = () => {
+    return axios.get(constant.apiUrl + "/pricings");
+};
+
+const getPricingById = (id) => {
+    return axios.get(constant.apiUrl + `/pricing/${id}`);
+};
+
+
+const updatePricingById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/pricing/${id}`, data);
+};
+
+const deletePricingById = (id) => {
+    return axios.delete(constant.apiUrl + `/pricing/${id}`);
+};
+
+
+//Orders
+
+const createOrder = (data) => {
+    return axios.post(constant.apiUrl + "/order", data);
+};
+
+const getOrders = () => {
+    return axios.get(constant.apiUrl + "/orders");
+};
+
+const getOrderById = (id) => {
+    return axios.get(constant.apiUrl + `/order/${id}`);
+};
+
+
+const updateOrderById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/order/${id}`, data);
+};
+
+const deleteOrderById = (id) => {
+    return axios.delete(constant.apiUrl + `/order/${id}`);
+};
+
+
+
+//Order_items
+
+const createOrder_item = (data) => {
+    return axios.post(constant.apiUrl + "/order_item", data);
+};
+
+const getOrder_items = () => {
+    return axios.get(constant.apiUrl + "/order_items");
+};
+
+const getOrder_itemById = (id) => {
+    return axios.get(constant.apiUrl + `/order_item/${id}`);
+};
+
+
+const updateOrder_itemById = (id, data) => {
+    return axios.patch(constant.apiUrl + `/order_item/${id}`, data);
+};
+
+const deleteOrder_itemById = (id) => {
+    return axios.delete(constant.apiUrl + `/order_item/${id}`);
+};
+
+
+
+//Notifications
+
+
+//Inventories
+
+
+//Categories
+
+
+//Business
+
 
 
 export default {
@@ -42,4 +241,87 @@ export default {
     deleteRoleById,
 
     //Users
+    createUser,
+    getUsers,
+    getUserById,
+    updateUserById,
+    deleteUserById,
+
+    //Customers
+    createCustomer,
+    getCustomers,
+    getCustomerById,
+    updateCustomerById,
+    deleteCustomerById,
+    
+    //Purchases
+    createPurchases,
+    getPurchases,
+    getPurchaseById,
+    updatePurchaseById,
+    deletePurchaseById,
+
+    //Products
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProductById,
+    deleteProductById,
+
+    //Payments
+    createPayment,
+    getPayments,
+    getPaymentById,
+    updatePaymentById,
+    deletePaymentById,
+
+    //Pricings
+    // createPricing,
+    // getPricings,
+    // getPricingById,
+    // updatePricingById,
+    // deletePricingById,
+
+    //Orders
+    // createOrder,
+    // getOrders,
+    // getOrderById,
+    // updateOrderById,
+    // deleteOrderById,
+
+    //Order_items
+    // createOrder_item,
+    // getOrder_items,
+    // getOrder_itemById,
+    // updateOrder_itemById,
+    // deleteOrder_itemById,
+
+    //Notifications
+    // createNotification,
+    // getNotifications,
+    // getNotificationById,
+    // updateNotificationById,
+    // deleteNotificationById,
+
+
+    //Inventories
+    // createInventory,
+    // getInventories,
+    // getInventoryById,
+    // updateInventoryById,
+    // deleteInventoryById,
+
+    //Categories
+    // createCategory,
+    // getCategories,
+    // getCategory,
+    // updateCategoryById,
+    // deleteCategoryById,
+
+    //Business
+    // createBusiness,
+    // getBusinesses,
+    // getBusiness,
+    // updateBusinessById,
+    // deleteBusinessById,
 };

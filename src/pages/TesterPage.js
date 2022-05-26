@@ -7,11 +7,11 @@ import SelectList from '../components/Lists/SelectableList';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-    createRole,
-    getRoles,
-    getRoleById,
-    updateRoleById,
-    deleteRoleById
+    createPayment,
+    getPayments,
+    getPaymentById,
+    updatePaymentById,
+    deletePaymentById,
  } from '../redux/actions/crud.action';
 import { Button } from '@mui/material';
 
@@ -21,10 +21,18 @@ import { Button } from '@mui/material';
 export default function TesterPage() {
     const dispatch = useDispatch();
     const [rnd, setRnd] = useState(0);
-    const [id, setId] = useState('628efa3109fd466137f3bff0');
+    const [id, setId] = useState('628f121419bd7c263443f097');
     const [values, setValues] = useState({
-        title: 'Cook',
-        notes: 'Cook'
+        order_id: 'rh123',
+        customer_id: '253123123',
+        business_id: 'drinks123',
+        description: 'drinks1',
+        amount: "999",
+        type: "drinks",
+        receivedBy: "jim",
+        notes: "test 234"
+        
+        
     });
     const [resp, setResp] = useState([]);
 
@@ -32,7 +40,7 @@ export default function TesterPage() {
 const handleClick = (data) => {
     console.log(data)
     dispatch(
-        deleteRoleById(data._id)
+        deletePaymentById(data._id)
     )
     .then(a => {
         setRnd(Math.random())        
@@ -46,7 +54,7 @@ const handleClick = (data) => {
 const handleCreate = (data) => {
     console.log('create')
     dispatch(
-        createRole(values)
+        createPayment(values)
     )
     .then(a => {
         setRnd(Math.random())        
@@ -60,7 +68,7 @@ const handleCreate = (data) => {
 const handleUpdate = (data) => {
     console.log('update')
     dispatch(
-        updateRoleById(id, values)
+        updatePaymentById(id, values)
     )
     .then(a => {
         setRnd(Math.random())        
@@ -75,7 +83,7 @@ const handleUpdate = (data) => {
 const handleGetById = () => {
     console.log('Get By Id')
     dispatch(
-        getRoleById(id)
+        getPaymentById(id)
     ).then(a => {
         console.log(a) 
         setResp([a.data])
@@ -90,7 +98,7 @@ const handleGetById = () => {
 
 const handleGet = () => {
     dispatch(
-        getRoles()
+        getPayments()
         )  
     .then(a => {
         setResp(a.data)
