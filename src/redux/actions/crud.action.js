@@ -969,7 +969,7 @@ export const updatePricingById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deletePricingtById = (id) => async (dispatch) => {
+export const deletePricingById = (id) => async (dispatch) => {
   return await CrudService.deletePricingById(id).then(
     ({ data }) => {
       console.log('Delete RESPONSE')

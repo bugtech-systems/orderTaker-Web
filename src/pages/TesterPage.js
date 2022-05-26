@@ -7,11 +7,12 @@ import SelectList from '../components/Lists/SelectableList';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-    createPayment,
-    getPayments,
-    getPaymentById,
-    updatePaymentById,
-    deletePaymentById,
+    createPricing,
+    getPricings,
+    getPricingById,
+    updatePricingById,
+    deletePricingById,
+
  } from '../redux/actions/crud.action';
 import { Button } from '@mui/material';
 
@@ -21,16 +22,12 @@ import { Button } from '@mui/material';
 export default function TesterPage() {
     const dispatch = useDispatch();
     const [rnd, setRnd] = useState(0);
-    const [id, setId] = useState('628f121419bd7c263443f097');
+    const [id, setId] = useState('628f664c19bd7c263443f40b');
     const [values, setValues] = useState({
-        order_id: 'rh123',
-        customer_id: '253123123',
-        business_id: 'drinks123',
-        description: 'drinks1',
-        amount: "999",
-        type: "drinks",
-        receivedBy: "jim",
-        notes: "test 234"
+       
+        title: "update",
+        price: "275.00"
+      
         
         
     });
@@ -40,7 +37,7 @@ export default function TesterPage() {
 const handleClick = (data) => {
     console.log(data)
     dispatch(
-        deletePaymentById(data._id)
+        deletePricingById(data._id)
     )
     .then(a => {
         setRnd(Math.random())        
@@ -54,7 +51,7 @@ const handleClick = (data) => {
 const handleCreate = (data) => {
     console.log('create')
     dispatch(
-        createPayment(values)
+        createPricing(values)
     )
     .then(a => {
         setRnd(Math.random())        
@@ -68,7 +65,7 @@ const handleCreate = (data) => {
 const handleUpdate = (data) => {
     console.log('update')
     dispatch(
-        updatePaymentById(id, values)
+        updatePricingById(id, values)
     )
     .then(a => {
         setRnd(Math.random())        
@@ -83,7 +80,7 @@ const handleUpdate = (data) => {
 const handleGetById = () => {
     console.log('Get By Id')
     dispatch(
-        getPaymentById(id)
+        getPricingById(id)
     ).then(a => {
         console.log(a) 
         setResp([a.data])
@@ -98,7 +95,7 @@ const handleGetById = () => {
 
 const handleGet = () => {
     dispatch(
-        getPayments()
+        getPricings()
         )  
     .then(a => {
         setResp(a.data)
