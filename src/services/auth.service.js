@@ -3,12 +3,8 @@ import constant from '../utils/commonData'
 import authHeader from "./auth-header";
 
 
-const register = (username, email, password) => {
-  return axios.post(constant.apiUrl + "/auth/signup", {
-    username,
-    email,
-    password,
-  });
+const register = (data) => {
+  return axios.post(constant.apiUrl + "/auth/signup", data);
 };
 
 const login = ({ username, password }) => {

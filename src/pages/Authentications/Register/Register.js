@@ -15,11 +15,11 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicForm from './BasicForm';
 import BusinessForm from './BusinessForm';
-import ProfileCard from '../../../components/ProfileCard/ProfileCard';
+
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-
+import { register } from '../../../redux/actions/auth.action';
 
 
 const steps = ['Business Information', 'Personal Information'];
@@ -29,8 +29,11 @@ const steps = ['Business Information', 'Personal Information'];
 const theme = createTheme();
 
 export default function Checkout() {
+  const dispatch = useDispatch()
   const [activeStep, setActiveStep] = React.useState(0);
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    roles: 'admin'
+  });
 
   const handleChange = prop => event => {
     setValues({...values, [prop]: event.target.value})
@@ -40,12 +43,15 @@ export default function Checkout() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <ProfileCard
+        return <BusinessForm
           values={values}
           onChange={handleChange}
         />;
       case 1:
-        return <BasicForm />;
+        return <BasicForm
+        values={values}
+        onChange={handleChange}
+        />;
       default:
         throw new Error('Unknown step');
     }
@@ -53,15 +59,27 @@ export default function Checkout() {
 
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if(activeStep == 1){
+      handleSubmit();
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleSubmit = () => {
+    dispatch(register({...values, roles: [values.roles]}))
+    .then(a => {
+      setActiveStep(activeStep + 1);
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
-  console.log(values)
 
   return (
     <ThemeProvider theme={theme}>

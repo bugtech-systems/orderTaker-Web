@@ -11,10 +11,10 @@ import {
   
   import AuthService from "../../services/auth.service";
   
-  export const register = (username, email, password) => (dispatch) => {
-    return AuthService.register(username, email, password).then(
+  export const register = (data) => (dispatch) => {
+    return AuthService.register(data).then(
       (response) => {
-  
+        console.log(response.data)
         dispatch({
           type: SET_MESSAGE,
           payload: response.data.message,
@@ -23,18 +23,18 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-  
+        console.log(error.response)
         dispatch({
-          type: SET_MESSAGE,
-          payload: message,
+          type: SET_ERRORS,
+          payload: error.response?.data?.errors
         });
+
+        error.response?.data?.message &&
+        dispatch({type: SET_MESSAGE, 
+          payload: error.response?.data?.message
+        })
+
+
   
         return Promise.reject();
       }

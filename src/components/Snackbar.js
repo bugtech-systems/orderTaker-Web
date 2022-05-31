@@ -11,6 +11,7 @@ export default function SnackbarAlert() {
     const dispatch = useDispatch();
     const { message } = useSelector(state => state.ui);
 
+    console.log(message)
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;

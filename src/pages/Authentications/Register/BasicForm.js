@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
@@ -13,15 +13,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useDispatch, useSelector } from "react-redux";
 
 
-export default function AddressForm() {
-        const { roles } = useSelector(state => state.data);
-
-
-        //dropdown Gender/Roles
-        const [values, setValues] = React.useState({});
-        const handleChange = prop => (event) => {
-          setValues({...values, [prop]: event.target.value})
-        };  
+export default function BasicForm({values, onChange}) {
+      const [roles, setRoles] = useState(['User', 'Moderator', 'Admin'])
 
   return (
     <React.Fragment>
@@ -38,6 +31,8 @@ export default function AddressForm() {
                     fullWidth
                     autoComplete="given-name"
                     variant="standard"
+                    onChange={onChange('firstName')}
+                    value={values.firstName}
                 />
                 </Grid>
                             <Grid item xs={12} lg={6}>
@@ -49,6 +44,8 @@ export default function AddressForm() {
                                 fullWidth
                                 autoComplete="family-name"
                                 variant="standard"
+                                onChange={onChange('lastName')}
+                                value={values.lastName}
                             />
                             </Grid>
                 <Grid item xs={12} lg={6}>
@@ -62,6 +59,8 @@ export default function AddressForm() {
                     InputLabelProps={{
                     shrink: true,
                     }}
+                    onChange={onChange('birthDate')}
+                    value={values.birthDate}
                 />
                 </Grid>
 
@@ -75,16 +74,14 @@ export default function AddressForm() {
                     label="Gender"
                     variant="standard"
                     endIcon={<KeyboardArrowDownIcon />}
-                    onChange={handleChange('gender')}
+                    onChange={onChange('gender')}
                     fullWidth
                   >
-                    <MenuItem value={10}>Male</MenuItem>
-                    <MenuItem value={20}>Female</MenuItem>
+                    <MenuItem value="male">Male</MenuItem>
+                    <MenuItem value="female">Female</MenuItem>
                    </Select>
                  </FormControl>
                 </Grid>
-
-                
             <Grid item xs={6}>
             <TextField
                 id="contactnumber"
@@ -93,6 +90,8 @@ export default function AddressForm() {
                 fullWidth
                 autoComplete=""
                 variant="standard"
+                onChange={onChange('contact')}
+                value={values.contact}
             />
             </Grid>
             <Grid item xs={6} >
@@ -105,6 +104,8 @@ export default function AddressForm() {
                           fullWidth
                           autoComplete="email"
                           variant="standard"
+                          onChange={onChange('email_address')}
+                          value={values.email_address}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -115,6 +116,8 @@ export default function AddressForm() {
                     fullWidth
                     autoComplete=""
                     variant="standard"
+                    onChange={onChange('address')}
+                    value={values.address}
                 />
                 </Grid>
       </Grid>
@@ -122,6 +125,27 @@ export default function AddressForm() {
               Login Credentials
             </Typography>
             <Grid container spacing={3}>
+            <Grid item xs={12} lg={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={values.roles}
+                    label="Gender"
+                    variant="standard"
+                    endIcon={<KeyboardArrowDownIcon />}
+                    onChange={onChange('roles')}
+                    fullWidth
+                  >
+                    {roles.map((a, index) => {
+                      return(
+                        <MenuItem key={index} value={String(a).toLowerCase()}>{a}</MenuItem>
+                      )
+                    })}
+                   </Select>
+                 </FormControl>
+                </Grid>
             <Grid item xs={12} lg={12}>
                 <TextField
                     // required
@@ -131,6 +155,8 @@ export default function AddressForm() {
                     fullWidth
                     // autoComplete="username"
                     variant="standard"
+                    onChange={onChange('username')}
+                    value={values.username}
                 />
                 </Grid>
                 <Grid item xs={12} lg={12}>
@@ -143,9 +169,10 @@ export default function AddressForm() {
                         fullWidth
                         // autoComplete="password"
                         variant="standard"
+                        onChange={onChange('password')}
+                        value={values.password}
                     />
                     </Grid>
-            
                 </Grid>
     </React.Fragment>
   );
