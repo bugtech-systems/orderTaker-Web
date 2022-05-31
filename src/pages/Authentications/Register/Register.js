@@ -15,14 +15,14 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicForm from './BasicForm';
 import BusinessForm from './BusinessForm';
-
+import ProfileCard from '../../../components/ProfileCard/ProfileCard';
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 
 
 
-const steps = ['Personal Information', 'Business Information'];
+const steps = ['Business Information', 'Personal Information'];
 
 
 
@@ -40,7 +40,7 @@ export default function Checkout() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <BusinessForm
+        return <ProfileCard
           values={values}
           onChange={handleChange}
         />;

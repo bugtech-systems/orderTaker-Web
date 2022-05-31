@@ -23,8 +23,8 @@ export default function BusinessForm({values, onChange}) {
             fullWidth
             autoComplete=""
             variant="standard"
-            value={values.name}
-            onChange={onChange('name')}
+            value={values.business_name}
+            onChange={onChange('business_name')}
           />
         </Grid>
         
@@ -36,8 +36,8 @@ export default function BusinessForm({values, onChange}) {
             fullWidth
             autoComplete=""
             variant="standard"
-            value={values.contact}
-            onChange={onChange('contact')}
+            value={values.business_contact}
+            onChange={onChange('business_contact')}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -49,8 +49,8 @@ export default function BusinessForm({values, onChange}) {
             fullWidth
             autoComplete=""
             variant="standard"
-            value={values.email_address}
-            onChange={onChange('email_address')}
+            value={values.business_email_address}
+            onChange={onChange('business_email_address')}
           />
         </Grid>
         <Grid item xs={12} >
@@ -61,8 +61,8 @@ export default function BusinessForm({values, onChange}) {
             fullWidth
             autoComplete=""
             variant="standard"
-            value={values.address}
-            onChange={onChange('address')}
+            value={values.business_address}
+            onChange={onChange('business_address')}
           />
         </Grid>
         <Grid item xs={12} lg={12} 
