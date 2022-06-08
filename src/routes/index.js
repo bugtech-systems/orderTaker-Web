@@ -24,13 +24,17 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import ForgotPasswordPage from './Auth/ForgotPassword';
 
+
+
+
+
 const RestrictedRoute = ({ component: Component, ...rest }) => {
-  const { authUser } = useSelector(({ auth }) => auth);
+  const { isLoggedIn } = useSelector(({ auth }) => auth);
   return (
     <Route
       {...rest}
       render={props =>
-        authUser ? (
+        isLoggedIn ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -46,12 +50,12 @@ const RestrictedRoute = ({ component: Component, ...rest }) => {
 };
 
 const Routes = () => {
-  const { authUser } = useSelector(({ auth }) => auth);
+  const { isLoggedIn } = useSelector(({ auth }) => auth);
   const location = useLocation();
 
   if (location.pathname === '' || location.pathname === '/') {
     return <Redirect to={'/store'} />;
-  } else if (authUser && location.pathname === '/signin') {
+  } else if (isLoggedIn && location.pathname === '/signin') {
     return <Redirect to={'/store'} />;
   }
 
@@ -73,6 +77,7 @@ const Routes = () => {
 
 
         <Route path="/signin" component={Login} />
+
         <Route path="/signup" component={Register} />
         <Route path="/forgot-password" component={ForgotPasswordPage} />
         <Route component={Error404} />

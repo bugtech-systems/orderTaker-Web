@@ -5,7 +5,7 @@ import Common from './Common';
 import Auth from './Auth';
 import ProfileApp from './ProfileApp';
 import Users from './Users';
-
+import Crud from './Crud';
 
 
 export default history =>
@@ -14,5 +14,6 @@ export default history =>
     common: Common,
     auth: Auth,
     profileApp: ProfileApp,
-    usersReducer: Users
+    usersReducer: Users,
+    crud: Crud
   });

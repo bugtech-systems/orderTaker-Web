@@ -4,7 +4,6 @@ import IntlMessages from '../../../utils/IntlMessages';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Box } from '@material-ui/core';
-import { AuhMethods } from '../../../../services/auth';
 import ContentLoader from '../../ContentLoader';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtImage from '../../../../@coremat/CmtImage';
@@ -14,6 +13,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { CurrentAuthMethod } from '../../../constants/AppConstants';
 import { NavLink } from 'react-router-dom';
 import AuthWrapper from './AuthWrapper';
+
+
+
+//Redux
+import { login } from '../../../../redux/actions/Auth';
+
 
 const useStyles = makeStyles(theme => ({
   authThumb: {
@@ -29,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   authContent: {
-    padding: 30,
+    padding: 25,
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: props => (props.variant === 'default' ? '50%' : '100%'),
@@ -50,6 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
   formcontrolLabelRoot: {
     '& .MuiFormControlLabel-label': {
+      fontSize: 14,
       [theme.breakpoints.down('xs')]: {
         fontSize: 12,
       },
@@ -58,13 +64,16 @@ const useStyles = makeStyles(theme => ({
 }));
 //variant = 'default', 'standard'
 const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVariant = 'default' }) => {
-  const [email, setEmail] = useState('demo@example.com');
-  const [password, setPassword] = useState('demo#123');
+  const [values, setValues] = useState({})
   const dispatch = useDispatch();
   const classes = useStyles({ variant });
 
+  const handleChange = prop => event => {
+    setValues({...values, [prop]: event.target.value})
+  }
+
   const onSubmit = () => {
-    dispatch(AuhMethods[method].onLogin({ email, password }));
+    dispatch(login(values));
   };
 
   return (
@@ -86,8 +95,8 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
             <TextField
               label={<IntlMessages id="appModule.email" />}
               fullWidth
-              onChange={event => setEmail(event.target.value)}
-              defaultValue={email}
+              onChange={handleChange('email_address')}
+              defaultValue={values.email_address}
               margin="normal"
               variant="outlined"
               className={classes.textFieldRoot}
@@ -98,22 +107,27 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               type="password"
               label={<IntlMessages id="appModule.password" />}
               fullWidth
-              onChange={event => setPassword(event.target.value)}
-              defaultValue={password}
+              onChange={handleChange('password')}
+              defaultValue={values.password}
               margin="normal"
               variant="outlined"
               className={classes.textFieldRoot}
             />
           </Box>
-          <Box display="flex" alignItems="center" justifyContent="space-between" mb={5}>
+          <Box display="flex" alignItems="center" justifyContent="space-between" mb={5}
+          >
             <FormControlLabel
               className={classes.formcontrolLabelRoot}
-              sx={{flexGrow:1}}
               control={<Checkbox name="checkedA" />}
               label="Remember me"
             />
-            <Box component="p" fontSize={{ xs: 12, sm: 16 }} sx={{display: 'flex', flex: 1}}>
-              <NavLink to="/forgot-password" style={{textAlign: 'end'}} >
+            
+            <Box
+            fontSize={{ lg: 14, xs: 12 }} 
+            style={{textAlign: 'end'}}
+            component="p"
+            >
+              <NavLink to="/forgot-password"  >
                 <IntlMessages id="appModule.forgotPassword" />
               </NavLink>
             </Box>
@@ -124,15 +138,15 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               <IntlMessages id="appModule.signIn" />
             </Button>
 
-            {/* <Box component="p" fontSize={{ xs: 12, sm: 16 }}>
+            <Box component="p" fontSize={{ xs: 12, sm: 16 }}>
               <NavLink to="/signup">
                 <IntlMessages id="signIn.signUp" />
               </NavLink>
-            </Box> */}
+            </Box>
           </Box>
         </form>
 
-        {dispatch(AuhMethods[method].getSocialMediaIcons())}
+        {/* {dispatch(AuhMethods[method].getSocialMediaIcons())} */}
 
         <ContentLoader />
       </Box>

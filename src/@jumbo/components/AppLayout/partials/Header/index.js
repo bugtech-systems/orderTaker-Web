@@ -5,10 +5,10 @@ import { Box,
   // InputBase
  } from '@material-ui/core';
 import { alpha } from '@material-ui/core/styles';
-// import LanguageSwitcher from '../LanguageSwitcher';
+import LanguageSwitcher from '../LanguageSwitcher';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 // import SearchIcon from '@material-ui/icons/Search';
-// import AppsMenu from './AppsMenu';
+import AppsMenu from './AppsMenu';
 import HeaderNotifications from './HeaderNotifications';
 // import HeaderMessages from './HeaderMessages';
 // import Hidden from '@material-ui/core/Hidden';
@@ -97,7 +97,8 @@ const Header = () => {
       {/* <Hidden mdUp>
         <SearchPopover iconClassName={classes.iconBtn} />
       </Hidden> */}
-      {/* <AppsMenu /> */}
+      <AppsMenu
+       />
       {/* <HeaderMessages /> */}
       <HeaderNotifications />
       {/* <Box className={classes.langRoot}>

@@ -16,7 +16,7 @@ import LayoutContext from '../../../../@coremat/CmtLayouts/LayoutContext';
 import { logout } from '../../../../redux/actions/Auth';
 
 //Services
-import { AuhMethods } from '../../../../services/auth';
+import { AuthMethods } from '../../../../services/auth';
 
 
 const useStyles = makeStyles(theme => ({
@@ -70,7 +70,7 @@ const SidebarHeader = () => {
   const onLogoutClick = () => {
     handlePopoverClose();
     dispatch(logout());
-    dispatch(AuhMethods[CurrentAuthMethod].onLogout());
+    dispatch(logout(method));
 
   };
 

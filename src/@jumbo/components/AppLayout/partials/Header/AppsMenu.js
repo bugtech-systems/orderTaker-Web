@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 const actions = [
   {
-    label: 'More Detail',
+    label: 'Create New',
   },
   {
     label: 'Close',
@@ -44,16 +44,10 @@ const actions = [
 
 const applications = [
   {
-    name: 'Email',
-    icon: <EmailIcon style={{ color: '#0795F4' }} />,
-    bgColor: '#CDEAFD',
-    path: '/apps/mail',
-  },
-  {
-    name: 'Task',
-    icon: <CheckCircleIcon style={{ color: '#FF8C00' }} />,
-    bgColor: '#FFE8CC',
-    path: '/apps/to-do',
+    name: 'Contacts',
+    icon: <ContactMailIcon style={{ color: '#8DCD03' }} />,
+    bgColor: '#E8F5CD',
+    path: '/apps/contact',
   },
   {
     name: 'Contacts',
@@ -61,12 +55,12 @@ const applications = [
     bgColor: '#E8F5CD',
     path: '/apps/contact',
   },
-  {
-    name: 'Chating',
-    icon: <ChatIcon style={{ color: '#6200EE' }} />,
-    bgColor: '#E0CCFC',
-    path: '/apps/chat',
-  },
+  // {
+  //   name: 'Contacts',
+  //   icon: <ContactMailIcon style={{ color: '#8DCD03' }} />,
+  //   bgColor: '#E8F5CD',
+  //   path: '/apps/contact',
+  // }
 ];
 
 const appItem = (item, index, onClick) => {
@@ -103,6 +97,15 @@ const AppsMenu = () => {
     setAnchorEl(null);
   };
 
+  const handleMoreClick = (e) => {
+    console.log(e)
+    if(String(e.label).toLowerCase() == 'close'){
+      onClosePopOver();
+      return; 
+    }
+  } 
+
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
@@ -113,7 +116,7 @@ const AppsMenu = () => {
 
   return (
     <div>
-      <Tooltip title="Applications">
+      <Tooltip title="Stores">
         <IconButton onClick={onOpenPopOver} className={clsx(classes.iconRoot, 'Cmt-appIcon')}>
           <AppsIcon />
         </IconButton>
@@ -134,9 +137,10 @@ const AppsMenu = () => {
         }}>
         <CmtCard className={classes.cardRoot}>
           <CmtCardHeader
-            title="Applications"
+            title="Stores"
             actionsPos="top-corner"
             actions={actions}
+            actionHandler={handleMoreClick}
             separator={{
               color: theme.palette.borderColor.dark,
               borderWidth: 1,
@@ -146,8 +150,8 @@ const AppsMenu = () => {
           <CmtCardContent>
             {applications.length > 0 ? (
               <CmtGridView
-                itemPadding={24}
-                column={2}
+                itemPadding={20}
+                column={applications.length > 1 ? 2 : 1 }
                 data={applications}
                 renderRow={(item, index) => appItem(item, index, onClickApp)}
               />

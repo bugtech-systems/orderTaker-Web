@@ -4,7 +4,6 @@ import { Box } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import IntlMessages from '../../../utils/IntlMessages';
 import Button from '@material-ui/core/Button';
-import { AuhMethods } from '../../../../services/auth';
 import ContentLoader from '../../ContentLoader';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtImage from '../../../../@coremat/CmtImage';
@@ -12,6 +11,16 @@ import Typography from '@material-ui/core/Typography';
 import { CurrentAuthMethod } from '../../../constants/AppConstants';
 import AuthWrapper from './AuthWrapper';
 import { NavLink } from 'react-router-dom';
+
+
+//Services
+import { AuhMethods } from '../../../../services/auth';
+
+//Redux
+import { register } from '../../../../redux/actions/Auth';
+
+
+
 
 const useStyles = makeStyles(theme => ({
   authThumb: {
@@ -63,15 +72,17 @@ const useStyles = makeStyles(theme => ({
 
 //variant = 'default', 'standard', 'bgColor'
 const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVariant = 'default' }) => {
-  const [name, setName] = useState('Demo User');
-  const [email, setEmail] = useState('demo@example.com');
-  const [password, setPassword] = useState('demo#123');
+  const [values, setValues] = useState({})
   const dispatch = useDispatch();
   const classes = useStyles({ variant });
 
   const onSubmit = () => {
-    dispatch(AuhMethods[method].onRegister({ name, email, password }));
+    dispatch(register(values));
   };
+
+  const handleChange = prop => event => {
+    setValues({...values, [prop]: event.target.value})
+  }
 
   return (
     <AuthWrapper variant={wrapperVariant}>
@@ -81,19 +92,44 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
         </Box>
       ) : null}
       <Box className={classes.authContent}>
-        <Box mb={7} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+        {/* <Box mb={7} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
           <CmtImage src={'/images/logo.png'} />
-        </Box>
+        </Box> */}
         <Typography component="div" variant="h1" className={classes.titleRoot}>
           Create an account
         </Typography>
         <form>
           <Box mb={2}>
             <TextField
-              label={<IntlMessages id="appModule.name" />}
+              label={<IntlMessages id="appModule.firstName" />}
               fullWidth
-              onChange={event => setName(event.target.value)}
-              defaultValue={name}
+              size="small"
+              onChange={handleChange('firstName')}
+              value={values.firstName}
+              margin="normal"
+              variant="outlined"
+              className={classes.textFieldRoot}
+            />
+          </Box>
+          <Box mb={2}>
+            <TextField
+              label={<IntlMessages id="appModule.lastName" />}
+              fullWidth
+              size="small"
+              onChange={handleChange('lastName')}
+              value={values.lastName}
+              margin="normal"
+              variant="outlined"
+              className={classes.textFieldRoot}
+            />
+          </Box>
+          <Box mb={2}>
+            <TextField
+              label={<IntlMessages id="appModule.phone" />}
+              fullWidth
+              size="small"
+              onChange={handleChange('contact')}
+              value={values.contact}
               margin="normal"
               variant="outlined"
               className={classes.textFieldRoot}
@@ -103,10 +139,11 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
             <TextField
               label={<IntlMessages id="appModule.email" />}
               fullWidth
-              onChange={event => setEmail(event.target.value)}
-              defaultValue={email}
+              onChange={handleChange('email_address')}
+              value={values.email_address}
               margin="normal"
               variant="outlined"
+              size="small"
               className={classes.textFieldRoot}
             />
           </Box>
@@ -115,10 +152,11 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               type="password"
               label={<IntlMessages id="appModule.password" />}
               fullWidth
-              onChange={event => setPassword(event.target.value)}
-              defaultValue={password}
+              onChange={handleChange('password')}
+              value={values.password}
               margin="normal"
               variant="outlined"
+              size="small"
               className={classes.textFieldRoot}
             />
           </Box>
