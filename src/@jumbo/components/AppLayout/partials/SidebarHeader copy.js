@@ -70,7 +70,7 @@ const SidebarHeader = () => {
   const onLogoutClick = () => {
     handlePopoverClose();
     dispatch(logout());
-    dispatch(logout(method));
+    dispatch(AuthMethods[m]);
 
   };
 

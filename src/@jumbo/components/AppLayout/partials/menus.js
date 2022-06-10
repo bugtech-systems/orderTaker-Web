@@ -117,11 +117,33 @@ import {
       name: <IntlMessages id={'sidebar.main'} />,
       type: 'section',
       children: [
-        storeMenus, 
-        inventoryMenus,
-        salesMenus,
-        settingsMenus
-      
+        {
+          name: <IntlMessages id={'sidebar.dashboard'} />,
+          icon: <Dashboard />,
+          type: 'item',
+          link: '/dashboard',
+        },
+        {
+          name: <IntlMessages id={'sidebar.inventory'} />,
+          icon: <Category />,
+          type: 'item',
+          link: '/inventory',
+        },
+        {
+          name: <IntlMessages id={'sidebar.report'} />,
+          icon: <Assessment />,
+          type: 'item',
+          link: '/reports',
+        },
+        // storeMenus, 
+        // inventoryMenus,
+        // salesMenus,
+        {
+          name: <IntlMessages id={'sidebar.settings'} />,
+          icon: <Settings />,
+          type: 'item',
+          link: '/settings',
+        }
       ],
     },
   
