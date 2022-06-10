@@ -97,8 +97,7 @@ const Header = () => {
       {/* <Hidden mdUp>
         <SearchPopover iconClassName={classes.iconBtn} />
       </Hidden> */}
-      <AppsMenu
-       />
+      {/* <AppsMenu /> */}
       {/* <HeaderMessages /> */}
       <HeaderNotifications />
       {/* <Box className={classes.langRoot}>

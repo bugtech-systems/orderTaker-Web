@@ -135,9 +135,12 @@ import {
           type: 'item',
           link: '/reports',
         },
-        // storeMenus, 
-        // inventoryMenus,
-        // salesMenus,
+        {
+          name: <IntlMessages id={'sidebar.user'} />,
+          icon: <SupervisedUserCircle />,
+          type: 'item',
+          link: '/user-management',
+        },
         {
           name: <IntlMessages id={'sidebar.settings'} />,
           icon: <Settings />,

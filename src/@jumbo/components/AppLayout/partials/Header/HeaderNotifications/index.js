@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, makeStyles, Popover, Tooltip, useTheme } from '@material-ui/core';
+import { Box, Button, IconButton, makeStyles, Popover, Tooltip, useTheme } from '@material-ui/core';
 import { alpha } from '@material-ui/core/styles';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import CmtCardHeader from '../../../../../../@coremat/CmtCard/CmtCardHeader';
@@ -12,6 +12,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import clsx from 'clsx';
 import Badge from '@material-ui/core/Badge';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -112,6 +113,7 @@ const HeaderNotifications = () => {
             title="Notifications"
             actionsPos="top-corner"
             actions={actions}
+            // actionHandler={handleMoreClick}
             separator={{
               color: theme.palette.borderColor.dark,
               borderWidth: 1,
@@ -128,11 +130,20 @@ const HeaderNotifications = () => {
               </PerfectScrollbar>
             ) : (
               <Box p={6}>
-                <Typography variant="body2">No notifications found</Typography>
+                <Typography
+                 variant="body"
+                 >No notifications found</Typography>
               </Box>
             )}
+
           </CmtCardContent>
-        </CmtCard>
+         <Link
+          to="/notifications"
+          onClick={onClosePopOver}
+         > 
+         <Typography variant="h5" align='center' >View More</Typography>
+         </Link>
+        </CmtCard>  
       </Popover>
     </Box>
   );

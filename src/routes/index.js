@@ -13,10 +13,9 @@ import Disbursement from './Pages/Disbursement';
 import UserManagement from './Pages/Settings/UserManagement/UsersList';
 import Settings from './Pages/Settings';
 
-
 //Other Pages
 import Profile from './Pages/Profile';
-
+import Notifications from './Pages/Notifications';
 
 
 import Error404 from './Pages/404';
@@ -54,18 +53,21 @@ const Routes = () => {
   const location = useLocation();
 
   if (location.pathname === '' || location.pathname === '/') {
-    return <Redirect to={'/store'} />;
+    return <Redirect to={'/dashboard'} />;
   } else if (isLoggedIn && location.pathname === '/signin') {
-    return <Redirect to={'/store'} />;
+    return <Redirect to={'/dashboard'} />;
   }
 
   return (
     <React.Fragment>
       <Switch>
         {/* Main Pages */}
-        <RestrictedRoute path="/store" component={Dashboard} />
-        {/* <RestrictedRoute path="/dashboard/business" component={Business} /> */}
-
+        <Redirect exact from={`/`} to={`/dashboard`} />
+        <RestrictedRoute path="/notifications" component={Notifications} />
+        <RestrictedRoute path="/dashboard" component={Dashboard} />
+        <RestrictedRoute path="/user-management" component={UserManagement} />
+        {/* <RestrictedRoute path="/products" component={Products} /> */}
+        
         <RestrictedRoute path="/profile" component={Profile} />
         <RestrictedRoute path="/inventory" component={Inventory} />
         <RestrictedRoute path="/disbursement" component={Disbursement} />
