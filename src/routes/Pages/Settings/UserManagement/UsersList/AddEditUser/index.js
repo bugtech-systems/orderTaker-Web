@@ -21,6 +21,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../../../@jumbo/utils/commonHelper';
 import { addNewUser, updateUser } from '../../../../../../redux/actions/Users';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -110,17 +111,59 @@ const AddEditUser = ({ open, onCloseDialog }) => {
                 label="Last name"
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <AppTextInput
+                fullWidth
+                variant="outlined"
+                label="Gender"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <AppTextInput
+                fullWidth
+                variant="outlined"
+                label="Birth Year"
+              />
+            </Grid>
           </GridContainer>
         </Box>
         <Box mb={{ xs: 6, md: 5 }}>
-          <AppTextInput
-            fullWidth
-            variant="outlined"
-            label="Email Address"
-           
-          />
+        <GridContainer>
+            <Grid item xs={12} sm={12}>
+              <AppTextInput
+                fullWidth
+                variant="outlined"
+                label="Home Address"
+              />
+            </Grid>
+            {/* <Grid item xs={12} sm={6}>
+              <AppTextInput
+                fullWidth
+                variant="outlined"
+                label="Last name"
+              />
+            </Grid> */}
+            <Grid item xs={12} sm={6}>
+              <AppTextInput
+                fullWidth
+                variant="outlined"
+                label="Phone"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <AppTextInput
+                fullWidth
+                variant="outlined"
+                label="Email Address"
+              />
+            </Grid>
+          </GridContainer>
         </Box>
-        <CmtList
+        <br/>
+        <Typography align='center'>CREDENTIALS</Typography>
+        <hr/>
+        <br/>
+        {/* <CmtList
           // data={phones}
           renderRow={(item, index) => (
             <GridContainer style={{ marginBottom: 2 }} key={index}>
@@ -164,29 +207,39 @@ const AddEditUser = ({ open, onCloseDialog }) => {
               )}
             </GridContainer>
           )}
-        />
-        <Box mb={{ xs: 6, md: 5 }} display="inline-flex" alignItems="center" className="pointer">
+        /> */}
+        {/* <Box mb={{ xs: 6, md: 5 }} display="inline-flex" alignItems="center" className="pointer">
           <Button color="primary" 
           // onClick={onPhoneRowAdd} 
           startIcon={<AddCircleOutlineIcon />}>
             Add More
           </Button>
-        </Box>
+        </Box> */}
         <GridContainer style={{ marginBottom: 12 }}>
-          <Grid item xs={12} sm={6}>
+       
+          <Grid item xs={12} sm={4}>
             <AppTextInput
               fullWidth
               variant="outlined"
-              label="Company name"
+              label="Username"
               // value={company}
               // onChange={e => setCompany(e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={8}>
             <AppTextInput
               fullWidth
               variant="outlined"
-              label="Job title"
+              label="Username"
+              // value={company}
+              // onChange={e => setCompany(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <AppTextInput
+              fullWidth
+              variant="outlined"
+              label="Password"
               // value={designation}
               // onChange={e => setDesignation(e.target.value)}
             />
@@ -194,7 +247,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
         </GridContainer>
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Button 
-          // onClick={onCloseDialog}
+          onClick={onCloseDialog}
           >Cancel</Button>
           <Box ml={2}>
             <Button variant="contained" color="primary" 
