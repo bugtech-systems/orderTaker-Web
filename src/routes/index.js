@@ -6,11 +6,11 @@ import { useLocation } from 'react-router-dom';
 
 //Pages
 //Main Pages
-import Dashboard from './Pages/Store';
+import Dashboard from './Pages/Dashboard';
 import Inventory from './Pages/Inventory';
 import SalesReport from './Pages/Reports';
 import Disbursement from './Pages/Disbursement';
-import UserManagement from './Pages/Settings/UserManagement/UsersList';
+import UserManagement from './Pages/UserManagement';
 import Settings from './Pages/Settings';
 
 //Other Pages
@@ -24,7 +24,7 @@ import Register from './Auth/Register';
 import ForgotPasswordPage from './Auth/ForgotPassword';
 
 
-
+  
 
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
@@ -57,6 +57,7 @@ const Routes = () => {
   } else if (isLoggedIn && location.pathname === '/signin') {
     return <Redirect to={'/dashboard'} />;
   }
+
 
   return (
     <React.Fragment>

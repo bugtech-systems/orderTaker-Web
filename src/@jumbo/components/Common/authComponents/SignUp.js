@@ -1,94 +1,94 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Box } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import IntlMessages from '../../../utils/IntlMessages';
-import Button from '@material-ui/core/Button';
-import ContentLoader from '../../ContentLoader';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import CmtImage from '../../../../@coremat/CmtImage';
-import Typography from '@material-ui/core/Typography';
-import { CurrentAuthMethod } from '../../../constants/AppConstants';
-import AuthWrapper from './AuthWrapper';
-import { NavLink } from 'react-router-dom';
-
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {Box} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import IntlMessages from "../../../utils/IntlMessages";
+import Button from "@material-ui/core/Button";
+import ContentLoader from "../../ContentLoader";
+import {alpha, makeStyles} from "@material-ui/core/styles";
+import CmtImage from "../../../../@coremat/CmtImage";
+import Typography from "@material-ui/core/Typography";
+import {CurrentAuthMethod} from "../../../constants/AppConstants";
+import AuthWrapper from "./AuthWrapper";
+import {NavLink} from "react-router-dom";
 
 //Services
-import { AuhMethods } from '../../../../services/auth';
+import {AuhMethods} from "../../../../services/auth";
 
 //Redux
-import { register } from '../../../../redux/actions/Auth';
-
-
-
+import {register} from "../../../../redux/actions/Auth";
 
 const useStyles = makeStyles(theme => ({
   authThumb: {
     backgroundColor: alpha(theme.palette.primary.main, 0.12),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
-    [theme.breakpoints.up('md')]: {
-      width: '50%',
-      order: 2,
-    },
+    [theme.breakpoints.up("md")]: {
+      width: "50%",
+      order: 2
+    }
   },
   authContent: {
     padding: 30,
-    [theme.breakpoints.up('md')]: {
-      width: props => (props.variant === 'default' ? '50%' : '100%'),
-      order: 1,
+    [theme.breakpoints.up("md")]: {
+      width: props => (props.variant === "default" ? "50%" : "100%"),
+      order: 1
     },
-    [theme.breakpoints.up('xl')]: {
-      padding: 50,
-    },
+    [theme.breakpoints.up("xl")]: {
+      padding: 50
+    }
   },
   titleRoot: {
     marginBottom: 14,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.primary
   },
   textFieldRoot: {
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: alpha(theme.palette.common.dark, 0.12),
-    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: alpha(theme.palette.common.dark, 0.12)
+    }
   },
   textCapital: {
-    textTransform: 'capitalize',
+    textTransform: "capitalize"
   },
   textAcc: {
-    textAlign: 'center',
-    '& a': {
-      marginLeft: 4,
-    },
+    textAlign: "center",
+    "& a": {
+      marginLeft: 4
+    }
   },
   alrTextRoot: {
-    textAlign: 'center',
-    [theme.breakpoints.up('sm')]: {
-      textAlign: 'right',
-    },
-  },
+    textAlign: "center",
+    [theme.breakpoints.up("sm")]: {
+      textAlign: "right"
+    }
+  }
 }));
 
 //variant = 'default', 'standard', 'bgColor'
-const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVariant = 'default' }) => {
-  const [values, setValues] = useState({})
+const SignUp = ({
+  method = CurrentAuthMethod,
+  variant = "default",
+  wrapperVariant = "default"
+}) => {
+  const [ values, setValues ] = useState({});
   const dispatch = useDispatch();
-  const classes = useStyles({ variant });
+  const classes = useStyles({variant});
 
   const onSubmit = () => {
     dispatch(register(values));
   };
 
   const handleChange = prop => event => {
-    setValues({...values, [prop]: event.target.value})
-  }
+    setValues({...values, [prop]: event.target.value});
+  };
 
   return (
     <AuthWrapper variant={wrapperVariant}>
-      {variant === 'default' ? (
+      {variant === "default" ? (
         <Box className={classes.authThumb}>
-          <CmtImage src={'/images/auth/sign-up-img.png'} />
+          <CmtImage src={"/images/auth/sign-up-img.png"} />
         </Box>
       ) : null}
       <Box className={classes.authContent}>
@@ -104,7 +104,7 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               label={<IntlMessages id="appModule.firstName" />}
               fullWidth
               size="small"
-              onChange={handleChange('firstName')}
+              onChange={handleChange("firstName")}
               value={values.firstName}
               margin="normal"
               variant="outlined"
@@ -116,7 +116,7 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               label={<IntlMessages id="appModule.lastName" />}
               fullWidth
               size="small"
-              onChange={handleChange('lastName')}
+              onChange={handleChange("lastName")}
               value={values.lastName}
               margin="normal"
               variant="outlined"
@@ -128,7 +128,7 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               label={<IntlMessages id="appModule.phone" />}
               fullWidth
               size="small"
-              onChange={handleChange('contact')}
+              onChange={handleChange("contact")}
               value={values.contact}
               margin="normal"
               variant="outlined"
@@ -139,8 +139,20 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
             <TextField
               label={<IntlMessages id="appModule.email" />}
               fullWidth
-              onChange={handleChange('email_address')}
+              onChange={handleChange("email_address")}
               value={values.email_address}
+              margin="normal"
+              variant="outlined"
+              size="small"
+              className={classes.textFieldRoot}
+            />
+          </Box>
+          <Box mb={2}>
+            <TextField
+              label={<IntlMessages id="appModule.username" />}
+              fullWidth
+              onChange={handleChange("username")}
+              value={values.username}
               margin="normal"
               variant="outlined"
               size="small"
@@ -152,7 +164,7 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               type="password"
               label={<IntlMessages id="appModule.password" />}
               fullWidth
-              onChange={handleChange('password')}
+              onChange={handleChange("password")}
               value={values.password}
               margin="normal"
               variant="outlined"
@@ -163,11 +175,12 @@ const SignUp = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
 
           <Box
             display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems={{ sm: 'center' }}
-            justifyContent={{ sm: 'space-between' }}
-            mb={3}>
-            <Box mb={{ xs: 2, sm: 0 }}>
+            flexDirection={{xs: "column", sm: "row"}}
+            alignItems={{sm: "center"}}
+            justifyContent={{sm: "space-between"}}
+            mb={3}
+          >
+            <Box mb={{xs: 2, sm: 0}}>
               <Button onClick={onSubmit} variant="contained" color="primary">
                 <IntlMessages id="appModule.regsiter" />
               </Button>

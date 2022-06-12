@@ -1,21 +1,18 @@
-import {
-    SET_MESSAGE,
-  } from "./types";
+import {SET_DATA, SET_MESSAGE} from "./types";
 
 import CrudService from "../../services/http-api/crud.service";
-  
 
 //Roles Actions
-export const createRole = (data) => async (dispatch) => {
+export const createRole = data => async dispatch => {
   return await CrudService.createRole(data).then(
     ({data}) => {
-        console.log('Create RESPONSE')
-        console.log(data)
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-        console.log('CREAT ERROR')
-        console.log(error)
+    error => {
+      console.log("CREAT ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -23,142 +20,135 @@ export const createRole = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
-    
+
       return Promise.reject(error);
     }
   );
 };
 
-export const getRoles = () => async (dispatch) => {
-    return await CrudService.getRoles().then(
-      ({data}) => {
-          console.log('GET RESPONSE')
-          console.log(data)
-        return Promise.resolve(data);
-      },
-      (error) => {
-          console.log('GET ERROR')
-          console.log(error)
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
-      
-        return Promise.reject(error);
-      }
-    );
-  };
+export const getRoles = () => async dispatch => {
+  return await CrudService.getRoles().then(
+    res => {
+      const {data} = res.data;
+      console.log("GET RESPONSE");
+      return Promise.resolve(data);
+    },
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-  export const getRoleById = (id) => async (dispatch) => {
-    return await CrudService.getRoleById(id).then(
-      ({data}) => {
-          console.log('GET RESPONSE')
-          console.log(data)
-        return Promise.resolve(data);
-      },
-      (error) => {
-          console.log('GET ERROR')
-          console.log(error)
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
-      
-        return Promise.reject(error);
-      }
-    );
-  };
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message
+      });
 
-  export const updateRoleById = (id, data) => async (dispatch) => {
-    return await CrudService.updateRoleById(id, data).then(
-      ({data}) => {
-          console.log('Update RESPONSE')
-          console.log(data)
-        return Promise.resolve(data);
-      },
-      (error) => {
-          console.log('Update ERROR')
-          console.log(error)
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
-      
-        return Promise.reject(error);
-      }
-    );
-  };  
+      return Promise.reject(error);
+    }
+  );
+};
 
-  export const deleteRoleById = (id) => async (dispatch) => {
-    return await CrudService.deleteRoleById(id).then(
-      ({data}) => {
-          console.log('Delete RESPONSE')
-          console.log(data)
-        return Promise.resolve(data);
-      },
-      (error) => {
-          console.log('Delete ERROR')
-          console.log(error)
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
-      
-        return Promise.reject(error);
-      }
-    );
-  };  
+export const getRoleById = id => async dispatch => {
+  return await CrudService.getRoleById(id).then(
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
+      return Promise.resolve(data);
+    },
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message
+      });
 
+      return Promise.reject(error);
+    }
+  );
+};
 
-  //Users Actions
-export const createUser = (data) => async (dispatch) => {
+export const updateRoleById = (id, data) => async dispatch => {
+  return await CrudService.updateRoleById(id, data).then(
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
+      return Promise.resolve(data);
+    },
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+export const deleteRoleById = id => async dispatch => {
+  return await CrudService.deleteRoleById(id).then(
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
+      return Promise.resolve(data);
+    },
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message
+      });
+
+      return Promise.reject(error);
+    }
+  );
+};
+
+//Users Actions
+export const createUser = data => async dispatch => {
   return await CrudService.createUser(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      dispatch(getUsers());
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -166,10 +156,9 @@ export const createUser = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -177,16 +166,16 @@ export const createUser = (data) => async (dispatch) => {
   );
 };
 
-export const getUsers = () => async (dispatch) => {
+export const getUsers = () => async dispatch => {
   return await CrudService.getUsers().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    res => {
+      let {data} = res.data;
+      dispatch({type: SET_DATA, payload: {name: "users", data: data}});
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error.response);
       const message =
         (error.response &&
           error.response.data &&
@@ -194,10 +183,9 @@ export const getUsers = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -205,16 +193,16 @@ export const getUsers = () => async (dispatch) => {
   );
 };
 
-export const getUserById = (id) => async (dispatch) => {
+export const getUserById = id => async dispatch => {
   return await CrudService.getUserById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -222,10 +210,9 @@ export const getUserById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -233,16 +220,17 @@ export const getUserById = (id) => async (dispatch) => {
   );
 };
 
-export const updateUserById = (id, data) => async (dispatch) => {
+export const updateUserById = (id, data) => async dispatch => {
   return await CrudService.updateUserById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
+      dispatch(getUsers());
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error.response);
       const message =
         (error.response &&
           error.response.data &&
@@ -250,10 +238,9 @@ export const updateUserById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -261,16 +248,17 @@ export const updateUserById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteUserById = (id) => async (dispatch) => {
+export const deleteUserById = id => async dispatch => {
   return await CrudService.deleteUserById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
+      dispatch(getUsers());
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -278,27 +266,26 @@ export const deleteUserById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
+};
 //Customer actions
-export const createCustomer = (data) => async (dispatch) => {
+export const createCustomer = data => async dispatch => {
   return await CrudService.createCustomer(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -306,10 +293,9 @@ export const createCustomer = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -317,16 +303,16 @@ export const createCustomer = (data) => async (dispatch) => {
   );
 };
 
-export const getCustomers = () => async (dispatch) => {
+export const getCustomers = () => async dispatch => {
   return await CrudService.getCustomers().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -334,10 +320,9 @@ export const getCustomers = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -345,16 +330,16 @@ export const getCustomers = () => async (dispatch) => {
   );
 };
 
-export const getCustomerById = (id) => async (dispatch) => {
+export const getCustomerById = id => async dispatch => {
   return await CrudService.getCustomerById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -362,10 +347,9 @@ export const getCustomerById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -373,16 +357,16 @@ export const getCustomerById = (id) => async (dispatch) => {
   );
 };
 
-export const updateCustomerById = (id, data) => async (dispatch) => {
+export const updateCustomerById = (id, data) => async dispatch => {
   return await CrudService.updateCustomerById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -390,10 +374,9 @@ export const updateCustomerById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -401,16 +384,16 @@ export const updateCustomerById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteCustomerById = (id) => async (dispatch) => {
+export const deleteCustomerById = id => async dispatch => {
   return await CrudService.deleteCustomerById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -418,29 +401,27 @@ export const deleteCustomerById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Purchases actions
-export const createPurchases = (data) => async (dispatch) => {
+export const createPurchases = data => async dispatch => {
   return await CrudService.createPurchases(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -448,10 +429,9 @@ export const createPurchases = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -459,16 +439,16 @@ export const createPurchases = (data) => async (dispatch) => {
   );
 };
 
-export const getPurchases = () => async (dispatch) => {
+export const getPurchases = () => async dispatch => {
   return await CrudService.getPurchases().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -476,10 +456,9 @@ export const getPurchases = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -487,16 +466,16 @@ export const getPurchases = () => async (dispatch) => {
   );
 };
 
-export const getPurchaseById = (id) => async (dispatch) => {
+export const getPurchaseById = id => async dispatch => {
   return await CrudService.getPurchaseById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -504,10 +483,9 @@ export const getPurchaseById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -515,16 +493,16 @@ export const getPurchaseById = (id) => async (dispatch) => {
   );
 };
 
-export const updatePurchaseById = (id, data) => async (dispatch) => {
+export const updatePurchaseById = (id, data) => async dispatch => {
   return await CrudService.updatePurchaseById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -532,10 +510,9 @@ export const updatePurchaseById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -543,16 +520,16 @@ export const updatePurchaseById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deletePurchaseById = (id) => async (dispatch) => {
+export const deletePurchaseById = id => async dispatch => {
   return await CrudService.deletePurchaseById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -560,29 +537,27 @@ export const deletePurchaseById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Product Actions
-export const createProduct = (data) => async (dispatch) => {
+export const createProduct = data => async dispatch => {
   return await CrudService.createProduct(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -590,10 +565,9 @@ export const createProduct = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -601,16 +575,16 @@ export const createProduct = (data) => async (dispatch) => {
   );
 };
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = () => async dispatch => {
   return await CrudService.getProducts().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -618,10 +592,9 @@ export const getProducts = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -629,16 +602,16 @@ export const getProducts = () => async (dispatch) => {
   );
 };
 
-export const getProductById = (id) => async (dispatch) => {
+export const getProductById = id => async dispatch => {
   return await CrudService.getProductById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -646,10 +619,9 @@ export const getProductById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -657,16 +629,16 @@ export const getProductById = (id) => async (dispatch) => {
   );
 };
 
-export const updateProductById = (id, data) => async (dispatch) => {
+export const updateProductById = (id, data) => async dispatch => {
   return await CrudService.updateProductById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -674,10 +646,9 @@ export const updateProductById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -685,16 +656,16 @@ export const updateProductById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteProductById = (id) => async (dispatch) => {
+export const deleteProductById = id => async dispatch => {
   return await CrudService.deleteProductById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -702,28 +673,27 @@ export const deleteProductById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
+};
 
 //Payment actions
-export const createPayment = (data) => async (dispatch) => {
+export const createPayment = data => async dispatch => {
   return await CrudService.createPayment(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -731,10 +701,9 @@ export const createPayment = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -742,16 +711,16 @@ export const createPayment = (data) => async (dispatch) => {
   );
 };
 
-export const getPayments = () => async (dispatch) => {
+export const getPayments = () => async dispatch => {
   return await CrudService.getPayments().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -759,10 +728,9 @@ export const getPayments = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -770,16 +738,16 @@ export const getPayments = () => async (dispatch) => {
   );
 };
 
-export const getPaymentById = (id) => async (dispatch) => {
+export const getPaymentById = id => async dispatch => {
   return await CrudService.getPaymentById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -787,10 +755,9 @@ export const getPaymentById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -798,16 +765,16 @@ export const getPaymentById = (id) => async (dispatch) => {
   );
 };
 
-export const updatePaymentById = (id, data) => async (dispatch) => {
+export const updatePaymentById = (id, data) => async dispatch => {
   return await CrudService.updatePaymentById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -815,10 +782,9 @@ export const updatePaymentById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -826,16 +792,16 @@ export const updatePaymentById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deletePaymentById = (id) => async (dispatch) => {
+export const deletePaymentById = id => async dispatch => {
   return await CrudService.deletePaymentById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -843,30 +809,28 @@ export const deletePaymentById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Pricing actions
 
-export const createPricing = (data) => async (dispatch) => {
+export const createPricing = data => async dispatch => {
   return await CrudService.createPricing(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -874,10 +838,9 @@ export const createPricing = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -885,16 +848,16 @@ export const createPricing = (data) => async (dispatch) => {
   );
 };
 
-export const getPricings = () => async (dispatch) => {
+export const getPricings = () => async dispatch => {
   return await CrudService.getPricings().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -902,10 +865,9 @@ export const getPricings = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -913,16 +875,16 @@ export const getPricings = () => async (dispatch) => {
   );
 };
 
-export const getPricingById = (id) => async (dispatch) => {
+export const getPricingById = id => async dispatch => {
   return await CrudService.getPricingById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -930,10 +892,9 @@ export const getPricingById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -941,16 +902,16 @@ export const getPricingById = (id) => async (dispatch) => {
   );
 };
 
-export const updatePricingById = (id, data) => async (dispatch) => {
+export const updatePricingById = (id, data) => async dispatch => {
   return await CrudService.updatePricingById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -958,10 +919,9 @@ export const updatePricingById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -969,16 +929,16 @@ export const updatePricingById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deletePricingById = (id) => async (dispatch) => {
+export const deletePricingById = id => async dispatch => {
   return await CrudService.deletePricingById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -986,29 +946,28 @@ export const deletePricingById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
+};
 
 //Order actions
 
-export const createOrder = (data) => async (dispatch) => {
+export const createOrder = data => async dispatch => {
   return await CrudService.createOrder(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1016,10 +975,9 @@ export const createOrder = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1027,16 +985,16 @@ export const createOrder = (data) => async (dispatch) => {
   );
 };
 
-export const getOrders = () => async (dispatch) => {
+export const getOrders = () => async dispatch => {
   return await CrudService.getOrders().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1044,10 +1002,9 @@ export const getOrders = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1055,16 +1012,16 @@ export const getOrders = () => async (dispatch) => {
   );
 };
 
-export const getOrderById = (id) => async (dispatch) => {
+export const getOrderById = id => async dispatch => {
   return await CrudService.getOrderById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1072,10 +1029,9 @@ export const getOrderById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1083,16 +1039,16 @@ export const getOrderById = (id) => async (dispatch) => {
   );
 };
 
-export const updateOrderById = (id, data) => async (dispatch) => {
+export const updateOrderById = (id, data) => async dispatch => {
   return await CrudService.updateOrderById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1100,10 +1056,9 @@ export const updateOrderById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1111,16 +1066,16 @@ export const updateOrderById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteOrderById = (id) => async (dispatch) => {
+export const deleteOrderById = id => async dispatch => {
   return await CrudService.deleteOrderById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1128,29 +1083,28 @@ export const deleteOrderById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
+};
 
 //Order_items actions
 
-export const createOrder_item = (data) => async (dispatch) => {
+export const createOrder_item = data => async dispatch => {
   return await CrudService.createOrder_item(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1158,10 +1112,9 @@ export const createOrder_item = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1169,16 +1122,16 @@ export const createOrder_item = (data) => async (dispatch) => {
   );
 };
 
-export const getOrder_items = () => async (dispatch) => {
+export const getOrder_items = () => async dispatch => {
   return await CrudService.getOrder_items().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1186,10 +1139,9 @@ export const getOrder_items = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1197,16 +1149,16 @@ export const getOrder_items = () => async (dispatch) => {
   );
 };
 
-export const getOrder_itemById = (id) => async (dispatch) => {
+export const getOrder_itemById = id => async dispatch => {
   return await CrudService.getOrder_itemById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1214,10 +1166,9 @@ export const getOrder_itemById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1225,16 +1176,16 @@ export const getOrder_itemById = (id) => async (dispatch) => {
   );
 };
 
-export const updateOrder_itemById = (id, data) => async (dispatch) => {
+export const updateOrder_itemById = (id, data) => async dispatch => {
   return await CrudService.updateOrder_itemById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1242,10 +1193,9 @@ export const updateOrder_itemById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1253,16 +1203,16 @@ export const updateOrder_itemById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteOrder_itemById = (id) => async (dispatch) => {
+export const deleteOrder_itemById = id => async dispatch => {
   return await CrudService.deleteOrder_itemById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1270,30 +1220,28 @@ export const deleteOrder_itemById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Notification actions
 
-export const createNotification = (data) => async (dispatch) => {
+export const createNotification = data => async dispatch => {
   return await CrudService.createNotification(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1301,10 +1249,9 @@ export const createNotification = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1312,16 +1259,16 @@ export const createNotification = (data) => async (dispatch) => {
   );
 };
 
-export const getNotifications = () => async (dispatch) => {
+export const getNotifications = () => async dispatch => {
   return await CrudService.getNotifications().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1329,10 +1276,9 @@ export const getNotifications = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1340,16 +1286,16 @@ export const getNotifications = () => async (dispatch) => {
   );
 };
 
-export const getNotificationById = (id) => async (dispatch) => {
+export const getNotificationById = id => async dispatch => {
   return await CrudService.getNotificationById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1357,10 +1303,9 @@ export const getNotificationById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1368,16 +1313,16 @@ export const getNotificationById = (id) => async (dispatch) => {
   );
 };
 
-export const updateNotificationById = (id, data) => async (dispatch) => {
+export const updateNotificationById = (id, data) => async dispatch => {
   return await CrudService.updateNotificationById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1385,10 +1330,9 @@ export const updateNotificationById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1396,16 +1340,16 @@ export const updateNotificationById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteNotificationById = (id) => async (dispatch) => {
+export const deleteNotificationById = id => async dispatch => {
   return await CrudService.deleteNotificationById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1413,30 +1357,28 @@ export const deleteNotificationById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Inventory actions
 
-export const createInventory = (data) => async (dispatch) => {
+export const createInventory = data => async dispatch => {
   return await CrudService.createInventory(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1444,10 +1386,9 @@ export const createInventory = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1455,16 +1396,16 @@ export const createInventory = (data) => async (dispatch) => {
   );
 };
 
-export const getInventories = () => async (dispatch) => {
+export const getInventories = () => async dispatch => {
   return await CrudService.getInventories().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1472,10 +1413,9 @@ export const getInventories = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1483,16 +1423,16 @@ export const getInventories = () => async (dispatch) => {
   );
 };
 
-export const getInventoryById = (id) => async (dispatch) => {
+export const getInventoryById = id => async dispatch => {
   return await CrudService.getInventoryById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1500,10 +1440,9 @@ export const getInventoryById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1511,16 +1450,16 @@ export const getInventoryById = (id) => async (dispatch) => {
   );
 };
 
-export const updateInventoryById = (id, data) => async (dispatch) => {
+export const updateInventoryById = (id, data) => async dispatch => {
   return await CrudService.updateInventoryById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1528,10 +1467,9 @@ export const updateInventoryById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1539,16 +1477,16 @@ export const updateInventoryById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteInventoryById = (id) => async (dispatch) => {
+export const deleteInventoryById = id => async dispatch => {
   return await CrudService.deleteInventoryById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1556,29 +1494,27 @@ export const deleteInventoryById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Category actions
-export const createCategory = (data) => async (dispatch) => {
+export const createCategory = data => async dispatch => {
   return await CrudService.createCategory(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1586,10 +1522,9 @@ export const createCategory = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1597,16 +1532,16 @@ export const createCategory = (data) => async (dispatch) => {
   );
 };
 
-export const getCategories = () => async (dispatch) => {
+export const getCategories = () => async dispatch => {
   return await CrudService.getCategories().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1614,10 +1549,9 @@ export const getCategories = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1625,16 +1559,16 @@ export const getCategories = () => async (dispatch) => {
   );
 };
 
-export const getCategoryById = (id) => async (dispatch) => {
+export const getCategoryById = id => async dispatch => {
   return await CrudService.getCategoryById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1642,10 +1576,9 @@ export const getCategoryById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1653,16 +1586,16 @@ export const getCategoryById = (id) => async (dispatch) => {
   );
 };
 
-export const updateCategoryById = (id, data) => async (dispatch) => {
+export const updateCategoryById = (id, data) => async dispatch => {
   return await CrudService.updateCategoryById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1670,10 +1603,9 @@ export const updateCategoryById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1681,16 +1613,16 @@ export const updateCategoryById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteCategoryById = (id) => async (dispatch) => {
+export const deleteCategoryById = id => async dispatch => {
   return await CrudService.deleteCategoryById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1698,30 +1630,28 @@ export const deleteCategoryById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
 
 //Business Actions
 
-export const createBusiness = (data) => async (dispatch) => {
+export const createBusiness = data => async dispatch => {
   return await CrudService.createBusiness(data).then(
-    ({ data }) => {
-      console.log('Create RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Create RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('CREATE ERROR')
-      console.log(error)
+    error => {
+      console.log("CREATE ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1729,10 +1659,9 @@ export const createBusiness = (data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1740,16 +1669,16 @@ export const createBusiness = (data) => async (dispatch) => {
   );
 };
 
-export const getBusinesses = () => async (dispatch) => {
+export const getBusinesses = () => async dispatch => {
   return await CrudService.getBusinesses().then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1757,10 +1686,9 @@ export const getBusinesses = () => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1768,16 +1696,16 @@ export const getBusinesses = () => async (dispatch) => {
   );
 };
 
-export const getBusinessById = (id) => async (dispatch) => {
+export const getBusinessById = id => async dispatch => {
   return await CrudService.getBusinessById(id).then(
-    ({ data }) => {
-      console.log('GET RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("GET RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('GET ERROR')
-      console.log(error)
+    error => {
+      console.log("GET ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1785,10 +1713,9 @@ export const getBusinessById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1796,16 +1723,16 @@ export const getBusinessById = (id) => async (dispatch) => {
   );
 };
 
-export const updateBusinessById = (id, data) => async (dispatch) => {
+export const updateBusinessById = (id, data) => async dispatch => {
   return await CrudService.updateBusinessById(id, data).then(
-    ({ data }) => {
-      console.log('Update RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Update RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Update ERROR')
-      console.log(error)
+    error => {
+      console.log("Update ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1813,10 +1740,9 @@ export const updateBusinessById = (id, data) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
@@ -1824,16 +1750,16 @@ export const updateBusinessById = (id, data) => async (dispatch) => {
   );
 };
 
-export const deleteBusinessById = (id) => async (dispatch) => {
+export const deleteBusinessById = id => async dispatch => {
   return await CrudService.deleteBusinessById(id).then(
-    ({ data }) => {
-      console.log('Delete RESPONSE')
-      console.log(data)
+    ({data}) => {
+      console.log("Delete RESPONSE");
+      console.log(data);
       return Promise.resolve(data);
     },
-    (error) => {
-      console.log('Delete ERROR')
-      console.log(error)
+    error => {
+      console.log("Delete ERROR");
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -1841,14 +1767,12 @@ export const deleteBusinessById = (id) => async (dispatch) => {
         error.message ||
         error.toString();
 
-
       dispatch({
         type: SET_MESSAGE,
-        payload: message,
+        payload: message
       });
 
       return Promise.reject(error);
     }
   );
-};  
-
+};
