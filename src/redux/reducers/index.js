@@ -7,6 +7,9 @@ import ProfileApp from "./ProfileApp";
 import Users from "./Users";
 import Crud from "./Crud";
 import Data from "./Data";
+import ContactApp from './ContactApp';
+
+
 
 export default history =>
   combineReducers({
@@ -16,5 +19,7 @@ export default history =>
     profileApp: ProfileApp,
     usersReducer: Users,
     dataReducer: Data,
-    crud: Crud
+    crud: Crud,
+    contactApp: ContactApp
+
   });

@@ -11,7 +11,6 @@ const login = (values) => {
   return axios
     .post(constant.apiUrl + "/auth/signin", values)
     .then((response) => {
-      console.log(response)
       if (response.data.accessToken) {
         localStorage.setItem("idToken", response.data.accessToken);
       }

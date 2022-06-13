@@ -84,8 +84,6 @@ export const login = (values) => (dispatch) => {
 
   return AuthService.login(values).then(
     (data) => {
-      console.log(data)
-
       dispatch({type: SET_MESSAGE, 
         payload: { text: 'Login Successfully!', type: 'success'}
       })
@@ -218,7 +216,6 @@ export const suspendUser = (id) => (dispatch) => {
      return AuthService.suspend(id).then(
       (res) => {
         let data = res.data;
-        console.log(data)
         dispatch(getUsers())
         return Promise.resolve();
       },

@@ -2,7 +2,7 @@
 // const apiUrl = '/api';
 // const apiUrl = '/api';
 // const apiUrl = 'http://docampaign.online:23000/api';
-const apiUrl = 'http://localhost:23000/api';
+const apiUrl = 'http://192.168.1.21:23000/api';
 
 const webopt = 'https://developer.globelabs.com.ph/dialog/oauth/kA8aH5keEgCMLTKkRbieqkCGeAroH5KL'
 // const webopt = 'http://localhost:42000/app/home/9774461641'

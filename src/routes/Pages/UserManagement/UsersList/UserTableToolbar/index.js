@@ -58,9 +58,7 @@ const UserTableToolbar = ({
   };
 
   const onFilterOptionClick = option => {
-    console.log(option)
     setFilterOptions(prevState => {
-      console.log(prevState)
       if (prevState.includes(option.value)) {
         return prevState.filter(item => item !== option.value);
       } else {
@@ -76,8 +74,6 @@ const UserTableToolbar = ({
   const onSearchChipDelete = () => setSearchTerm('');
 
   const numSelected = selected.length;
-  console.log(searchTerm)
-  console.log(filterOptions)
   return (
     <React.Fragment>
       <Toolbar

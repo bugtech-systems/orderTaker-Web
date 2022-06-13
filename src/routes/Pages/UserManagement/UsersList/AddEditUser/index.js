@@ -106,7 +106,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   }
 
   const handleSubmit = () => {
-    console.log(values);
 
     if(!selectedUser._id){
 
@@ -133,7 +132,9 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     .then((res) => {
       setRoles(res)
       if(selectedUser._id){
-        setValues({...values, roles: [selectedUser.roles[0]._id]})
+        setValues({...values, 
+          ...selectedUser,
+           roles: [selectedUser.roles[0]._id]})
       } else {
       setValues({...values, roles: [ res[2] ? res[2]._id : res[0]._id]})
     }
@@ -284,7 +285,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
           label="Role"
           value={values.roles[0]}
           onChange={e => {
-            console.log(e.target.value)
             setValues({...values, roles: [e.target.value]});
           }}
           SelectProps={{

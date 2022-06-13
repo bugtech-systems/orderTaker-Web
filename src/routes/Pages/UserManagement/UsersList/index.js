@@ -47,33 +47,18 @@ const UsersModule = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log(Object.values(item).join(''))
-    console.log(!debouncedSearchTerm.toLowerCase())
-    console.log(filterOptions)
 
 
     let users1 = userArr.filter(item => {
       if(filterOptions.length == 0) return true;
       else return filterOptions.find(a => {
-        console.log( a.toLowerCase())
-
-        console.log( a.toLowerCase() === item.status.toLowerCase())
        return a.toLowerCase() === item.status.toLowerCase()
       })
     }).filter((item) => {
       return  Object.values(item).join('').toLowerCase().includes(debouncedSearchTerm.toLowerCase() ? debouncedSearchTerm.toLowerCase() : '')
   })
 
-  console.log(users1)
   setFilteredResult(users1)
-
-
-    // dispatch(
-    //   getUsers(filterOptions, debouncedSearchTerm, () => {
-    //     setFilterApplied(!!filterOptions.length || !!debouncedSearchTerm);
-    //     setUsersFetched(true);
-    //   }),
-    // );
   }, [dispatch, filterOptions, debouncedSearchTerm, userArr]);
 
   const handleCloseUserDialog = () => {

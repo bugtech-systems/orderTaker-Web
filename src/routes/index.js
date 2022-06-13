@@ -8,10 +8,12 @@ import { useLocation } from 'react-router-dom';
 //Main Pages
 import Dashboard from './Pages/Dashboard';
 import Inventory from './Pages/Inventory';
+import Products from './Pages/Products';
 import SalesReport from './Pages/Reports';
 import Disbursement from './Pages/Disbursement';
 import UserManagement from './Pages/UserManagement';
 import Settings from './Pages/Settings';
+
 
 //Other Pages
 import Profile from './Pages/Profile';
@@ -50,6 +52,7 @@ const RestrictedRoute = ({ component: Component, ...rest }) => {
 
 const Routes = () => {
   const { isLoggedIn } = useSelector(({ auth }) => auth);
+  const { users } = useSelector(({crud}) => crud);
   const location = useLocation();
 
   if (location.pathname === '' || location.pathname === '/') {
@@ -67,10 +70,10 @@ const Routes = () => {
         <RestrictedRoute path="/notifications" component={Notifications} />
         <RestrictedRoute path="/dashboard" component={Dashboard} />
         <RestrictedRoute path="/user-management" component={UserManagement} />
-        {/* <RestrictedRoute path="/products" component={Products} /> */}
+        <RestrictedRoute path="/inventory" component={Products} />
         
         <RestrictedRoute path="/profile" component={Profile} />
-        <RestrictedRoute path="/inventory" component={Inventory} />
+        {/* <RestrictedRoute path="/inventory" component={Inventory} /> */}
         <RestrictedRoute path="/disbursement" component={Disbursement} />
         <RestrictedRoute path="/reports" component={SalesReport} />
         <RestrictedRoute path="/settings" component={Settings} />
