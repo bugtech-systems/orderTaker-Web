@@ -1,71 +1,79 @@
-import React from 'react';
-import { Box, Button, IconButton, makeStyles, Popover, Tooltip, useTheme } from '@material-ui/core';
-import { alpha } from '@material-ui/core/styles';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import CmtCardHeader from '../../../../../../@coremat/CmtCard/CmtCardHeader';
-import CmtCardContent from '../../../../../../@coremat/CmtCard/CmtCardContent';
-import CmtList from '../../../../../../@coremat/CmtList';
-import CmtCard from '../../../../../../@coremat/CmtCard';
+import React from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  makeStyles,
+  Popover,
+  Tooltip,
+  useTheme
+} from "@material-ui/core";
+import {alpha} from "@material-ui/core/styles";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import CmtCardHeader from "../../../../../../@coremat/CmtCard/CmtCardHeader";
+import CmtCardContent from "../../../../../../@coremat/CmtCard/CmtCardContent";
+import CmtList from "../../../../../../@coremat/CmtList";
+import CmtCard from "../../../../../../@coremat/CmtCard";
 
-import NotificationItem from './NotificationItem';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import clsx from 'clsx';
-import Badge from '@material-ui/core/Badge';
-import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
+import NotificationItem from "./NotificationItem";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import clsx from "clsx";
+import Badge from "@material-ui/core/Badge";
+import Typography from "@material-ui/core/Typography";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
-    '& .Cmt-header-root': {
+    "& .Cmt-header-root": {
       paddingTop: 4,
-      paddingBottom: 4,
+      paddingBottom: 4
     },
-    '& .Cmt-card-content': {
-      padding: '0 0 16px !important',
-    },
+    "& .Cmt-card-content": {
+      padding: "0 0 16px !important"
+    }
   },
   typography: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2)
   },
   iconRoot: {
-    position: 'relative',
+    position: "relative",
     color: alpha(theme.palette.common.white, 0.38),
-    '&:hover, &.active': {
-      color: theme.palette.common.white,
-    },
+    "&:hover, &.active": {
+      color: theme.palette.common.white
+    }
   },
   counterRoot: {
     color: theme.palette.common.white,
     border: `solid 1px ${theme.palette.common.white}`,
     backgroundColor: theme.palette.warning.main,
-    width: 20,
+    width: 20
   },
   scrollbarRoot: {
     height: 300,
-    padding: 16,
+    padding: 16
   },
   popoverRoot: {
-    '& .MuiPopover-paper': {
-      width: 375,
-    },
-  },
+    "& .MuiPopover-paper": {
+      width: 375
+    }
+  }
 }));
 
 const actions = [
   {
-    label: 'More Detail',
+    label: "More Detail"
   },
   {
-    label: 'Close',
-  },
+    label: "Close"
+  }
 ];
 
 const headerNotifications = [];
 
 const HeaderNotifications = () => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [counter, setCounter] = React.useState(5);
+  const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const [ counter, setCounter ] = React.useState(5);
   const theme = useTheme();
 
   const onOpenPopOver = event => {
@@ -78,17 +86,22 @@ const HeaderNotifications = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <Box pr={2}>
       <Tooltip title="Notifications">
         <IconButton
           onClick={onOpenPopOver}
-          className={clsx(classes.iconRoot, 'Cmt-appIcon', {
-            active: counter > 0,
-          })}>
-          <Badge badgeContent={counter} classes={{ badge: classes.counterRoot }}>
+          className={clsx(classes.iconRoot, "Cmt-appIcon", {
+            active: counter > 0
+          })}
+        >
+          <Badge
+            overlap="rectangular"
+            badgeContent={counter}
+            classes={{badge: classes.counterRoot}}
+          >
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -101,13 +114,14 @@ const HeaderNotifications = () => {
         anchorEl={anchorEl}
         onClose={onClosePopOver}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right"
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}>
+          vertical: "top",
+          horizontal: "right"
+        }}
+      >
         <CmtCard className={classes.cardRoot}>
           <CmtCardHeader
             title="Notifications"
@@ -117,7 +131,7 @@ const HeaderNotifications = () => {
             separator={{
               color: theme.palette.borderColor.dark,
               borderWidth: 1,
-              borderStyle: 'solid',
+              borderStyle: "solid"
             }}
           />
           <CmtCardContent>
@@ -125,25 +139,23 @@ const HeaderNotifications = () => {
               <PerfectScrollbar className={classes.scrollbarRoot}>
                 <CmtList
                   data={headerNotifications}
-                  renderRow={(item, index) => <NotificationItem key={index} item={item} />}
+                  renderRow={(item, index) => (
+                    <NotificationItem key={index} item={item} />
+                  )}
                 />
               </PerfectScrollbar>
             ) : (
               <Box p={6}>
-                <Typography
-                 variant="body"
-                 >No notifications found</Typography>
+                <Typography variant="body">No notifications found</Typography>
               </Box>
             )}
-
           </CmtCardContent>
-         <Link
-          to="/notifications"
-          onClick={onClosePopOver}
-         > 
-         <Typography variant="h5" align='center' >View More</Typography>
-         </Link>
-        </CmtCard>  
+          <Link to="/notifications" onClick={onClosePopOver}>
+            <Typography variant="h5" align="center">
+              View More
+            </Typography>
+          </Link>
+        </CmtCard>
       </Popover>
     </Box>
   );

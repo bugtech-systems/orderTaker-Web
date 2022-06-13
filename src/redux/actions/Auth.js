@@ -10,9 +10,11 @@ import {
   SET_ERRORS,
   SET_USER,
   CLEAR_USER,
+  SET_BUSINESS
 } from "./types";
 
 import AuthService from "../../services/http-api/auth.service";
+import { getUsers } from './Crud';
 
 
 export const setAuthUser = user => {
@@ -82,8 +84,6 @@ export const login = (values) => (dispatch) => {
 
   return AuthService.login(values).then(
     (data) => {
-      console.log(data)
-
       dispatch({type: SET_MESSAGE, 
         payload: { text: 'Login Successfully!', type: 'success'}
       })
@@ -120,17 +120,19 @@ export const login = (values) => (dispatch) => {
 };
 
 export const getUserData = (history) => (dispatch) => {
-  dispatch({
-    type: SET_LOADING
-  });
+  
   return AuthService.getAuthUser().then(
     (res) => {
-      let { data, } = res;
-      console.log(data)
-      dispatch(setAuthUser(data.user))
+      let { user, business } = res.data;
+      dispatch(setAuthUser(user))
       dispatch({
         type: SET_USER,
-        payload: data
+        payload: user
+      });
+
+      dispatch({
+        type: SET_BUSINESS,
+        payload: business
       });
       
       dispatch({
@@ -155,6 +157,7 @@ export const getUserData = (history) => (dispatch) => {
         payload: error.response?.data?.message
       })
 
+      dispatch(logout())
 
       return Promise.reject();
     }
@@ -162,13 +165,78 @@ export const getUserData = (history) => (dispatch) => {
 };
 
 export const logout = (history) => (dispatch) => {
-     localStorage.clear();
-     dispatch(fetchSuccess())
-     dispatch(setAuthUser(null));
-     dispatch({
-        type: LOGOUT,
-      });
-      dispatch({
-        type: CLEAR_USER
-      });
+
+       
+     return AuthService.logout().then(
+      (res) => {
+        localStorage.clear();
+        dispatch({
+          type: CLEAR_USER
+        });
+        dispatch({
+          type: LOGOUT,
+        });
+        dispatch(setAuthUser(null));
+        dispatch(fetchSuccess())
+        return Promise.resolve();
+      },
+      (error) => {
+        localStorage.clear()
+        dispatch({
+          type: CLEAR_USER
+        });
+        dispatch({
+          type: LOGOUT,
+        });
+        dispatch(setAuthUser(null));
+        dispatch(fetchSuccess())
+        console.log(error.response)
+        error.response?.data?.errors && 
+        dispatch({
+          type: SET_ERRORS,
+          payload: error.response?.data?.errors
+        });
+      
+  
+        error.response?.data?.message &&
+        dispatch({type: SET_MESSAGE, 
+          payload: error.response?.data?.message
+        })
+  
+        return Promise.reject();
+      }
+    );
+
+
+    
+};
+
+export const suspendUser = (id) => (dispatch) => {
+
+     return AuthService.suspend(id).then(
+      (res) => {
+        let data = res.data;
+        dispatch(getUsers())
+        return Promise.resolve();
+      },
+      (error) => {
+        console.log(error.response)
+        error.response?.data?.errors && 
+        dispatch({
+          type: SET_ERRORS,
+          payload: error.response?.data?.errors
+        });
+      
+  
+        error.response?.data?.message &&
+        dispatch({type: SET_MESSAGE, 
+          payload: error.response?.data?.message
+        })
+  
+        return Promise.reject();
+      }
+    );
+
+
+    
 };

@@ -9,9 +9,8 @@ const Settings = ({ match }) => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
-        <Redirect exact from={`${requestedUrl}/`} to={`${requestedUrl}/configurations`} />
-        <Route path={`${requestedUrl}/configurations`} component={lazy(() => import('./Configurations'))} />
-       <Route path={`${requestedUrl}/user-management`} component={lazy(() => import('./UserManagement'))} />
+        <Route path={`${requestedUrl}/`} component={lazy(() => import('./Configurations'))} />
+       {/* <Route path={`${requestedUrl}/user-management`} component={lazy(() => import('./UserManagement'))} /> */}
          {/* <Route path={`${requestedUrl}/crm`} component={lazy(() => import('./Crm'))} />
         <Route path={`${requestedUrl}/intranet`} component={lazy(() => import('./Intranet'))} />
         <Route path={`${requestedUrl}/eCommerce`} component={lazy(() => import('./ECommerce'))} />

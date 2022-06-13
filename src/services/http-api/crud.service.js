@@ -1,6 +1,9 @@
 import axios from "axios";
-import constant from '../utils/commonData'
-import authHeader from "./auth-header";
+
+import constant from '../../utils/commonData'
+
+import httpHelpers  from './auth-header';
+
 
 
 
@@ -8,11 +11,11 @@ import authHeader from "./auth-header";
 
 //Roles
 const createRole = (data) => {
-  return axios.post(constant.apiUrl + "/roles", data);
+  return axios.post(constant.apiUrl + `/roles`, data);
 };
 
 const getRoles = () => {
-    return axios.get(constant.apiUrl + "/roles");
+    return axios.get(constant.apiUrl + `/roles`);
 };
 
 const getRoleById = (id) => {
@@ -32,24 +35,24 @@ const deleteRoleById = (id) => {
 //Users
 
 const createUser = (data) => {
-    return axios.post(constant.apiUrl + "/user", data);
+    return axios.post(constant.apiUrl + "/user", data, { headers: httpHelpers.authHeader() } );
 };
 
 const getUsers = () => {
-    return axios.get(constant.apiUrl + "/users");
+    return axios.get(constant.apiUrl + `/users`, { headers: httpHelpers.authHeader() } );
 };
 
 const getUserById = (id) => {
-    return axios.get(constant.apiUrl + `/user/${id}`);
+    return axios.get(constant.apiUrl + `/user/${id}`, { headers: httpHelpers.authHeader() });
 };
 
 
 const updateUserById = (id, data) => {
-    return axios.patch(constant.apiUrl + `/user/${id}`, data);
+    return axios.patch(constant.apiUrl + `/user/${id}`, data, { headers: httpHelpers.authHeader() } );
 };
 
 const deleteUserById = (id) => {
-    return axios.delete(constant.apiUrl + `/user/${id}`);
+    return axios.delete(constant.apiUrl + `/user/${id}`, { headers: httpHelpers.authHeader() } );
 };
 
 

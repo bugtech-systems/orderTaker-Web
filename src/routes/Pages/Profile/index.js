@@ -36,7 +36,8 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState('about');
   const { userDetail } = useSelector(({ profileApp }) => profileApp);
-  console.log(userDetail)
+
+
   useEffect(() => {
     dispatch(getUserDetail());
   }, [dispatch]);

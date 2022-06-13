@@ -1,21 +1,18 @@
-import {
-  CLEAR_DATA,
-  SET_DATA
-} from "../actions/types";
-
+import {CLEAR_DATA, SET_DATA} from "../actions/types";
 
 const initialState = {
-    roles: []
+  roles: [],
+  users: []
 };
 
-export default function (state = initialState, action) {
-  const { type, payload } = action;
+export default function(state = initialState, action){
+  const {type, payload} = action;
 
   switch (type) {
     case CLEAR_DATA:
-      return { ...state, ...initialState };
-      case SET_DATA:
-        return { ...state, ...payload };
+      return {...state, [payload]: []};
+    case SET_DATA:
+      return {...state, [payload.name]: payload.data};
     default:
       return state;
   }
