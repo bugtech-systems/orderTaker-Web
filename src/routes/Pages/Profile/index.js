@@ -36,7 +36,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState('about');
   const { userDetail } = useSelector(({ profileApp }) => profileApp);
-  console.log(userDetail)
+  console.log(userDetail);
   useEffect(() => {
     dispatch(getUserDetail());
   }, [dispatch]);
@@ -49,28 +49,27 @@ const Profile = () => {
     <React.Fragment>
       {userDetail && (
         <Box className={classes.pageFull}>
-          <Header classes={classes} userDetail={userDetail} 
-          tabValue={tabValue} handleTabChange={handleTabChange} />
+          <Header classes={classes} userDetail={userDetail} tabValue={tabValue} handleTabChange={handleTabChange} />
           <GridContainer>
             <Grid item xs={12} lg={4} className={classes.profileSidebar}>
-              <Box mb={6}>
+              {/* <Box mb={6}>
                 <Contact userDetail={userDetail} />
               </Box>
-              {/* <Box mb={6}>
+              <Box mb={6}>
                 <Friends friends={userDetail.friends} />
               </Box>
               <Box mb={6}>
                 <UserPhotos />
-              </Box> */}
+              </Box>
             </Grid>
             <Grid item xs={12} lg={8} className={classes.profileMainContent}>
               <Box mb={6}>
                 <About userDetail={userDetail} />
-              </Box>
+              </Box> */}
               {/* <Box mb={6}>
                 <Biography />
-              </Box> */}
-              {/* <Events events={userDetail.events} /> */}
+              </Box>
+              <Events events={userDetail.events} /> */}
             </Grid>
           </GridContainer>
         </Box>

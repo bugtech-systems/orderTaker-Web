@@ -10,11 +10,13 @@ import { alpha } from '@material-ui/core/styles';
 import CmtImage from '../../../@coremat/CmtImage';
 
 const tabs = [
-  { id: 1, title: 'Timeline', slug: 'timeline' },
+  // { id: 1, title: 'Timeline', slug: 'timeline' },
+  { id: 2, title: 'Edit', slug: 'edit' },
+  { id: 3, title: 'Business', slug: 'business' },
   { id: 2, title: 'About', slug: 'about' },
-  { id: 3, title: 'Photos', slug: 'photos' },
-  { id: 4, title: 'Friends', slug: 'friends' },
-  { id: 5, title: 'More', slug: 'more' },
+  // { id: 3, title: 'Photos', slug: 'photos' },
+  // { id: 4, title: 'Friends', slug: 'friends' },
+  // { id: 5, title: 'More', slug: 'more' },
 ];
 
 const useStyles = makeStyles(theme => ({
