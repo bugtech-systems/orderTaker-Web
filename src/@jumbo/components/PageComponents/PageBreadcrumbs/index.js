@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   textSm: {
     fontSize: 12,
   },
@@ -21,7 +21,7 @@ const PageBreadcrumbs = ({ items, ...rest }) => {
     <Breadcrumbs className="bread-crumbs" aria-label="breadcrumb {...rest}">
       {items.map((item, index) =>
         item.isActive ? (
-          <Typography key={index} className={classes.textSm} color="textPrimary">
+          <Typography key={index} className={classes.textSm} color="inherit">
             {item.label}
           </Typography>
         ) : (

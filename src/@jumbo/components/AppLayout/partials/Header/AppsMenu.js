@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, IconButton, Popover, Tooltip, useTheme } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppsIcon from '@material-ui/icons/Apps';
@@ -14,6 +14,8 @@ import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
+
+import LayoutContext from '../../../../../@coremat/CmtLayouts/LayoutContext';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -87,24 +89,26 @@ const AppsMenu = () => {
   const classes = useStyles();
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { isSidebarOpen, setSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
+
   const theme = useTheme();
 
   const onOpenPopOver = event => {
     setAnchorEl(event.currentTarget);
+    setSidebarOpen(!isSidebarOpen);
   };
 
   const onClosePopOver = () => {
     setAnchorEl(null);
   };
 
-  const handleMoreClick = (e) => {
-    console.log(e)
-    if(String(e.label).toLowerCase() == 'close'){
+  const handleMoreClick = e => {
+    console.log(e);
+    if (String(e.label).toLowerCase() == 'close') {
       onClosePopOver();
-      return; 
+      return;
     }
-  } 
-
+  };
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -151,7 +155,7 @@ const AppsMenu = () => {
             {applications.length > 0 ? (
               <CmtGridView
                 itemPadding={20}
-                column={applications.length > 1 ? 2 : 1 }
+                column={applications.length > 1 ? 2 : 1}
                 data={applications}
                 renderRow={(item, index) => appItem(item, index, onClickApp)}
               />

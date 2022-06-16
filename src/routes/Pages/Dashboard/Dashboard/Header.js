@@ -10,8 +10,6 @@ import { alpha } from '@material-ui/core/styles';
 import CmtImage from '../../../../@coremat/CmtImage';
 import { PageBreadcrumbs, PageHeader } from '../../../../@jumbo/components/PageComponents/index';
 
-
-
 const tabs = [
   { id: 1, title: 'Timeline', slug: 'timeline' },
   { id: 2, title: 'About', slug: 'about' },
@@ -76,6 +74,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   headerContent: {
+    color: theme.palette.common.white,
     position: 'relative',
     zIndex: 3,
   },
@@ -142,15 +141,14 @@ const Header = ({ businessDetails, tabValue, handleTabChange, breadcrumbs, headi
 
   return (
     <Box className={classes.headerRoot}>
-       
       <Box className={classes.headerBgImg}>
         <CmtImage src={'/images/profile-bg-img.png'} />
       </Box>
-   
+
       <Box className={classes.headerContent}>
-       {(heading || breadcrumbs) && (
-       <PageHeader heading={heading} breadcrumbComponent={breadcrumbs && <PageBreadcrumbs items={breadcrumbs} />} />
-        )} 
+        {(heading || breadcrumbs) && (
+          <PageHeader heading={heading} breadcrumbComponent={breadcrumbs && <PageBreadcrumbs items={breadcrumbs} />} />
+        )}
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" mb={4}>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center">
             <Box mr={{ sm: 4, md: 5, lg: 6 }} mb={{ xs: 3, sm: 0 }}>

@@ -76,7 +76,7 @@ const ActionSideBar = ({ width }) => {
   }, []);
 
   useEffect(() => {
-    if (isSidebarOpen && (width === 'lg' || width === 'xl')) {
+    if (!isSidebarOpen && (width === 'lg' || width === 'xl')) {
       setSidebarWidth(0);
     } else {
       setSidebarWidth(initSidebarWidth);
@@ -117,13 +117,13 @@ const ActionSideBar = ({ width }) => {
         </Hidden>
       </div>
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} ml={{ xs: 'auto', lg: 'unset' }}>
-        <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
+        {/* <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
           <SearchIcon />
         </IconButton>
 
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('messages')}>
           <MessageIcon />
-        </IconButton>
+        </IconButton> */}
 
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('notifications')}>
           <Badge badgeContent={4} classes={{ badge: classes.counterRoot }}>
@@ -131,11 +131,11 @@ const ActionSideBar = ({ width }) => {
           </Badge>
         </IconButton>
 
-        {isSidebarOpen && (width === 'lg' || width === 'xl') && (
+        {/* {isSidebarOpen && (width === 'lg' || width === 'xl') && (
           <IconButton className={classes.iconBtn} onClick={() => setSidebarOpen(!isSidebarOpen)}>
             <MoreVertIcon />
           </IconButton>
-        )}
+        )} */}
       </Box>
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} mt={{ xs: 'unset', lg: 'auto' }}>
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('settings')}>

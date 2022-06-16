@@ -37,11 +37,7 @@ const PopularAgents = () => {
           variant: 'h4',
           component: 'div',
         }}>
-        <Button 
-        component="a"
-        href="/store/customers"
-        color="primary"
-        >
+        <Button component="a" href="/customers" color="primary">
           <Box component="span" mr={2}>
             Go to Customers list
           </Box>

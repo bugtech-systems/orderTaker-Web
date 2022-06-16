@@ -1,19 +1,17 @@
 import React from 'react';
 import SidebarToggleHandler from '../../../../../@coremat/CmtLayouts/Vertical/SidebarToggleHandler';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Box, 
-  // InputBase
- } from '@material-ui/core';
+import { Box, InputBase } from '@material-ui/core';
 import { alpha } from '@material-ui/core/styles';
 import LanguageSwitcher from '../LanguageSwitcher';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-// import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@material-ui/icons/Search';
 import AppsMenu from './AppsMenu';
 import HeaderNotifications from './HeaderNotifications';
-// import HeaderMessages from './HeaderMessages';
-// import Hidden from '@material-ui/core/Hidden';
-// import Logo from '../Logo';
-// import SearchPopover from '../SearchPopover';
+import HeaderMessages from './HeaderMessages';
+import Hidden from '@material-ui/core/Hidden';
+import Logo from '../Logo';
+import SearchPopover from '../SearchPopover';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,23 +84,23 @@ const Header = () => {
   return (
     <Toolbar className={classes.root}>
       <SidebarToggleHandler edge="start" color="inherit" aria-label="menu" />
-      {/* <Logo ml={2} color="white" /> */}
+      <Logo ml={2} color="white" />
       <Box flex={1} />
-      {/* <Hidden smDown>
+      <Hidden smDown>
         <Box pr={3} className={classes.searchRoot}>
           <InputBase placeholder={'Search here...'} inputProps={{ 'aria-label': 'search' }} />
           <SearchIcon />
         </Box>
-      </Hidden> */}
-      {/* <Hidden mdUp>
+      </Hidden>
+      <Hidden mdUp>
         <SearchPopover iconClassName={classes.iconBtn} />
-      </Hidden> */}
-      {/* <AppsMenu /> */}
-      {/* <HeaderMessages /> */}
+      </Hidden>
+      <AppsMenu />
+      <HeaderMessages />
       <HeaderNotifications />
-      {/* <Box className={classes.langRoot}>
+      <Box className={classes.langRoot}>
         <LanguageSwitcher />
-      </Box> */}
+      </Box>
     </Toolbar>
   );
 };
