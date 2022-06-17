@@ -36,7 +36,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
           </IconButton>
         </Hidden>
         <Typography className={classes.inBuildAppHeaderTitle} component="div" variant="h1">
-          Products
+          Customers
         </Typography>
       </Box>
 

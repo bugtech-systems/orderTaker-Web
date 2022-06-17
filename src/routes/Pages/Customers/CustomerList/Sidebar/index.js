@@ -33,6 +33,7 @@ const Sidebar = ({ onClickCreateContact, width }) => {
   }, [dispatch]);
 
   const onChangeFolder = folder => {
+    console.log(folder);
     dispatch(
       setFilterType({
         selectedFolder: folder,
@@ -88,7 +89,7 @@ const Sidebar = ({ onClickCreateContact, width }) => {
               Labels
             </Box>
           </ListItem>
-
+          <AddLabel />
           <CmtList
             data={labelsList}
             renderRow={(item, index) => (
@@ -101,8 +102,6 @@ const Sidebar = ({ onClickCreateContact, width }) => {
               />
             )}
           />
-
-          <AddLabel />
 
           <MoreOptions classes={classes} contactsList={contactsList} />
         </List>

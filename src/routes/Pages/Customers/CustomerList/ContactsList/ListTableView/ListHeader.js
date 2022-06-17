@@ -39,9 +39,8 @@ const ListHeader = ({ contactsList, checkedContacts, handleHeaderCheckBox }) => 
             Name
           </Box>
         </TableCell>
-        <TableCell className={classes.tableCellRoot}>Email Address</TableCell>
-        <TableCell className={classes.tableCellRoot}>Phone</TableCell>
-        <TableCell className={classes.tableCellRoot}>Company</TableCell>
+        <TableCell className={classes.tableCellRoot}>Limit</TableCell>
+        <TableCell className={classes.tableCellRoot}>Balance</TableCell>
         <TableCell className={classes.tableCellRoot} />
       </TableRow>
     </TableHead>

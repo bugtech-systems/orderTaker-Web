@@ -19,7 +19,7 @@ const INIT_STATE = {
   isSideBarCollapsed: false,
   labelsList: [],
   filterType: {
-    selectedFolder: 'contacts',
+    selectedFolder: 'customers',
     selectedLabel: '',
     searchText: '',
   },

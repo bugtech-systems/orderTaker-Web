@@ -40,8 +40,8 @@ mock.onGet('/contact').reply(config => {
   if (selectedFolder) {
     if (selectedFolder === 'starred') {
       folderContacts = contactsList.filter(contact => contact.starred);
-    } else if (selectedFolder === 'frequent') {
-      folderContacts = contactsList.filter(contact => contact.frequent);
+    } else if (selectedFolder === 'unpaid') {
+      folderContacts = contactsList.filter(contact => contact.unpaid);
     } else {
       folderContacts = contactsList.filter(contact => contact.folder === selectedFolder);
     }
@@ -105,7 +105,7 @@ mock.onPost('/contact').reply(request => {
   const { contact } = JSON.parse(request.data);
   const newContact = {
     id: idGenerator(),
-    frequent: false,
+    unpaid: false,
     starred: false,
     labels: [],
     folder: 'contacts',
@@ -126,8 +126,8 @@ mock.onGet('/contact/counter').reply(config => {
   foldersList.map(item => {
     if (item.slug === 'starred') {
       counter.folders[item.id] = contactsList.filter(contact => contact.starred).length;
-    } else if (item.slug === 'frequent') {
-      counter.folders[item.id] = contactsList.filter(contact => contact.frequent).length;
+    } else if (item.slug === 'unpaid') {
+      counter.folders[item.id] = contactsList.filter(contact => contact.unpaid).length;
     } else {
       counter.folders[item.id] = contactsList.filter(contact => contact.folder === item.slug).length;
     }

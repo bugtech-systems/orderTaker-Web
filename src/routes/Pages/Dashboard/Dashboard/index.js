@@ -124,9 +124,9 @@ const Dashboard = () => {
         <Grid item xs={12} xl={12}>
           <RecentPayments />
         </Grid>
-        <Grid item xs={12} xl={12}>
+        {/* <Grid item xs={12} xl={12}>
           <OrderHistory />
-        </Grid>
+        </Grid> */}
         {/*    <Grid item xs={12} xl={12}>
         <CurrentPlan />
         </Grid> */}

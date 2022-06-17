@@ -11,12 +11,12 @@ import PrintIcon from '@material-ui/icons/Print';
 const MoreOptions = ({ classes, contactsList }) => {
   return (
     <List>
-      <ListItem button className={classes.appNavItem} onClick={() => {}}>
+      {/* <ListItem button className={classes.appNavItem} onClick={() => {}}>
         <ListItemIcon className="Cmt-icon-root">
           <CloudDownloadIcon />
         </ListItemIcon>
         <ListItemText className="Cmt-nav-text" primary="Import" />
-      </ListItem>
+      </ListItem> */}
       <ExportContacts data={contactsList}>
         <ListItem button className={classes.appNavItem} onClick={() => {}}>
           <ListItemIcon className="Cmt-icon-root">
@@ -25,12 +25,12 @@ const MoreOptions = ({ classes, contactsList }) => {
           <ListItemText className="Cmt-nav-text" primary="Export" />
         </ListItem>
       </ExportContacts>
-      <ListItem button className={classes.appNavItem} onClick={() => window.print()}>
+      {/* <ListItem button className={classes.appNavItem} onClick={() => window.print()}>
         <ListItemIcon className="Cmt-icon-root">
           <PrintIcon />
         </ListItemIcon>
         <ListItemText className="Cmt-nav-text" primary="Print" />
-      </ListItem>
+      </ListItem> */}
     </List>
   );
 };

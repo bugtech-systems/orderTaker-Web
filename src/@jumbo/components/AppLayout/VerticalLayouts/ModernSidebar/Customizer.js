@@ -16,7 +16,7 @@ const Customizer = () => {
       {/* <NavigationLayout /> */}
       <DisplayLayout />
       <SidebarOption />
-      <SidebarSize />
+      {/* <SidebarSize /> */}
       <OtherSettings showFooterOpt={false} />
     </CustomizerBody>
   );

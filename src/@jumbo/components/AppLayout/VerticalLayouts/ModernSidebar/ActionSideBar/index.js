@@ -24,6 +24,8 @@ import { CurrentAuthMethod } from '../../../../../constants/AppConstants';
 import Logo from '../../../partials/Logo';
 import ActionBarDrawer from './ActionBarDrawer';
 
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -110,7 +112,7 @@ const ActionSideBar = ({ width }) => {
     <div className={clsx(classes.root, 'actionSidebar')}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <SidebarToggleHandler className={classes.iconBtn}>
-          {isSidebarOpen && (width === 'lg' || width === 'xl') && <CloseIcon />}
+          {isSidebarOpen && (width === 'lg' || width === 'xl') ? <CloseIcon /> : <AccountTreeIcon />}
         </SidebarToggleHandler>
         <Hidden lgUp>
           <Logo color="white" ml={{ xs: 3, sm: 6 }} />

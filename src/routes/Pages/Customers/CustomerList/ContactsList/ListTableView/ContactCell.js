@@ -12,7 +12,7 @@ import ContactCellOptions from './ContactCellOptions';
 
 const ContactCell = ({ contact, checkedContacts, handleCellCheckBox, onShowContactDetail, onClickEditContact }) => {
   const classes = useStyles();
-  const { id, name, email, phones, company, designation, profile_pic } = contact;
+  const { id, fullName, phone, limit, balance, dpUrl } = contact;
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowContactDetail(contact)}>
       <TableCell className={classes.tableCellRoot}>
@@ -26,21 +26,21 @@ const ContactCell = ({ contact, checkedContacts, handleCellCheckBox, onShowConta
           </Box>
           <Box display="flex" alignItems="center">
             <Box mr={{ xs: 4, md: 5 }}>
-              <CmtAvatar size={40} src={profile_pic} alt={name} />
+              <CmtAvatar size={40} src={dpUrl} alt={fullName} />
             </Box>
 
             <Box>
               <Typography className={classes.titleRoot} component="div" variant="h4">
-                {name}
+                {fullName}
               </Typography>
-              <Typography className={classes.subTitleRoot}>{designation}</Typography>
+              <Typography className={classes.subTitleRoot}>{phone}</Typography>
             </Box>
           </Box>
         </Box>
       </TableCell>
-      <TableCell className={classes.tableCellRoot}>{email}</TableCell>
-      <TableCell className={classes.tableCellRoot}>{phones[0].phone}</TableCell>
-      <TableCell className={classes.tableCellRoot}>{company}</TableCell>
+      <TableCell className={classes.tableCellRoot}>{limit}</TableCell>
+      <TableCell className={classes.tableCellRoot}>{balance}</TableCell>
+      {/* <TableCell className={classes.tableCellRoot}>{company}</TableCell> */}
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
         <ContactCellOptions contact={contact} onClickEditContact={onClickEditContact} />
       </TableCell>
