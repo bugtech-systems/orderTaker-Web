@@ -5,22 +5,22 @@ import TableRow from '@material-ui/core/TableRow';
 import Box from '@material-ui/core/Box';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 import Typography from '@material-ui/core/Typography';
-import useStyles from '../ContactCell.style';
+import useStyles from '../CustomerCell.style';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import ContactCellOptions from './ContactCellOptions';
+import CustomerCellOptions from './CustomerCellOptions';
 
-const ContactCell = ({ contact, checkedContacts, handleCellCheckBox, onShowContactDetail, onClickEditContact }) => {
+const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer }) => {
   const classes = useStyles();
-  const { id, fullName, phone, limit, balance, dpUrl } = contact;
+  const { id, fullName, phones, limit, balance, dpUrl } = customer;
   return (
-    <TableRow className={classes.tableRowRoot} onClick={() => onShowContactDetail(contact)}>
+    <TableRow className={classes.tableRowRoot} onClick={() => onShowCustomerDetail(customer)}>
       <TableCell className={classes.tableCellRoot}>
         <Box display="flex" alignItems="center">
           <Box component="span" mr={2} onClick={e => e.stopPropagation()}>
             <Checkbox
               color="primary"
-              checked={checkedContacts.includes(id)}
+              checked={checkedCustomers.includes(id)}
               onChange={event => handleCellCheckBox(event.target.checked, id)}
             />
           </Box>
@@ -33,7 +33,7 @@ const ContactCell = ({ contact, checkedContacts, handleCellCheckBox, onShowConta
               <Typography className={classes.titleRoot} component="div" variant="h4">
                 {fullName}
               </Typography>
-              <Typography className={classes.subTitleRoot}>{phone}</Typography>
+              <Typography className={classes.subTitleRoot}>{phones[0].phone}</Typography>
             </Box>
           </Box>
         </Box>
@@ -42,22 +42,22 @@ const ContactCell = ({ contact, checkedContacts, handleCellCheckBox, onShowConta
       <TableCell className={classes.tableCellRoot}>{balance}</TableCell>
       {/* <TableCell className={classes.tableCellRoot}>{company}</TableCell> */}
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
-        <ContactCellOptions contact={contact} onClickEditContact={onClickEditContact} />
+        <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} />
       </TableCell>
     </TableRow>
   );
 };
 
-export default ContactCell;
+export default CustomerCell;
 
-ContactCell.prototype = {
-  contact: PropTypes.object.isRequired,
-  checkedContacts: PropTypes.array,
+CustomerCell.prototype = {
+  customer: PropTypes.object.isRequired,
+  checkedCustomers: PropTypes.array,
   handleCellCheckBox: PropTypes.func,
-  onShowContactDetail: PropTypes.func,
-  onClickEditContact: PropTypes.func,
+  onShowCustomerDetail: PropTypes.func,
+  onClickEditCustomer: PropTypes.func,
 };
 
-ContactCell.defaultProps = {
-  checkedContacts: [],
+CustomerCell.defaultProps = {
+  checkedCustomers: [],
 };

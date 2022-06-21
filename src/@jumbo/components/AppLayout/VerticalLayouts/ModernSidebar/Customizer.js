@@ -2,7 +2,6 @@ import React from 'react';
 import Theme from '../../partials/customizer/Theme';
 import DisplayLayout from '../../partials/customizer/DisplayLayout';
 import OtherSettings from '../../partials/customizer/OtherSettings';
-import SidebarSize from '../../partials/customizer/SidebarSize';
 import ThemeColor from '../../partials/customizer/ThemeColor';
 import SidebarOption from '../../partials/customizer/SidebarOption';
 import NavigationLayout from '../../partials/customizer/NavigationLayout';

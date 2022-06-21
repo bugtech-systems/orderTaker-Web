@@ -85,7 +85,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
               active: activeOption === 'notifications',
             })}
             onClick={() => onIconClick('notifications')}>
-            <Badge badgeContent={4} classes={{ badge: classes.counterRoot }}>
+            <Badge badgeContent={4} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <NotificationsIcon />
             </Badge>
           </IconButton>

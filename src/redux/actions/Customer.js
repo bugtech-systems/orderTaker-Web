@@ -1,20 +1,20 @@
 //For expanding sidebar
 import {
   ADD_LABEL,
-  CREATE_CONTACT,
-  DELETE_CONTACT,
+  CREATE_CUSTOMER,
+  DELETE_CUSTOMER,
   DELETE_LABEL_ITEM,
-  GET_CONTACT_COUNTS,
-  GET_CONTACTS_LIST,
+  GET_CUSTOMER_COUNTS,
+  GET_CUSTOMERS_LIST,
   GET_LABELS_LIST,
-  SET_CURRENT_CONTACT,
+  SET_CURRENT_CUSTOMER,
   SET_FILTER_TYPE,
   TOGGLE_SIDEBAR_COLLAPSED,
-  UPDATE_CONTACT,
-  UPDATE_CONTACT_LABEL,
+  UPDATE_CUSTOMER,
+  UPDATE_CUSTOMER_LABEL,
   UPDATE_LABEL_ITEM,
   UPDATE_STARRED_STATUS,
-} from '../../@jumbo/constants/ActionTypes';
+} from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import axios from 'axios';
 
@@ -41,7 +41,7 @@ export const getLabelsList = () => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/contact/labels')
+      .get('/customer/labels')
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -61,7 +61,7 @@ export const addNewLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/contact/labels', { label })
+      .post('/customer/labels', { label })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -81,7 +81,7 @@ export const deleteLabel = labelId => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/contact/labels/delete', { labelId })
+      .put('/customer/labels/delete', { labelId })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -101,7 +101,7 @@ export const updateLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/contact/labels', { label })
+      .put('/customer/labels', { label })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -116,17 +116,17 @@ export const updateLabel = label => {
   };
 };
 
-//for getting contacts list
-export const getContactsList = params => {
+//for getting customers list
+export const getCustomersList = params => {
   console.log(params);
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/contact', { params })
+      .get('/customer', { params })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: GET_CONTACTS_LIST, payload: data.data });
+          dispatch({ type: GET_CUSTOMERS_LIST, payload: data.data });
         } else {
           dispatch(fetchError('Something went wrong'));
         }
@@ -137,25 +137,25 @@ export const getContactsList = params => {
   };
 };
 
-export const setCurrentContact = contact => {
+export const setCurrentCustomer = customer => {
   return dispatch => {
     dispatch({
-      type: SET_CURRENT_CONTACT,
-      payload: contact,
+      type: SET_CURRENT_CUSTOMER,
+      payload: customer,
     });
   };
 };
 
-//for creating new contact
-export const createContact = contact => {
+//for creating new customer
+export const createCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/contact', { contact })
+      .post('/customer', { customer })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: CREATE_CONTACT, payload: data.data });
+          dispatch({ type: CREATE_CUSTOMER, payload: data.data });
         } else {
           dispatch(fetchError('Something went wrong'));
         }
@@ -166,16 +166,16 @@ export const createContact = contact => {
   };
 };
 
-//for updating contact through detail page
-export const onUpdateContact = contact => {
+//for updating customer through detail page
+export const onUpdateCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/contact', { contact })
+      .put('/customer', { customer })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_CONTACT, payload: contact });
+          dispatch({ type: UPDATE_CUSTOMER, payload: customer });
         } else {
           dispatch(fetchError('Something went wrong'));
         }
@@ -186,18 +186,18 @@ export const onUpdateContact = contact => {
   };
 };
 
-//for updating contacts starred status(through listing)
-export const updateStarredStatus = (contactIds, status) => {
+//for updating customers starred status(through listing)
+export const updateStarredStatus = (customerIds, status) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/contact/update-starred', { contactIds, status })
+      .put('/customer/update-starred', { customerIds, status })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
           dispatch({
             type: UPDATE_STARRED_STATUS,
-            payload: { contactIds, status },
+            payload: { customerIds, status },
           });
         } else {
           dispatch(fetchError('Something went wrong'));
@@ -210,15 +210,15 @@ export const updateStarredStatus = (contactIds, status) => {
 };
 
 //for updating mails folder(through listing)
-export const deleteContact = contactIds => {
+export const deleteCustomer = customerIds => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/contact/delete', { contactIds })
+      .put('/customer/delete', { customerIds })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: DELETE_CONTACT, payload: contactIds });
+          dispatch({ type: DELETE_CUSTOMER, payload: customerIds });
         } else {
           dispatch(fetchError('Something went wrong'));
         }
@@ -229,16 +229,16 @@ export const deleteContact = contactIds => {
   };
 };
 
-//for updating contacts label(through listing)
-export const updateContactsLabel = (contactIds, label) => {
+//for updating customers label(through listing)
+export const updateCustomersLabel = (customerIds, label) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/contact/update-label', { contactIds, label })
+      .put('/customer/update-label', { customerIds, label })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_CONTACT_LABEL, payload: data.data });
+          dispatch({ type: UPDATE_CUSTOMER_LABEL, payload: data.data });
         } else {
           dispatch(fetchError('Something went wrong'));
         }
@@ -249,14 +249,14 @@ export const updateContactsLabel = (contactIds, label) => {
   };
 };
 
-//for getting contact categories(in sidebar) count
-export const getContactCounts = () => {
+//for getting customer categories(in sidebar) count
+export const getCustomerCounts = () => {
   return dispatch => {
     axios
-      .get('/contact/counter')
+      .get('/customer/counter')
       .then(data => {
         if (data.status === 200) {
-          dispatch({ type: GET_CONTACT_COUNTS, payload: data.data });
+          dispatch({ type: GET_CUSTOMER_COUNTS, payload: data.data });
         }
       })
       .catch(error => {

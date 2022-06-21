@@ -3,7 +3,7 @@ import { List } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import ExportContacts from '../ExportContacts';
+import ExportContacts from '../ExportCustomers';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import PrintIcon from '@material-ui/icons/Print';

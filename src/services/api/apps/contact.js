@@ -33,8 +33,9 @@ mock.onGet('/contact').reply(config => {
   if (searchText) {
     folderContacts = contactsList.filter(
       contact =>
-        contact.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        contact.phones.map(item => item.phone).includes(searchText),
+        contact.fullName.toLowerCase().includes(searchText.toLowerCase()) ||
+        contact.email_address.toLowerCase().includes(searchText.toLowerCase()) ||
+        contact.phone.includes(searchText),
     );
   }
   if (selectedFolder) {
@@ -45,10 +46,6 @@ mock.onGet('/contact').reply(config => {
     } else {
       folderContacts = contactsList.filter(contact => contact.folder === selectedFolder);
     }
-  }
-
-  if (selectedLabel) {
-    folderContacts = contactsList.filter(contact => contact.labels.includes(selectedLabel));
   }
 
   const total = folderContacts.length;

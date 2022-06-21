@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch } from 'react-redux';
 import { deleteContact, updateContactsLabel, updateStarredStatus } from '../../../../../../../redux/actions/ContactApp';
 import PropTypes from 'prop-types';
-import ExportContacts from '../../../ExportContacts';
+import ExportContacts from '../../../ExportCustomers';
 import PrintIcon from '@material-ui/icons/Print';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';

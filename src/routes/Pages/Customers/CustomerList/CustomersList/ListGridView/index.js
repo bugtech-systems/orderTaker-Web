@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import CmtGridView from '../../../../../../@coremat/CmtGridView';
-import ContactCell from './ContactCell';
+import ContactCell from './CustomerCell';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 

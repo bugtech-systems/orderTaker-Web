@@ -12,7 +12,7 @@ import {
   LocalAtm,
   SupervisedUserCircle,
   Settings,
-  SettingsInputSvideo,
+  ContactPhone,
 } from '@material-ui/icons';
 
 const storeMenus = {
@@ -124,6 +124,12 @@ export const sidebarNavs = [
         icon: <Category />,
         type: 'item',
         link: '/inventory',
+      },
+      {
+        name: <IntlMessages id={'sidebar.customers'} />,
+        icon: <ContactPhone />,
+        type: 'item',
+        link: '/customers',
       },
       {
         name: <IntlMessages id={'sidebar.report'} />,

@@ -29,27 +29,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DuplicateContactsMsg = ({ contactsList, toggleDuplicateMsgShow }) => {
-  const duplicateContacts = [];
+const DuplicateCustomersMsg = ({ customersList, toggleDuplicateMsgShow }) => {
+  const duplicateCustomers = [];
   const classes = useStyles();
 
-  contactsList.reduce((res, itm) => {
+  customersList.reduce((res, itm) => {
     let result =
       res.length > 0 &&
       res.find(item => {
-        const itemPhones = item.phones.map(contacts => contacts.phone);
-        const itmPhones = itm.phones.map(contacts => contacts.phone);
+        const itemPhones = item.phones.map(customers => customers.phone);
+        const itmPhones = itm.phones.map(customers => customers.phone);
         return itemPhones.some(item => itmPhones.includes(item));
       });
     if (!result) {
       res.push(itm);
     } else {
-      duplicateContacts.push(itm);
+      duplicateCustomers.push(itm);
     }
     return res;
   }, []);
 
-  const length = duplicateContacts.length;
+  const length = duplicateCustomers.length;
 
   return (
     <React.Fragment>
@@ -61,9 +61,9 @@ const DuplicateContactsMsg = ({ contactsList, toggleDuplicateMsgShow }) => {
             </Box>
             <Box fontSize={14} component="p">
               {length > 2
-                ? `${duplicateContacts[0].name}, ${duplicateContacts[1].name} and ${length -
-                    2} more duplicate contacts found`
-                : `${length} duplicate contact(s) found`}
+                ? `${duplicateCustomers[0].fullName}, ${duplicateCustomers[1].fullName} and ${length -
+                    2} more duplicate customers found`
+                : `${length} duplicate customer(s) found`}
             </Box>
           </Box>
           <Box ml="auto" display="flex" alignItems="center">
@@ -84,4 +84,4 @@ const DuplicateContactsMsg = ({ contactsList, toggleDuplicateMsgShow }) => {
   );
 };
 
-export default DuplicateContactsMsg;
+export default DuplicateCustomersMsg;

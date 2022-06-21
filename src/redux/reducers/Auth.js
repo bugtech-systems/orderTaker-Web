@@ -1,11 +1,10 @@
-import {LOGIN, SET_USER, LOGOUT, SET_BUSINESS} from "../actions/types";
-import {
-  SEND_FORGET_PASSWORD_EMAIL,
-  UPDATE_AUTH_USER,
-  UPDATE_LOAD_USER
-} from "../../@jumbo/constants/ActionTypes";
+import { LOGIN, SET_USER, LOGOUT, SET_BUSINESS } from '../actions/types';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER } from '../../@jumbo/constants/ActionTypes';
 
-const token = localStorage.getItem("idToken");
+//Dummy Data
+import { businessDetails } from '../../utils/dummyData';
+
+const token = localStorage.getItem('idToken');
 
 const INIT_STATE = {
   authUser: null,
@@ -13,57 +12,57 @@ const INIT_STATE = {
   send_forget_password_email: false,
   isLoggedIn: token ? true : false,
   user: {},
-  business: {},
-  token: ""
+  business: businessDetails,
+  token: '',
 };
 
 export default (state = INIT_STATE, action) => {
-  const {type, payload} = action;
+  const { type, payload } = action;
 
   switch (type) {
     case UPDATE_AUTH_USER: {
       return {
         ...state,
         authUser: payload,
-        loadUser: true
+        loadUser: true,
       };
     }
 
     case UPDATE_LOAD_USER: {
       return {
         ...state,
-        loadUser: payload
+        loadUser: payload,
       };
     }
 
     case SEND_FORGET_PASSWORD_EMAIL: {
       return {
         ...state,
-        send_forget_password_email: payload
+        send_forget_password_email: payload,
       };
     }
 
     case LOGIN:
       return {
-        isLoggedIn: true
+        isLoggedIn: true,
       };
 
     case SET_USER:
       return {
         ...state,
         isLoggedIn: true,
-        user: payload
+        user: payload,
       };
     case SET_BUSINESS:
       return {
         ...state,
-        business: payload
+        business: payload,
       };
     case LOGOUT:
       return {
         ...state,
         ...INIT_STATE,
-        isLoggedIn: false
+        isLoggedIn: false,
       };
 
     default:

@@ -53,7 +53,7 @@ const ListingDashboard = () => {
         <Grid item xs={12} lg={12} xl={4} className={classes.orderLg2}>
           <RecentActivities />
         </Grid> */}
-         <Grid item xs={12} lg={12} xl={12} className={classes.orderLg1}>
+        <Grid item xs={12} lg={12} xl={12} className={classes.orderLg1}>
           <Box pb={6}>
             <PopularAgents />
           </Box>
@@ -68,7 +68,7 @@ const ListingDashboard = () => {
               <PropertiesListing />
             </Grid>
           </GridContainer>
-        </Grid> 
+        </Grid>
       </GridContainer>
     </PageContainer>
   );

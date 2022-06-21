@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LabelIcon from '@material-ui/icons/Label';
 import DoneIcon from '@material-ui/icons/Done';
 import { deleteContact, setCurrentContact, updateContactsLabel } from '../../../../../../../redux/actions/ContactApp';
-import ExportContacts from '../../../ExportContacts';
+import ExportContacts from '../../../ExportCustomers';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 

@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import IntlMessages from '../../@jumbo/utils/IntlMessages';
+import IntlMessages from '../../../utils/IntlMessages';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Box } from '@material-ui/core';
-import { AuhMethods } from '../../services/auth';
-import ContentLoader from '../../@jumbo/components/ContentLoader';
+import ContentLoader from '../../ContentLoader';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import CmtImage from '../../@coremat/CmtImage';
+import CmtImage from '../../../../@coremat/CmtImage';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { CurrentAuthMethod } from '../../@jumbo/constants/AppConstants';
+import { CurrentAuthMethod } from '../../../constants/AppConstants';
 import { NavLink } from 'react-router-dom';
 import AuthWrapper from './AuthWrapper';
 
 //Redux
-import { login } from '../../redux/actions/Auth';
+import { login } from '../../../../redux/actions/Auth';
 
 const useStyles = makeStyles(theme => ({
   authThumb: {
@@ -71,7 +70,7 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
   };
 
   const onSubmit = () => {
-    dispatch(AuhMethods[method].onLogin(values));
+    dispatch(login(values));
   };
 
   return (
@@ -130,12 +129,12 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
             <Button onClick={onSubmit} variant="contained" color="primary">
               <IntlMessages id="appModule.signIn" />
             </Button>
-            {/* 
+
             <Box component="p" fontSize={{ xs: 12, sm: 16 }}>
               <NavLink to="/signup">
                 <IntlMessages id="signIn.signUp" />
               </NavLink>
-            </Box> */}
+            </Box>
           </Box>
         </form>
 

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
-import { setCurrentContact, updateStarredStatus } from '../../../../../redux/actions/ContactApp';
+import { setCurrentCustomer, updateStarredStatus } from '../../../../../redux/actions/Customer';
 import { useDispatch, useSelector } from 'react-redux';
 import CmtList from '../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,7 +15,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
-import MoreOptions from '../ContactsList/ListTableView/ContactCellOptions/MoreOptions';
+import MoreOptions from '../CustomersList/ListTableView/CustomerCellOptions/MoreOptions';
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -62,24 +62,24 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
   },
 }));
-const ContactDetail = ({ open, handleDialog }) => {
+const CustomerDetail = ({ open, handleDialog }) => {
   const classes = useStyles();
-  const { currentContact } = useSelector(({ contactApp }) => contactApp);
+  const { currentCustomer } = useSelector(({ customer }) => customer);
   const dispatch = useDispatch();
 
   const onClickStarredIcon = status => {
-    dispatch(updateStarredStatus([currentContact.id], status));
-    dispatch(setCurrentContact({ ...currentContact, starred: status }));
+    dispatch(updateStarredStatus([currentCustomer.id], status));
+    dispatch(setCurrentCustomer({ ...currentCustomer, starred: status }));
   };
 
-  const { name, email, phones, company, designation, profile_pic, starred } = currentContact;
+  const { name, email_address, phones, company, designation, dpUrl, starred } = currentCustomer;
 
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
         <Box mr={3} display="flex" alignItems="center">
           <Box className={classes.avatarView} mr={{ xs: 4, md: 6 }}>
-            <CmtAvatar size={70} src={profile_pic} alt={name} />
+            <CmtAvatar size={70} src={dpUrl} alt={name} />
           </Box>
 
           <Box mt={-2}>
@@ -104,7 +104,7 @@ const ContactDetail = ({ open, handleDialog }) => {
         </Box>
         <Box ml="auto" mt={-2} display="flex" alignItems="center">
           <Box ml={1}>
-            <MoreOptions contact={currentContact} isFromDetailPage={true} isDetailView={true} />
+            <MoreOptions contact={currentCustomer} isFromDetailPage={true} isDetailView={true} />
           </Box>
           <Box ml={1}>
             <IconButton onClick={handleDialog}>
@@ -115,12 +115,12 @@ const ContactDetail = ({ open, handleDialog }) => {
       </Box>
       <Box px={6} py={5}>
         <Box mb={5} component="p" color="common.dark">
-          Contact Detail
+          Customer Detail
         </Box>
         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <EmailIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
-            {email}
+            {email_address}
           </Box>
         </Box>
         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
@@ -144,10 +144,10 @@ const ContactDetail = ({ open, handleDialog }) => {
   );
 };
 
-export default ContactDetail;
+export default CustomerDetail;
 
-ContactDetail.prototype = {
+CustomerDetail.prototype = {
   open: PropTypes.bool.isRequired,
   handleDialog: PropTypes.func,
-  selectedContact: PropTypes.object.isRequired,
+  selectedCustomer: PropTypes.object.isRequired,
 };

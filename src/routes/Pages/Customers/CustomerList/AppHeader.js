@@ -20,13 +20,14 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
   const handleSearchText = e => {
     dispatch(
       setFilterType({
-        selectedFolder: e.target.value ? '' : 'contacts',
+        selectedFolder: e.target.value ? '' : 'customers',
         selectedLabel: '',
         searchText: e.target.value,
       }),
     );
   };
 
+  console.log(filterType);
   return (
     <Box className={classes.inBuildAppHeader}>
       <Box className={classes.inBuildAppHeaderSidebar}>
@@ -35,13 +36,13 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <Typography className={classes.inBuildAppHeaderTitle} component="div" variant="h1">
+        {/* <Typography className={classes.inBuildAppHeaderTitle} component="div" variant="h1">
           Customers
-        </Typography>
+        </Typography> */}
       </Box>
 
       <Box className={classes.inBuildAppHeaderContent}>
-        <CmtSearch placeholder="Search Contacts..." value={searchText} onChange={handleSearchText} border={false} />
+        <CmtSearch placeholder="Search Customers..." value={searchText} onChange={handleSearchText} border={false} />
         <Box ml="auto" display="flex" alignItems="center">
           <Box ml={1}>
             <IconButton

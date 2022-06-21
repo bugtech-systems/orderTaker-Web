@@ -128,7 +128,7 @@ const ActionSideBar = ({ width }) => {
         </IconButton> */}
 
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('notifications')}>
-          <Badge badgeContent={4} classes={{ badge: classes.counterRoot }}>
+          <Badge badgeContent={4} classes={{ badge: classes.counterRoot }} overlap="rectangular">
             <NotificationsIcon />
           </Badge>
         </IconButton>

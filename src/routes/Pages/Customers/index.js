@@ -10,10 +10,7 @@ const breadcrumbs = [
 
 const Sales = () => {
   return (
-    <PageContainer
-    // heading="Customer List"
-    // breadcrumbs={breadcrumbs}
-    >
+    <PageContainer heading="Customer List" breadcrumbs={breadcrumbs}>
       <CustomerList />
     </PageContainer>
   );

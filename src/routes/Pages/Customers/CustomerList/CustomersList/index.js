@@ -4,13 +4,13 @@ import ListGridView from './ListGridView';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContactsList } from '../../../../../redux/actions/ContactApp';
 import PropTypes from 'prop-types';
-import DuplicateContactsMsg from './DuplicateContactsMsg';
+import DuplicateContactsMsg from './DuplicateCustomersMsg';
 import { Box } from '@material-ui/core';
 import useStyles from '../index.style';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { getContactContainerHeight } from '../../../../../@jumbo/constants/AppConstants';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
-import EmptyContactResult from './EmptyContactResult';
+import EmptyContactResult from './EmptyCustomerResult';
 
 const ContactsList = ({ width, viewMode, onShowContactDetail, onClickEditContact }) => {
   const { showFooter } = useContext(AppContext);

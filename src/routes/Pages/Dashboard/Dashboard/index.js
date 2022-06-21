@@ -58,7 +58,7 @@ const Dashboard = () => {
   const { business } = useSelector(({ auth }) => auth);
 
   useEffect(() => {
-    dispatch(getUserDetail());
+    // dispatch(getUserDetail());
   }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {

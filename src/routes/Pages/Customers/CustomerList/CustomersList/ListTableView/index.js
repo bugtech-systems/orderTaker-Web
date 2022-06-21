@@ -3,47 +3,47 @@ import ListHeader from './ListHeader';
 import Table from '@material-ui/core/Table';
 import { useSelector } from 'react-redux';
 import TableBody from '@material-ui/core/TableBody';
-import ContactCell from './ContactCell';
+import CustomerCell from './CustomerCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 
 const ListTableView = ({
-  checkedContacts,
+  checkedCustomers,
   handleCellCheckBox,
   handleHeaderCheckBox,
-  updateCheckedContacts,
-  onShowContactDetail,
-  onClickEditContact,
+  updateCheckedCustomers,
+  onShowCustomerDetail,
+  onClickEditCustomer,
 }) => {
-  const { contactsList } = useSelector(({ contactApp }) => contactApp);
+  const { customersList } = useSelector(({ customer }) => customer);
   return (
     <React.Fragment>
-      {checkedContacts.length > 0 && (
+      {checkedCustomers.length > 0 && (
         <CheckedListHeader
-          checkedContacts={checkedContacts}
+          checkedCustomers={checkedCustomers}
           handleHeaderCheckBox={handleHeaderCheckBox}
-          updateCheckedContacts={updateCheckedContacts}
+          updateCheckedCustomers={updateCheckedCustomers}
         />
       )}
       <Box className="Cmt-table-responsive">
         <Table>
-          {checkedContacts.length === 0 && (
+          {checkedCustomers.length === 0 && (
             <ListHeader
-              contactsList={contactsList}
-              checkedContacts={checkedContacts}
+              customersList={customersList}
+              checkedCustomers={checkedCustomers}
               handleHeaderCheckBox={handleHeaderCheckBox}
             />
           )}
           <TableBody>
-            {contactsList.map((contact, index) => (
-              <ContactCell
+            {customersList.map((customer, index) => (
+              <CustomerCell
                 key={index}
-                contact={contact}
-                checkedContacts={checkedContacts}
+                customer={customer}
+                checkedCustomers={checkedCustomers}
                 handleCellCheckBox={handleCellCheckBox}
-                onShowContactDetail={onShowContactDetail}
-                onClickEditContact={onClickEditContact}
+                onShowCustomerDetail={onShowCustomerDetail}
+                onClickEditCustomer={onClickEditCustomer}
               />
             ))}
           </TableBody>
@@ -56,14 +56,14 @@ const ListTableView = ({
 export default ListTableView;
 
 ListTableView.prototype = {
-  checkedContacts: PropTypes.array,
+  checkedCustomers: PropTypes.array,
   handleCellCheckBox: PropTypes.func,
   handleHeaderCheckBox: PropTypes.func,
-  updateCheckedContacts: PropTypes.func,
-  onShowContactDetail: PropTypes.func,
-  onClickEditContact: PropTypes.func,
+  updateCheckedCustomers: PropTypes.func,
+  onShowCustomerDetail: PropTypes.func,
+  onClickEditCustomer: PropTypes.func,
 };
 
 ListTableView.defaultProps = {
-  checkedContacts: [],
+  checkedCustomers: [],
 };
