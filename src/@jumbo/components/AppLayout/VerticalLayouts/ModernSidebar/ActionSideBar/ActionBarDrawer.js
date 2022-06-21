@@ -64,28 +64,28 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
             <CloseIcon />
           </IconButton>
 
-          <IconButton
+          {/* <IconButton
             className={clsx(classes.iconBtn, {
               active: activeOption === 'search',
             })}
             onClick={() => onIconClick('search')}>
             <SearchIcon />
-          </IconButton>
-
+          </IconButton> */}
+          {/* 
           <IconButton
             className={clsx(classes.iconBtn, {
               active: activeOption === 'messages',
             })}
             onClick={() => onIconClick('messages')}>
             <MessageIcon />
-          </IconButton>
+          </IconButton> */}
 
           <IconButton
             className={clsx(classes.iconBtn, {
               active: activeOption === 'notifications',
             })}
             onClick={() => onIconClick('notifications')}>
-            <Badge badgeContent={4} classes={{ badge: classes.counterRoot }}>
+            <Badge badgeContent={4} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <NotificationsIcon />
             </Badge>
           </IconButton>

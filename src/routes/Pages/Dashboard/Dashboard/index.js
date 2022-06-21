@@ -7,8 +7,6 @@ import SidebarButtons from '../../../../@jumbo/components/AppLayout/partials/Sid
 import Divider from '@material-ui/core/Divider';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-
-
 //Components
 import BitcoinPurchaseHistory from './BitcoinPurchaseHistory';
 import RipplePurchaseHistory from './RipplePurchaseHistory';
@@ -20,7 +18,11 @@ import RecentPayments from './RecentPayments';
 import OrderHistory from './OrderHistory';
 import PopularCustomers from './PopularCustomers';
 import Header from './Header';
-
+import LastMonthSale from './LastMonthSale';
+import OnlineSignups from './OnlineSignups';
+import TotalEmailSent from './TotalEmailSent';
+import TotalRevenue from './TotalRevenue';
+import SalesStatistic from './SalesStatistic';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,34 +57,50 @@ const Dashboard = () => {
   const [tabValue, setTabValue] = useState('about');
   const { business } = useSelector(({ auth }) => auth);
 
-
   useEffect(() => {
-    dispatch(getUserDetail());
+    // dispatch(getUserDetail());
   }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
 
-
-  console.log(business)
+  console.log(business);
 
   return (
-    <PageContainer 
-    // heading={"Dashboard"} 
+    <PageContainer
+    // heading={"Dashboard"}
     // breadcrumbs={breadcrumbs}
     >
-
+      {business && (
+        <Header
+          classes={classes}
+          businessDetails={business}
+          tabValue={tabValue}
+          handleTabChange={handleTabChange}
+          heading={'Dashboard'}
+          breadcrumbs={breadcrumbs}
+        />
+      )}
+      <br />
       <GridContainer>
-      <Grid item xs={12} sm={12} md={12}>
-      {business && <Header classes={classes} businessDetails={business} 
-          tabValue={tabValue} handleTabChange={handleTabChange} 
-              heading={"Dashboard"} 
-               breadcrumbs={breadcrumbs}
-          />}
+        <Grid item xs={12} sm={12} md={12} />
+        <Grid item xs={12} sm={6} md={3}>
+          <OnlineSignups />
         </Grid>
-   
-      <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
+          <LastMonthSale />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <TotalRevenue />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <TotalEmailSent />
+        </Grid>
+        <Grid item xs={12}>
+          <SalesStatistic />
+        </Grid>
+        {/* <Grid item xs={12} sm={6} md={3}>
           <BitcoinPurchaseHistory />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -93,7 +111,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <LitecoinPurchaseHistory />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} lg={6}>
           <PortfolioBalance />
         </Grid>
@@ -106,10 +124,10 @@ const Dashboard = () => {
         <Grid item xs={12} xl={12}>
           <RecentPayments />
         </Grid>
-         <Grid item xs={12} xl={12}>
-             <OrderHistory />
-        </Grid>
-    {/*    <Grid item xs={12} xl={12}>
+        {/* <Grid item xs={12} xl={12}>
+          <OrderHistory />
+        </Grid> */}
+        {/*    <Grid item xs={12} xl={12}>
         <CurrentPlan />
         </Grid> */}
       </GridContainer>

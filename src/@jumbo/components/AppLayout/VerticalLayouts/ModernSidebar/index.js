@@ -9,6 +9,7 @@ import CmtSidebar from '../../../../../@coremat/CmtLayouts/Vertical/Sidebar';
 import CmtContent from '../../../../../@coremat/CmtLayouts/Vertical/Content';
 
 import SideBar from '../../partials/SideBar';
+import Customizer from './Customizer';
 import ContentLoader from '../../../ContentLoader';
 import ActionSideBar from './ActionSideBar';
 import Logo from '../../partials/Logo';
@@ -45,14 +46,15 @@ const ModernSideBar = ({ children, className }) => {
       layoutOptions={layoutOptions}
       sidebar={
         <CmtSidebar actionBar={<ActionSideBar />}>
-          <Hidden mdDown>
+          {/* <Hidden mdDown>
             <Logo color={themeType !== THEME_TYPES.LIGHT ? 'white' : 'dark'} className={classes.sidebarHeader} />
-          </Hidden>
+          </Hidden> */}
           <SideBar />
         </CmtSidebar>
       }>
       <CmtContent>
         {children}
+        <Customizer />
         <ContentLoader />
       </CmtContent>
     </CmtVerticalLayout>

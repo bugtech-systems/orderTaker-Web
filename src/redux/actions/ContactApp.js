@@ -118,6 +118,7 @@ export const updateLabel = label => {
 
 //for getting contacts list
 export const getContactsList = params => {
+  console.log(params);
   return dispatch => {
     dispatch(fetchStart());
     axios

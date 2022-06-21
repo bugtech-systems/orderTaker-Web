@@ -83,6 +83,7 @@ const MainHeader = () => {
         <SearchPopover iconClassName={clsx(classes.searchIcon, 'Cmt-searchIcon')} />
         <AppsMenu />
         <HeaderMessages />
+
         <HeaderNotifications />
         <Box className={clsx(classes.langRoot, 'Cmt-i18n-switch')}>
           <LanguageSwitcher />

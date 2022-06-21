@@ -124,10 +124,10 @@ const SidebarButtons = () => {
         <ListItem
           key={index}
           alignItems="flex-start"
-          // button
-          // component="a"
-          // href={button.link}
-          // target="_blank"
+          button
+          component="a"
+          href={button.link}
+          target="_blank"
           style={{
             backgroundColor: button.backgroundColor,
             color: button.title.color,

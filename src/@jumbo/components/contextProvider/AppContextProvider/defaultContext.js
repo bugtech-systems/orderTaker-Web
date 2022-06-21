@@ -17,7 +17,7 @@ export default {
     name: 'English',
     icon: 'us',
   },
-  layout: LAYOUT_TYPES.VERTICAL_DEFAULT,
+  layout: LAYOUT_TYPES.VERTICAL_MODERN_SIDEBAR,
   layoutType: LAYOUT_STYLES.FULL_WIDTH,
   themeType: THEME_TYPES.LIGHT,
   drawerBreakPoint: DRAWER_BREAK_POINT.MD,

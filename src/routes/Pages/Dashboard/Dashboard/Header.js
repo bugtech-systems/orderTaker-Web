@@ -10,8 +10,6 @@ import { alpha } from '@material-ui/core/styles';
 import CmtImage from '../../../../@coremat/CmtImage';
 import { PageBreadcrumbs, PageHeader } from '../../../../@jumbo/components/PageComponents/index';
 
-
-
 const tabs = [
   { id: 1, title: 'Timeline', slug: 'timeline' },
   { id: 2, title: 'About', slug: 'about' },
@@ -76,6 +74,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   headerContent: {
+    color: theme.palette.common.white,
     position: 'relative',
     zIndex: 3,
   },
@@ -137,25 +136,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = ({ businessDetails, tabValue, handleTabChange, breadcrumbs, heading }) => {
-  const { name, dpUrl, address, users, products, customers } = businessDetails;
+  const { name, description, productCount, customerCount, userCount, address, dpUrl } = businessDetails;
   const classes = useStyles();
 
   return (
     <Box className={classes.headerRoot}>
-       
       <Box className={classes.headerBgImg}>
         <CmtImage src={'/images/profile-bg-img.png'} />
       </Box>
-   
+
       <Box className={classes.headerContent}>
-       {(heading || breadcrumbs) && (
-       <PageHeader heading={heading} breadcrumbComponent={breadcrumbs && <PageBreadcrumbs items={breadcrumbs} />} />
-        )} 
+        {(heading || breadcrumbs) && (
+          <PageHeader heading={heading} breadcrumbComponent={breadcrumbs && <PageBreadcrumbs items={breadcrumbs} />} />
+        )}
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" mb={4}>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center">
-            <Box mr={{ sm: 4, md: 5, lg: 6 }} mb={{ xs: 3, sm: 0 }}>
+            {/* <Box mr={{ sm: 4, md: 5, lg: 6 }} mb={{ xs: 3, sm: 0 }}>
               <CmtAvatar size={80} src={dpUrl} alt={name} />
-            </Box>
+            </Box> */}
             <Box>
               <Typography className={classes.titleRoot} component="div" variant="h1">
                 {name}
@@ -167,19 +165,19 @@ const Header = ({ businessDetails, tabValue, handleTabChange, breadcrumbs, headi
             <Box className={classes.followerList}>
               <Box className={classes.followerListItem}>
                 <Typography className={classes.followerListTitle} component="div" variant="h3">
-                  {products.length > 1000 ? '1k+' : products.length}{' '}
+                  {productCount > 1000 ? '1k+' : productCount}{' '}
                 </Typography>
                 <Box component="p">Products</Box>
               </Box>
               <Box className={classes.followerListItem}>
                 <Typography className={classes.followerListTitle} component="div" variant="h3">
-                  {customers.length}{' '}
+                  {customerCount}{' '}
                 </Typography>
                 <Box component="p">Customers</Box>
               </Box>
               <Box className={classes.followerListItem}>
                 <Typography className={classes.followerListTitle} component="div" variant="h3">
-                  {users.length}{' '}
+                  {userCount}{' '}
                 </Typography>
                 <Box component="p">Users</Box>
               </Box>
