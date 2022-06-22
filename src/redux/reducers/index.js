@@ -19,6 +19,6 @@ export default history =>
     usersReducer: Users,
     dataReducer: Data,
     crud: Crud,
-    contactApp: ContactApp,
-    customer: Customer,
+    // contactApp: ContactApp,
+    customerApp: Customer,
   });

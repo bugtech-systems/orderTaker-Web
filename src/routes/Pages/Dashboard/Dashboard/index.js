@@ -47,8 +47,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const breadcrumbs = [
-  { label: <TextDisplay name="Store" />, link: '/' },
-  { label: <TextDisplay name="Dashboard" />, isActive: true },
+  // { label: <TextDisplay name="Store" />, link: '/' },
+  // { label: <TextDisplay name="Dashboard" />, isActive: true },
 ];
 
 const Dashboard = () => {
@@ -69,10 +69,10 @@ const Dashboard = () => {
 
   return (
     <PageContainer
-    // heading={"Dashboard"}
-    // breadcrumbs={breadcrumbs}
+      heading={'Dashboard'}
+      // breadcrumbs={breadcrumbs}
     >
-      {business && (
+      {/* {business && (
         <Header
           classes={classes}
           businessDetails={business}
@@ -82,7 +82,7 @@ const Dashboard = () => {
           breadcrumbs={breadcrumbs}
         />
       )}
-      <br />
+      <br /> */}
       <GridContainer>
         <Grid item xs={12} sm={12} md={12} />
         <Grid item xs={12} sm={6} md={3}>

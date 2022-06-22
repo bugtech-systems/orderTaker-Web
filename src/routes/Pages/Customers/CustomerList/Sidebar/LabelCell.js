@@ -10,14 +10,14 @@ import PropTypes from 'prop-types';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { deleteLabel } from '../../../../../redux/actions/ContactApp';
+import { deleteLabel } from '../../../../../redux/actions/Customer';
 import LabelForm from '../../../../../@jumbo/components/Common/LabelForm';
-import { updateLabel } from '../../../../../redux/actions/ContactApp';
+import { updateLabel } from '../../../../../redux/actions/Customer';
 
 const LabelCell = ({ classes, item, selectedItem, onChange }) => {
   const [isEdit, setEdit] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { counter } = useSelector(({ contactApp }) => contactApp);
+  const { counter } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
   const [anchorEditEl, setAnchorEditEl] = useState(null);
   const labelRef = useRef(null);

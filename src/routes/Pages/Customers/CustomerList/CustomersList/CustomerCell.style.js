@@ -39,9 +39,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   tableCellAction: {
-    minWidth: 150,
+    width: 150,
   },
-  gridContactCell: {
+  gridCustomerCell: {
     border: `1px solid ${theme.palette.borderColor.main}`,
     borderRadius: 4,
     margin: 6,
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
       },
     },
   },
-  gridContactCellHeader: {
+  gridCustomerCellHeader: {
     display: 'flex',
     flexDirection: 'column',
     [theme.breakpoints.up('sm')]: {

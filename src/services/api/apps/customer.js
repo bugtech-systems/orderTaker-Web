@@ -3,7 +3,10 @@ import { idGenerator } from '../../../@jumbo/utils/commonHelper';
 import { customers, foldersList, labelsList } from '../../../@fake-db/modules/customers';
 
 let labels = labelsList;
-let customersList = customers;
+let customersList = customers.map(a => {
+  a.unpaid = a.balance !== 0;
+  return a;
+});
 
 mock.onGet('/customer/labels').reply(200, labelsList);
 
@@ -33,19 +36,22 @@ mock.onGet('/customer').reply(config => {
   if (searchText) {
     folderCustomers = customersList.filter(
       customer =>
-        customer.fullName.toLowerCase().includes(searchText.toLowerCase()) ||
-        customer.email_address.toLowerCase().includes(searchText.toLowerCase()) ||
-        customer.phone.includes(searchText),
+        customer.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        customer.phones.map(item => item.phone).includes(searchText),
     );
   }
   if (selectedFolder) {
     if (selectedFolder === 'starred') {
       folderCustomers = customersList.filter(customer => customer.starred);
     } else if (selectedFolder === 'unpaid') {
-      folderCustomers = customersList.filter(customer => customer.unpaid);
+      folderCustomers = customersList.filter(customer => customer.balance !== 0);
     } else {
       folderCustomers = customersList.filter(customer => customer.folder === selectedFolder);
     }
+  }
+
+  if (selectedLabel) {
+    folderCustomers = customersList.filter(customer => customer.labels.includes(selectedLabel));
   }
 
   const total = folderCustomers.length;
@@ -102,7 +108,6 @@ mock.onPost('/customer').reply(request => {
   const { customer } = JSON.parse(request.data);
   const newCustomer = {
     id: idGenerator(),
-    unpaid: false,
     starred: false,
     labels: [],
     folder: 'customers',
@@ -124,7 +129,7 @@ mock.onGet('/customer/counter').reply(config => {
     if (item.slug === 'starred') {
       counter.folders[item.id] = customersList.filter(customer => customer.starred).length;
     } else if (item.slug === 'unpaid') {
-      counter.folders[item.id] = customersList.filter(customer => customer.unpaid).length;
+      counter.folders[item.id] = customersList.filter(customer => customer.balance !== 0).length;
     } else {
       counter.folders[item.id] = customersList.filter(customer => customer.folder === item.slug).length;
     }

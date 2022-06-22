@@ -85,6 +85,17 @@ export const getContactContainerHeight = (width, visibleAppFooter) => {
   }
 };
 
+export const getCustomerContainerHeight = (width, visibleAppFooter) => {
+  switch (width) {
+    case 'xs':
+      return AppHeaderHeightSm + AppMainContentPadding + InBuildAppHeaderHeight + (visibleAppFooter ? AppFooterHeightSm : 0);
+    case 'sm':
+      return AppHeaderHeightSm + AppMainContentPadding + InBuildAppHeaderHeight + (visibleAppFooter ? AppFooterHeightSm : 0);
+    default:
+      return AppHeaderHeight + AppMainContentPadding + InBuildAppHeaderHeight + (visibleAppFooter ? AppFooterHeight : 0);
+  }
+};
+
 export const getTaskListSidebarHeight = (width, visibleAppFooter) => {
   switch (width) {
     case 'xs':

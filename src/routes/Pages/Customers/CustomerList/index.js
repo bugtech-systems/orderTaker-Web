@@ -12,7 +12,7 @@ import { setCurrentCustomer } from '../../../../redux/actions/Customer';
 
 const Customer = () => {
   const classes = useStyles();
-  const { isSideBarCollapsed } = useSelector(({ customer }) => customer);
+  const { isSideBarCollapsed } = useSelector(({ customerApp }) => customerApp);
   const [viewMode, setViewMode] = useState('table');
   const [showCustomerDetail, setShowCustomerDetail] = useState(false);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import CmtGridView from '../../../../../../@coremat/CmtGridView';
-import ContactCell from './CustomerCell';
+import CustomerCell from './CustomerCell';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 
-const ListGridView = ({ onShowContactDetail, onClickEditContact }) => {
-  const { contactsList } = useSelector(({ contactApp }) => contactApp);
+const ListGridView = ({ onShowCustomerDetail, onClickEditCustomer }) => {
+  const { customersList } = useSelector(({ customerApp }) => customerApp);
 
   return (
     <Box px={6} py={{ xs: 8, xl: 10 }}>
@@ -20,13 +20,13 @@ const ListGridView = ({ onShowContactDetail, onClickEditContact }) => {
           lg: 2,
           xl: 3,
         }}
-        data={contactsList}
+        data={customersList}
         renderRow={(item, index) => (
-          <ContactCell
+          <CustomerCell
             key={index}
-            contact={item}
-            onShowContactDetail={onShowContactDetail}
-            onClickEditContact={onClickEditContact}
+            customer={item}
+            onShowCustomerDetail={onShowCustomerDetail}
+            onClickEditCustomer={onClickEditCustomer}
           />
         )}
       />
@@ -37,6 +37,6 @@ const ListGridView = ({ onShowContactDetail, onClickEditContact }) => {
 export default ListGridView;
 
 ListGridView.prototype = {
-  onShowContactDetail: PropTypes.func,
-  onClickEditContact: PropTypes.func,
+  onShowCustomerDetail: PropTypes.func,
+  onClickEditCustomer: PropTypes.func,
 };

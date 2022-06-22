@@ -23,9 +23,9 @@ const INIT_STATE = {
     selectedLabel: '',
     searchText: '',
   },
-  contactsList: [],
-  currentContact: null,
-  totalContacts: null,
+  customersList: [],
+  currentCustomer: null,
+  totalCustomers: null,
   counter: null,
 };
 
@@ -73,83 +73,84 @@ export default (state = INIT_STATE, action) => {
     case GET_CUSTOMERS_LIST: {
       return {
         ...state,
-        contactsList: action.payload.folderContacts,
-        totalContacts: action.payload.total,
+        customersList: action.payload.folderCustomers,
+        totalCustomers: action.payload.total,
       };
     }
 
     case SET_CURRENT_CUSTOMER: {
       return {
         ...state,
-        currentContact: action.payload,
+        currentCustomer: action.payload,
       };
     }
 
     case CREATE_CUSTOMER: {
-      let updatedList = state.contactsList;
-      let updatedCount = state.totalContacts;
-      if (state.filterType.selectedFolder === 'contacts') {
+      let updatedList = state.customersList;
+      let updatedCount = state.totalCustomers;
+      if (state.filterType.selectedFolder === 'customers') {
         updatedList = [action.payload, ...updatedList];
         updatedCount = updatedCount + 1;
       }
       return {
         ...state,
-        contactsList: updatedList,
-        totalContacts: updatedCount,
+        customersList: updatedList,
+        totalCustomers: updatedCount,
       };
     }
 
     case UPDATE_CUSTOMER: {
       return {
         ...state,
-        contactsList: state.contactsList.map(item => (item.id === action.payload.id ? action.payload : item)),
+        customersList: state.customersList.map(item => (item.id === action.payload.id ? action.payload : item)),
       };
     }
 
     case UPDATE_STARRED_STATUS: {
-      const { contactIds, status } = action.payload;
-      let updatedList = state.contactsList.map(contact => {
-        if (contactIds.includes(contact.id)) {
-          contact.starred = status;
-          return contact;
+      const { customerIds, status } = action.payload;
+      let updatedList = state.customersList.map(customer => {
+        if (customerIds.includes(customer.id)) {
+          customer.starred = status;
+          return customer;
         }
-        return contact;
+        return customer;
       });
       if (!status && state.filterType.selectedFolder === 'starred') {
-        updatedList = updatedList.filter(item => !contactIds.includes(item.id));
+        updatedList = updatedList.filter(item => !customerIds.includes(item.id));
       }
       return {
         ...state,
-        contactsList: updatedList,
+        customersList: updatedList,
       };
     }
 
     case DELETE_CUSTOMER: {
-      let updatedList = state.contactsList;
-      let updatedCount = state.totalContacts;
+      let updatedList = state.customersList;
+      let updatedCount = state.totalCustomers;
       if (state.filterType.selectedFolder !== 'trash') {
-        updatedList = updatedList.filter(contact => !action.payload.includes(contact.id));
+        updatedList = updatedList.filter(customer => !action.payload.includes(customer.id));
         updatedCount = updatedCount - action.payload.length;
       }
       return {
         ...state,
-        contactsList: updatedList,
-        totalContacts: updatedCount,
+        customersList: updatedList,
+        totalCustomers: updatedCount,
       };
     }
 
     case UPDATE_CUSTOMER_LABEL: {
-      let contactIds = action.payload.map(contact => contact.id);
-      const updatedList = state.contactsList.map(mail => {
-        if (contactIds.includes(mail.id)) {
-          return action.payload.find(selectedContact => selectedContact.id === mail.id);
+      let customerIds = action.payload.map(customer => customer.id);
+      console.log(customerIds);
+      const updatedList = state.customersList.map(mail => {
+        if (customerIds.includes(mail.id)) {
+          return action.payload.find(selectedCustomer => selectedCustomer.id === mail.id);
         } else {
           return mail;
         }
       });
       return {
         ...state,
-        contactsList: updatedList,
+        customersList: updatedList,
       };
     }
 

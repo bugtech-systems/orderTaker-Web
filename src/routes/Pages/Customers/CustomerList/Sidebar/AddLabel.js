@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import useStyles from './AddLabel.style';
-import { addNewLabel } from '../../../../../redux/actions/ContactApp';
+import { addNewLabel } from '../../../../../redux/actions/Customer';
 import LabelForm from '../../../../../@jumbo/components/Common/LabelForm';
 
 const AddLabel = () => {

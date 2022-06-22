@@ -118,7 +118,6 @@ export const updateLabel = label => {
 
 //for getting customers list
 export const getCustomersList = params => {
-  console.log(params);
   return dispatch => {
     dispatch(fetchStart());
     axios
@@ -231,6 +230,7 @@ export const deleteCustomer = customerIds => {
 
 //for updating customers label(through listing)
 export const updateCustomersLabel = (customerIds, label) => {
+  console.log('Wawa');
   return dispatch => {
     dispatch(fetchStart());
     axios
@@ -244,6 +244,7 @@ export const updateCustomersLabel = (customerIds, label) => {
         }
       })
       .catch(error => {
+        console.log(error);
         dispatch(fetchError('Something went wrong'));
       });
   };

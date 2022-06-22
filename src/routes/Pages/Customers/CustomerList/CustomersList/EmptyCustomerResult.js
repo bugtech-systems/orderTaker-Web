@@ -23,18 +23,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EmptyContactResult = () => {
+const EmptyCustomerResult = () => {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
       <Box mb={{ xs: 4, lg: 6 }}>
-        <CmtImage src={'/images/icons/search-contact.png'} alt="Empty contacts" />
+        <CmtImage src={'/images/icons/search-contact.png'} alt="Empty customer" />
       </Box>
       <Box className={classes.emptyTitle} component="p">
-        No contacts found
+        No customers found
       </Box>
     </Box>
   );
 };
 
-export default EmptyContactResult;
+export default EmptyCustomerResult;

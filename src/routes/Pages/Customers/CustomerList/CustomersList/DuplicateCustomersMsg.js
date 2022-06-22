@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
 const DuplicateCustomersMsg = ({ customersList, toggleDuplicateMsgShow }) => {
   const duplicateCustomers = [];
   const classes = useStyles();
-
   customersList.reduce((res, itm) => {
     let result =
       res.length > 0 &&
@@ -61,7 +60,7 @@ const DuplicateCustomersMsg = ({ customersList, toggleDuplicateMsgShow }) => {
             </Box>
             <Box fontSize={14} component="p">
               {length > 2
-                ? `${duplicateCustomers[0].fullName}, ${duplicateCustomers[1].fullName} and ${length -
+                ? `${duplicateCustomers[0].name}, ${duplicateCustomers[1].name} and ${length -
                     2} more duplicate customers found`
                 : `${length} duplicate customer(s) found`}
             </Box>

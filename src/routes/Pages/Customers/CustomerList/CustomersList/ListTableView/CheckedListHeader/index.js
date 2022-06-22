@@ -12,53 +12,53 @@ const selectCategories = [
   { id: 12, label: 'None', slug: 'none' },
   { id: 344, label: 'All', slug: 'all' },
   { id: 11, label: 'Starred', slug: 'starred' },
-  { id: 1, label: 'Frequent', slug: 'frequent' },
+  { id: 1, label: 'Unpaid', slug: 'unpaid' },
 ];
 
-const onSelectContacts = (category, contacts) => {
-  let selectContacts = [];
+const onSelectCustomers = (category, customers) => {
+  let selectCustomers = [];
   switch (category) {
     case 'all': {
-      selectContacts = contacts;
+      selectCustomers = customers;
       break;
     }
     case 'starred': {
-      selectContacts = contacts.filter(contact => contact.starred);
+      selectCustomers = customers.filter(customer => customer.starred);
       break;
     }
-    case 'frequent': {
-      selectContacts = contacts.filter(contact => contact.frequent);
+    case 'unpaid': {
+      selectCustomers = customers.filter(customer => customer.unpaid);
       break;
     }
     default:
   }
 
-  return selectContacts.map(contact => contact.id);
+  return selectCustomers.map(customer => customer.id);
 };
 
-const CheckedListHeader = ({ checkedContacts, handleHeaderCheckBox, updateCheckedContacts }) => {
+const CheckedListHeader = ({ checkedCustomers, handleHeaderCheckBox, updateCheckedCustomers }) => {
   const [category, setCategory] = useState(selectCategories[0].slug);
   const classes = useStyles();
 
-  const { contactsList, labelsList } = useSelector(({ contactApp }) => contactApp);
+  const { customersList, labelsList } = useSelector(({ customerApp }) => customerApp);
 
   const handleSelectChange = e => {
     setCategory(e.target.value);
-    const selectContacts = onSelectContacts(e.target.value, contactsList);
-    updateCheckedContacts(selectContacts);
+    const selectCustomers = onSelectCustomers(e.target.value, customersList);
+    updateCheckedCustomers(selectCustomers);
   };
 
   return (
     <Box className={classes.appContentHeader}>
       <Checkbox
         color="primary"
-        indeterminate={checkedContacts.length > 0 && checkedContacts.length < contactsList.length}
-        checked={checkedContacts.length > 0 && checkedContacts.length === contactsList.length}
-        onChange={e => handleHeaderCheckBox(e.target.checked, contactsList)}
+        indeterminate={checkedCustomers.length > 0 && checkedCustomers.length < customersList.length}
+        checked={checkedCustomers.length > 0 && checkedCustomers.length === customersList.length}
+        onChange={e => handleHeaderCheckBox(e.target.checked, customersList)}
       />
 
       <AppSelectBox
-        id="contact-app"
+        id="customer-app"
         data={selectCategories}
         value={category}
         fullWidth={false}
@@ -73,10 +73,10 @@ const CheckedListHeader = ({ checkedContacts, handleHeaderCheckBox, updateChecke
 
       <Box ml="auto" display="flex" alignItems="center">
         <HeaderOptions
-          checkedContacts={checkedContacts}
-          contactsList={contactsList}
+          checkedCustomers={checkedCustomers}
+          customersList={customersList}
           labelsList={labelsList}
-          updateCheckedContacts={updateCheckedContacts}
+          updateCheckedCustomers={updateCheckedCustomers}
         />
       </Box>
     </Box>
@@ -86,7 +86,7 @@ const CheckedListHeader = ({ checkedContacts, handleHeaderCheckBox, updateChecke
 export default CheckedListHeader;
 
 CheckedListHeader.prototype = {
-  checkedContacts: PropTypes.array.isRequired,
+  checkedCustomers: PropTypes.array.isRequired,
   handleHeaderCheckBox: PropTypes.func,
-  updateCheckedContacts: PropTypes.func,
+  updateCheckedCustomers: PropTypes.func,
 };

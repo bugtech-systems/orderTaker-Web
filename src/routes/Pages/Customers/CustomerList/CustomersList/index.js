@@ -2,32 +2,32 @@ import React, { useContext, useEffect, useState } from 'react';
 import ListTableView from './ListTableView';
 import ListGridView from './ListGridView';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContactsList } from '../../../../../redux/actions/ContactApp';
+import { getCustomersList } from '../../../../../redux/actions/Customer';
 import PropTypes from 'prop-types';
-import DuplicateContactsMsg from './DuplicateCustomersMsg';
+import DuplicateCustomersMsg from './DuplicateCustomersMsg';
 import { Box } from '@material-ui/core';
 import useStyles from '../index.style';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { getContactContainerHeight } from '../../../../../@jumbo/constants/AppConstants';
+import { getCustomerContainerHeight } from '../../../../../@jumbo/constants/AppConstants';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
-import EmptyContactResult from './EmptyCustomerResult';
+import EmptyCustomerResult from './EmptyCustomerResult';
 
-const ContactsList = ({ width, viewMode, onShowContactDetail, onClickEditContact }) => {
+const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCustomer }) => {
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
-  const { filterType, contactsList } = useSelector(({ contactApp }) => contactApp);
-  const [checkedContacts, setCheckedContacts] = useState([]);
+  const { filterType, customersList } = useSelector(({ customerApp }) => customerApp);
+  const [checkedCustomers, setCheckedCustomers] = useState([]);
   const [showDuplicateMsg, setShowDuplicateMsg] = useState(true);
 
   useEffect(() => {
-    dispatch(getContactsList(filterType));
+    dispatch(getCustomersList(filterType));
   }, [filterType, dispatch]);
 
   const handleCellCheckBox = (isChecked, id) => {
     if (isChecked) {
-      setCheckedContacts(checkedContacts.concat(id));
+      setCheckedCustomers(checkedCustomers.concat(id));
     } else {
-      setCheckedContacts(checkedContacts.filter(contactId => contactId !== id));
+      setCheckedCustomers(checkedCustomers.filter(customerId => customerId !== id));
     }
   };
 
@@ -37,56 +37,56 @@ const ContactsList = ({ width, viewMode, onShowContactDetail, onClickEditContact
 
   const handleHeaderCheckBox = isChecked => {
     if (isChecked) {
-      const ids = contactsList.map(contact => contact.id);
-      updateCheckedContacts(ids);
+      const ids = customersList.map(customer => customer.id);
+      updateCheckedCustomers(ids);
     } else {
-      updateCheckedContacts([]);
+      updateCheckedCustomers([]);
     }
   };
 
-  const updateCheckedContacts = contactIds => {
-    setCheckedContacts(contactIds);
+  const updateCheckedCustomers = customerIds => {
+    setCheckedCustomers(customerIds);
   };
 
   const classes = useStyles({
-    height: getContactContainerHeight(width, showFooter),
+    height: getCustomerContainerHeight(width, showFooter),
   });
 
-  return contactsList.length > 0 ? (
+  return customersList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>
-      <PerfectScrollbar className={classes.perfectScrollbarContactCon}>
+      <PerfectScrollbar className={classes.perfectScrollbarCustomerCon}>
         {showDuplicateMsg && (
-          <DuplicateContactsMsg contactsList={contactsList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
+          <DuplicateCustomersMsg customersList={customersList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
         )}
         {viewMode === 'table' ? (
           <ListTableView
-            checkedContacts={checkedContacts}
+            checkedCustomers={checkedCustomers}
             handleCellCheckBox={handleCellCheckBox}
             handleHeaderCheckBox={handleHeaderCheckBox}
-            updateCheckedContacts={updateCheckedContacts}
-            onShowContactDetail={onShowContactDetail}
-            onClickEditContact={onClickEditContact}
+            updateCheckedCustomers={updateCheckedCustomers}
+            onShowCustomerDetail={onShowCustomerDetail}
+            onClickEditCustomer={onClickEditCustomer}
           />
         ) : (
-          <ListGridView onShowContactDetail={onShowContactDetail} onClickEditContact={onClickEditContact} />
+          <ListGridView onShowCustomerDetail={onShowCustomerDetail} onClickEditCustomer={onClickEditCustomer} />
         )}
       </PerfectScrollbar>
     </Box>
   ) : (
     <Box className={classes.inBuildAppMainContent}>
-      <EmptyContactResult />
+      <EmptyCustomerResult />
     </Box>
   );
 };
 
-export default ContactsList;
+export default CustomersList;
 
-ContactsList.prototype = {
+CustomersList.prototype = {
   viewMode: PropTypes.string,
-  onShowContactDetail: PropTypes.func,
-  onClickEditContact: PropTypes.func,
+  onShowCustomerDetail: PropTypes.func,
+  onClickEditCustomer: PropTypes.func,
 };
 
-ContactsList.defaultProps = {
+CustomersList.defaultProps = {
   viewMode: 'table',
 };
