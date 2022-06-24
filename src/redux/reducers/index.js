@@ -7,7 +7,7 @@ import ProfileApp from './ProfileApp';
 import Users from './Users';
 import Crud from './Crud';
 import Data from './Data';
-import ContactApp from './ContactApp';
+import ProductApp from './ProductApp';
 import Customer from './Customer';
 
 export default history =>
@@ -19,6 +19,6 @@ export default history =>
     usersReducer: Users,
     dataReducer: Data,
     crud: Crud,
-    // contactApp: ContactApp,
+    productApp: ProductApp,
     customerApp: Customer,
   });

@@ -26,19 +26,29 @@ export const SET_SELECTED_USER = 'SET_SELECTED_USER';
 //LABELS
 
 //CUSTOMER
+export const GET_CUSTOMERS_LIST = 'get_contacts_list';
+export const SET_CURRENT_CUSTOMER = 'set_current_contact';
+export const CREATE_CUSTOMER = 'create_contact';
+export const DELETE_CUSTOMER = 'delete_contact';
+export const UPDATE_CUSTOMER_LABEL = 'update_contact_label';
+export const UPDATE_CUSTOMER = 'update_contact';
+export const GET_CUSTOMER_COUNTS = 'get_contact_counts';
+
+//PRODUCT
+export const GET_PRODUCTS_LIST = 'get_products_list';
+export const SET_CURRENT_PRODUCT = 'set_current_product';
+export const CREATE_PRODUCT = 'create_product';
+export const DELETE_PRODUCT = 'delete_product';
+export const UPDATE_PRODUCT_LABEL = 'update_product_label';
+export const UPDATE_PRODUCT = 'update_product';
+export const GET_PRODUCT_COUNTS = 'get_product_counts';
+
 export const ADD_LABEL = 'add_label';
 export const GET_LABELS_LIST = 'get_labels_list';
 export const SET_FILTER_TYPE = 'set_filter_type';
 export const TOGGLE_SIDEBAR_COLLAPSED = 'toggle_sidebar_collapsed';
 
-export const GET_CUSTOMERS_LIST = 'get_contacts_list';
-export const SET_CURRENT_CUSTOMER = 'set_current_contact';
-export const CREATE_CUSTOMER = 'create_contact';
 export const UPDATE_STARRED_STATUS = 'update_starred_status';
-export const DELETE_CUSTOMER = 'delete_contact';
-export const UPDATE_CUSTOMER_LABEL = 'update_contact_label';
-export const UPDATE_CUSTOMER = 'update_contact';
-export const GET_CUSTOMER_COUNTS = 'get_contact_counts';
 export const UPDATE_LABEL_ITEM = 'update_label_item';
 export const DELETE_LABEL_ITEM = 'delete_label_item';
 

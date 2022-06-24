@@ -120,10 +120,10 @@ export const sidebarNavs = [
         link: '/dashboard',
       },
       {
-        name: <IntlMessages id={'sidebar.inventory'} />,
+        name: <IntlMessages id={'sidebar.products'} />,
         icon: <Category />,
         type: 'item',
-        link: '/inventory',
+        link: '/products',
       },
       {
         name: <IntlMessages id={'sidebar.customers'} />,

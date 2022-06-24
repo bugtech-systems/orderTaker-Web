@@ -62,8 +62,8 @@ const Routes = () => {
         <Route path="/notifications" component={Notifications} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/user-management" component={UserManagement} />
-        <Route path="/inventory" component={Products} />
-
+        {/* <Route path="/inventory" component={Products} /> */}
+        <Route path="/products" component={Products} />
         <Route path="/customers" component={Customers} />
         {/* <Route path="/inventory" component={Inventory} /> */}
         <Route path="/disbursement" component={Disbursement} />
