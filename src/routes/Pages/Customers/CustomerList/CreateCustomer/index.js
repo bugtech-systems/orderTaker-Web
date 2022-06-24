@@ -252,7 +252,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
           className="pointer"
           color="primary.main">
           <GridContainer>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={12} sm={12}>
               <AppTextInput
                 fullWidth
                 type="number"

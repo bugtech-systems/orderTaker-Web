@@ -83,7 +83,7 @@ const CustomerDetail = ({ open, handleDialog }) => {
 
           <Box mt={-2}>
             <Box display="flex" alignItems="center">
-              <Typography className={classes.titleRoot}>{name}</Typography>
+              <Typography className={classes.titleRoot}> {name}</Typography>
               <Box ml={1}>
                 <Checkbox
                   icon={<StarBorderIcon />}
@@ -95,8 +95,8 @@ const CustomerDetail = ({ open, handleDialog }) => {
             </Box>
             {(limit || balance) && (
               <Box mt={-1}>
-                {limit && <Typography className={classes.subTitleRoot}>Limit: {limit}</Typography>}
-                {balance && <Typography className={classes.subTitleRoot}>Balance: {balance}</Typography>}
+                {limit && <Typography className={classes.subTitleRoot}> Limit: ₱{limit}.00 </Typography>}
+                {balance && <Typography className={classes.subTitleRoot}> Balance: ₱{balance}.00 </Typography>}
               </Box>
             )}
           </Box>

@@ -39,8 +39,8 @@ const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCu
           </Box>
         </Box>
       </TableCell>
-      <TableCell>{limit}</TableCell>
-      <TableCell>{balance}</TableCell>
+      <TableCell>₱{limit}.00</TableCell>
+      <TableCell>₱{balance}.00</TableCell>
       {/* <TableCell className={classes.tableCellRoot}>{company}</TableCell> */}
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
         <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} />
