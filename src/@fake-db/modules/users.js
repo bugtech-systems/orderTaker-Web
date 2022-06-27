@@ -11,7 +11,7 @@ export const usersModule = {
   usersList: [
     {
       id: 1457690400,
-      name: 'Alex Dolgove',
+      name: 'Alex Doldol',
       profile_pic: 'https://via.placeholder.com/150',
       email: 'alex-dolgove@example.com',
       emailUsage: 1.11, // GB
