@@ -126,6 +126,12 @@ export const sidebarNavs = [
         link: '/products',
       },
       {
+        name: <IntlMessages id={'sidebar.inventory'} />,
+        icon: <Category />,
+        type: 'item',
+        link: '/inventory',
+      },
+      {
         name: <IntlMessages id={'sidebar.customers'} />,
         icon: <ContactPhone />,
         type: 'item',

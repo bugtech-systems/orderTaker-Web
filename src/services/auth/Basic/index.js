@@ -4,6 +4,7 @@ import React from 'react';
 
 const BasicAuth = {
   onRegister: ({ name, email, password }) => {
+    console.log('registering')
     return dispatch => {
       dispatch(fetchStart());
 
@@ -17,6 +18,7 @@ const BasicAuth = {
   },
 
   onLogin: ({ email, password }) => {
+    console.log('logiining')
     return dispatch => {
       try {
         dispatch(fetchStart());

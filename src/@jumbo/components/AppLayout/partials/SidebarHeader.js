@@ -13,7 +13,7 @@ import SidebarThemeContext from '../../../../@coremat/CmtLayouts/SidebarThemeCon
 import LayoutContext from '../../../../@coremat/CmtLayouts/LayoutContext';
 
 //Redux
-import { logout } from '../../../../redux/actions/Auth';
+// import { logout } from '../../../../redux/actions/Auth';
 
 //Services
 import { AuhMethods } from '../../../../services/auth';
@@ -69,9 +69,7 @@ const SidebarHeader = () => {
 
   const onLogoutClick = () => {
     handlePopoverClose();
-    dispatch(logout());
     dispatch(AuhMethods[CurrentAuthMethod].onLogout());
-
   };
 
   return (

@@ -5,14 +5,14 @@ export const crm = {
     { label: 'Others', value: 12, color: 'green' },
   ],
   siteVisits: [
-    { name: '', visits: 0, queries: 0 },
-    { name: 'Jan', visits: 4000, queries: 3000 },
-    { name: 'Feb', visits: 2000, queries: 1000 },
-    { name: 'Mar', visits: 4400, queries: 4000 },
-    { name: 'Apr', visits: 9000, queries: 3800 },
-    { name: 'May', visits: 3500, queries: 2000 },
-    { name: 'Jun', visits: 1750, queries: 1000 },
-    { name: 'Jul', visits: 100, queries: 100 },
+    { name: '', income: 0, expense: 0 },
+    { name: 'Jan', income: 4000, expense: 3000 },
+    { name: 'Feb', income: 2000, expense: 1000 },
+    { name: 'Mar', income: 4400, expense: 4000 },
+    { name: 'Apr', income: 9000, expense: 3800 },
+    { name: 'May', income: 3500, expense: 2000 },
+    { name: 'Jun', income: 1750, expense: 1000 },
+    { name: 'Jul', income: 100, expense: 100 },
   ],
   tickets: [
     {

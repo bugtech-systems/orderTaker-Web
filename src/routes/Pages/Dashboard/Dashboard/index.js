@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import GridContainer from '../../../../@jumbo/components/GridContainer';
 import PageContainer from '../../../../@jumbo/components/PageComponents/layouts/PageContainer';
-import TextDisplay from '../../../../@jumbo/utils/TextDisplay';
 import Grid from '@material-ui/core/Grid';
-import SidebarButtons from '../../../../@jumbo/components/AppLayout/partials/SideBar/SIdebarButtons';
-import Divider from '@material-ui/core/Divider';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 //Components
-import BitcoinPurchaseHistory from './BitcoinPurchaseHistory';
-import RipplePurchaseHistory from './RipplePurchaseHistory';
-import EtheriumPurchaseHistory from './EtheriumPurchaseHistory';
-import LitecoinPurchaseHistory from './LitecoinPurchaseHistory';
-import PortfolioBalance from './PortfolioBalance';
-import RevenueSummary from './RevenueSummary';
-import RecentPayments from './RecentPayments';
-import OrderHistory from './OrderHistory';
-import PopularCustomers from './PopularCustomers';
-import Header from './Header';
-import LastMonthSale from './LastMonthSale';
-import OnlineSignups from './OnlineSignups';
-import TotalEmailSent from './TotalEmailSent';
-import TotalRevenue from './TotalRevenue';
-import SalesStatistic from './SalesStatistic';
+import IdeasWidget from './IdeasWidget';
+import Documents from './Documents';
+import NewCustomers from './NewCustomers';
+import NewProducts from './NewProducts';
+
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,9 +44,9 @@ const Dashboard = () => {
   const [tabValue, setTabValue] = useState('about');
   const { business } = useSelector(({ auth }) => auth);
 
-  useEffect(() => {
-    // dispatch(getUserDetail());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // dispatch(getUserDetail());
+  // }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -70,65 +57,21 @@ const Dashboard = () => {
   return (
     <PageContainer
       heading={'Dashboard'}
-      // breadcrumbs={breadcrumbs}
+      breadcrumbs={breadcrumbs}
     >
-      {/* {business && (
-        <Header
-          classes={classes}
-          businessDetails={business}
-          tabValue={tabValue}
-          handleTabChange={handleTabChange}
-          heading={'Dashboard'}
-          breadcrumbs={breadcrumbs}
-        />
-      )}
-      <br /> */}
       <GridContainer>
-        <Grid item xs={12} sm={12} md={12} />
-        <Grid item xs={12} sm={6} md={3}>
-          <OnlineSignups />
+          {/* Easy Access Widget Portion */}
+        <Grid item xs={12} sm={4} xl={4}>
+          <NewProducts />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <LastMonthSale />
+        <Grid item xs={12} sm={4} xl={4}>
+          <NewCustomers />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <TotalRevenue />
+        <Grid item xs={12} sm={4} xl={4}>
+          <IdeasWidget />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <TotalEmailSent />
-        </Grid>
-        <Grid item xs={12}>
-          <SalesStatistic />
-        </Grid>
-        {/* <Grid item xs={12} sm={6} md={3}>
-          <BitcoinPurchaseHistory />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <RipplePurchaseHistory />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <EtheriumPurchaseHistory />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <LitecoinPurchaseHistory />
-        </Grid> */}
-        <Grid item xs={12} lg={6}>
-          <PortfolioBalance />
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <RevenueSummary />
-        </Grid>
-        <Grid item xs={12} xl={12}>
-          <PopularCustomers />
-        </Grid>
-        <Grid item xs={12} xl={12}>
-          <RecentPayments />
-        </Grid>
-        {/* <Grid item xs={12} xl={12}>
-          <OrderHistory />
-        </Grid> */}
-        {/*    <Grid item xs={12} xl={12}>
-        <CurrentPlan />
+        {/* <Grid item xs={12} sm={4} xl={4}>
+          <Documents />
         </Grid> */}
       </GridContainer>
     </PageContainer>

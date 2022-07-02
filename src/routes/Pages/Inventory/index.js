@@ -1,34 +1,19 @@
 import React from 'react';
-import GridContainer from '../../../@jumbo/components/GridContainer';
 import PageContainer from '../../../@jumbo/components/PageComponents/layouts/PageContainer';
-import TextDisplay from '../../../@jumbo/utils/TextDisplay';
-import Grid from '@material-ui/core/Grid';
-import SidebarButtons from '../../../@jumbo/components/AppLayout/partials/SideBar/SIdebarButtons';
-import Divider from '@material-ui/core/Divider';
 
 //Components
-import RecentPayments from './RecentPayments';
-import ProductList from './PropertiesListing';
-
+import ProductList from './ProductList';
 
 const breadcrumbs = [
-  { label: <TextDisplay name="Inventory" />, isActive: true },
+  // { label: 'Products', link: '/products' }
 ];
 
-const Dashboard = () => {
+const Sales = () => {
   return (
-    <PageContainer heading="Inventory" breadcrumbs={breadcrumbs}>
-    <GridContainer>
-    <Grid item xs={12} xl={12}>
-        <ProductList />
-      </Grid>
-      <Grid item xs={12} xl={12}>
-        <RecentPayments />
-      </Grid>
-     
-    </GridContainer>
-  </PageContainer>
+    <PageContainer heading="Product List" breadcrumbs={breadcrumbs}>
+      <ProductList />
+    </PageContainer>
   );
 };
 
-export default Dashboard;
+export default Sales;

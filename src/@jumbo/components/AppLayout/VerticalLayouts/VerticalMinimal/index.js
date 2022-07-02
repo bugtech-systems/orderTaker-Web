@@ -34,7 +34,7 @@ const VerticalMinimal = ({ className, children }) => {
       className={clsx('verticalMinimalLayout', className)}
       header={
         <CmtHeader>
-          <Header />
+          {/* <Header /> */}
         </CmtHeader>
       }
       sidebar={

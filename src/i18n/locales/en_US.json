@@ -1,8 +1,8 @@
 {
   "sidebar.store": "Store",
-  "sidebar.products": "Products",
-  "sidebar.customers": "Customers",
-  "sidebar.inventory": "Inventory",
+  "sidebar.products": "Product List",
+  "sidebar.customers": "Customer List",
+  "sidebar.inventory": "Product Inventory",
   "sidebar.stocks": "Stocks",
   "sidebar.purchases": "Purchases",
   "sidebar.user": "User Management",

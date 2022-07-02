@@ -11,29 +11,29 @@ import Routes from "./routes";
 import jwtDecode from "jwt-decode";
 
 // Redux
-import {LOGIN} from "./redux/actions/types";
-import {logout, getUserData} from "./redux/actions/Auth";
+// import {LOGIN} from "./redux/actions/types";
+// import {logout, getUserData} from "./redux/actions/Auth";
 
 const store = configureStore();
 
-const token = localStorage.idToken;
+// const token = localStorage.idToken;
 
-if (token) {
-  const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    store.dispatch(logout());
-    window.location.href = "/";
-  } else {
-    store.dispatch({type: LOGIN});
-    store.dispatch(getUserData(history));
-  }
-}
+// if (token) {
+//   const decodedToken = jwtDecode(token);
+//   if (decodedToken.exp * 1000 < Date.now()) {
+//     store.dispatch(logout());
+//     window.location.href = "/";
+//   } else {
+//     store.dispatch({type: LOGIN});
+//     store.dispatch(getUserData(history));
+//   }
+// }
 
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <AppContextProvider>
-        <AppWrapper>
+        <AppWrapper >
           <Switch>
             <Routes />
           </Switch>

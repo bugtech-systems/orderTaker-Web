@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
+
 //Pages
 //Main Pages
 import Dashboard from './Pages/Dashboard';
@@ -20,16 +21,16 @@ import Notifications from './Pages/Notifications';
 
 import Error404 from './Pages/404';
 import Login from './Auth/Login';
-import Register from './Auth/Register';
-import ForgotPasswordPage from './Auth/ForgotPassword';
+// import Register from './Auth/Register';
+// import ForgotPasswordPage from './Auth/ForgotPassword';
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
-  const { isLoggedIn } = useSelector(({ auth }) => auth);
+  const { authUser } = useSelector(({ auth }) => auth);
   return (
     <Route
       {...rest}
       render={props =>
-        isLoggedIn ? (
+        authUser ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -57,26 +58,25 @@ const Routes = () => {
   return (
     <React.Fragment>
       <Switch>
-        {/* Main Pages */}
-        <Redirect exact from={`/`} to={`/dashboard`} />
-        <Route path="/notifications" component={Notifications} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/user-management" component={UserManagement} />
-        {/* <Route path="/inventory" component={Products} /> */}
-        <Route path="/products" component={Products} />
-        <Route path="/customers" component={Customers} />
-        {/* <Route path="/inventory" component={Inventory} /> */}
-        <Route path="/disbursement" component={Disbursement} />
-        <Route path="/reports" component={SalesReport} />
-        <Route path="/settings" component={Settings} />
+        Main Pages
+        {/* <Redirect exact from={`/`} to={`/dashboard`} /> */}
+        <RestrictedRoute path="/dashboard" component={Dashboard} />
+        <RestrictedRoute path="/notifications" component={Notifications} />
+        <RestrictedRoute path="/user-management" component={UserManagement} />
+        <RestrictedRoute path="/products" component={Products} />
+        <RestrictedRoute path="/customers" component={Customers} />
+        <RestrictedRoute path="/inventory" component={Inventory} />
+        <RestrictedRoute path="/disbursement" component={Disbursement} />
+        <RestrictedRoute path="/reports" component={SalesReport} />
+        <RestrictedRoute path="/settings" component={Settings} />
 
         {/* Other Pages */}
-        <Route path="/profile" component={Profile} />
+        <RestrictedRoute path="/profile" component={Profile} />
 
         <Route path="/signin" component={Login} />
 
         {/* <Route path="/signup" component={Register} /> */}
-        <Route path="/forgot-password" component={ForgotPasswordPage} />
+        {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
         <Route component={Error404} />
       </Switch>
     </React.Fragment>

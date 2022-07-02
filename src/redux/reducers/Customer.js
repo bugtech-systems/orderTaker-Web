@@ -140,7 +140,6 @@ export default (state = INIT_STATE, action) => {
 
     case UPDATE_CUSTOMER_LABEL: {
       let customerIds = action.payload.map(customer => customer.id);
-      console.log(customerIds);
       const updatedList = state.customersList.map(mail => {
         if (customerIds.includes(mail.id)) {
           return action.payload.find(selectedCustomer => selectedCustomer.id === mail.id);

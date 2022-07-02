@@ -14,6 +14,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
+
+
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,21 +69,21 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
             <CloseIcon />
           </IconButton>
 
-          {/* <IconButton
+          <IconButton
             className={clsx(classes.iconBtn, {
               active: activeOption === 'search',
             })}
             onClick={() => onIconClick('search')}>
             <SearchIcon />
-          </IconButton> */}
-          {/* 
+          </IconButton>
+          
           <IconButton
             className={clsx(classes.iconBtn, {
               active: activeOption === 'messages',
             })}
             onClick={() => onIconClick('messages')}>
             <MessageIcon />
-          </IconButton> */}
+          </IconButton>
 
           <IconButton
             className={clsx(classes.iconBtn, {

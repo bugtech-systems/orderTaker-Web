@@ -18,6 +18,7 @@ export const getUsers = (filterOptions = [], searchTerm = "", callbackFun) => {
     axios
       .get("/users", {params: {filterOptions, searchTerm}})
       .then(data => {
+        console.log(data)
         if (data.status === 200) {
           dispatch(fetchSuccess());
           dispatch({type: GET_USERS, payload: data.data});

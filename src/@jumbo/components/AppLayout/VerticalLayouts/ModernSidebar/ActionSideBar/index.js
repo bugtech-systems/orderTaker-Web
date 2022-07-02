@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 
-import { Box, Hidden, IconButton, withWidth } from '@material-ui/core';
+import { Box, Hidden, IconButton, withWidth, Tooltip } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -13,6 +13,9 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CloseIcon from '@material-ui/icons/Close';
+import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
+
+
 
 import CmtDropdownMenu from '../../../../../../@coremat/CmtDropdownMenu';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
@@ -93,11 +96,7 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
-  const onItemClick = item => {
-    if (item.label === 'Logout') {
-      dispatch(AuhMethods[CurrentAuthMethod].onLogout());
-    }
-  };
+ 
 
   const onIconClick = option => {
     setActiveOption(option);
@@ -108,30 +107,57 @@ const ActionSideBar = ({ width }) => {
     setActiveOption(null);
   };
 
+
+  const handleLogout = () => {
+    dispatch(AuhMethods[CurrentAuthMethod].onLogout());
+  }
+
+
+  
+
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Tooltip title="Profile">
+          <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
+          <CmtAvatar src={'https://via.placeholder.com/150'} />
+        </IconButton>
+        </Tooltip>
+      </div>
+      {/* <div style={{ display: 'flex', alignItems: 'center' }}>
         <SidebarToggleHandler className={classes.iconBtn}>
           {isSidebarOpen && (width === 'lg' || width === 'xl') ? <CloseIcon /> : <AccountTreeIcon />}
         </SidebarToggleHandler>
         <Hidden lgUp>
           <Logo color="white" ml={{ xs: 3, sm: 6 }} />
         </Hidden>
-      </div>
-      <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} ml={{ xs: 'auto', lg: 'unset' }}>
-        {/* <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
-          <SearchIcon />
-        </IconButton>
+        
 
-        <IconButton className={classes.iconBtn} onClick={() => onIconClick('messages')}>
+      </div> */}
+    
+      <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} ml={{ xs: 'auto', lg: 'unset' }}>
+ 
+
+        {/* <IconButton className={classes.iconBtn} onClick={() => onIconClick('messages')}>
           <MessageIcon />
         </IconButton> */}
+        <Tooltip title="Notifications">
 
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('notifications')}>
           <Badge badgeContent={4} classes={{ badge: classes.counterRoot }} overlap="rectangular">
             <NotificationsIcon />
           </Badge>
         </IconButton>
+        </Tooltip>
+
+
+        <Tooltip title="Cart">
+        <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
+        <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+          <LocalGroceryStore />
+          </Badge>
+        </IconButton>
+        </Tooltip>
 
         {/* {isSidebarOpen && (width === 'lg' || width === 'xl') && (
           <IconButton className={classes.iconBtn} onClick={() => setSidebarOpen(!isSidebarOpen)}>
@@ -140,15 +166,24 @@ const ActionSideBar = ({ width }) => {
         )} */}
       </Box>
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} mt={{ xs: 'unset', lg: 'auto' }}>
+      <Tooltip title="Settings">
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('settings')}>
           <SettingsIcon />
         </IconButton>
+        </Tooltip>
 
-        <CmtDropdownMenu
+        <Tooltip title="Logout">
+        <IconButton className={classes.iconBtn} onClick={handleLogout}>
+          <ExitToAppIcon />
+        </IconButton>
+        </Tooltip>
+
+        
+        {/* <CmtDropdownMenu
           onItemClick={onItemClick}
           TriggerComponent={<CmtAvatar src={'https://via.placeholder.com/150'} />}
           items={actionsList}
-        />
+        /> */}
       </Box>
 
       <ActionBarDrawer
