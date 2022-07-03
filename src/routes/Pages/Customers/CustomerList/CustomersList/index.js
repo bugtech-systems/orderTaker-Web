@@ -76,7 +76,7 @@ console.log(checkedCustomers)
           />
         ) : (
           <>
-          {/* <ListGridView onShowCustomerDetail={onShowCustomerDetail} onClickEditCustomer={onClickEditCustomer} /> */}
+          <ListGridView onShowCustomerDetail={onShowCustomerDetail} onClickEditCustomer={onClickEditCustomer} />
           </>
         )}
       </PerfectScrollbar>

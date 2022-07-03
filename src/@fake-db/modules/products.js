@@ -62,8 +62,8 @@ export const products = [
     folder: 'products',
   },
   {
-    id: 1457690403,
-    name: 'Domnic Harris',
+    id: 4800049720114,
+    name: 'Meniral Tubig',
     dpUrl: 'https://via.placeholder.com/150',
     email_address: 'domnic-brown@example.com',
     phones: [{ phone: '(215)-659-7529', label: 'home' }],
@@ -75,8 +75,8 @@ export const products = [
     folder: 'products',
   },
   {
-    id: 1457690404,
-    name: 'Garry Sobars',
+    id: 48042772,
+    name: 'Cigarilyo',
     dpUrl: 'https://via.placeholder.com/150',
     email_address: 'garry-sobars@example.com',
     phones: [{ phone: '(215)-659-8965', label: 'home' }],

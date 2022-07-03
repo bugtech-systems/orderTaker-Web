@@ -5,12 +5,13 @@ import PageContainer from '../../../@jumbo/components/PageComponents/layouts/Pag
 import ProductList from './ProductList';
 
 const breadcrumbs = [
-  // { label: 'Products', link: '/products' }
+  { label: 'Dashboard', link: '/' },
+  { label: "Inventory", link: '/inventory'}
 ];
 
 const Sales = () => {
   return (
-    <PageContainer heading="Product List" breadcrumbs={breadcrumbs}>
+    <PageContainer heading="INVENTORY" breadcrumbs={breadcrumbs}>
       <ProductList />
     </PageContainer>
   );

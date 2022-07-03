@@ -5,20 +5,17 @@ import { Grid } from '@material-ui/core';
 
 //Components
 import ProductList from './ProductList';
-import PopularProducts from './PopularProducts';
 
 
 const breadcrumbs = [
-  // { label: 'Products', link: '/products' }
+  { label: 'Dashboard', link: '/' },
+  { label: 'Products', link: '/products' }
 ];
 
 const Sales = () => {
   return (
-    <PageContainer heading="Product List" breadcrumbs={breadcrumbs}>
+    <PageContainer heading="Products" breadcrumbs={breadcrumbs}>
          <GridContainer>
-         <Grid item xs={12} xl={12}>
-          <PopularProducts />
-        </Grid>
         <Grid item xs={12} xl={12}>
         <ProductList />
         </Grid>
