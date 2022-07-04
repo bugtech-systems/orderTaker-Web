@@ -24,12 +24,12 @@ import Register from './Auth/Register';
 import ForgotPasswordPage from './Auth/ForgotPassword';
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
-  const { isLoggedIn } = useSelector(({ auth }) => auth);
+  const { authUser } = useSelector(({ auth }) => auth);
   return (
     <Route
       {...rest}
       render={props =>
-        isLoggedIn ? (
+        authUser ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -59,16 +59,16 @@ const Routes = () => {
       <Switch>
         {/* Main Pages */}
         <Redirect exact from={`/`} to={`/dashboard`} />
-        <Route path="/notifications" component={Notifications} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/user-management" component={UserManagement} />
+        <RestrictedRoute path="/notifications" component={Notifications} />
+        <RestrictedRoute path="/dashboard" component={Dashboard} />
+        <RestrictedRoute path="/user-management" component={UserManagement} />
         {/* <Route path="/inventory" component={Products} /> */}
-        <Route path="/products" component={Products} />
-        <Route path="/customers" component={Customers} />
+        <RestrictedRoute path="/products" component={Products} />
+        <RestrictedRoute path="/customers" component={Customers} />
         {/* <Route path="/inventory" component={Inventory} /> */}
-        <Route path="/disbursement" component={Disbursement} />
-        <Route path="/reports" component={SalesReport} />
-        <Route path="/settings" component={Settings} />
+        <RestrictedRoute path="/disbursement" component={Disbursement} />
+        <RestrictedRoute path="/reports" component={SalesReport} />
+        <RestrictedRoute path="/settings" component={Settings} />
 
         {/* Other Pages */}
         <Route path="/profile" component={Profile} />
