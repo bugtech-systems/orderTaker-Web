@@ -36,6 +36,7 @@ mock.onGet('/product').reply(config => {
   if (searchText) {
     folderProducts = productsList.filter(
       product =>
+        String(product.id).toLowerCase().includes(searchText.toLowerCase()) ||
         product.name.toLowerCase().includes(searchText.toLowerCase()) ||
         product.phones.map(item => item.phone).includes(searchText),
     );

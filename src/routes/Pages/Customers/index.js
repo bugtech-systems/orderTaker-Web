@@ -5,7 +5,8 @@ import PageContainer from '../../../@jumbo/components/PageComponents/layouts/Pag
 import CustomerList from './CustomerList';
 
 const breadcrumbs = [
-  // { label: 'Customers', link: '/customers' }
+  { label: 'Dashboard', link: '/' },
+  { label: 'Customers', link: '/customers' }
 ];
 
 const Sales = () => {

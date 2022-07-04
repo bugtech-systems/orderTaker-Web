@@ -9,12 +9,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const PopularProducts = () => {
   const { popularProducts } = intranet;
-  console.log(popularProducts)
   return (
     <CmtCard>
       <CmtCardHeader title="Popular Products" />
       <CmtCardContent>
-        {/* <PerfectScrollbar style={{ height: 280 }}> */}
+        <PerfectScrollbar style={{ height: 280 }}>
           <CmtGridView
             itemPadding={24}
             responsive={{
@@ -27,7 +26,7 @@ const PopularProducts = () => {
             data={popularProducts}
             renderRow={(item, index) => <ListItem key={index} item={item} />}
           />
-        {/* </PerfectScrollbar> */}
+        </PerfectScrollbar>
       </CmtCardContent>
     </CmtCard>
   );

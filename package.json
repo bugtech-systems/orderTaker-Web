@@ -14,7 +14,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "autosuggest-highlight": "^3.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.27.2",
     "axios-mock-adapter": "^1.18.1",
     "body-scroll-lock": "^3.1.5",
     "chart.js": "^2.9.3",
@@ -59,6 +59,7 @@
     "react-notifications": "^1.6.0",
     "react-number-format": "^4.4.1",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-qr-barcode-scanner": "1.0.6",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -98,7 +99,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [ ">0.2%", "not dead", "not op_mini all" ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "ie 11",
       "last 1 chrome version",
@@ -130,7 +135,11 @@
     }
   },
   "lint-staged": {
-    "*.+(js|jsx)": [ "eslint --fix" ],
-    "*.+(js|jsx|json|css|md)": [ "prettier --write" ]
+    "*.+(js|jsx)": [
+      "eslint --fix"
+    ],
+    "*.+(js|jsx|json|css|md)": [
+      "prettier --write"
+    ]
   }
 }

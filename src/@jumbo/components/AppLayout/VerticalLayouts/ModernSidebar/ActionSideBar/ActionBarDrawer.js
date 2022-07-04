@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton } from '@material-ui/core';
+import { Box, IconButton, Tooltip } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Notifications from './Notifications';
 import Messages from './Messages';
@@ -14,8 +14,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
+import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 
+
+
+//Icons
+import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 
 
@@ -68,22 +72,24 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
           <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
+        <Tooltip title="Profile">
+          <IconButton className={clsx(classes.iconBtn, {
+              active: activeOption === 'profile',
+            })} onClick={() => onIconClick('profile')}>
+          <CmtAvatar src={'https://via.placeholder.com/150'} />
+        </IconButton>
+        </Tooltip>
 
-          <IconButton
-            className={clsx(classes.iconBtn, {
-              active: activeOption === 'search',
-            })}
-            onClick={() => onIconClick('search')}>
-            <SearchIcon />
-          </IconButton>
-          
-          <IconButton
-            className={clsx(classes.iconBtn, {
-              active: activeOption === 'messages',
-            })}
-            onClick={() => onIconClick('messages')}>
-            <MessageIcon />
-          </IconButton>
+
+      <Tooltip title="Cart">
+        <IconButton className={clsx(classes.iconBtn, {
+              active: activeOption === 'cart',
+            })} onClick={() => onIconClick('cart')}>
+        <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+          <LocalGroceryStore />
+          </Badge>
+        </IconButton>
+        </Tooltip>
 
           <IconButton
             className={clsx(classes.iconBtn, {
@@ -106,8 +112,8 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
         <Box className={classes.contentArea}>
           <PerfectScrollbar className={classes.scrollbarRoot}>
             {activeOption === 'notifications' && <Notifications />}
-            {activeOption === 'messages' && <Messages />}
-            {activeOption === 'search' && <Search />}
+            {activeOption === 'profile' && <Messages />}
+            {activeOption === 'cart' && <Search />}
             {activeOption === 'settings' && <Settings />}
           </PerfectScrollbar>
         </Box>

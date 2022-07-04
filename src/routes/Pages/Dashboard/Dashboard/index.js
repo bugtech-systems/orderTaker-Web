@@ -5,10 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 //Components
-import IdeasWidget from './IdeasWidget';
-import Documents from './Documents';
-import NewCustomers from './NewCustomers';
-import NewProducts from './NewProducts';
+import CardWidget from './CardWidget';
+
+//Icons
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import StarIcon from '@material-ui/icons/Star';
+import ContactPhone from '@material-ui/icons/ContactPhone';
+
+
 
 
 //Redux
@@ -34,8 +38,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const breadcrumbs = [
-  // { label: <TextDisplay name="Store" />, link: '/' },
-  // { label: <TextDisplay name="Dashboard" />, isActive: true },
+  // { label: 'Dashboard', link: '/' }
 ];
 
 const Dashboard = () => {
@@ -56,23 +59,48 @@ const Dashboard = () => {
 
   return (
     <PageContainer
-      heading={'Dashboard'}
+      heading={'DASHBOARD'}
       breadcrumbs={breadcrumbs}
     >
       <GridContainer>
           {/* Easy Access Widget Portion */}
-        <Grid item xs={12} sm={4} xl={4}>
-          <NewProducts />
+          <Grid item xs={12} sm={3} xl={3}>
+        <CardWidget
+           backgroundColor="#6200EE"
+           icon={<StarIcon style={{ color: '#ffffff' }} />}
+           title={20}
+           subTitle="PRODUCTS"
+           Link="/products"
+          />
         </Grid>
-        <Grid item xs={12} sm={4} xl={4}>
-          <NewCustomers />
+        <Grid item xs={12} sm={3} xl={3}>
+        <CardWidget
+           backgroundColor="#6200EE"
+           icon={<StarIcon style={{ color: '#ffffff' }} />}
+           title={20}
+           subTitle="STOCKS"
+           Link="/stocks"
+          />
         </Grid>
-        <Grid item xs={12} sm={4} xl={4}>
-          <IdeasWidget />
+        <Grid item xs={12} sm={3} xl={3}>
+          <CardWidget
+            icon={<ContactPhone style={{ color: '#ffffff' }} />}
+            backgroundColor="#0795F4"
+            title={23}
+            subTitle="Customers"
+            Link="/customers"
+
+          />
         </Grid>
-        {/* <Grid item xs={12} sm={4} xl={4}>
-          <Documents />
-        </Grid> */}
+        <Grid item xs={12} sm={3} xl={3}>
+          <CardWidget 
+           icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
+           backgroundColor="#8DCD03"
+           title={543}
+           subTitle="Users"
+           Link="/users"
+          />
+        </Grid>
       </GridContainer>
     </PageContainer>
   );
