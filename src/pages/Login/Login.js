@@ -14,16 +14,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // import Form from "../../utilities/Forms";
 
-
 //logo
-import alayon from "../../assets/RoundHeaded.png"
-
-
+import logo512 from '../../assets/logo512';
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -32,9 +29,7 @@ export default function SignIn() {
     });
   };
 
-  
   return (
-    
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -43,13 +38,8 @@ export default function SignIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}
-        >
-          <Avatar
-            alt="Alayon"
-            src={alayon}
-            sx={{ width: 150, height: 250}}
-          />
+          }}>
+          <Avatar alt="AJA" src={logo512} sx={{ width: 150, height: 250 }} />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -74,16 +64,8 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Grid container>
@@ -102,7 +84,5 @@ export default function SignIn() {
         </Box>
       </Container>
     </ThemeProvider>
-
-    
   );
 }
