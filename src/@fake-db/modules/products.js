@@ -36,8 +36,8 @@ export const products = [
     folder: 'products',
   },
   {
-    id: 1457690401,
-    name: 'Chelsea Johns',
+    id: 4800888209566,
+    name: 'Cream Silk - Triple Keratin',
     dpUrl: 'https://via.placeholder.com/150',
     email_address: 'chelsea-johnss@example.com',
     phones: [{ phone: '(215)-659-7529', label: 'home' }],
@@ -49,8 +49,8 @@ export const products = [
     folder: 'products',
   },
   {
-    id: 1457690402,
-    name: 'Domnic Brown',
+    id: 6958898101689,
+    name: 'Pentel Pen - BLUE',
     dpUrl: 'https://via.placeholder.com/150',
     email_address: 'domnic-brown@example.com',
     phones: [{ phone: '(215)-748-7855', label: 'home' }],
