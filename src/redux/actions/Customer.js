@@ -112,7 +112,7 @@ export const updateLabel = label => {
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
-      }); 
+      });
   };
 };
 

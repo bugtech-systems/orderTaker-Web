@@ -16,13 +16,8 @@ import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 
-
-
 //Icons
 import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
-
-
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,24 +67,27 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
           <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
-        <Tooltip title="Profile">
-          <IconButton className={clsx(classes.iconBtn, {
-              active: activeOption === 'profile',
-            })} onClick={() => onIconClick('profile')}>
-          <CmtAvatar src={'https://via.placeholder.com/150'} />
-        </IconButton>
-        </Tooltip>
+          <Tooltip title="Profile">
+            <IconButton
+              className={clsx(classes.iconBtn, {
+                active: activeOption === 'profile',
+              })}
+              onClick={() => onIconClick('profile')}>
+              <CmtAvatar src={'https://via.placeholder.com/150'} />
+            </IconButton>
+          </Tooltip>
 
-
-      <Tooltip title="Cart">
-        <IconButton className={clsx(classes.iconBtn, {
-              active: activeOption === 'cart',
-            })} onClick={() => onIconClick('cart')}>
-        <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
-          <LocalGroceryStore />
-          </Badge>
-        </IconButton>
-        </Tooltip>
+          <Tooltip title="Cart">
+            <IconButton
+              className={clsx(classes.iconBtn, {
+                active: activeOption === 'cart',
+              })}
+              onClick={() => onIconClick('cart')}>
+              <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+                <LocalGroceryStore />
+              </Badge>
+            </IconButton>
+          </Tooltip>
 
           <IconButton
             className={clsx(classes.iconBtn, {

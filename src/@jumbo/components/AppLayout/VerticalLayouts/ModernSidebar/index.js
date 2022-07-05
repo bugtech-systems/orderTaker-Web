@@ -45,9 +45,7 @@ const ModernSideBar = ({ children, className }) => {
       className={clsx('Cmt-modernLayout', className)}
       layoutOptions={layoutOptions}
       sidebar={
-        <CmtSidebar 
-        actionBar={<ActionSideBar />}
-        >
+        <CmtSidebar actionBar={<ActionSideBar />}>
           {/* <Hidden mdDown>
             <Logo color={themeType !== THEME_TYPES.LIGHT ? 'white' : 'dark'} className={classes.sidebarHeader} />
           </Hidden> */}

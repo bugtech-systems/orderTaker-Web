@@ -1,7 +1,7 @@
 import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER } from '../../@jumbo/constants/ActionTypes';
 
 export const setAuthUser = user => {
-  console.log('DD')
+  console.log('DD');
   return dispatch => {
     dispatch({
       type: UPDATE_AUTH_USER,
@@ -11,7 +11,7 @@ export const setAuthUser = user => {
 };
 
 export const updateLoadUser = loading => {
-  console.log('DIDA')
+  console.log('DIDA');
 
   return dispatch => {
     dispatch({

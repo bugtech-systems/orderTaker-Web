@@ -18,7 +18,6 @@ import LayoutContext from '../../../../@coremat/CmtLayouts/LayoutContext';
 //Services
 import { AuhMethods } from '../../../../services/auth';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     padding: '30px 16px 12px 16px',
@@ -62,7 +61,7 @@ const SidebarHeader = () => {
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
-    setSidebarOpen(false)
+    setSidebarOpen(false);
   };
 
   const open = Boolean(anchorEl);
@@ -85,7 +84,7 @@ const SidebarHeader = () => {
           }}>
           <div className="mr-2">
             <Typography className={classes.userTitle} component="h3" variant="h6">
-            Jason Brown
+              Jason Brown
             </Typography>
             <Typography className={classes.userSubTitle}>jasonbrown@gmail.com</Typography>
           </div>
@@ -109,11 +108,11 @@ const SidebarHeader = () => {
           }}>
           <Paper elevation={8}>
             <MenuList>
-              <NavLink style={{color: 'inherit'}} to="/profile" onClick={handlePopoverClose}>
-              <MenuItem >
-                <PersonIcon />
-                <div className="ml-2">Profile</div>
-              </MenuItem>
+              <NavLink style={{ color: 'inherit' }} to="/profile" onClick={handlePopoverClose}>
+                <MenuItem>
+                  <PersonIcon />
+                  <div className="ml-2">Profile</div>
+                </MenuItem>
               </NavLink>
               <MenuItem onClick={onLogoutClick}>
                 <ExitToAppIcon />

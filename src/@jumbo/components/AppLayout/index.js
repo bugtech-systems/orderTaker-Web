@@ -52,7 +52,6 @@ const AppLayout = ({ children }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   if (showLayoutLoader || !loadUser) {
     return (
       <div className={classes.circularProgressRoot}>

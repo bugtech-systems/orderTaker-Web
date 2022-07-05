@@ -6,7 +6,7 @@ import CustomerList from './CustomerList';
 
 const breadcrumbs = [
   { label: 'Dashboard', link: '/' },
-  { label: 'Customers', link: '/customers' }
+  { label: 'Customers', link: '/customers' },
 ];
 
 const Sales = () => {
