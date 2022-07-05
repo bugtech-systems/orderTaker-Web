@@ -110,18 +110,22 @@ const OurStore = () => {
         </Box> */}
         <Box mb={5}>
           <Typography component="div" variant="h4" className={classes.addressTitle}>
-            AJA HARDWARE{' '}
+            Contact Details{' '}
           </Typography>
         </Box>
 
         <Box className={classes.contactRoot} mb={6}>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <CallIcon />
-            <Box ml={3}>{currentAddress.phoneNumber}</Box>
+            <Box ml={3}>{currentAddress.phoneNumber1}</Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <CallIcon />
+            <Box ml={3}>{currentAddress.phoneNumber2}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <MailOutlineIcon />
-            <Box ml={3}>{currentAddress.emailAddress}</Box>
+            <Box ml={4}>{currentAddress.emailAddress}</Box>
           </Box>
         </Box>
 

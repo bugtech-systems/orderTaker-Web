@@ -33,7 +33,7 @@ const CalendarEvents = () => {
           <Box component="span" mr={2} fontSize={{ xs: 26, md: 36, xl: 48 }} lineHeight={1} fontWeight="fontWeightBold">
             {/* {dateObj.date.date} */}
           </Box>
-          <Box component="span" fontSize={16}>
+          <Box component="span" fontSize={25}>
             SALES {}
           </Box>
         </Box>
