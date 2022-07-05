@@ -1384,8 +1384,8 @@ export const intranet = {
     },
   ],
   ourOfficeData: {
-    title: 'Our Office',
-    description: 'Fusce eget dolor id justo lictus commodo pharetra nisi. Donec velit libero',
+    title: 'AJA HARDWARE',
+    description: 'The Perfect HardWare Store For Your Needs',
     socialProfiles: [
       { title: 'twitter', url: '' },
       { title: 'facebook', url: '' },

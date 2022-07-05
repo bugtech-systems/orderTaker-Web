@@ -3,11 +3,14 @@ import GridContainer from '../../../../@jumbo/components/GridContainer';
 import PageContainer from '../../../../@jumbo/components/PageComponents/layouts/PageContainer';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Box from '@material-ui/core/Box';
 
-//Components
+//DashBoard Components
 import CardWidget from './CardWidget';
-import OurOffice from './OurOffice';
-import WeeklySales from './WeeklySales';
+import OurStore from './OurStore';
+import CalendarEvents from './CalendarEvents';
+import PopularAgents from './PopularAgents';
+import RecentPayments from './RecentPayments';
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -61,7 +64,7 @@ const Dashboard = () => {
       <GridContainer>
         {/* Business Profile Component - Top left side   */}
         <Grid item xs={12} sm={6}>
-          <OurOffice
+          <OurStore
             backgroundColor="#6200EE"
             icon={<StarIcon style={{ color: '#ffffff' }} />}
             title={20}
@@ -69,9 +72,9 @@ const Dashboard = () => {
             Link="/products"
           />
         </Grid>
-        {/* Business Weekly Sales - Top right side */}
+        {/* Business CalendarEvents - Top right side */}
         <Grid item xs={12} sm={6}>
-          <WeeklySales
+          <CalendarEvents
             backgroundColor="#6200EE"
             icon={<StarIcon style={{ color: '#ffffff' }} />}
             title={20}
@@ -115,6 +118,14 @@ const Dashboard = () => {
             subTitle="Users"
             Link="/users"
           />
+        </Grid>
+        <Grid item xs={12} lg={12} xl={8} className={classes.orderLg1}>
+          <Box pb={6}>
+            <PopularAgents />
+          </Box>
+        </Grid>
+        <Grid item xs={12} xl={5}>
+          <RecentPayments />
         </Grid>
       </GridContainer>
     </PageContainer>
