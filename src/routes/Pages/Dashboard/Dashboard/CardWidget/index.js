@@ -1,15 +1,9 @@
-import React from "react";
-import HoverInfoCard from "../../../../../@jumbo/components/Common/HoverInfoCard";
+import React from 'react';
+import HoverInfoCard from '../../../../../@jumbo/components/Common/HoverInfoCard';
 
-const CardWidget = ({backgroundColor, icon, title, subTitle, Link}) => {
+const CardWidget = ({ backgroundColor, icon, title, subTitle, Link }) => {
   return (
-    <HoverInfoCard
-      backgroundColor={backgroundColor}
-      icon={icon}
-      title={title}
-      subTitle={subTitle}
-      linkOnArrow={Link}
-    />
+    <HoverInfoCard backgroundColor={backgroundColor} icon={icon} title={title} subTitle={subTitle} linkOnArrow={Link} />
   );
 };
 

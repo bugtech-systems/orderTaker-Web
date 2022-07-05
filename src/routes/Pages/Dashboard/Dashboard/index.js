@@ -6,16 +6,13 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 //Components
 import CardWidget from './CardWidget';
-import WeeklySales from './WeeklySales';
 import OurOffice from './OurOffice';
+import WeeklySales from './WeeklySales';
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import StarIcon from '@material-ui/icons/Star';
 import ContactPhone from '@material-ui/icons/ContactPhone';
-
-
-
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -60,67 +57,63 @@ const Dashboard = () => {
   console.log(business);
 
   return (
-    <PageContainer
-      heading={'DASHBOARD'}
-      breadcrumbs={breadcrumbs}
-    >
+    <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
-        {/* Business WeeklySales - Top Left, Business OurOffice - Top Right */}
-        
-        <Grid item xs={12} md={6}>
-        <OurOffice
-           backgroundColor="#6200EE"
-           icon={<StarIcon style={{ color: '#ffffff' }} />}
-           title={20}
-           subTitle="PRODUCTS"
-           Link="/products"
+        {/* Business Profile Component - Top left side   */}
+        <Grid item xs={12} sm={6}>
+          <OurOffice
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="PRODUCTS"
+            Link="/products"
           />
         </Grid>
-        <Grid item xs={12} md={6}>
-        <WeeklySales
-           backgroundColor="#6200EE"
-           icon={<StarIcon style={{ color: '#ffffff' }} />}
-           title={20}
-           subTitle="PRODUCTS"
-           Link="/products"
+        {/* Business Weekly Sales - Top right side */}
+        <Grid item xs={12} sm={6}>
+          <WeeklySales
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="PRODUCTS"
+            Link="/products"
           />
         </Grid>
-          {/* Easy Access Widget Portion */}
-          <Grid item xs={12} sm={3} xl={3}>
-        <CardWidget
-           backgroundColor="#6200EE"
-           icon={<StarIcon style={{ color: '#ffffff' }} />}
-           title={20}
-           subTitle="PRODUCTS"
-           Link="/products"
+        {/* Easy Access Widget Portion */}
+        <Grid item xs={12} sm={6} lg={3}>
+          <CardWidget
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="PRODUCTS"
+            Link="/products"
           />
         </Grid>
-        <Grid item xs={12} sm={3} xl={3}>
-        <CardWidget
-           backgroundColor="#6200EE"
-           icon={<StarIcon style={{ color: '#ffffff' }} />}
-           title={20}
-           subTitle="STOCKS"
-           Link="/stocks"
+        <Grid item xs={12} sm={6} lg={3}>
+          <CardWidget
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="STOCKS"
+            Link="/stocks"
           />
         </Grid>
-        <Grid item xs={12} sm={3} xl={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <CardWidget
             icon={<ContactPhone style={{ color: '#ffffff' }} />}
             backgroundColor="#0795F4"
             title={23}
             subTitle="Customers"
             Link="/customers"
-
           />
         </Grid>
-        <Grid item xs={12} sm={3} xl={3}>
-          <CardWidget 
-           icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
-           backgroundColor="#8DCD03"
-           title={543}
-           subTitle="Users"
-           Link="/users"
+        <Grid item xs={12} sm={6} lg={3}>
+          <CardWidget
+            icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
+            backgroundColor="#8DCD03"
+            title={543}
+            subTitle="Users"
+            Link="/users"
           />
         </Grid>
       </GridContainer>

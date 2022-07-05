@@ -1,13 +1,9 @@
-import {
-  SEND_FORGET_PASSWORD_EMAIL,
-  UPDATE_AUTH_USER,
-  UPDATE_LOAD_USER
-} from "../../@jumbo/constants/ActionTypes";
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER } from '../../@jumbo/constants/ActionTypes';
 
 const INIT_STATE = {
   authUser: null,
   loadUser: false,
-  send_forget_password_email: false
+  send_forget_password_email: false,
 };
 
 export default (state = INIT_STATE, action) => {
@@ -16,19 +12,19 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         authUser: action.payload,
-        loadUser: true
+        loadUser: true,
       };
     }
     case UPDATE_LOAD_USER: {
       return {
         ...state,
-        loadUser: action.payload
+        loadUser: action.payload,
       };
     }
     case SEND_FORGET_PASSWORD_EMAIL: {
       return {
         ...state,
-        send_forget_password_email: action.payload
+        send_forget_password_email: action.payload,
       };
     }
     default:

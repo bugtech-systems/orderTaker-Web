@@ -1,12 +1,12 @@
-import React from "react";
-import PageContainer from "../../../@jumbo/components/PageComponents/layouts/PageContainer";
+import React from 'react';
+import PageContainer from '../../../@jumbo/components/PageComponents/layouts/PageContainer';
 
 //Components
-import CustomerList from "./CustomerList";
+import CustomerList from './CustomerList';
 
 const breadcrumbs = [
-  {label: "Dashboard", link: "/"},
-  {label: "Customers", link: "/customers"}
+  { label: 'Dashboard', link: '/' },
+  { label: 'Customers', link: '/customers' },
 ];
 
 const Sales = () => {
