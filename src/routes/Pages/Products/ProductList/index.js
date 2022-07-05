@@ -10,6 +10,11 @@ import ProductDetail from './ProductDetail';
 import CreateProduct from './CreateProduct';
 import { setCurrentProduct } from '../../../../redux/actions/ProductApp';
 
+
+//Components
+import Scanner from '../Scanner';
+
+
 const Product = () => {
   const classes = useStyles();
   const { isSideBarCollapsed } = useSelector(({ productApp }) => productApp);
@@ -51,11 +56,19 @@ const Product = () => {
       <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} />
       <Box className={clsx(classes.inBuildAppContainer, isSideBarCollapsed ? 'collapsed' : '')}>
         <Sidebar onClickCreateProduct={onClickCreateProduct} />
-        <ProductsList
+        {viewMode == 'scanner' ? 
+        (
+        <Scanner
+        onChangeViewMode={onChangeViewMode}
+        />)
+        :
+        ( <ProductsList
           viewMode={viewMode}
           onShowProductDetail={onShowProductDetail}
           onClickEditProduct={onClickEditProduct}
-        />
+        />)
+      }
+       
       </Box>
       {showProductDetail && <ProductDetail open={showProductDetail} handleDialog={onHideProductDetail} />}
       {openCreateDialog && <CreateProduct open={openCreateDialog} handleDialog={onCloseComposeDialog} />}

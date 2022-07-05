@@ -26,18 +26,18 @@ const breadcrumbs = [
 ];
 
 const UserManagement = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
 
-  useEffect(() => {
-      dispatch(getUsers());
-      return () => {
-        dispatch({
-          type: CLEAR_DATA,
-          payload: 'users'
-        })
-      }
-  }, [])
+  // useEffect(() => {
+  //     dispatch(getUsers());
+  //     return () => {
+  //       dispatch({
+  //         type: CLEAR_DATA,
+  //         payload: 'users'
+  //       })
+  //     }
+  // }, [])
 
 
 
@@ -45,8 +45,8 @@ const UserManagement = () => {
     <PageContainer heading={"User Management"} breadcrumbs={breadcrumbs}>
       <GridContainer>
       <Grid item xs={12} lg={12}>
-      <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
-          <UserList />
+          <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+                     <UserList />
           </MuiPickersUtilsProvider>
         </Grid>
       </GridContainer>

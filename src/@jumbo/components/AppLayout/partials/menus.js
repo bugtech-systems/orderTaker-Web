@@ -1,5 +1,5 @@
-import React from 'react';
-import IntlMessages from '../../../utils/IntlMessages';
+import React from "react";
+import IntlMessages from "../../../utils/IntlMessages";
 
 import {
   PostAdd,
@@ -12,145 +12,151 @@ import {
   LocalAtm,
   SupervisedUserCircle,
   Settings,
-  ContactPhone,
-} from '@material-ui/icons';
+  ContactPhone
+} from "@material-ui/icons";
 
 const storeMenus = {
-  name: <IntlMessages id={'sidebar.store'} />,
+  name: <IntlMessages id={"sidebar.store"} />,
   icon: <Store />,
-  type: 'collapse',
+  type: "collapse",
   children: [
     {
-      name: <IntlMessages id={'sidebar.dashboard'} />,
+      name: <IntlMessages id={"sidebar.dashboard"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/store/dashboard',
+      type: "item",
+      link: "/store/dashboard"
     },
 
     {
-      name: <IntlMessages id={'sidebar.customers'} />,
+      name: <IntlMessages id={"sidebar.customers"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/store/customers',
-    },
-  ],
+      type: "item",
+      link: "/store/customers"
+    }
+  ]
 };
 
 const inventoryMenus = {
-  name: <IntlMessages id={'sidebar.inventory'} />,
+  name: <IntlMessages id={"sidebar.inventory"} />,
   icon: <Category />,
-  type: 'collapse',
+  type: "collapse",
   children: [
     {
-      name: <IntlMessages id={'sidebar.products'} />,
+      name: <IntlMessages id={"sidebar.products"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/inventory/products',
+      type: "item",
+      link: "/inventory/products"
     },
     {
-      name: <IntlMessages id={'sidebar.stocks'} />,
+      name: <IntlMessages id={"sidebar.stocks"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/inventory/stocks',
+      type: "item",
+      link: "/inventory/stocks"
     },
     {
-      name: <IntlMessages id={'sidebar.purchases'} />,
+      name: <IntlMessages id={"sidebar.purchases"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/inventory/purchases',
-    },
-  ],
+      type: "item",
+      link: "/inventory/purchases"
+    }
+  ]
 };
 
 const salesMenus = {
-  name: <IntlMessages id={'sidebar.report'} />,
+  name: <IntlMessages id={"sidebar.report"} />,
   icon: <Assessment />,
-  type: 'collapse',
+  type: "collapse",
   children: [
     {
-      name: <IntlMessages id={'sidebar.sales'} />,
+      name: <IntlMessages id={"sidebar.sales"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/reports/sales',
+      type: "item",
+      link: "/reports/sales"
     },
     {
-      name: <IntlMessages id={'sidebar.remittance'} />,
+      name: <IntlMessages id={"sidebar.remittance"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/reports/remittances',
+      type: "item",
+      link: "/reports/remittances"
     },
     {
-      name: <IntlMessages id={'sidebar.expense'} />,
+      name: <IntlMessages id={"sidebar.expense"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/reports/expenses',
-    },
-  ],
+      type: "item",
+      link: "/reports/expenses"
+    }
+  ]
 };
 
 const settingsMenus = {
-  name: <IntlMessages id={'sidebar.settings'} />,
+  name: <IntlMessages id={"sidebar.settings"} />,
   icon: <Settings />,
-  type: 'collapse',
+  type: "collapse",
   children: [
     {
-      name: <IntlMessages id={'sidebar.config'} />,
+      name: <IntlMessages id={"sidebar.config"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/settings/configurations',
+      type: "item",
+      link: "/settings/configurations"
     },
     {
-      name: <IntlMessages id={'sidebar.user'} />,
+      name: <IntlMessages id={"sidebar.user"} />,
       icon: <ArrowForward />,
-      type: 'item',
-      link: '/settings/user-management',
-    },
-  ],
+      type: "item",
+      link: "/settings/user-management"
+    }
+  ]
 };
 
 export const sidebarNavs = [
   {
-    name: <IntlMessages id={'sidebar.main'} />,
-    type: 'section',
+    name: <IntlMessages id={"sidebar.main"} />,
+    type: "section",
     children: [
       {
-        name: <IntlMessages id={'sidebar.dashboard'} />,
+        name: <IntlMessages id={"sidebar.dashboard"} />,
         icon: <Dashboard />,
-        type: 'item',
-        link: '/dashboard',
+        type: "item",
+        link: "/dashboard"
       },
       {
-        name: <IntlMessages id={'sidebar.products'} />,
+        name: <IntlMessages id={"sidebar.products"} />,
         icon: <Category />,
-        type: 'item',
-        link: '/products',
+        type: "item",
+        link: "/products"
       },
       {
-        name: <IntlMessages id={'sidebar.customers'} />,
+        name: <IntlMessages id={"sidebar.inventory"} />,
+        icon: <Category />,
+        type: "item",
+        link: "/inventory"
+      },
+      {
+        name: <IntlMessages id={"sidebar.customers"} />,
         icon: <ContactPhone />,
-        type: 'item',
-        link: '/customers',
+        type: "item",
+        link: "/customers"
       },
       {
-        name: <IntlMessages id={'sidebar.report'} />,
+        name: <IntlMessages id={"sidebar.report"} />,
         icon: <Assessment />,
-        type: 'item',
-        link: '/reports',
+        type: "item",
+        link: "/reports"
       },
       {
-        name: <IntlMessages id={'sidebar.user'} />,
+        name: <IntlMessages id={"sidebar.user"} />,
         icon: <SupervisedUserCircle />,
-        type: 'item',
-        link: '/user-management',
-      },
+        type: "item",
+        link: "/user-management"
+      }
       // {
       //   name: <IntlMessages id={'sidebar.settings'} />,
       //   icon: <Settings />,
       //   type: 'item',
       //   link: '/settings',
       // }
-    ],
-  },
+    ]
+  }
 ];
 
 // export const sidebarNavs = [
@@ -216,30 +222,30 @@ export const sidebarNavs = [
 
 export const horizontalDefaultNavs = [
   {
-    name: <IntlMessages id={'sidebar.main'} />,
-    type: 'collapse',
+    name: <IntlMessages id={"sidebar.main"} />,
+    type: "collapse",
     children: [
       {
-        name: <IntlMessages id={'pages.dashboard'} />,
-        type: 'item',
+        name: <IntlMessages id={"pages.dashboard"} />,
+        type: "item",
         icon: <PostAdd />,
-        link: '/dashboard',
-      },
-    ],
-  },
+        link: "/dashboard"
+      }
+    ]
+  }
 ];
 
 export const minimalHorizontalMenus = [
   {
-    name: <IntlMessages id={'sidebar.main'} />,
-    type: 'collapse',
+    name: <IntlMessages id={"sidebar.main"} />,
+    type: "collapse",
     children: [
       {
-        name: <IntlMessages id={'pages.dashboard'} />,
-        type: 'item',
+        name: <IntlMessages id={"pages.dashboard"} />,
+        type: "item",
         icon: <PostAdd />,
-        link: '/dashboard',
-      },
-    ],
-  },
+        link: "/dashboard"
+      }
+    ]
+  }
 ];

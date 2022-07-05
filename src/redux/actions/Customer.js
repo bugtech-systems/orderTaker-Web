@@ -13,17 +13,17 @@ import {
   UPDATE_CUSTOMER,
   UPDATE_CUSTOMER_LABEL,
   UPDATE_LABEL_ITEM,
-  UPDATE_STARRED_STATUS,
-} from './types';
-import { fetchError, fetchStart, fetchSuccess } from './Common';
-import axios from 'axios';
+  UPDATE_STARRED_STATUS
+} from "./types";
+import {fetchError, fetchStart, fetchSuccess} from "./Common";
+import axios from "axios";
 
 //For expanding sidebar
 export const toggleExpandSidebar = value => {
   return dispatch => {
     dispatch({
       type: TOGGLE_SIDEBAR_COLLAPSED,
-      payload: value,
+      payload: value
     });
   };
 };
@@ -32,7 +32,7 @@ export const toggleExpandSidebar = value => {
 export const setFilterType = filterType => {
   return {
     type: SET_FILTER_TYPE,
-    payload: filterType,
+    payload: filterType
   };
 };
 
@@ -41,17 +41,17 @@ export const getLabelsList = () => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/customer/labels')
+      .get("/customers/labels")
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: GET_LABELS_LIST, payload: data.data });
+          dispatch({type: GET_LABELS_LIST, payload: data.data});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -61,17 +61,17 @@ export const addNewLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/customer/labels', { label })
+      .post("/customers/labels", {label})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: ADD_LABEL, payload: data.data });
+          dispatch({type: ADD_LABEL, payload: data.data});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -81,17 +81,17 @@ export const deleteLabel = labelId => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/labels/delete', { labelId })
+      .put("/customers/labels/delete", {labelId})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: DELETE_LABEL_ITEM, payload: labelId });
+          dispatch({type: DELETE_LABEL_ITEM, payload: labelId});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -101,17 +101,17 @@ export const updateLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/labels', { label })
+      .put("/customers/labels", {label})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_LABEL_ITEM, payload: label });
+          dispatch({type: UPDATE_LABEL_ITEM, payload: label});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -121,17 +121,17 @@ export const getCustomersList = params => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/customer', { params })
+      .get("/customers", {params})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: GET_CUSTOMERS_LIST, payload: data.data });
+          dispatch({type: GET_CUSTOMERS_LIST, payload: data.data});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -140,7 +140,7 @@ export const setCurrentCustomer = customer => {
   return dispatch => {
     dispatch({
       type: SET_CURRENT_CUSTOMER,
-      payload: customer,
+      payload: customer
     });
   };
 };
@@ -150,17 +150,17 @@ export const createCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/customer', { customer })
+      .post("/customers", {customer})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: CREATE_CUSTOMER, payload: data.data });
+          dispatch({type: CREATE_CUSTOMER, payload: data.data});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -170,17 +170,17 @@ export const onUpdateCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer', { customer })
+      .put("/customers", {customer})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_CUSTOMER, payload: customer });
+          dispatch({type: UPDATE_CUSTOMER, payload: customer});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -190,20 +190,20 @@ export const updateStarredStatus = (customerIds, status) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/update-starred', { customerIds, status })
+      .put("/customers/update-starred", {customerIds, status})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
           dispatch({
             type: UPDATE_STARRED_STATUS,
-            payload: { customerIds, status },
+            payload: {customerIds, status}
           });
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -213,39 +213,38 @@ export const deleteCustomer = customerIds => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/delete', { customerIds })
+      .put("/customers/delete", {customerIds})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: DELETE_CUSTOMER, payload: customerIds });
+          dispatch({type: DELETE_CUSTOMER, payload: customerIds});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
 
 //for updating customers label(through listing)
 export const updateCustomersLabel = (customerIds, label) => {
-  console.log('Wawa');
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/update-label', { customerIds, label })
+      .put("/customers/update-label", {customerIds, label})
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_CUSTOMER_LABEL, payload: data.data });
+          dispatch({type: UPDATE_CUSTOMER_LABEL, payload: data.data});
         } else {
-          dispatch(fetchError('Something went wrong'));
+          dispatch(fetchError("Something went wrong"));
         }
       })
       .catch(error => {
         console.log(error);
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };
@@ -254,14 +253,14 @@ export const updateCustomersLabel = (customerIds, label) => {
 export const getCustomerCounts = () => {
   return dispatch => {
     axios
-      .get('/customer/counter')
+      .get("/customers/counter")
       .then(data => {
         if (data.status === 200) {
-          dispatch({ type: GET_CUSTOMER_COUNTS, payload: data.data });
+          dispatch({type: GET_CUSTOMER_COUNTS, payload: data.data});
         }
       })
       .catch(error => {
-        dispatch(fetchError('Something went wrong'));
+        dispatch(fetchError("Something went wrong"));
       });
   };
 };

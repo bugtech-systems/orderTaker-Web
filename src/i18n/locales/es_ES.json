@@ -1,5 +1,6 @@
 {
   "sidebar.main": "Principal",
+  "sidebar.inventory": "Producto Inventaryo",
   "sidebar.dashboards": "Cuadros de mando",
   "sidebar.dashboard": "Tablero",
   "sidebar.dashboard.misc": "Misc",

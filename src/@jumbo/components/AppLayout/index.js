@@ -1,45 +1,45 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, {useContext, useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
-import AppContext from '../contextProvider/AppContextProvider/AppContext';
-import globalStyles from '../../../theme/GlobalCss';
-import '../../../services/api/index';
-import { useDispatch, useSelector } from 'react-redux';
-import { AuhMethods } from '../../../services/auth';
-import { CurrentAuthMethod } from '../../constants/AppConstants';
-import VerticalDefault from './VerticalLayouts/VerticalDefault';
+import AppContext from "../contextProvider/AppContextProvider/AppContext";
+import globalStyles from "../../../theme/GlobalCss";
+import "../../../services/api/index";
+import {useDispatch, useSelector} from "react-redux";
+import {AuhMethods} from "../../../services/auth";
+import {CurrentAuthMethod} from "../../constants/AppConstants";
+import VerticalDefault from "./VerticalLayouts/VerticalDefault";
 
-import { LAYOUT_TYPES } from '../../constants/ThemeOptions';
-import VerticalMinimal from './VerticalLayouts/VerticalMinimal';
-import MinimalNoHeader from './VerticalLayouts/MinimalNoHeader';
-import ModernSideBar from './VerticalLayouts/ModernSidebar';
-import HorizontalDefault from './HorizontalLayouts/HorizontalDefault';
-import HorizontalDark from './HorizontalLayouts/HorizontalDark';
-import HorizontalMinimal from './HorizontalLayouts/HorizontalMinimal';
-import HorizontalTopMenu from './HorizontalLayouts/HorizontalTopMenu';
+import {LAYOUT_TYPES} from "../../constants/ThemeOptions";
+import VerticalMinimal from "./VerticalLayouts/VerticalMinimal";
+import MinimalNoHeader from "./VerticalLayouts/MinimalNoHeader";
+import ModernSideBar from "./VerticalLayouts/ModernSidebar";
+import HorizontalDefault from "./HorizontalLayouts/HorizontalDefault";
+import HorizontalDark from "./HorizontalLayouts/HorizontalDark";
+import HorizontalMinimal from "./HorizontalLayouts/HorizontalMinimal";
+import HorizontalTopMenu from "./HorizontalLayouts/HorizontalTopMenu";
 
 const useStyles = makeStyles(() => ({
   circularProgressRoot: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     top: 0,
     zIndex: 1,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  }
 }));
 
-const AppLayout = ({ children }) => {
-  const [showLayoutLoader, setLayoutLoader] = useState(true);
-  const { layout } = useContext(AppContext);
-  const { loadUser } = useSelector(({ auth }) => auth);
+const AppLayout = ({children}) => {
+  const [ showLayoutLoader, setLayoutLoader ] = useState(true);
+  const {layout} = useContext(AppContext);
+  const {loadUser} = useSelector(({auth}) => auth);
   const dispatch = useDispatch();
   const classes = useStyles();
   const location = useLocation();
@@ -48,7 +48,9 @@ const AppLayout = ({ children }) => {
   useEffect(() => {
     dispatch(AuhMethods[CurrentAuthMethod].getAuthUser());
     setLayoutLoader(false);
-  }, [dispatch]);
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (showLayoutLoader || !loadUser) {
     return (
@@ -58,10 +60,15 @@ const AppLayout = ({ children }) => {
     );
   }
 
-  if (['/signin', '/signup', '/forgot-password'].includes(location.pathname)) {
-    return <div style={{ minHeight: '100vh', width: '100%', display: 'flex' }}>{children}</div>;
+  if (
+    [ "/signin", "/signup", "/forgot-password" ].includes(location.pathname)
+  ) {
+    return (
+      <div style={{minHeight: "100vh", width: "100%", display: "flex"}}>
+        {children}
+      </div>
+    );
   }
-
   switch (layout) {
     case LAYOUT_TYPES.VERTICAL_DEFAULT: {
       return <VerticalDefault children={children} />;

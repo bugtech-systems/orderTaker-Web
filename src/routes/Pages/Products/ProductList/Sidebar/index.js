@@ -19,6 +19,11 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import LabelCell from './LabelCell';
 
+
+//Icons
+import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
+
+
 const Sidebar = ({ onClickCreateProduct, width }) => {
   const { isSideBarCollapsed, labelsList, filterType, productsList } = useSelector(({ productApp }) => productApp);
   const { showFooter } = useContext(AppContext);
@@ -33,7 +38,6 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
   }, [dispatch]);
 
   const onChangeFolder = folder => {
-    console.log(folder);
     dispatch(
       setFilterType({
         selectedFolder: folder,
@@ -62,9 +66,9 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
     <Box className={classes.inBuildAppSidebar}>
       <Box className={classes.inBuildAppSidebarHeader}>
         <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateProduct}>
-          <PersonAddIcon />
+          <LibraryAddIcon />
           <Box component="span" className="add-task-btn-text">
-            Create New
+            NEW ITEM
           </Box>
         </Button>
       </Box>

@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
+
 //Pages
 //Main Pages
 import Dashboard from './Pages/Dashboard';
@@ -12,6 +13,8 @@ import Products from './Pages/Products';
 import SalesReport from './Pages/Reports';
 import Disbursement from './Pages/Disbursement';
 import UserManagement from './Pages/UserManagement';
+import Users from './Pages/Users';
+
 import Settings from './Pages/Settings';
 
 //Other Pages
@@ -20,8 +23,9 @@ import Notifications from './Pages/Notifications';
 
 import Error404 from './Pages/404';
 import Login from './Auth/Login';
-import Register from './Auth/Register';
-import ForgotPasswordPage from './Auth/ForgotPassword';
+import DefaultForgotPassword from './Pages/forgot-password/Default';
+// import Register from './Auth/Register';
+// import ForgotPasswordPage from './Auth/ForgotPassword';
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
   const { authUser } = useSelector(({ auth }) => auth);
@@ -71,12 +75,13 @@ const Routes = () => {
         <RestrictedRoute path="/settings" component={Settings} />
 
         {/* Other Pages */}
-        <Route path="/profile" component={Profile} />
+        <RestrictedRoute path="/profile" component={Profile} />
 
         <Route path="/signin" component={Login} />
+        <Route path="/forgot-password" component={DefaultForgotPassword} />
 
         {/* <Route path="/signup" component={Register} /> */}
-        <Route path="/forgot-password" component={ForgotPasswordPage} />
+        {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
         <Route component={Error404} />
       </Switch>
     </React.Fragment>
