@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-
 //Pages
 //Main Pages
 import Dashboard from './Pages/Dashboard';
@@ -73,13 +72,10 @@ const Routes = () => {
         <RestrictedRoute path="/disbursement" component={Disbursement} />
         <RestrictedRoute path="/reports" component={SalesReport} />
         <RestrictedRoute path="/settings" component={Settings} />
-
         {/* Other Pages */}
         <RestrictedRoute path="/profile" component={Profile} />
-
         <Route path="/signin" component={Login} />
         <Route path="/forgot-password" component={DefaultForgotPassword} />
-
         {/* <Route path="/signup" component={Register} /> */}
         {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
         <Route component={Error404} />

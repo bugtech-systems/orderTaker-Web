@@ -6,6 +6,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 //Components
 import CardWidget from './CardWidget';
+import OurOffice from './OurOffice';
+import WeeklySales from './WeeklySales';
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -57,13 +59,26 @@ const Dashboard = () => {
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
-        <Grid item xs={12} lg={6}>
-          {/* Business Profile Component - Top left side   */}
+        {/* Business Profile Component - Top left side   */}
+        <Grid item xs={12} sm={6}>
+          <OurOffice
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="PRODUCTS"
+            Link="/products"
+          />
         </Grid>
-        <Grid item xs={12} lg={6}>
-          {/* Business Weekly Sales - Top right side */}
+        {/* Business Weekly Sales - Top right side */}
+        <Grid item xs={12} sm={6}>
+          <WeeklySales
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="PRODUCTS"
+            Link="/products"
+          />
         </Grid>
-
         {/* Easy Access Widget Portion */}
         <Grid item xs={12} sm={6} lg={3}>
           <CardWidget
