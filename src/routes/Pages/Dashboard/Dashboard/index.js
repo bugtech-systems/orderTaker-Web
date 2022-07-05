@@ -12,9 +12,6 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import StarIcon from '@material-ui/icons/Star';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 
-
-
-
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetail } from '../../../../redux/actions/ProfileApp';
@@ -58,47 +55,50 @@ const Dashboard = () => {
   console.log(business);
 
   return (
-    <PageContainer
-      heading={'DASHBOARD'}
-      breadcrumbs={breadcrumbs}
-    >
+    <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
-          {/* Easy Access Widget Portion */}
-          <Grid item xs={12} sm={3} xl={3}>
-        <CardWidget
-           backgroundColor="#6200EE"
-           icon={<StarIcon style={{ color: '#ffffff' }} />}
-           title={20}
-           subTitle="PRODUCTS"
-           Link="/products"
+        <Grid item xs={12} lg={6}>
+          {/* Business Profile Component - Top left side   */}
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          {/* Business Weekly Sales - Top right side */}
+        </Grid>
+
+        {/* Easy Access Widget Portion */}
+        <Grid item xs={12} sm={6} lg={3}>
+          <CardWidget
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="PRODUCTS"
+            Link="/products"
           />
         </Grid>
-        <Grid item xs={12} sm={3} xl={3}>
-        <CardWidget
-           backgroundColor="#6200EE"
-           icon={<StarIcon style={{ color: '#ffffff' }} />}
-           title={20}
-           subTitle="STOCKS"
-           Link="/stocks"
+        <Grid item xs={12} sm={6} lg={3}>
+          <CardWidget
+            backgroundColor="#6200EE"
+            icon={<StarIcon style={{ color: '#ffffff' }} />}
+            title={20}
+            subTitle="STOCKS"
+            Link="/stocks"
           />
         </Grid>
-        <Grid item xs={12} sm={3} xl={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <CardWidget
             icon={<ContactPhone style={{ color: '#ffffff' }} />}
             backgroundColor="#0795F4"
             title={23}
             subTitle="Customers"
             Link="/customers"
-
           />
         </Grid>
-        <Grid item xs={12} sm={3} xl={3}>
-          <CardWidget 
-           icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
-           backgroundColor="#8DCD03"
-           title={543}
-           subTitle="Users"
-           Link="/users"
+        <Grid item xs={12} sm={6} lg={3}>
+          <CardWidget
+            icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
+            backgroundColor="#8DCD03"
+            title={543}
+            subTitle="Users"
+            Link="/users"
           />
         </Grid>
       </GridContainer>
