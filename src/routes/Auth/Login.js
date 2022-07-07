@@ -76,11 +76,11 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
   };
 
   const handleErrors = () => {
-    if (!values.email_address) {
-      setErrors({ ...errors, email_address: requiredMessage });
+    if (!values.email) {
+      setErrors({ ...errors, email: requiredMessage });
       return true;
-    } else if (!isValidEmail(values.email_address)) {
-      setErrors({ ...errors, email_address: emailNotValid });
+    } else if (!isValidEmail(values.email)) {
+      setErrors({ ...errors, email: emailNotValid });
       return true;
     } else if (!values.password) {
       setErrors({ ...errors, password: requiredMessage });
@@ -107,14 +107,14 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
   //       onUserSave(phoneNumbers);
   //     }
   //   };
-  const onSubmit = () => {
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(values);
     const isError = handleErrors();
     if (!isError) {
       dispatch(AuhMethods[method].onLogin(values));
     }
   };
-
-  console.log(values);
 
   return (
     <AuthWrapper variant={wrapperVariant}>
@@ -136,18 +136,18 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
         <Typography component="div" variant="h1" className={classes.titleRoot}>
           Login
         </Typography>
-        <form>
+        <Box component="form" onSubmit={onSubmit}>
           <Box mb={2}>
             <TextField
               label={<IntlMessages id="appModule.email" />}
               fullWidth
-              onChange={handleChange('email_address')}
-              value={values.email_address}
+              onChange={handleChange('email')}
+              value={values.email}
               margin="normal"
               variant="outlined"
               className={classes.textFieldRoot}
-              helperText={errors.email_address}
-              error={errors.email_address}
+              helperText={errors.email}
+              error={errors.email}
             />
           </Box>
           <Box mb={2}>
@@ -179,7 +179,7 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
           </Box>
 
           <Box display="flex" alignItems="center" justifyContent="space-between" mb={5}>
-            <Button onClick={onSubmit} variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary">
               <IntlMessages id="appModule.signIn" />
             </Button>
             {/* 
@@ -189,7 +189,7 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               </NavLink>
             </Box> */}
           </Box>
-        </form>
+        </Box>
         {/* 
         {dispatch(AuhMethods[method].getSocialMediaIcons())} */}
 

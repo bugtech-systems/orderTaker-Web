@@ -14,8 +14,7 @@ export const usersModule = {
       id: 1457690400,
       name: 'Alex Dolgove',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'alex-dolgove@example.com',
-      emailUsage: 1.11, // GB
+      email: 'alex-dolgove@example.com',
       phones: [{ phone: '(215)-659-7529', label: 'Home' }],
       address: 'CEO',
       starred: false,
@@ -32,8 +31,7 @@ export const usersModule = {
       id: 1457690401,
       name: 'Chelsea Johns',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'chelsea-johnss@example.com',
-      emailUsage: 1.6, // GB
+      email: 'chelsea-johnss@example.com',
       phones: [{ phone: '(215)-659-7529', label: 'home' }],
       address: 'CFO',
       starred: false,
@@ -50,8 +48,7 @@ export const usersModule = {
       id: 1457690402,
       name: 'Domnic Brown',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'domnic-brown@example.com',
-      emailUsage: 1.8, // GB
+      email: 'd@yahoo.com',
       phones: [{ phone: '(215)-748-7855', label: 'home' }],
       address: 'Designer',
       starred: false,
@@ -68,8 +65,7 @@ export const usersModule = {
       id: 1457690403,
       name: 'Domnic Harris',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'domnic-brown@example.com',
-      emailUsage: 1.7, // GB
+      email: 'domnic-brown@example.com',
       phones: [{ phone: '(215)-659-7529', label: 'home' }],
       address: 'PHP Developer',
       starred: false,
@@ -86,8 +82,7 @@ export const usersModule = {
       id: 1457690404,
       name: 'Garry Sobars',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'garry-sobars@example.com',
-      emailUsage: 2.4, // GB
+      email: 'garry-sobars@example.com',
       phones: [{ phone: '(215)-659-8965', label: 'home' }],
       address: 'HR Manager',
       starred: true,
@@ -104,8 +99,7 @@ export const usersModule = {
       id: 1457690405,
       name: 'Jeson Born',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'jeson-born@example.com',
-      emailUsage: 0.4, // GB
+      email: 'jeson-born@example.com',
       phones: [{ phone: '(215)-876-5434', label: 'home' }],
       address: 'Marketing Head',
       starred: false,
@@ -122,8 +116,7 @@ export const usersModule = {
       id: 1457690406,
       name: 'Jimmy Jo',
       dpUrl: 'https://via.placeholder.com/150g',
-      email_address: 'jimmy-jo@example.com',
-      emailUsage: 0.9, // GB
+      email: 'jimmy-jo@example.com',
       phones: [{ phone: '(215)-659-7529', label: 'home' }],
       address: 'BDO',
       starred: true,
@@ -140,8 +133,7 @@ export const usersModule = {
       id: 1457690407,
       name: 'John Smith',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'john-smith@example.com',
-      emailUsage: 1.1, // GB
+      email: 'john-smith@example.com',
       phones: [{ phone: '(215)-456-2346', label: 'home' }],
       address: 'CCO',
       starred: false,
@@ -158,8 +150,7 @@ export const usersModule = {
       id: 1457690408,
       name: 'Jonathan Modano',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'jonathan-modano@example.com',
-      emailUsage: 2.2, // GB
+      email: 'jonathan-modano@example.com',
       phones: [{ phone: '(215)-278-4357', label: 'home' }],
       address: 'Developer',
       starred: true,
@@ -176,8 +167,7 @@ export const usersModule = {
       id: 1457690409,
       name: 'Kadir M',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'kadir-m@example.com',
-      emailUsage: 1.2, // GB
+      email: 'kadir-m@example.com',
       phones: [{ phone: '(215)-286-0788', label: 'home' }],
       address: 'UI-UX Designer',
       starred: false,
@@ -194,8 +184,7 @@ export const usersModule = {
       id: 1457690410,
       name: 'Ken Ramirez',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'ken-remirez@example.com',
-      emailUsage: 3.1, // GB
+      email: 'ken-remirez@example.com',
       phones: [{ phone: '(215)-586-4676', label: 'home' }],
       address: 'CEO',
       starred: false,
@@ -212,8 +201,7 @@ export const usersModule = {
       id: 1457690500,
       name: 'Michael Dogov',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'michael-dogov@example.com',
-      emailUsage: 2.5, // GB
+      email: 'michael-dogov@example.com',
       phones: [{ phone: '(215)-659-7529', label: 'home' }],
       address: 'CEO',
       starred: false,
@@ -230,8 +218,7 @@ export const usersModule = {
       id: 1457690501,
       name: 'Stella Johnson',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'stella-johnson@example.com',
-      emailUsage: 2.3, // GB
+      email: 'stella-johnson@example.com',
       phones: [{ phone: '(215)-745-2345', label: 'home' }],
       address: 'CFO',
       starred: false,
@@ -248,8 +235,7 @@ export const usersModule = {
       id: 1457690502,
       name: 'Steve Smith',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'steve-smith@example.com',
-      emailUsage: 2.6, // GB
+      email: 'steve-smith@example.com',
       phones: [{ phone: '(215)-748-3265', label: 'home' }],
       address: 'Designer',
       starred: false,
@@ -266,8 +252,7 @@ export const usersModule = {
       id: 1457690503,
       name: 'Noah Owens',
       dpUrl: 'https://via.placeholder.com/150',
-      email_address: 'noah-owens@example.com',
-      emailUsage: 1.6, // GB
+      email: 'noah-owens@example.com',
       phones: [{ phone: '(215)-756-3465', label: 'home' }],
       address: 'PHP Developer',
       starred: false,
@@ -284,8 +269,7 @@ export const usersModule = {
       id: 1457690404,
       name: 'Ellen Manning',
       dpUrl: '',
-      email_address: 'ellen-manning@example.com',
-      emailUsage: 1.6, // GB
+      email: 'ellen-manning@example.com',
       phones: [{ phone: '(215)-659-3246', label: 'home' }],
       address: 'HR Manager',
       starred: true,
@@ -302,8 +286,7 @@ export const usersModule = {
       id: 1457690505,
       name: 'Angel Jones',
       dpUrl: '',
-      email_address: 'angel-jones@example.com',
-      emailUsage: 0.8, // GB
+      email: 'angel-jones@example.com',
       phones: [{ phone: '(215)-876-3246', label: 'home' }],
       address: 'Marketing Head',
       starred: false,
@@ -320,8 +303,7 @@ export const usersModule = {
       id: 1457690506,
       name: 'Dollie Norton',
       dpUrl: '',
-      email_address: 'dollie-norton@example.com',
-      emailUsage: 0.7, // GB
+      email: 'dollie-norton@example.com',
       phones: [{ phone: '(215)-785-0967', label: 'home' }],
       address: 'BDO',
       starred: true,
@@ -338,8 +320,7 @@ export const usersModule = {
       id: 1457690507,
       name: 'Joshua Brian',
       dpUrl: '',
-      email_address: 'joshua-brian@example.com',
-      emailUsage: 0.6, // GB
+      email: 'joshua-brian@example.com',
       phones: [{ phone: '(215)-456-0677', label: 'home' }],
       address: 'CCO',
       starred: false,
@@ -356,8 +337,7 @@ export const usersModule = {
       id: 1457690508,
       name: 'Amay Mathur',
       dpUrl: '',
-      email_address: 'amay-mathur@example.com',
-      emailUsage: 2.1, // GB
+      email: 'amay-mathur@example.com',
       phones: [{ phone: '(215)-278-5475', label: 'home' }],
       address: 'Developer',
       starred: true,
@@ -374,8 +354,7 @@ export const usersModule = {
       id: 1457690509,
       name: 'Chris Mathew',
       dpUrl: '',
-      email_address: 'chris-mathew@example.com',
-      emailUsage: 1.2, // GB
+      email: 'chris-mathew@example.com',
       phones: [{ phone: '(215)-286-0456', label: 'home' }],
       address: 'UI-UX Designer',
       starred: false,
@@ -392,8 +371,7 @@ export const usersModule = {
       id: 1457690510,
       name: 'Nikki Johnson',
       dpUrl: '',
-      email_address: 'nikki-johnson@example.com',
-      emailUsage: 0.3, // GB
+      email: 'nikki-johnson@example.com',
       phones: [{ phone: '(215)-586-2355', label: 'home' }],
       address: 'CEO',
       starred: false,

@@ -147,7 +147,7 @@ export const sidebarNavs = [
         name: <IntlMessages id={'sidebar.user'} />,
         icon: <SupervisedUserCircle />,
         type: 'item',
-        link: '/user-management',
+        link: '/users',
       },
       // {
       //   name: <IntlMessages id={'sidebar.settings'} />,

@@ -99,13 +99,13 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
             </Badge>
           </IconButton>
 
-          <IconButton
+          {/* <IconButton
             className={clsx(classes.iconBtn, {
               active: activeOption === 'settings',
             })}
             onClick={() => onIconClick('settings')}>
             <SettingsIcon />
-          </IconButton>
+          </IconButton> */}
         </Box>
         <Box className={classes.contentArea}>
           <PerfectScrollbar className={classes.scrollbarRoot}>

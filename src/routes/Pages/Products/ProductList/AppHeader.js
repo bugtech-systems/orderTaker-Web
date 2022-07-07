@@ -12,7 +12,6 @@ import ListIcon from '@material-ui/icons/List';
 import Hidden from '@material-ui/core/Hidden';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 
-
 //Components
 import BarcodeScanner from '../Scanner';
 
@@ -23,7 +22,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
   const { searchText } = filterType;
 
   const handleSearchText = e => {
-    console.log()
+    console.log();
     dispatch(
       setFilterType({
         selectedFolder: e.target.value ? '' : 'products',
@@ -34,12 +33,12 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
   };
 
   const handleScanner = e => {
-    console.log(e)
+    console.log(e);
     dispatch(
       setFilterType({
         selectedFolder: e ? '' : 'products',
         selectedLabel: '',
-        searchText: e
+        searchText: e,
       }),
     );
   };
@@ -60,25 +59,25 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
       <Box className={classes.inBuildAppHeaderContent}>
         <CmtSearch placeholder="Search Products..." value={searchText} onChange={handleSearchText} border={false} />
         <Box ml="auto" display="flex" alignItems="center">
-        <Box ml={1}>
+          <Box ml={1}>
             {/* <BarcodeScanner onChange={handleScanner}/> */}
-              <IconButton
+            <IconButton
               className="icon-btn active"
               color={viewMode === 'scanner' ? 'primary' : 'default'}
-              onClick={() => { 
+              onClick={() => {
                 dispatch(
                   setFilterType({
                     selectedFolder: 'products',
                     selectedLabel: '',
-                    searchText: ''
-                  })
+                    searchText: '',
+                  }),
                 );
                 onChangeViewMode('scanner');
-                }}>
+              }}>
               <CropFreeIcon />
             </IconButton>
           </Box>
-          <Box ml={1}>
+          {/* <Box ml={1}>
             <IconButton
               className="icon-btn active"
               color={viewMode === 'table' ? 'primary' : 'default'}
@@ -93,7 +92,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
               onClick={() => onChangeViewMode('grid')}>
               <GridOnIcon />
             </IconButton>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Box>

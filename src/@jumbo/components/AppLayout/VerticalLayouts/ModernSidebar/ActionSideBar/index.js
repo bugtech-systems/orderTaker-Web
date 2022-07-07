@@ -162,13 +162,13 @@ const ActionSideBar = ({ width }) => {
       </Box>
 
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} mt={{ xs: 'unset', lg: 'auto' }}>
-        <Hidden smDown>
+        {/* <Hidden smDown>
           <Tooltip title="Settings">
             <IconButton className={classes.iconBtn} onClick={() => onIconClick('settings')}>
               <SettingsIcon />
             </IconButton>
           </Tooltip>
-        </Hidden>
+        </Hidden> */}
         <Hidden smDown>
           <Tooltip title="Logout">
             <IconButton className={classes.iconBtn} onClick={handleLogout}>

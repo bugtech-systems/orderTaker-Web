@@ -13,8 +13,6 @@ import AppContext from '../../../../../@jumbo/components/contextProvider/AppCont
 import EmptyProductResult from './EmptyProductResult';
 import Scanner from '../../Scanner';
 
-
-
 const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct }) => {
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
@@ -61,21 +59,11 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
         {showDuplicateMsg && (
           <DuplicateProductsMsg productsList={productsList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
         )}
-        {viewMode === 'table' ? (
-          <ListTableView
-            checkedProducts={checkedProducts}
-            handleCellCheckBox={handleCellCheckBox}
-            handleHeaderCheckBox={handleHeaderCheckBox}
-            updateCheckedProducts={updateCheckedProducts}
-            onShowProductDetail={onShowProductDetail}
-            onClickEditProduct={onClickEditProduct}
-          />
-        ) : viewMode === 'grid' ? (
+        {viewMode === 'grid' ? (
           <ListGridView onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} />
         ) : (
           <Scanner />
-        )
-        }
+        )}
       </PerfectScrollbar>
     </Box>
   ) : (
