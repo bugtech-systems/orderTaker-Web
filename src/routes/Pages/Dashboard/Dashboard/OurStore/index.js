@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
+import { GoogleMap, withGoogleMap } from 'react-google-maps';
 
 import Box from '@material-ui/core/Box';
 import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
@@ -89,6 +90,8 @@ const OurStore = () => {
   const { addresses, title, description } = intranet.ourOfficeData;
   const [currentAddress, setAddress] = useState(addresses[0]);
   const classes = useStyles();
+  const GoogleMapBox = withGoogleMap(() => <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />);
+
 
   const handleAddressChange = event => {
     setAddress(addresses.find(item => item.label === event.target.value));
@@ -137,6 +140,13 @@ const OurStore = () => {
           ))}
         </Box>
       </CmtCardContent>
+      <Box p={2} height={1}>
+        <GoogleMapBox
+          loadingElement={<Box height={1} />}
+          containerElement={<Box height={1} />}
+          mapElement={<Box height={1} />}
+        />
+      </Box>
     </CmtCard>
   );
 };

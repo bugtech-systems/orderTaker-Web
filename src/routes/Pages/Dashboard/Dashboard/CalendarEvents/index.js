@@ -4,7 +4,7 @@ import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';  
 import { getDateElements, getNewDate, isDatesSame, isToday } from '../../../../../@jumbo/utils/dateHelper';
 import IconButton from '@material-ui/core/IconButton';
 import { intranet } from '../../../../../@fake-db';
@@ -29,14 +29,14 @@ const CalendarEvents = () => {
     const dateObj = getDateElements(date);
     return (
       <Box display="flex" flexDirection="column">
-        <Box display="flex" color="common.white" alignItems="baseline">
+        {/* <Box display="flex" color="common.white" alignItems="baseline">
           <Box component="span" mr={2} fontSize={{ xs: 26, md: 36, xl: 48 }} lineHeight={1} fontWeight="fontWeightBold">
-            {/* {dateObj.date.date} */}
+            {dateObj.date.date}
           </Box>
           <Box component="span" fontSize={25}>
-            SALES {}
+            SALE{}
           </Box>
-        </Box>
+        </Box> */}
         <Box display="flex" color="common.white" alignItems="baseline">
           <Box component="span" mr={2} fontSize={{ xs: 26, md: 36, xl: 48 }} lineHeight={1} fontWeight="fontWeightBold">
             {dateObj.date.date}
@@ -72,7 +72,7 @@ const CalendarEvents = () => {
             <ChevronLeftIcon />
           </IconButton>
           <Box component="span" mx={2} onClick={() => setDateCounter(0)} className="pointer">
-            Today
+          SALES
           </Box>
           <IconButton className={classes.iconBtn} size="small" onClick={() => setDateCounter(dateCounter + 1)}>
             <ChevronRightIcon />

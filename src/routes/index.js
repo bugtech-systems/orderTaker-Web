@@ -13,6 +13,9 @@ import SalesReport from './Pages/Reports';
 import Disbursement from './Pages/Disbursement';
 import UserManagement from './Pages/UserManagement';
 import Users from './Pages/Users';
+import Maps from './Pages';
+
+
 
 import Settings from './Pages/Settings';
 
@@ -72,10 +75,13 @@ const Routes = () => {
         <RestrictedRoute path="/disbursement" component={Disbursement} />
         <RestrictedRoute path="/reports" component={SalesReport} />
         <RestrictedRoute path="/settings" component={Settings} />
+        <RestrictedRoute path="/maps" component={Maps} />
+
         {/* Other Pages */}
         <RestrictedRoute path="/profile" component={Profile} />
         <Route path="/signin" component={Login} />
         <Route path="/forgot-password" component={DefaultForgotPassword} />
+
         {/* <Route path="/signup" component={Register} /> */}
         {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
         <Route component={Error404} />

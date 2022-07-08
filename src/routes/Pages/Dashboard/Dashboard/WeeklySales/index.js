@@ -60,4 +60,4 @@ const WeeklySales = () => {
   );
 };
 
-export default WeeklySales;
+export default WeeklySales; 

@@ -39,10 +39,10 @@ const ListHeader = ({ customersList, checkedCustomers, handleHeaderCheckBox }) =
             </Box>
             Name
           </Box>
-        </TableCell>
-        <TableCell className={classes.tableCellRoot}>Limit</TableCell>
-        <TableCell className={classes.tableCellRoot}>Balance</TableCell>
-        <TableCell />
+       </TableCell>
+          {/* <TableCell className={classes.tableCellRoot}>Limit</TableCell>
+          <TableCell className={classes.tableCellRoot}>Balance</TableCell> */}
+        <TableCell /> 
       </TableRow>
     </TableHead>
   );
