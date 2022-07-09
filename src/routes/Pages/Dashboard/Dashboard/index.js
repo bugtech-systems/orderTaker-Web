@@ -14,8 +14,9 @@ import RecentPayments from './RecentPayments';
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-import StarIcon from '@material-ui/icons/Star';
 import ContactPhone from '@material-ui/icons/ContactPhone';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,30 +68,21 @@ const Dashboard = () => {
           <GridContainer>
             <Grid item xs={12} sm={12} xl={12}>
               <OurStore
-                backgroundColor="#6200EE"
-                icon={<StarIcon style={{ color: '#ffffff' }} />}
-                title={20}
-                subTitle="PRODUCTS"
-                Link="/products"
+              // backgroundColor="#6200EE"
+              // icon={<StarIcon style={{ color: '#ffffff' }} />}
+              // title={20}
+              // subTitle="PRODUCTS"
+              // Link="/products"
               />
             </Grid>
             {/* Easy Access Widget Portion */}
             <Grid item xs={12} sm={6} lg={6}>
               <CardWidget
                 backgroundColor="#6200EE"
-                icon={<StarIcon style={{ color: '#ffffff' }} />}
+                icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
                 title={20}
                 subTitle="PRODUCTS"
                 Link="/products"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={6}>
-              <CardWidget
-                backgroundColor="#6200EE"
-                icon={<StarIcon style={{ color: '#ffffff' }} />}
-                title={20}
-                subTitle="REPORTS"
-                Link="/reports"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
@@ -100,6 +92,15 @@ const Dashboard = () => {
                 title={23}
                 subTitle="CUSTOMERS"
                 Link="/customers"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                backgroundColor="#6200EE"
+                icon={<AssessmentIcon style={{ color: '#ffffff' }} />}
+                title={20}
+                subTitle="REPORTS"
+                Link="/reports"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
@@ -116,11 +117,11 @@ const Dashboard = () => {
         {/* Business CalendarEvents - Top right side */}
         <Grid item xs={12} sm={6}>
           <CalendarEvents
-            backgroundColor="#6200EE"
-            icon={<StarIcon style={{ color: '#ffffff' }} />}
-            title={20}
-            subTitle="PRODUCTS"
-            Link="/products"
+          // backgroundColor="#6200EE"
+          // icon={<StarIcon style={{ color: '#ffffff' }} />}
+          // title={20}
+          // subTitle="PRODUCTS"
+          // Link="/products"
           />
         </Grid>
 

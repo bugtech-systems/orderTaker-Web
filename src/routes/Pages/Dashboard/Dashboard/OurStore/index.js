@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   addressTitle: {
     fontWeight: theme.typography.fontWeightRegular,
     [theme.breakpoints.up('lg')]: {
-      fontSize: 18,
+      fontSize: 20,
     },
   },
   socialLink: {
