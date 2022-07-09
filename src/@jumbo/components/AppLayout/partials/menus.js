@@ -125,6 +125,12 @@ export const sidebarNavs = [
         type: 'item',
         link: '/products',
       },
+      // {
+      //   name: <IntlMessages id={'sidebar.inventory'} />,
+      //   icon: <Category />,
+      //   type: 'item',
+      //   link: '/inventory',
+      // },
       {
         name: <IntlMessages id={'sidebar.customers'} />,
         icon: <ContactPhone />,
@@ -141,7 +147,7 @@ export const sidebarNavs = [
         name: <IntlMessages id={'sidebar.user'} />,
         icon: <SupervisedUserCircle />,
         type: 'item',
-        link: '/user-management',
+        link: '/users',
       },
       // {
       //   name: <IntlMessages id={'sidebar.settings'} />,

@@ -1,9 +1,16 @@
 import { fetchError, fetchStart, fetchSuccess } from '../../../redux/actions';
 import { setAuthUser, setForgetPassMailSent, updateLoadUser } from '../../../redux/actions/Auth';
+import { usersModule } from '../../../@fake-db/modules/users';
+
 import React from 'react';
+
+const users = usersModule.usersList;
+
+console.log(users);
 
 const BasicAuth = {
   onRegister: ({ name, email, password }) => {
+    console.log('registering');
     return dispatch => {
       dispatch(fetchStart());
 
@@ -17,17 +24,21 @@ const BasicAuth = {
   },
 
   onLogin: ({ email, password }) => {
+    console.log(email);
     return dispatch => {
       try {
         dispatch(fetchStart());
-
         setTimeout(() => {
-          const user = { name: 'Admin', email: email, password: password };
+          const user = users.find(a => a.email === email);
+          console.log(user.status)
+          if(user.status !== 'active') return dispatch(fetchError('User suspended!'))
+          if (!user) return dispatch(fetchError('User not found!'));
           dispatch(fetchSuccess());
           localStorage.setItem('user', JSON.stringify(user));
           dispatch(setAuthUser(user));
         }, 300);
       } catch (error) {
+        console.log(error);
         dispatch(fetchError(error.message));
       }
     };
@@ -35,7 +46,6 @@ const BasicAuth = {
   onLogout: () => {
     return dispatch => {
       dispatch(fetchStart());
-
       setTimeout(() => {
         dispatch(fetchSuccess());
         localStorage.removeItem('user');
@@ -59,7 +69,6 @@ const BasicAuth = {
   onForgotPassword: () => {
     return dispatch => {
       dispatch(fetchStart());
-
       setTimeout(() => {
         dispatch(setForgetPassMailSent(true));
         dispatch(fetchSuccess());

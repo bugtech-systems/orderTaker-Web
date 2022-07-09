@@ -186,7 +186,7 @@ const TableItem = ({ row }) => {
                 <div>
                   Pending{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    ${row.pendingAmount}
+                    ₱{row.pendingAmount}
                   </Box>
                 </div>
                 <div style={{ marginLeft: 'auto' }}>

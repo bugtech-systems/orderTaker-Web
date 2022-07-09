@@ -93,12 +93,12 @@ const CustomerDetail = ({ open, handleDialog }) => {
                 />
               </Box>
             </Box>
-            {(limit || balance) && (
+            {/* {(limit || balance) && (
               <Box mt={-1}>
                 {limit && <Typography className={classes.subTitleRoot}> Limit: ₱{limit}.00 </Typography>}
                 {balance && <Typography className={classes.subTitleRoot}> Balance: ₱{balance}.00 </Typography>}
               </Box>
-            )}
+            )} */}
           </Box>
         </Box>
         <Box ml="auto" mt={-2} display="flex" alignItems="center">

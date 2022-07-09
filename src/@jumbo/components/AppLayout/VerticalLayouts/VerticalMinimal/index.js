@@ -32,11 +32,7 @@ const VerticalMinimal = ({ className, children }) => {
     <CmtVerticalLayout
       layoutOptions={layoutOptions}
       className={clsx('verticalMinimalLayout', className)}
-      header={
-        <CmtHeader>
-          <Header />
-        </CmtHeader>
-      }
+      header={<CmtHeader>{/* <Header /> */}</CmtHeader>}
       sidebar={
         <CmtSidebar>
           <SidebarHeader />

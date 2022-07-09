@@ -26,12 +26,6 @@ const Notifications = () => {
 
   return (
     <Box>
-      <Box className={classes.header}>
-        <Box fontSize={22} fontWeight={700}>
-          Notifications
-        </Box>
-        <Button color="primary">Dismiss</Button>
-      </Box>
       <Box className={classes.sectionHeading}>Latest Notifications</Box>
       {headerNotifications.length > 0 ? (
         <CmtList data={headerNotifications} renderRow={(item, index) => <NotificationItem key={index} item={item} />} />

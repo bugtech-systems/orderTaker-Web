@@ -5,12 +5,18 @@ import ProductCell from './ProductCell';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 
+import ListItem from '../../../PopularProducts/ListItem';
+import { intranet } from '../../../../../../@fake-db';
+
+
 const ListGridView = ({ onShowProductDetail, onClickEditProduct }) => {
-  const { productsList } = useSelector(({ productApp }) => productApp);
+  // const { productsList } = useSelector(({ productApp }) => productApp);
+  const { popularProducts } = intranet;
 
   return (
     <Box px={6} py={{ xs: 8, xl: 10 }}>
-      <CmtGridView
+      
+  <CmtGridView
         border={true}
         itemPadding={18}
         responsive={{
@@ -20,16 +26,11 @@ const ListGridView = ({ onShowProductDetail, onClickEditProduct }) => {
           lg: 2,
           xl: 3,
         }}
-        data={productsList}
+        data={popularProducts}
         renderRow={(item, index) => (
-          <ProductCell
-            key={index}
-            product={item}
-            onShowProductDetail={onShowProductDetail}
-            onClickEditProduct={onClickEditProduct}
-          />
+          <ListItem key={index} item={item} />
         )}
-      />
+      /> 
     </Box>
   );
 };

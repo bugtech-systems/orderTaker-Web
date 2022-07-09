@@ -31,7 +31,7 @@ export const customers = [
     address: 'CEO',
     starred: false,
     labels: [2],
-    balance: 900,
+    balance: 0,
     limit: 1000,
     folder: 'customers',
   },

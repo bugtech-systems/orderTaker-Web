@@ -1,41 +1,53 @@
 import React from 'react';
-import { Box, IconButton } from '@material-ui/core';
+import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import Notifications from './Notifications';
-import Messages from './Messages';
-import Search from './Search';
-import Settings from './Settings';
 import CmtDrawer from '../../../../../../@coremat/CmtDrawer';
 import CloseIcon from '@material-ui/icons/Close';
-import SearchIcon from '@material-ui/icons/Search';
-import MessageIcon from '@material-ui/icons/Message';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
+
+
+//Components
+import Notifications from './Notifications';
+import Profile from './UserDetail';
+import Cart from './CartDetail/index';
+
+
+//Icons
+import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    width: '100wh',
+    
   },
   actionSidebar: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '24px 5px',
-    width: 65,
+    padding: '15px 5px',
+    width: '100%',
     borderRight: `1px solid ${theme.palette.divider}`,
   },
   contentArea: {
-    width: 300,
+    width: '100vw',
+    // overflow: 'hidden',
+    height: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 557,
+      width: 579,
+      // overflow: 'hidden',
+      height: '100%'
+
     },
   },
   scrollbarRoot: {
-    height: '100vh',
-    padding: 30,
+    // height: '100%',
+    margin: 15,
+    overflow: 'hidden'
   },
   iconBtn: {
     position: 'relative',
@@ -51,6 +63,26 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.warning.main,
     width: 20,
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '5px 15px'
+    },
+    cartButton: {
+      position: 'absolute',
+      width: '100%',
+      bottom: 30,
+      zIndex: 1000,
+      color: theme.palette.text.secondary,
+      textTransform: 'uppercase',
+      display: "flex",
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      [theme.breakpoints.up('sm')]: {
+        bottom: 20,
+      },
+    },
 }));
 
 const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) => {
@@ -59,26 +91,32 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest}>
       <Box className={clsx(classes.root)}>
+          {/* <Hidden smDown>
         <Box className={classes.actionSidebar}>
           <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
+          <Tooltip title="Profile">
+            <IconButton
+              className={clsx(classes.iconBtn, {
+                active: activeOption === 'profile',
+              })}
+              onClick={() => onIconClick('profile')}>
+              <CmtAvatar src={'https://via.placeholder.com/150'} />
+            </IconButton>
+          </Tooltip>
 
-          {/* <IconButton
-            className={clsx(classes.iconBtn, {
-              active: activeOption === 'search',
-            })}
-            onClick={() => onIconClick('search')}>
-            <SearchIcon />
-          </IconButton> */}
-          {/* 
-          <IconButton
-            className={clsx(classes.iconBtn, {
-              active: activeOption === 'messages',
-            })}
-            onClick={() => onIconClick('messages')}>
-            <MessageIcon />
-          </IconButton> */}
+          <Tooltip title="Cart">
+            <IconButton
+              className={clsx(classes.iconBtn, {
+                active: activeOption === 'cart',
+              })}
+              onClick={() => onIconClick('cart')}>
+              <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+                <LocalGroceryStore />
+              </Badge>
+            </IconButton>
+          </Tooltip>
 
           <IconButton
             className={clsx(classes.iconBtn, {
@@ -89,23 +127,34 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
               <NotificationsIcon />
             </Badge>
           </IconButton>
-
-          <IconButton
-            className={clsx(classes.iconBtn, {
-              active: activeOption === 'settings',
-            })}
-            onClick={() => onIconClick('settings')}>
-            <SettingsIcon />
-          </IconButton>
         </Box>
+        </Hidden> */}
         <Box className={classes.contentArea}>
+        {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
+            <CloseIcon />
+          </IconButton> */}
+            <Box className={classes.header}>
+        <Box fontSize={20} fontWeight={700}>
+           {activeOption === 'notifications' && 'Notifications'}
+            {activeOption === 'profile' && 'My Pofile'}
+            {activeOption === 'cart' && 'SHOPPING CART'}
+        </Box>
+        <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
+            <CloseIcon />
+          </IconButton>
+      </Box>
           <PerfectScrollbar className={classes.scrollbarRoot}>
             {activeOption === 'notifications' && <Notifications />}
-            {activeOption === 'messages' && <Messages />}
-            {activeOption === 'search' && <Search />}
-            {activeOption === 'settings' && <Settings />}
+            {activeOption === 'profile' && <Profile/>}
+            {activeOption === 'cart' && <Cart />}
           </PerfectScrollbar>
         </Box>
+        {activeOption === 'cart' && <Box className={classes.cartButton}>
+      <Button variant="contained" color="default">Draft</Button>
+      <Button variant="contained" color="primary">Checkout</Button>
+      </Box>}
+
+    
       </Box>
     </CmtDrawer>
   );

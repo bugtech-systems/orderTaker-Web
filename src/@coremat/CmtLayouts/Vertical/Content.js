@@ -8,18 +8,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     boxSizing: 'border-box',
-    padding: '30px 15px',
+    padding: '20px 15px',
     [theme.breakpoints.up('md')]: {
-      paddingLeft: 50,
-      paddingRight: 50,
+      paddingLeft: 20,
+      paddingRight: 20,
     },
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: 65,
-      paddingRight: 65,
+      paddingLeft: 35,
+      paddingRight: 35,
     },
     [theme.breakpoints.up('xl')]: {
-      paddingLeft: 88,
-      paddingRight: 88,
+      paddingLeft: 48,
+      paddingRight: 48,
     },
     [theme.breakpoints.down('sm')]: {
       paddingTop: 20,

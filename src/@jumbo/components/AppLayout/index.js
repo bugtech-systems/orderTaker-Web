@@ -48,7 +48,9 @@ const AppLayout = ({ children }) => {
   useEffect(() => {
     dispatch(AuhMethods[CurrentAuthMethod].getAuthUser());
     setLayoutLoader(false);
-  }, [dispatch]);
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (showLayoutLoader || !loadUser) {
     return (
@@ -61,7 +63,6 @@ const AppLayout = ({ children }) => {
   if (['/signin', '/signup', '/forgot-password'].includes(location.pathname)) {
     return <div style={{ minHeight: '100vh', width: '100%', display: 'flex' }}>{children}</div>;
   }
-
   switch (layout) {
     case LAYOUT_TYPES.VERTICAL_DEFAULT: {
       return <VerticalDefault children={children} />;

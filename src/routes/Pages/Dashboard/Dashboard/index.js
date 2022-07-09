@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import GridContainer from '../../../../@jumbo/components/GridContainer';
 import PageContainer from '../../../../@jumbo/components/PageComponents/layouts/PageContainer';
-import TextDisplay from '../../../../@jumbo/utils/TextDisplay';
 import Grid from '@material-ui/core/Grid';
-import SidebarButtons from '../../../../@jumbo/components/AppLayout/partials/SideBar/SIdebarButtons';
-import Divider from '@material-ui/core/Divider';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Box from '@material-ui/core/Box';
 
-//Components
-import BitcoinPurchaseHistory from './BitcoinPurchaseHistory';
-import RipplePurchaseHistory from './RipplePurchaseHistory';
-import EtheriumPurchaseHistory from './EtheriumPurchaseHistory';
-import LitecoinPurchaseHistory from './LitecoinPurchaseHistory';
-import PortfolioBalance from './PortfolioBalance';
-import RevenueSummary from './RevenueSummary';
+//DashBoard Components
+import CardWidget from './CardWidget';
+import OurStore from './OurStore';
+import CalendarEvents from './CalendarEvents';
+import PopularAgents from './PopularAgents';
 import RecentPayments from './RecentPayments';
-import OrderHistory from './OrderHistory';
-import PopularCustomers from './PopularCustomers';
-import Header from './Header';
-import LastMonthSale from './LastMonthSale';
-import OnlineSignups from './OnlineSignups';
-import TotalEmailSent from './TotalEmailSent';
-import TotalRevenue from './TotalRevenue';
-import SalesStatistic from './SalesStatistic';
+
+//Icons
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import ContactPhone from '@material-ui/icons/ContactPhone';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,8 +41,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const breadcrumbs = [
-  // { label: <TextDisplay name="Store" />, link: '/' },
-  // { label: <TextDisplay name="Dashboard" />, isActive: true },
+  // { label: 'Dashboard', link: '/' }
 ];
 
 const Dashboard = () => {
@@ -57,9 +50,9 @@ const Dashboard = () => {
   const [tabValue, setTabValue] = useState('about');
   const { business } = useSelector(({ auth }) => auth);
 
-  useEffect(() => {
-    // dispatch(getUserDetail());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // dispatch(getUserDetail());
+  // }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -68,68 +61,78 @@ const Dashboard = () => {
   console.log(business);
 
   return (
-    <PageContainer
-      heading={'Dashboard'}
-      // breadcrumbs={breadcrumbs}
-    >
-      {/* {business && (
-        <Header
-          classes={classes}
-          businessDetails={business}
-          tabValue={tabValue}
-          handleTabChange={handleTabChange}
-          heading={'Dashboard'}
-          breadcrumbs={breadcrumbs}
-        />
-      )}
-      <br /> */}
+    <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
-        <Grid item xs={12} sm={12} md={12} />
-        <Grid item xs={12} sm={6} md={3}>
-          <OnlineSignups />
+        {/* Business Profile Component - Top left side   */}
+        <Grid item xs={12} sm={6}>
+          <GridContainer>
+            <Grid item xs={12} sm={12} xl={12}>
+              <OurStore
+              // backgroundColor="#6200EE"
+              // icon={<StarIcon style={{ color: '#ffffff' }} />}
+              // title={20}
+              // subTitle="PRODUCTS"
+              // Link="/products"
+              />
+            </Grid>
+            {/* Easy Access Widget Portion */}
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                backgroundColor="#6200EE"
+                icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
+                title={20}
+                subTitle="PRODUCTS"
+                Link="/products"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                icon={<ContactPhone style={{ color: '#ffffff' }} />}
+                backgroundColor="#0795F4"
+                title={23}
+                subTitle="CUSTOMERS"
+                Link="/customers"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                backgroundColor="#6200EE"
+                icon={<AssessmentIcon style={{ color: '#ffffff' }} />}
+                title={20}
+                subTitle="REPORTS"
+                Link="/reports"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
+                backgroundColor="#8DCD03"
+                title={543}
+                subTitle="USERS"
+                Link="/users"
+              />
+            </Grid>
+          </GridContainer>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <LastMonthSale />
+        {/* Business CalendarEvents - Top right side */}
+        <Grid item xs={12} sm={6}>
+          <CalendarEvents
+          // backgroundColor="#6200EE"
+          // icon={<StarIcon style={{ color: '#ffffff' }} />}
+          // title={20}
+          // subTitle="PRODUCTS"
+          // Link="/products"
+          />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <TotalRevenue />
+
+        <Grid item xs={12} lg={12} xl={8} className={classes.orderLg1}>
+          <Box pb={6}>
+            <PopularAgents />
+          </Box>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <TotalEmailSent />
-        </Grid>
-        <Grid item xs={12}>
-          <SalesStatistic />
-        </Grid>
-        {/* <Grid item xs={12} sm={6} md={3}>
-          <BitcoinPurchaseHistory />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <RipplePurchaseHistory />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <EtheriumPurchaseHistory />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <LitecoinPurchaseHistory />
-        </Grid> */}
-        <Grid item xs={12} lg={6}>
-          <PortfolioBalance />
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <RevenueSummary />
-        </Grid>
-        <Grid item xs={12} xl={12}>
-          <PopularCustomers />
-        </Grid>
-        <Grid item xs={12} xl={12}>
+        <Grid item xs={12} xl={5}>
           <RecentPayments />
         </Grid>
-        {/* <Grid item xs={12} xl={12}>
-          <OrderHistory />
-        </Grid> */}
-        {/*    <Grid item xs={12} xl={12}>
-        <CurrentPlan />
-        </Grid> */}
       </GridContainer>
     </PageContainer>
   );

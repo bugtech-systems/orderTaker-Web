@@ -24,7 +24,9 @@ import { deleteUserById } from '../../../../redux/actions/Crud';
 
 const UsersModule = () => {
   const classes = useStyles();
-  const { users: userArr } = useSelector(({ crud }) => crud);
+  const { users } = useSelector(({ usersReducer }) => usersReducer);
+  const dispatch = useDispatch();
+
   const { user } = useSelector(({ auth }) => auth);
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -40,26 +42,21 @@ const UsersModule = () => {
   const [isFilterApplied, setFilterApplied] = useState(false);
   const [filterOptions, setFilterOptions] = React.useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredResult, setFilteredResult] = useState([]);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  const dispatch = useDispatch();
+
+  console.log(user)
+  let usersArr = user.id ? users.filter(a => { return user.id != a.id  }) : users;
 
   useEffect(() => {
-
-
-    let users1 = userArr.filter(item => {
-      if(filterOptions.length == 0) return true;
-      else return filterOptions.find(a => {
-       return a.toLowerCase() === item.status.toLowerCase()
-      })
-    }).filter((item) => {
-      return  Object.values(item).join('').toLowerCase().includes(debouncedSearchTerm.toLowerCase() ? debouncedSearchTerm.toLowerCase() : '')
-  })
-
-  setFilteredResult(users1)
-  }, [dispatch, filterOptions, debouncedSearchTerm, userArr]);
+    dispatch(
+      getUsers(filterOptions, debouncedSearchTerm, () => {
+        setFilterApplied(!!filterOptions.length || !!debouncedSearchTerm);
+        setUsersFetched(true);
+      }),
+    );
+  }, [dispatch, filterOptions, debouncedSearchTerm]);
 
   const handleCloseUserDialog = () => {
     setOpenUserDialog(false);
@@ -74,7 +71,7 @@ const UsersModule = () => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelected = users.map(n => n.id);
+      const newSelected = usersArr.map(n => n.id);
       setSelected(newSelected);
       return;
     }
@@ -140,8 +137,8 @@ const UsersModule = () => {
 
   const isSelected = id => selected.indexOf(id) !== -1;
 
- let users = filteredResult.filter(a => { return user._id != a._id  });
 
+  console.log(users)
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -163,11 +160,11 @@ const UsersModule = () => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={usersArr.length}
             />
             <TableBody>
-              {!!users.length ? (
-                stableSort(users, getComparator(order, orderBy))
+              {!!usersArr.length ? (
+                stableSort(usersArr, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <UserListRow
@@ -197,7 +194,7 @@ const UsersModule = () => {
         <TablePagination
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
-          count={users.length}
+          count={usersArr.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handlePageChange}

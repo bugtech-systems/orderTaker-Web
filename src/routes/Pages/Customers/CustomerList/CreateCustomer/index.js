@@ -115,8 +115,8 @@ const CreateCustomer = ({ open, handleDialog }) => {
   const checkValidations = () => {
     const phoneNumbers = values.phones.filter(item => item.phone.trim());
 
-    if (!values.firstName) {
-      setErrors({ ...errors, firstName: requiredMessage });
+    if (!values.name) {
+      setErrors({ ...errors, name: requiredMessage });
     } else if (!values.email_address) {
       setErrors({ ...errors, email_address: requiredMessage });
     } else if (!isValidEmail(values.email_address)) {
@@ -126,13 +126,14 @@ const CreateCustomer = ({ open, handleDialog }) => {
     } else {
       handleSubmit(phoneNumbers);
     }
+    console.log(errors);
+    console.log(values);
   };
 
   const handleSubmit = phoneNumbers => {
-    let { limit, balance, firstName, lastName } = values;
+    let { limit, balance, name } = values;
     const customer = {
       ...values,
-      name: `${firstName} ${lastName}`,
       phones: phoneNumbers,
       limit: limit ? limit : 0,
       balance: balance ? balance : 0,
@@ -244,27 +245,19 @@ const CreateCustomer = ({ open, handleDialog }) => {
           <Box ml={2}>Add More</Box>
         </Box>
 
-        <Box
-          mb={{ xs: 6, md: 5 }}
-          display="flex"
-          alignItems="center"
-          onClick={onAddPhoneRow}
-          className="pointer"
-          color="primary.main">
-          <GridContainer>
-            <Grid item xs={12} sm={12}>
-              <AppTextInput
-                fullWidth
-                type="number"
-                variant="outlined"
-                label="Credit Limit"
-                value={values.limit}
-                onChange={handleChange('limit')}
-              />
-            </Grid>
-            <Grid item xs={12} sm={7} />
-          </GridContainer>
-        </Box>
+        <GridContainer>
+          <Grid item xs={12} sm={12}>
+            <AppTextInput
+              fullWidth
+              type="number"
+              variant="outlined"
+              label="Credit Limit"
+              value={values.limit}
+              onChange={handleChange('limit')}
+            />
+          </Grid>
+          <Grid item xs={12} sm={7} />
+        </GridContainer>
 
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Button onClick={handleDialog}>Cancel</Button>
