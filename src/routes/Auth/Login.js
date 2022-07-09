@@ -91,7 +91,7 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
     } else {
       return false;
     }
-  }; 
+  };
 
   //  const onSubmitClick = () => {
   //     const phoneNumbers = phones.filter(item => item.phone.trim());
@@ -107,16 +107,15 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
   //       onUserSave(phoneNumbers);
   //     }
   //   };
-  const onSubmit = (e) => {
-    e.preventDefault()
-    console.log(values)
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(values);
     const isError = handleErrors();
     if (!isError) {
       dispatch(AuhMethods[method].onLogin(values));
     }
   };
 
-  
   return (
     <AuthWrapper variant={wrapperVariant}>
       {variant === 'default' ? (
@@ -131,15 +130,13 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               height: 170,
               width: 170,
             }}
-            src={'/images/logo250.png'}
+            src={'/images/AjA18.png'}
           />
         </Box>
         <Typography component="div" variant="h1" className={classes.titleRoot}>
           Login
         </Typography>
-        <Box component="form"
-        onSubmit={onSubmit}
-        >
+        <Box component="form" onSubmit={onSubmit}>
           <Box mb={2}>
             <TextField
               label={<IntlMessages id="appModule.email" />}
