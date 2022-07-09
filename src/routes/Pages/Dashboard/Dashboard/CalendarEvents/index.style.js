@@ -2,6 +2,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
+    height: '100%',
     '& .Cmt-card-content': {
       paddingTop: 16,
     },
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
   },
   scrollbarRoot: {
-    height: 186,
+    height: '100%',
     marginRight: -24,
     marginLeft: -24,
     marginTop: -10,

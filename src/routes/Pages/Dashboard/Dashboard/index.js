@@ -64,13 +64,54 @@ const Dashboard = () => {
       <GridContainer>
         {/* Business Profile Component - Top left side   */}
         <Grid item xs={12} sm={6}>
-          <OurStore
-            backgroundColor="#6200EE"
-            icon={<StarIcon style={{ color: '#ffffff' }} />}
-            title={20}
-            subTitle="PRODUCTS"
-            Link="/products"
-          />
+          <GridContainer>
+            <Grid item xs={12} sm={12} xl={12}>
+              <OurStore
+                backgroundColor="#6200EE"
+                icon={<StarIcon style={{ color: '#ffffff' }} />}
+                title={20}
+                subTitle="PRODUCTS"
+                Link="/products"
+              />
+            </Grid>
+            {/* Easy Access Widget Portion */}
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                backgroundColor="#6200EE"
+                icon={<StarIcon style={{ color: '#ffffff' }} />}
+                title={20}
+                subTitle="PRODUCTS"
+                Link="/products"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                backgroundColor="#6200EE"
+                icon={<StarIcon style={{ color: '#ffffff' }} />}
+                title={20}
+                subTitle="REPORTS"
+                Link="/reports"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                icon={<ContactPhone style={{ color: '#ffffff' }} />}
+                backgroundColor="#0795F4"
+                title={23}
+                subTitle="CUSTOMERS"
+                Link="/customers"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
+                icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
+                backgroundColor="#8DCD03"
+                title={543}
+                subTitle="USERS"
+                Link="/users"
+              />
+            </Grid>
+          </GridContainer>
         </Grid>
         {/* Business CalendarEvents - Top right side */}
         <Grid item xs={12} sm={6}>
@@ -82,43 +123,7 @@ const Dashboard = () => {
             Link="/products"
           />
         </Grid>
-        {/* Easy Access Widget Portion */}
-        <Grid item xs={12} sm={6} lg={3}>
-          <CardWidget
-            backgroundColor="#6200EE"
-            icon={<StarIcon style={{ color: '#ffffff' }} />}
-            title={20}
-            subTitle="PRODUCTS"
-            Link="/products"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <CardWidget
-            backgroundColor="#6200EE"
-            icon={<StarIcon style={{ color: '#ffffff' }} />}
-            title={20}
-            subTitle="STOCKS"
-            Link="/stocks"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <CardWidget
-            icon={<ContactPhone style={{ color: '#ffffff' }} />}
-            backgroundColor="#0795F4"
-            title={23}
-            subTitle="Customers"
-            Link="/customers"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <CardWidget
-            icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
-            backgroundColor="#8DCD03"
-            title={543}
-            subTitle="Users"
-            Link="/users"
-          />
-        </Grid>
+
         <Grid item xs={12} lg={12} xl={8} className={classes.orderLg1}>
           <Box pb={6}>
             <PopularAgents />
