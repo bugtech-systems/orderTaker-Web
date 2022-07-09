@@ -4,7 +4,7 @@ import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
-import Box from '@material-ui/core/Box';  
+import Box from '@material-ui/core/Box';
 import { getDateElements, getNewDate, isDatesSame, isToday } from '../../../../../@jumbo/utils/dateHelper';
 import IconButton from '@material-ui/core/IconButton';
 import { intranet } from '../../../../../@fake-db';
@@ -60,7 +60,6 @@ const CalendarEvents = () => {
   const showDate = () => {
     return isToday(date) ? 'Today' : getDateElements(date).date.dateString;
   };
-
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader
@@ -72,7 +71,7 @@ const CalendarEvents = () => {
             <ChevronLeftIcon />
           </IconButton>
           <Box component="span" mx={2} onClick={() => setDateCounter(0)} className="pointer">
-          SALES
+            SALES
           </Box>
           <IconButton className={classes.iconBtn} size="small" onClick={() => setDateCounter(dateCounter + 1)}>
             <ChevronRightIcon />
@@ -89,6 +88,7 @@ const CalendarEvents = () => {
             View All
           </Button>
         </Box>
+        <Box className={classes.productView} />
       </CmtCardContent>
     </CmtCard>
   );
