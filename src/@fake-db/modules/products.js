@@ -88,8 +88,8 @@ export const products = [
     folder: 'products',
   },
   {
-    id: 1457690405,
-    name: 'Jeson Born',
+    id: 4801981118601,
+    name: 'Esparkol - Sprite',
     dpUrl: 'https://via.placeholder.com/150',
     email_address: 'jeson-born@example.com',
     phones: [{ phone: '(215)-876-5434', label: 'home' }],
@@ -98,7 +98,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690406,
@@ -111,7 +111,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690407,
@@ -124,7 +124,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690408,
@@ -137,7 +137,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690409,
@@ -150,7 +150,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690410,
@@ -163,7 +163,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690500,
@@ -176,7 +176,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690501,
@@ -189,7 +189,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690502,
@@ -205,8 +205,8 @@ export const products = [
     folder: 'products',
   },
   {
-    id: 1457690503,
-    name: 'Noah Owens',
+    id: 6930446819833,
+    name: 'Nexu',
     dpUrl: 'https://via.placeholder.com/150',
     email_address: 'noah-owens@example.com',
     phones: [{ phone: '(215)-756-3465', label: 'home' }],
@@ -215,7 +215,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690404,
@@ -228,7 +228,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690505,
@@ -241,7 +241,7 @@ export const products = [
     labels: [],
     balance: 900,
     limit: 1000,
-    folder: 'products',
+    folder: 'products'
   },
   {
     id: 1457690506,

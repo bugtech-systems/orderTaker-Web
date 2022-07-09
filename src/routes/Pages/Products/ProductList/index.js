@@ -16,7 +16,7 @@ import Scanner from '../Scanner';
 const Product = () => {
   const classes = useStyles();
   const { isSideBarCollapsed } = useSelector(({ productApp }) => productApp);
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState('table');
   const [showProductDetail, setShowProductDetail] = useState(false);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const dispatch = useDispatch();

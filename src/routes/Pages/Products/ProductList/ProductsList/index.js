@@ -61,6 +61,15 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
         )}
         {viewMode === 'grid' ? (
           <ListGridView onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} />
+        ) : viewMode === 'table' ? (
+          <ListTableView
+            checkedProducts={checkedProducts}
+            handleCellCheckBox={handleCellCheckBox}
+            handleHeaderCheckBox={handleHeaderCheckBox}
+            updateCheckedProducts={updateCheckedProducts}
+            onShowProductDetail={onShowProductDetail}
+            onClickEditProduct={onClickEditProduct}
+          />
         ) : (
           <Scanner />
         )}
