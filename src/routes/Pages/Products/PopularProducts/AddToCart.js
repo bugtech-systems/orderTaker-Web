@@ -80,7 +80,7 @@ const AddToCart = ({ item, setRevealed, onCheckout, ...rest }) => {
       </Box>
       <Box display="flex" alignItems="center">
         <Box component="span" fontSize={{ xl: 16 }}>
-          Total: ${item.sale_price * quantity}{' '}
+          Total: ₱{item.sale_price * quantity}{' '}
         </Box>
         <Box ml="auto">
           <Button className={classes.textBtn} onClick={backToInfo}>

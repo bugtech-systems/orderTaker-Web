@@ -12,6 +12,8 @@ import Box from '@material-ui/core/Box';
 import UpdateProductsList from './UpdateProductsList';
 import useStyles from './index.style';
 import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const WeeklySales = () => {
   const { productsList } = intranet;
@@ -33,7 +35,7 @@ const WeeklySales = () => {
 
   return (
     <CmtCard className={classes.cardRoot}>
-      <CmtCardHeader title="Weekly Sales" subTitle="12 - 18 June, 2020" subTitleProps={{ className: classes.subTitleRoot }}>
+      <CmtCardHeader title="WEEKLY SALES" subTitle="12 - 18 June, 2020" subTitleProps={{ className: classes.subTitleRoot }}>
         <IconButton onClick={toggleShowChart} edge="end" style={{ marginTop: -6 }}>
           <ShowChartIcon />
         </IconButton>
@@ -51,13 +53,15 @@ const WeeklySales = () => {
         <Collapse className={classes.collapseRoot} in={showChart} timeout="auto" unmountOnExit>
           <ProductsChart data={selectedProducts} />
         </Collapse>
-
         <Collapse in={!showChart} timeout="auto" unmountOnExit>
           <ProductsTable selectedProducts={selectedProducts} />
         </Collapse>
+        <Button component={Link} to="/Profile" color="primary" className={classes.btnRoot}>
+          View All
+        </Button>
       </CmtCardContent>
     </CmtCard>
   );
 };
 
-export default WeeklySales; 
+export default WeeklySales;

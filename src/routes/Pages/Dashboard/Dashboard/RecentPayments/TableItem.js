@@ -147,7 +147,7 @@ const TableItem = ({ row }) => {
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>
-            <div className={classes.showContent}>${row.pendingAmount}</div>
+            <div className={classes.showContent}>₱{row.pendingAmount}</div>
             <Box
               className={clsx(classes.hideContent, classes.hideShowLink)}
               color="primary.main"

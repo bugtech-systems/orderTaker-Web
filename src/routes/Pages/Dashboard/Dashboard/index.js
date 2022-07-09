@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 //DashBoard Components
 import CardWidget from './CardWidget';
 import OurStore from './OurStore';
-import CalendarEvents from './CalendarEvents';
+import WeeklySales from './WeeklySales';
 import PopularAgents from './PopularAgents';
 import RecentPayments from './RecentPayments';
 
@@ -116,7 +116,7 @@ const Dashboard = () => {
         </Grid>
         {/* Business CalendarEvents - Top right side */}
         <Grid item xs={12} sm={6}>
-          <CalendarEvents
+          <WeeklySales
           // backgroundColor="#6200EE"
           // icon={<StarIcon style={{ color: '#ffffff' }} />}
           // title={20}

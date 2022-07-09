@@ -81,10 +81,10 @@ const ListItem = ({ item }) => {
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
-        ${item.sale_price}
+        ₱{item.sale_price}
       </Box>
       <Box component="span" color="text.disabled" style={{ textDecoration: 'line-through' }}>
-        ${item.price}
+        ₱{item.price}
       </Box>
     </Box>
   );

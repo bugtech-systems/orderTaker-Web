@@ -16,7 +16,7 @@ import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   scrollbarRoot: {
-    height: 251,
+    height: 350,
     marginLeft: -24,
     marginRight: -24,
     [theme.breakpoints.up('xl')]: {
@@ -94,7 +94,7 @@ const ProductsTable = ({ selectedProducts }) => {
             <TableRow>
               <TableCell className={clsx(classes.tableCellRoot, classes.tableRowCellRoot)}>Product</TableCell>
               <TableCell className={clsx(classes.tableCellRoot, classes.tableRowCellRoot)}>Sales</TableCell>
-              <TableCell className={clsx(classes.tableCellRoot, classes.tableRowCellRoot)}>Income(USD)</TableCell>
+              <TableCell className={clsx(classes.tableCellRoot, classes.tableRowCellRoot)}>Income(PHP)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -122,7 +122,7 @@ const ProductsTable = ({ selectedProducts }) => {
                   </TableCell>
                   <TableCell className={classes.tableCellRoot}>
                     <Box display="flex" alignItems="center" justifyContent="flex-end">
-                      {row.sales_data.income}
+                      ₱{row.sales_data.income}
                       <CmtDropdownMenu
                         TriggerComponent={
                           <Tooltip title="More">
