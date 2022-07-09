@@ -65,7 +65,7 @@ export const usersModule = {
       id: 1457690403,
       name: 'Domnic Harris',
       dpUrl: 'https://via.placeholder.com/150',
-      email: 'domnic-brown@example.com',
+      email: 'domenic@yahoo.com',
       phones: [{ phone: '(215)-659-7529', label: 'home' }],
       address: 'PHP Developer',
       starred: false,

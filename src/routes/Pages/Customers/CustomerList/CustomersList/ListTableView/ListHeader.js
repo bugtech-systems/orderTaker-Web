@@ -29,7 +29,7 @@ const ListHeader = ({ customersList, checkedCustomers, handleHeaderCheckBox }) =
       <TableRow>
         <TableCell className={classes.tableCellRoot}>
           <Box display="flex" alignItems="center">
-            <Box component="span" mr={2}>
+            <Box component="span" mr={1}>
               <Checkbox
                 color="primary"
                 indeterminate={checkedCustomers.length > 0 && checkedCustomers.length < customersList.length}
@@ -37,12 +37,12 @@ const ListHeader = ({ customersList, checkedCustomers, handleHeaderCheckBox }) =
                 onChange={e => handleHeaderCheckBox(e.target.checked)}
               />
             </Box>
-            Name
+          Customer Details
           </Box>
        </TableCell>
           {/* <TableCell className={classes.tableCellRoot}>Limit</TableCell>
           <TableCell className={classes.tableCellRoot}>Balance</TableCell> */}
-        <TableCell /> 
+        <TableCell className={classes.tableCellRoot}/> 
       </TableRow>
     </TableHead>
   );

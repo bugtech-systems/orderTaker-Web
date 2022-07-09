@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'flex',
       alignItems: 'center',
-      padding: '10px 20px',
+      padding: '5px 10px',
       height: 72,
     },
   },

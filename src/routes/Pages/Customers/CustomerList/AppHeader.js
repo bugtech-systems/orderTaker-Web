@@ -30,11 +30,11 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
   return (
     <Box className={classes.inBuildAppHeader}>
       <Box className={classes.inBuildAppHeaderSidebar}>
-        <Hidden smDown>
+        {/* <Hidden smDown> */}
           <IconButton onClick={() => dispatch(toggleExpandSidebar())}>
             <MenuIcon />
           </IconButton>
-        </Hidden>
+        {/* </Hidden> */}
         {/* <Typography className={classes.inBuildAppHeaderTitle} component="div" variant="h1">
           Customers
         </Typography> */}
@@ -42,7 +42,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
 
       <Box className={classes.inBuildAppHeaderContent}>
         <CmtSearch placeholder="Search Customers..." value={searchText} onChange={handleSearchText} border={false} />
-        <Box ml="auto" display="flex" alignItems="center">
+        {/* <Box ml="auto" display="flex" alignItems="center">
           <Box ml={1}>
             <IconButton
               className="icon-btn active"
@@ -59,7 +59,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
               <GridOnIcon />
             </IconButton>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

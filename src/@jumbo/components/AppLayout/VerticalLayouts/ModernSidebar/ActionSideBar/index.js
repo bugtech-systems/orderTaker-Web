@@ -29,6 +29,10 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 //Icons
 import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
+
+
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -72,7 +76,7 @@ const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isDrawerOpen, setDrawerStatus] = useState(false);
-  const [activeOption, setActiveOption] = useState(null);
+  const [activeOption, setActiveOption] = useState('cart');
   const { isSidebarOpen, setSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
 
   useEffect(() => {
