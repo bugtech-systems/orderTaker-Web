@@ -22,7 +22,12 @@ const Product = () => {
   const dispatch = useDispatch();
 
   const onChangeViewMode = mode => {
-    setViewMode(mode);
+
+    if(mode == viewMode){
+     return setViewMode('table');
+    } else {
+      setViewMode(mode);
+    }
   };
 
   const onShowProductDetail = product => {
