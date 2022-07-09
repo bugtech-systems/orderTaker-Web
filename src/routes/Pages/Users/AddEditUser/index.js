@@ -15,12 +15,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { DialogTitle, TextField, InputAdornment}  from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../@jumbo/utils/commonHelper';
 import { addNewUser, updateUser } from '../../../../redux/actions/Users';
+
+//Icons
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -59,23 +63,20 @@ const labels = [
   { title: 'Other', slug: 'other' },
 ];
 
-const splitName = user => {
-  if (user) {
-    const [fName, mName, lName] = user.name.split(' ');
-    return [fName, lName ? mName + ' ' + lName : mName];
-  }
+const roles = [
+  { id: 3, name: 'cashier' },
+  { id: 4, name: 'admin' }
+];
 
-  return ['', ''];
-};
+
+
 
 const AddEditUser = ({ open, onCloseDialog }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector(({ usersReducer }) => usersReducer.currentUser);
-
-  const [profile_pic, setProfile_pic] = useState('');
-  const [company, setCompany] = useState('');
-  const [designation, setDesignation] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [dpUrl, setDpUrl] = useState('');
   const [phones, setPhones] = useState([{ phone: '', label: 'home' }]);
 
   const [phoneError, setPhoneError] = useState('');
@@ -96,20 +97,16 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-      setProfile_pic(URL.createObjectURL(acceptedFiles[0]));
+      setDpUrl(URL.createObjectURL(acceptedFiles[0]));
     },
   });
 
 
   useEffect(() => {
-    console.log('Hello Mart')
     if (currentUser) {
-      const [fName, lName] = splitName(currentUser);
-      setValues({...currentUser, 
-        firstName: fName, lastName: lName})
-      setProfile_pic(currentUser.profile_pic);
-      setCompany(currentUser.company);
-      setDesignation(currentUser.designation);
+      console.log(currentUser)
+      setValues({ ...currentUser, roles: currentUser.roles[0].name})
+      setDpUrl(currentUser.dpUrl);
       setPhones(currentUser.phones);
     }
   }, [currentUser]);
@@ -132,6 +129,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   };
 
   const onLabelChange = (value, index) => {
+    console.log(value)
     const updatedList = [...phones];
     updatedList[index].label = value;
     setPhones(updatedList);
@@ -139,8 +137,8 @@ const AddEditUser = ({ open, onCloseDialog }) => {
 
   const onSubmitClick = () => {
     const phoneNumbers = phones.filter(item => item.phone.trim());
-    if (!values.firstName) {
-      setErrors({...errors, firstName: requiredMessage })
+    if (!values.name) {
+      setErrors({...errors, name: requiredMessage })
     } else if (!values.email) {
       setErrors({...errors, email: requiredMessage })
     } else if (!isValidEmail(values.email)) {
@@ -155,11 +153,8 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   const onUserSave = phoneNumbers => {
     const userDetail = {
       ...values,
-      profile_pic,
-      name: `${values.firstName} ${values.lastName}`,
-      phones: phoneNumbers,
-      company,
-      designation,
+      dpUrl,
+      phones: phoneNumbers
     };
 
     if (currentUser) {
@@ -180,7 +175,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   };
 
   const isPhonesMultiple = phones.length > 1;
-
+  console.log(values)
   return (
     <Dialog open={open} onClose={onCloseDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>
@@ -188,26 +183,17 @@ const AddEditUser = ({ open, onCloseDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={profile_pic} />
+            <CmtAvatar size={70} src={dpUrl} />
           </Box>
           <GridContainer>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <AppTextInput
                 fullWidth
                 variant="outlined"
-                label="First name"
-                value={values.firstName}
-                onChange={handleChange('firstName')}
-                helperText={errors.firstName}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <AppTextInput
-                fullWidth
-                variant="outlined"
-                label="Last name"
-                value={values.lastName}
-                onChange={handleChange('lastName')}
+                label="Full Name"
+                value={values.name}
+                onChange={handleChange('name')}
+                helperText={errors.name}
               />
             </Grid>
           </GridContainer>
@@ -216,10 +202,10 @@ const AddEditUser = ({ open, onCloseDialog }) => {
           <AppTextInput
             fullWidth
             variant="outlined"
-            label="Email Address"
-            value={values.email}
-            onChange={handleChange('email')}
-            helperText={errors.email}
+            label="Complete Address"
+            value={values.address}
+            onChange={handleChange('address')}
+            helperText={errors.address}
           />
         </Box>
         <CmtList
@@ -244,7 +230,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
                   fullWidth
                   data={labels}
                   label="Label"
-                  valueKey="slug"
+                  valueKey="title"
                   variant="outlined"
                   labelKey="title"
                   value={item.label}
@@ -267,23 +253,61 @@ const AddEditUser = ({ open, onCloseDialog }) => {
           </Button>
         </Box>
         <GridContainer style={{ marginBottom: 12 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={8}>
             <AppTextInput
               fullWidth
               variant="outlined"
-              label="Company name"
-              value={company}
-              onChange={e => setCompany(e.target.value)}
+              label="Email Address"
+              value={values.email}
+              onChange={handleChange('email')}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
+              <TextField
+            fullWidth
+          id="role"
+          select
+          label="Role"
+          value={values.roles}
+          onChange={e => {
+            setValues({...values, roles: e.target.value});
+          }}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+          size="small"
+          >
+             {/* <option value="">
+              
+            </option> */}
+          {roles.map((option, index) => (
+            <option key={index} value={option.name}>
+             {String(option.name).toUpperCase()}
+            </option>
+          ))}
+        </TextField>
+
+          </Grid>
+          <Grid item xs={12} sm={12}>
             <AppTextInput
               fullWidth
+              type={visible ? 'text' : 'password'}
               variant="outlined"
-              label="Job title"
-              value={designation}
-              onChange={e => setDesignation(e.target.value)}
+              label="Password"
+              value={values.password}
+              onChange={handleChange('password')}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setVisible(!visible)}>
+                   {visible ?<VisibilityOffIcon/> : < VisibilityIcon/>}
+                   </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
+            
           </Grid>
         </GridContainer>
         <Box display="flex" justifyContent="flex-end" mb={4}>

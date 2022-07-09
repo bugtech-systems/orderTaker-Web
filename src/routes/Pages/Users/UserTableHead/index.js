@@ -21,7 +21,6 @@ const headCells = [
     disablePadding: false,
     label: 'Last Login',
   },
-  { id: 'emailUsage', numeric: true, disablePadding: false, label: 'Email Usage' },
 ];
 
 function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) {

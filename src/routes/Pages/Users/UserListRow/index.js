@@ -27,14 +27,14 @@ const getUserActions = user => {
     // { action: 'email', label: 'Email', icon: <Mail /> },
   ];
 
-  if (user.status === 'active') {
-    actions.push({ action: 'suspend', label: 'Suspendiion', icon: <Block /> });
-  } else {
+  if (user.status === 'suspended') {
     actions.push({
       action: 'activate',
       label: 'Reactivate',
       icon: <CheckCircleOutline />,
     });
+  } else {
+    actions.push({ action: 'suspend', label: 'Suspend', icon: <Block /> });
   }
 
   actions.push({ action: 'delete', label: 'Delete', icon: <Delete /> });
@@ -84,7 +84,7 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
           </Box>
           <div>
             <Typography className={classes.titleRoot} component="div" variant="h4">
-              {row.name}
+              {String(row.name).toUpperCase()}
             </Typography>
           </div>
         </Box>
@@ -94,7 +94,6 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
         {row.status === 'suspended' ? `Suspended by ${row.suspendedBy} (${timeFromNow(row.suspendedAt)})` : row.status}
       </TableCell>
       <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell>
-      <TableCell align="right">{row.emailUsage} GB</TableCell>
       <TableCell align="center" onClick={event => event.stopPropagation()}>
         <CmtDropdownMenu items={userActions} onItemClick={onUserMenuClick} TriggerComponent={<MoreHoriz />} />
       </TableCell>

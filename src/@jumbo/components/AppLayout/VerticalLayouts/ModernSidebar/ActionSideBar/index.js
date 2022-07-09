@@ -76,7 +76,7 @@ const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isDrawerOpen, setDrawerStatus] = useState(false);
-  const [activeOption, setActiveOption] = useState('cart');
+  const [activeOption, setActiveOption] = useState(null);
   const { isSidebarOpen, setSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
 
   useEffect(() => {

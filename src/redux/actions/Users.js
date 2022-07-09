@@ -11,12 +11,13 @@ import {
 import { SET_SELECTED_USER } from './types';
 
 import CrudService from '../../services/http-api/crud.service';
+import commonData from '../../utils/commonData';
 
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/users', { params: { filterOptions, searchTerm } })
+      .get(`${commonData.apiUrl}/users`, { params: { filterOptions, searchTerm } })
       .then(data => {
         console.log(data);
         if (data.status === 200) {
@@ -43,12 +44,14 @@ export const setCurrentUser = user => {
 export const addNewUser = (user, callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
+    console.log(user)
     axios
-      .post('/users', user)
+      .post(`${commonData.apiUrl}/auth/signup`, user)
       .then(data => {
         if (data.status === 200) {
+          dispatch(getUsers());
           dispatch(fetchSuccess('New user was added successfully.'));
-          dispatch({ type: ADD_USER, payload: data.data });
+          console.log(data)
           if (callbackFun) callbackFun(data.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));
@@ -87,10 +90,12 @@ export const updateUser = (user, callbackFun) => {
 };
 
 export const updateUserStatus = (data, callbackFun) => {
+  console.log(data)
+  let { status, id } = data;
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/users/update-status', data)
+      .get(`${commonData.apiUrl}/users/${status === 'suspended' ? 'suspend' : 'activate'}/${id}`)
       .then(response => {
         if (response.status === 200) {
           dispatch(fetchSuccess('User status was updated successfully.'));
@@ -107,11 +112,13 @@ export const updateUserStatus = (data, callbackFun) => {
 };
 
 export const deleteBulkUsers = (userIds, callbackFun) => {
+  console.log(userIds)
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/users/bulk-delete', { userIds })
+      .put(`${commonData.apiUrl}/users/delete`, { userIds })
       .then(response => {
+        console.log(response)
         if (response.status === 200) {
           dispatch(fetchSuccess('Selected users were deleted successfully.'));
           dispatch({ type: DELETE_BULK_USERS, payload: userIds });
@@ -128,9 +135,10 @@ export const deleteBulkUsers = (userIds, callbackFun) => {
 
 export const deleteUser = (userId, callbackFun) => {
   return dispatch => {
+    console.log(userId)
     dispatch(fetchStart());
     axios
-      .delete('/users', { params: { id: userId } })
+      .put(`${commonData.apiUrl}/users/delete`, { userIds: [userId] })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess('Selected user was deleted successfully.'));
