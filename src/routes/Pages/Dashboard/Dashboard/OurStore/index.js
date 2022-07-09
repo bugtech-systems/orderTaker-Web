@@ -90,8 +90,9 @@ const OurStore = () => {
   const { addresses, title, description } = intranet.ourOfficeData;
   const [currentAddress, setAddress] = useState(addresses[0]);
   const classes = useStyles();
-  const GoogleMapBox = withGoogleMap(() => <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />);
-
+  const GoogleMapBox = withGoogleMap(() => (
+    <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
+  ));
 
   const handleAddressChange = event => {
     setAddress(addresses.find(item => item.label === event.target.value));
@@ -131,22 +132,22 @@ const OurStore = () => {
             <Box ml={4}>{currentAddress.emailAddress}</Box>
           </Box>
         </Box>
-
+        {/* 
         <Box className={classes.socialLink}>
           {socialMediaLinks.map((item, index) => (
             <Box key={index} className={classes.socialLinkCol}>
               <IconButton className={`btn ${item.title}`}>{item.icon}</IconButton>
             </Box>
           ))}
-        </Box>
+        </Box> */}
       </CmtCardContent>
-      <Box p={2} height={1}>
+      {/* <Box p={2} height={1}>
         <GoogleMapBox
           loadingElement={<Box height={1} />}
           containerElement={<Box height={1} />}
           mapElement={<Box height={1} />}
         />
-      </Box>
+      </Box> */}
     </CmtCard>
   );
 };
