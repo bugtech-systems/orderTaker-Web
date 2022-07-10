@@ -3,7 +3,7 @@
 // const apiUrl = '/api';
 // const apiUrl = 'http://localhost:3001/dev';
 // const apiUrl = 'http://192.168.1.21:23000/api';
-const apiUrl = 'http://allinpaking.online:3001/dev';
+const apiUrl = 'https://www.allinpaking.online/dev';
 
 
 const webopt = 'https://developer.globelabs.com.ph/dialog/oauth/kA8aH5keEgCMLTKkRbieqkCGeAroH5KL';
