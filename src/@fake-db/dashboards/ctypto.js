@@ -280,7 +280,7 @@ export const crypto = {
       lastPaymentDate: 'June 26, 2020',
       totalAmount: 15000,
       pendingAmount: 5000,
-      rate: '$15/Hr',
+      rate: '15/Hr',
       workingHour: 150,
     },
     {
@@ -294,7 +294,7 @@ export const crypto = {
       lastPaymentDate: 'June 24, 2020',
       totalAmount: 45444,
       pendingAmount: 3433,
-      rate: '$15/Hr',
+      rate: '15/Hr',
       workingHour: 235,
     },
     {
@@ -308,7 +308,7 @@ export const crypto = {
       lastPaymentDate: 'June 20, 2020',
       totalAmount: 56654,
       pendingAmount: 3456,
-      rate: '$15/Hr',
+      rate: '15/Hr',
       workingHour: 100,
     },
     {
@@ -322,7 +322,7 @@ export const crypto = {
       lastPaymentDate: 'June 18, 2020',
       totalAmount: 87655,
       pendingAmount: 34657,
-      rate: '$15/Hr',
+      rate: '15/Hr',
       workingHour: 436,
     },
     {
@@ -336,7 +336,7 @@ export const crypto = {
       lastPaymentDate: 'June 16, 2020',
       totalAmount: 43323,
       pendingAmount: 23543,
-      rate: '$15/Hr',
+      rate: '15/Hr',
       workingHour: 231,
     },
     {
@@ -350,7 +350,7 @@ export const crypto = {
       lastPaymentDate: 'June 15, 2020',
       totalAmount: 54332,
       pendingAmount: 4323,
-      rate: '$15/Hr',
+      rate: '15/Hr',
       workingHour: 234,
     },
   ],

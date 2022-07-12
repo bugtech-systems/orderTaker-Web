@@ -35,10 +35,6 @@ const UsersModule = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const dispatch = useDispatch();
-
-
-  console.log(users)
-
   useEffect(() => {
     dispatch(
       getUsers(filterOptions, debouncedSearchTerm, () => {
@@ -95,8 +91,8 @@ const UsersModule = () => {
   };
 
   const handleUserView = user => {
-    console.log(user)
-    setCurrent(user)
+    console.log(user);
+    setCurrent(user);
     dispatch(setCurrentUser(user));
     setOpenViewDialog(true);
   };
@@ -191,9 +187,9 @@ const UsersModule = () => {
       </Paper>
 
       {openUserDialog && <AddEditUser open={openUserDialog} onCloseDialog={handleCloseUserDialog} />}
-      {openViewDialog && 
-      <UserDetailView currentUser={currentUser} open={openViewDialog} onCloseDialog={handleCloseViewDialog} />
-       }
+      {openViewDialog && (
+        <UserDetailView currentUser={currentUser} open={openViewDialog} onCloseDialog={handleCloseViewDialog} />
+      )}
 
       <ConfirmDialog
         open={openConfirmDialog}

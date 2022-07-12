@@ -172,14 +172,14 @@ const TableItem = ({ row }) => {
                 <div className={'mr-3'}>
                   Total{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    Hours: {row.rate}
+                    Hours: ₱{row.rate}
                   </Box>
                 </div>
 
                 <div className={'mr-3'}>
                   Rate:{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    {row.rate}
+                    ₱{row.rate}
                   </Box>
                 </div>
 

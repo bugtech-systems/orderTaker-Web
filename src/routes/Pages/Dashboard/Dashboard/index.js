@@ -48,17 +48,15 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState('about');
-  const { business } = useSelector(({ auth }) => auth);
+  const { users } = useSelector(({ auth }) => auth);
 
-  // useEffect(() => {
-  //   // dispatch(getUserDetail());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUserDetail());
+  }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-
-  console.log(business);
 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
