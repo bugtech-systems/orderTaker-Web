@@ -18,7 +18,7 @@ import { emailNotValid, requiredMessage, passwordLength } from '../../@jumbo/con
 import { isValidEmail } from '../../@jumbo/utils/commonHelper';
 
 //Redux
-import { login } from '../../redux/actions/Auth';
+import { loginUser } from '../../redux/actions/Auth';
 
 const useStyles = makeStyles(theme => ({
   authThumb: {
@@ -112,7 +112,7 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
     console.log(values);
     const isError = handleErrors();
     if (!isError) {
-      dispatch(AuhMethods[method].onLogin(values));
+      dispatch(loginUser(values));
     }
   };
 

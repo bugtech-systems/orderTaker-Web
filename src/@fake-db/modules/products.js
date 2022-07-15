@@ -309,3 +309,24 @@ export const products = [
     folder: 'products',
   },
 ];
+
+export const popularProducts = [
+  {
+    id: 1,
+    name: 'Creative Watch',
+    description: 'Lorem Ipsum is simply dummy text of the printing ',
+    price: 200,
+    sale_price: 180,
+    cover: 'https://via.placeholder.com/80x80',
+    stocks: 100,
+  },
+  {
+    id: 2,
+    name: 'Galaxy Sonic Headphone',
+    description: 'Lorem Ipsum is simply dummy text of the printing ',
+    price: 100,
+    sale_price: 80,
+    cover: 'https://via.placeholder.com/80x80',
+    stocks: 10,
+  }
+];

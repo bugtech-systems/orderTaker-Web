@@ -2,13 +2,12 @@ import React from 'react';
 import CmtCard from '../../../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../../../@coremat/CmtCard/CmtCardContent';
-import { intranet } from '../../../../../../../@fake-db';
+import { popularProducts } from '../../../../../../../@fake-db/modules/products';
 import ListItem from './ListItem';
 import CmtGridView from '../../../../../../../@coremat/CmtGridView';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const PopularProducts = () => {
-  const { popularProducts } = intranet;
   console.log(popularProducts)
   return (
     <CmtCard>

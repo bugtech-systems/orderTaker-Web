@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppTextInput from '../../../../../../../@jumbo/components/Common/formElements/AppTextInput';
 import { Box, Button, Typography } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -28,20 +28,33 @@ const useStyles = makeStyles(theme => ({
 
 const AddToCart = ({ item, setRevealed, onCheckout, ...rest }) => {
   const [quantity, setQuantity] = useState(1);
+  const [stocks, setStocks] = useState(0);
   const [addedToCart, updateCart] = useState(false);
   const classes = useStyles();
 
+  const handleQuantity = (val) => {
+    if(item.stocks >= val && val >= 0){
+      setQuantity(val);
+      setStocks(item.stocks - val);
+    }
+  }
+
   const addToCart = () => {
-    if (quantity) updateCart(true);
+    onCheckout(quantity);
+    setRevealed(false)
   };
 
   const checkoutOrder = () => {
-    onCheckout(quantity);
+    console.log('Checkout')
   };
 
   const backToInfo = () => {
     setRevealed(false);
   };
+
+  useEffect(() => {
+      setStocks(item.stocks - quantity);
+  }, [item.stocks])
 
   return addedToCart ? (
     <Box {...rest}>
@@ -70,7 +83,7 @@ const AddToCart = ({ item, setRevealed, onCheckout, ...rest }) => {
           label="Qty"
           value={quantity}
           variant="outlined"
-          onChange={event => setQuantity(event.target.value)}
+          onChange={event => handleQuantity(event.target.value)}
         />
         <Box ml={3}>
           <Button className={classes.btnRoot} variant="contained" color="primary" size="small" onClick={addToCart}>
@@ -84,7 +97,8 @@ const AddToCart = ({ item, setRevealed, onCheckout, ...rest }) => {
           Price: ₱{item.price}
         </Box>
         <Box component="span" fontSize={{ xl: 16 }}>
-          Total: ₱{item.price * quantity}{' '}
+          Available Stocks: {stocks !== 0 ? <Typography color="primary" component="span">{stocks}</Typography> : <Typography color="secondary" component="span">Out of Stock!</Typography>}
+          
         </Box>
         </Box>
         <Box ml="auto">

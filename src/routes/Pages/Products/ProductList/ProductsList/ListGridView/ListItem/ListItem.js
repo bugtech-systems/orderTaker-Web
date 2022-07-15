@@ -96,13 +96,22 @@ const ListItem = ({ item }) => {
     </Box>
   );
 
-  const handleCheckout = React.useCallback((qty) => {
+
+  const getStocks = () => (
+    <Box >
+      <Box component="span" mr={1} color="primary.main">
+        Stocks: {item.stocks}
+      </Box>
+    </Box>
+  );
+
+  const handleCheckout = (qty) => {
+    let cartItems = cart_items;
     let ind = cart_items.find(a => a.id == item.id);
 
 
   if(ind){
-
-    let newItems = cart_items.map(a => { 
+    let newItems = cartItems.map(a => { 
       return a.id == item.id ?
        { ...item,
         price: item.price,
@@ -122,7 +131,7 @@ const ListItem = ({ item }) => {
    });
      
   } else {
-    cart_items.push({ 
+    cartItems.push({ 
       ...item, 
       price: item.price,
       qty: qty,
@@ -131,13 +140,13 @@ const ListItem = ({ item }) => {
 
       dispatch({
         type: UPDATE_CART_ITEMS,
-        payload: cart_items
+        payload: cartItems
      });
 
      
      dispatch({
       type: SET_CART_ITEMS_COUNT,
-      payload: cart_items.length
+      payload: cartItems.length
    });
   }
 
@@ -147,7 +156,7 @@ const ListItem = ({ item }) => {
     
     setSnackBarMessage('You have submitted for Checkout');
     setSnackBarStatus(true);
-  }, []);
+  };
 
   const onVariantClick = React.useCallback((label, value) => {
     setSnackBarMessage(`You choose ${label} ${value}`);
@@ -180,7 +189,7 @@ const ListItem = ({ item }) => {
             className: classes.subTitleRoot,
           }}
           actionsComponent={getActionComponent()}
-          content={item.inStock ? getVariants() : <Box color="text.secondary">Out of Stock</Box>}
+          content={item.stocks ? getStocks() : <Box color="text.secondary">Out of Stock</Box>}
         />
         <Box className={classes.listItemAction}>
           <Box className={classes.listItemActionHover}>
