@@ -1,66 +1,27 @@
-import React, { useState } from 'react';
-import { Box } from '@material-ui/core';
-import useStyles from './index.style';
-import AppHeader from './AppHeader';
-import clsx from 'clsx';
-import Sidebar from './Sidebar';
-import { useDispatch, useSelector } from 'react-redux';
-import ContactsList from './ContactsList';
-import ContactDetail from './ContactDetail';
-import CreateContact from './CreateContact';
-import { setCurrentContact } from '../../../redux/actions/ContactApp';
+import React from 'react';
+import PageContainer from '../../../@jumbo/components/PageComponents/layouts/PageContainer';
+import GridContainer from '../../../@jumbo/components/GridContainer';
+import { Grid } from '@material-ui/core';
 
-const ContactApp = () => {
-  const classes = useStyles();
-  const { isSideBarCollapsed } = useSelector(({ contactApp }) => contactApp);
-  const [viewMode, setViewMode] = useState('table');
-  const [showContactDetail, setShowContactDetail] = useState(false);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
-  const dispatch = useDispatch();
+//Components
+import ProductList from './ProductList';
 
-  const onChangeViewMode = mode => {
-    setViewMode(mode);
-  };
 
-  const onShowContactDetail = contact => {
-    dispatch(setCurrentContact(contact));
-    setShowContactDetail(true);
-  };
+const breadcrumbs = [
+  { label: 'Dashboard', link: '/' },
+  { label: 'Products', link: '/products' }
+];
 
-  const onHideContactDetail = () => {
-    dispatch(setCurrentContact(null));
-    setShowContactDetail(false);
-  };
-
-  const onClickCreateContact = () => {
-    setOpenCreateDialog(true);
-  };
-
-  const onClickEditContact = contact => {
-    dispatch(setCurrentContact(contact));
-    setOpenCreateDialog(true);
-  };
-
-  const onCloseComposeDialog = () => {
-    dispatch(setCurrentContact(null));
-    setOpenCreateDialog(false);
-  };
-
+const Products = () => {
   return (
-    <Box className={classes.inBuildAppCard}>
-      <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} />
-      <Box className={clsx(classes.inBuildAppContainer, isSideBarCollapsed ? 'collapsed' : '')}>
-        <Sidebar onClickCreateContact={onClickCreateContact} />
-        <ContactsList
-          viewMode={viewMode}
-          onShowContactDetail={onShowContactDetail}
-          onClickEditContact={onClickEditContact}
-        />
-      </Box>
-      {showContactDetail && <ContactDetail open={showContactDetail} handleDialog={onHideContactDetail} />}
-      {openCreateDialog && <CreateContact open={openCreateDialog} handleDialog={onCloseComposeDialog} />}
-    </Box>
+    <PageContainer heading="Products" breadcrumbs={breadcrumbs}>
+         <GridContainer>
+        <Grid item xs={12} xl={12}>
+        <ProductList />
+        </Grid>
+      </GridContainer>
+    </PageContainer>
   );
 };
 
-export default ContactApp;
+export default Products;

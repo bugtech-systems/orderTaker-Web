@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import IntlMessages from '../../@jumbo/utils/IntlMessages';
 import { useDispatch } from 'react-redux';
@@ -14,6 +14,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { CurrentAuthMethod } from '../../@jumbo/constants/AppConstants';
 import { NavLink } from 'react-router-dom';
 import AuthWrapper from './AuthWrapper';
+import { emailNotValid, requiredMessage, passwordLength } from '../../@jumbo/constants/ErrorMessages';
+import { isValidEmail } from '../../@jumbo/utils/commonHelper';
 
 //Redux
 import { login } from '../../redux/actions/Auth';
@@ -60,18 +62,58 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+
 //variant = 'default', 'standard'
 const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVariant = 'default' }) => {
   const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles({ variant });
 
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value });
+    setErrors({ ...errors, [prop]: '' });
   };
 
-  const onSubmit = () => {
-    dispatch(AuhMethods[method].onLogin(values));
+  const handleErrors = () => {
+    if (!values.email) {
+      setErrors({ ...errors, email: requiredMessage });
+      return true;
+    } else if (!isValidEmail(values.email)) {
+      setErrors({ ...errors, email: emailNotValid });
+      return true;
+    } else if (!values.password) {
+      setErrors({ ...errors, password: requiredMessage });
+      return true;
+    } else if (values.password.length < 8) {
+      setErrors({ ...errors, password: passwordLength });
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  //  const onSubmitClick = () => {
+  //     const phoneNumbers = phones.filter(item => item.phone.trim());
+  //     if (!firstName) {
+  //       setFirstNameError(requiredMessage);
+  //     } else if (!email) {
+  //       setEmailError(requiredMessage);
+  //     } else if (!isValidEmail(email)) {
+  //       setEmailError(emailNotValid);
+  //     } else if (phoneNumbers.length === 0) {
+  //       setPoneError(requiredMessage);
+  //     } else {
+  //       onUserSave(phoneNumbers);
+  //     }
+  //   };
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(values);
+    const isError = handleErrors();
+    if (!isError) {
+      dispatch(AuhMethods[method].onLogin(values));
+    }
   };
 
   return (
@@ -83,21 +125,29 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
       ) : null}
       <Box className={classes.authContent}>
         <Box mb={7} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <CmtImage src={'/images/logo.png'} />
+          <CmtImage
+            style={{
+              height: 170,
+              width: 170,
+            }}
+            src={'/images/AjA18.png'}
+          />
         </Box>
         <Typography component="div" variant="h1" className={classes.titleRoot}>
           Login
         </Typography>
-        <form>
+        <Box component="form" onSubmit={onSubmit}>
           <Box mb={2}>
             <TextField
               label={<IntlMessages id="appModule.email" />}
               fullWidth
-              onChange={handleChange('email_address')}
-              defaultValue={values.email_address}
+              onChange={handleChange('email')}
+              value={values.email}
               margin="normal"
               variant="outlined"
               className={classes.textFieldRoot}
+              helperText={errors.email}
+              error={errors.email}
             />
           </Box>
           <Box mb={2}>
@@ -106,10 +156,12 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               label={<IntlMessages id="appModule.password" />}
               fullWidth
               onChange={handleChange('password')}
-              defaultValue={values.password}
+              value={values.password}
               margin="normal"
               variant="outlined"
               className={classes.textFieldRoot}
+              helperText={errors.password}
+              error={errors.password}
             />
           </Box>
           <Box display="flex" alignItems="center" justifyContent="space-between" mb={5}>
@@ -127,7 +179,7 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
           </Box>
 
           <Box display="flex" alignItems="center" justifyContent="space-between" mb={5}>
-            <Button onClick={onSubmit} variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary">
               <IntlMessages id="appModule.signIn" />
             </Button>
             {/* 
@@ -137,9 +189,9 @@ const SignIn = ({ method = CurrentAuthMethod, variant = 'default', wrapperVarian
               </NavLink>
             </Box> */}
           </Box>
-        </form>
-
-        {/* {dispatch(AuhMethods[method].getSocialMediaIcons())} */}
+        </Box>
+        {/* 
+        {dispatch(AuhMethods[method].getSocialMediaIcons())} */}
 
         <ContentLoader />
       </Box>

@@ -53,11 +53,23 @@ function NumberFormatCustom({ onChange, value, ...other }) {
   return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####" />;
 }
 
+const labels = [
+  { title: 'Home', slug: 'home' },
+  { title: 'Office', slug: 'office' },
+  { title: 'Other', slug: 'other' },
+];
+
 const CreateCustomer = ({ open, handleDialog }) => {
-  const { currentCustomer } = useSelector(({ customer }) => customer);
+  const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [values, setValues] = useState(currentCustomer ? currentCustomer : {});
+  const [values, setValues] = useState(
+    currentCustomer
+      ? currentCustomer
+      : {
+          phones: [{ phone: '', label: 'home' }],
+        },
+  );
   const [errors, setErrors] = useState({});
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -67,28 +79,64 @@ const CreateCustomer = ({ open, handleDialog }) => {
     },
   });
 
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+  const onAddPhoneRow = () => {
+    setValues({
+      ...values,
+      phones: values.phones.concat({ phone: '', label: 'home' }),
+    });
   };
 
+  const onRemovePhoneRow = index => {
+    const updatedList = [...values.phones];
+    updatedList.splice(index, 1);
+    setValues({ ...values, phones: updatedList });
+  };
+
+  const onAddPhoneNo = (number, index) => {
+    const updatedList = [...values.phones];
+    updatedList[index].phone = number;
+    setValues({ ...values, phones: updatedList });
+    setErrors({ ...errors, phones: '' });
+  };
+
+  const onSelectLabel = (value, index) => {
+    const updatedList = [...values.phones];
+    updatedList[index].label = value;
+    setValues({ ...values, phones: updatedList });
+  };
+
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+    setErrors({ ...errors, [prop]: '' });
+  };
+
+  const isPhonesMultiple = values.phones.length > 1;
+
   const checkValidations = () => {
-    if (!values.firstName) {
-      setErrors({ ...errors, firstName: requiredMessage });
+    const phoneNumbers = values.phones.filter(item => item.phone.trim());
+
+    if (!values.name) {
+      setErrors({ ...errors, name: requiredMessage });
     } else if (!values.email_address) {
       setErrors({ ...errors, email_address: requiredMessage });
     } else if (!isValidEmail(values.email_address)) {
       setErrors({ ...errors, email_address: requiredMessage });
-    } else if (!values.phone) {
-      setErrors({ ...errors, email_address: requiredMessage });
+    } else if (phoneNumbers.length === 0) {
+      setErrors({ ...errors, phones: requiredMessage });
     } else {
-      handleSubmit();
+      handleSubmit(phoneNumbers);
     }
+    console.log(errors);
+    console.log(values);
   };
 
   const handleSubmit = phoneNumbers => {
+    let { limit, balance, name } = values;
     const customer = {
       ...values,
-      fullName: `${values.firstName} ${values.lastName}`,
+      phones: phoneNumbers,
+      limit: limit ? limit : 0,
+      balance: balance ? balance : 0,
     };
     if (currentCustomer) {
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
@@ -110,50 +158,20 @@ const CreateCustomer = ({ open, handleDialog }) => {
             <CmtAvatar size={70} src={values.dpUrl} />
           </Box>
           <GridContainer>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={12} sm={12}>
               <AppTextInput
                 fullWidth
-                type="number"
-                // variant="outlined"
-                label="Credit Limit"
-                value={values.limit}
-                onChange={handleChange('limit')}
+                variant="outlined"
+                value={values.name}
+                label="Complete Name"
+                onChange={handleChange('name')}
+                helperText={errors.name}
               />
             </Grid>
-            <Grid item xs={12} sm={7} />
+            {/* <Grid item xs={12} sm={7} /> */}
           </GridContainer>
         </Box>
         <GridContainer style={{ marginBottom: 12 }}>
-          <Grid item xs={12} sm={6}>
-            <AppTextInput
-              fullWidth
-              variant="outlined"
-              value={values.firstName}
-              label="First Name"
-              onChange={handleChange('firstName')}
-              helperText={errors.firstName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <AppTextInput
-              fullWidth
-              variant="outlined"
-              value={values.lastName}
-              label="Last Name"
-              onChange={handleChange('lastName')}
-              helperText={errors.lastName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <AppTextInput
-              fullWidth
-              variant="outlined"
-              value={values.phone}
-              label="Phone #"
-              onChange={handleChange('phone')}
-              helperText={errors.phone}
-            />
-          </Grid>
           <Grid item xs={12} sm={6}>
             <AppTextInput
               fullWidth
@@ -164,7 +182,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
               helperText={errors.email_address}
             />
           </Grid>
-          <Grid item xs={12} sm={12}>
+          <Grid item xs={12} sm={6}>
             <AppTextInput
               fullWidth
               variant="outlined"
@@ -174,16 +192,73 @@ const CreateCustomer = ({ open, handleDialog }) => {
               helperText={errors.address}
             />
           </Grid>
+        </GridContainer>
+
+        <CmtList
+          data={values.phones}
+          renderRow={(item, index) => (
+            <GridContainer style={{ marginBottom: 12 }} key={index}>
+              <Grid item xs={12} sm={isPhonesMultiple ? 6 : 8}>
+                <AppTextInput
+                  fullWidth
+                  variant="outlined"
+                  label="Phone"
+                  value={item.phone}
+                  onChange={number => onAddPhoneNo(number, index)}
+                  helperText={errors.phones}
+                  InputProps={{
+                    inputComponent: NumberFormatCustom,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={isPhonesMultiple ? 9 : 12} sm={4}>
+                <AppSelectBox
+                  fullWidth
+                  data={labels}
+                  label="Label"
+                  valueKey="slug"
+                  variant="outlined"
+                  labelKey="title"
+                  value={item.label}
+                  onChange={e => onSelectLabel(e.target.value, index)}
+                />
+              </Grid>
+              {isPhonesMultiple && (
+                <Grid item xs={3} sm={2}>
+                  <IconButton onClick={() => onRemovePhoneRow(index)}>
+                    <CancelIcon />
+                  </IconButton>
+                </Grid>
+              )}
+            </GridContainer>
+          )}
+        />
+
+        <Box
+          mb={{ xs: 6, md: 5 }}
+          display="flex"
+          alignItems="center"
+          onClick={onAddPhoneRow}
+          className="pointer"
+          color="primary.main">
+          <AddCircleOutlineIcon />
+          <Box ml={2}>Add More</Box>
+        </Box>
+
+        <GridContainer>
           <Grid item xs={12} sm={12}>
             <AppTextInput
               fullWidth
-              value={values.notes}
-              label="Other Details"
-              onChange={handleChange('notes')}
-              helperText={errors.notes}
+              type="number"
+              variant="outlined"
+              label="Credit Limit"
+              value={values.limit}
+              onChange={handleChange('limit')}
             />
           </Grid>
+          <Grid item xs={12} sm={7} />
         </GridContainer>
+
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Button onClick={handleDialog}>Cancel</Button>
           <Box ml={2}>

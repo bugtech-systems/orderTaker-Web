@@ -9,7 +9,7 @@ import LabelIcon from '@material-ui/icons/Label';
 import PropTypes from 'prop-types';
 
 const ItemCell = ({ classes, item, selectedItem, onChange }) => {
-  const { counter } = useSelector(({ contactApp }) => contactApp);
+  const { counter } = useSelector(({ customerApp }) => customerApp);
   return (
     <ListItem
       button

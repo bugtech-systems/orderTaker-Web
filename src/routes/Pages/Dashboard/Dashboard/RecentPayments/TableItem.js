@@ -147,7 +147,7 @@ const TableItem = ({ row }) => {
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>
-            <div className={classes.showContent}>${row.pendingAmount}</div>
+            <div className={classes.showContent}>₱{row.pendingAmount}</div>
             <Box
               className={clsx(classes.hideContent, classes.hideShowLink)}
               color="primary.main"
@@ -186,7 +186,7 @@ const TableItem = ({ row }) => {
                 <div>
                   Pending{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    ${row.pendingAmount}
+                    ₱{row.pendingAmount}
                   </Box>
                 </div>
                 <div style={{ marginLeft: 'auto' }}>

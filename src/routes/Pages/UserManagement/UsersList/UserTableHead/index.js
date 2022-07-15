@@ -13,11 +13,16 @@ const headCells = [
     disablePadding: true,
     label: 'Full Name',
   },
-  { id: 'contact', numeric: false, disablePadding: false, label: 'Contact #' },
+  // { id: 'contact', numeric: false, disablePadding: false, label: 'Contact #' },
   { id: 'roles', numeric: false, disablePadding: false, label: 'Role/s' },
 
   { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
- 
+  {
+    id: 'lastLoginAt',
+    numeric: false,
+    disablePadding: false,
+    label: 'Last Login',
+  }
 ];
 
 function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) {

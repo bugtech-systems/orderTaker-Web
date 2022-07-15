@@ -13,11 +13,10 @@ import SidebarThemeContext from '../../../../@coremat/CmtLayouts/SidebarThemeCon
 import LayoutContext from '../../../../@coremat/CmtLayouts/LayoutContext';
 
 //Redux
-import { logout } from '../../../../redux/actions/Auth';
+// import { logout } from '../../../../redux/actions/Auth';
 
 //Services
 import { AuhMethods } from '../../../../services/auth';
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,16 +61,14 @@ const SidebarHeader = () => {
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
-    setSidebarOpen(false)
+    setSidebarOpen(false);
   };
 
   const open = Boolean(anchorEl);
 
   const onLogoutClick = () => {
     handlePopoverClose();
-    dispatch(logout());
     dispatch(AuhMethods[CurrentAuthMethod].onLogout());
-
   };
 
   return (
@@ -87,7 +84,7 @@ const SidebarHeader = () => {
           }}>
           <div className="mr-2">
             <Typography className={classes.userTitle} component="h3" variant="h6">
-            Jason Brown
+              Jason Brown
             </Typography>
             <Typography className={classes.userSubTitle}>jasonbrown@gmail.com</Typography>
           </div>
@@ -111,11 +108,11 @@ const SidebarHeader = () => {
           }}>
           <Paper elevation={8}>
             <MenuList>
-              <NavLink style={{color: 'inherit'}} to="/profile" onClick={handlePopoverClose}>
-              <MenuItem >
-                <PersonIcon />
-                <div className="ml-2">Profile</div>
-              </MenuItem>
+              <NavLink style={{ color: 'inherit' }} to="/profile" onClick={handlePopoverClose}>
+                <MenuItem>
+                  <PersonIcon />
+                  <div className="ml-2">Profile</div>
+                </MenuItem>
               </NavLink>
               <MenuItem onClick={onLogoutClick}>
                 <ExitToAppIcon />

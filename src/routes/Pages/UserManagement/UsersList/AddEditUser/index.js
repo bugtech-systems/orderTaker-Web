@@ -171,7 +171,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
              />
           </Box>
           <GridContainer>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <AppTextInput
                 fullWidth
                 variant="outlined"
@@ -180,7 +180,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
                 onChange={handleChange('firstName')}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <AppTextInput
                 fullWidth
                 variant="outlined"
@@ -188,38 +188,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
                 value={values.lastName}
                 onChange={handleChange('lastName')}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <TextField
-            fullWidth
-          id="outlined-select-currency-native"
-          select
-          label="Gender"
-          value={values.gender}
-          onChange={e => setValues({...values, gender: e})}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-          size="small"
-          >
-          {['male', 'female'].map((option, index) => (
-            <option key={index} value={option}>
-             {String(option).toUpperCase()}
-            </option>
-          ))}
-        </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-             <DatePicker
-              views={["year"]}
-              fullWidth
-              label="Birth Year"
-              inputVariant="outlined"
-              size="small"
-              value={values.birthDate}
-              onChange={(e) => setValues({...values, birthDate: e})}
-            />
             </Grid>
           </GridContainer>
         </Box>

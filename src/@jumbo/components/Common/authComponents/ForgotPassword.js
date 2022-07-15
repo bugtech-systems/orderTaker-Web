@@ -94,8 +94,14 @@ const ForgotPassword = ({ method = CurrentAuthMethod, variant = 'default', wrapp
         </div>
       ) : null}
       <div className={classes.authContent}>
-      <Box mb={7} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <CmtImage src={'/images/logo.png'} />
+        <Box mb={7} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CmtImage
+            style={{
+              height: 170,
+              width: 170,
+            }}
+            src={'/images/logo250.png'}
+          />
         </Box>
         <Typography component="div" variant="h1" className={classes.titleRoot}>
           ForgotPassword

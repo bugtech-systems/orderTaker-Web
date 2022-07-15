@@ -16,7 +16,7 @@ const ListTableView = ({
   onShowCustomerDetail,
   onClickEditCustomer,
 }) => {
-  const { customersList } = useSelector(({ customer }) => customer);
+  const { customersList } = useSelector(({ customerApp }) => customerApp);
   return (
     <React.Fragment>
       {checkedCustomers.length > 0 && (

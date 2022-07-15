@@ -5,23 +5,23 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch } from 'react-redux';
-import { deleteContact, updateContactsLabel, updateStarredStatus } from '../../../../../../../redux/actions/ContactApp';
+import { deleteCustomer, updateCustomersLabel, updateStarredStatus } from '../../../../../../../redux/actions/Customer';
 import PropTypes from 'prop-types';
-import ExportContacts from '../../../ExportCustomers';
+import ExportCustomers from '../../../ExportCustomers';
 import PrintIcon from '@material-ui/icons/Print';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LabelIcon from '@material-ui/icons/Label';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-const HeaderOptions = ({ checkedContacts, contactsList, labelsList, updateCheckedContacts }) => {
+const HeaderOptions = ({ checkedCustomers, customersList, labelsList, updateCheckedCustomers }) => {
   const dispatch = useDispatch();
   const [showLabels, setShowLabels] = useState(null);
   const [showMoreOptions, setShowMoreOptions] = useState(null);
 
-  const contacts = contactsList.filter(contact => checkedContacts.includes(contact.id));
-  let unStarredOption = contacts.some(item => item.starred);
-  let starredOption = contacts.some(item => !item.starred);
+  const customers = customersList.filter(customer => checkedCustomers.includes(customer.id));
+  let unStarredOption = customers.some(item => item.starred);
+  let starredOption = customers.some(item => !item.starred);
 
   const onShowLabels = event => {
     setShowLabels(event.currentTarget);
@@ -40,24 +40,24 @@ const HeaderOptions = ({ checkedContacts, contactsList, labelsList, updateChecke
   };
 
   const onClickLabelOption = label => {
-    dispatch(updateContactsLabel(checkedContacts, label.id));
-    updateCheckedContacts([]);
+    dispatch(updateCustomersLabel(checkedCustomers, label.id));
+    updateCheckedCustomers([]);
     onHideLabels();
   };
 
   const onClickStarredOption = status => {
-    dispatch(updateStarredStatus(checkedContacts, status));
-    updateCheckedContacts([]);
+    dispatch(updateStarredStatus(checkedCustomers, status));
+    updateCheckedCustomers([]);
     onHideMoreOptions();
   };
 
   const onClickDeleteOption = () => {
-    dispatch(deleteContact(checkedContacts));
-    updateCheckedContacts([]);
+    dispatch(deleteCustomer(checkedCustomers));
+    updateCheckedCustomers([]);
   };
 
   const getDataForExport = () => {
-    return contactsList.filter(item => checkedContacts.includes(item.id));
+    return customersList.filter(item => checkedCustomers.includes(item.id));
   };
 
   return (
@@ -71,13 +71,13 @@ const HeaderOptions = ({ checkedContacts, contactsList, labelsList, updateChecke
       </Box>
 
       <Box ml={1}>
-        <ExportContacts data={getDataForExport()}>
+        <ExportCustomers data={getDataForExport()}>
           <Tooltip title="Export">
             <IconButton size="small">
               <CloudUploadIcon />
             </IconButton>
           </Tooltip>
-        </ExportContacts>
+        </ExportCustomers>
       </Box>
 
       <Box ml={1}>
@@ -123,10 +123,10 @@ const HeaderOptions = ({ checkedContacts, contactsList, labelsList, updateChecke
 export default HeaderOptions;
 
 HeaderOptions.prototype = {
-  checkedContacts: PropTypes.array.isRequired,
-  contactsList: PropTypes.array.isRequired,
+  checkedCustomers: PropTypes.array.isRequired,
+  customersList: PropTypes.array.isRequired,
   labelsList: PropTypes.array,
-  updateCheckedContacts: PropTypes.func,
+  updateCheckedCustomers: PropTypes.func,
 };
 
 HeaderOptions.defaultProps = {

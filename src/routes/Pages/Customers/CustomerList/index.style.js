@@ -113,10 +113,10 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down('sm')]: {
       '& $inBuildAppSidebar': {
-        width: 72,
+        width: 0,
       },
       '& $inBuildAppMainContent': {
-        width: 'calc(100% - 72px)',
+        width: 'calc(100% - 0px)',
       },
       '& .Cmt-user-info, & .Cmt-nav-text, & .Cmt-nav-count, & .Cmt-more-vert-icon, & .Cmt-media-header .title-root, & .Cmt-media-header .sub-title-text': {
         opacity: '0 !important',

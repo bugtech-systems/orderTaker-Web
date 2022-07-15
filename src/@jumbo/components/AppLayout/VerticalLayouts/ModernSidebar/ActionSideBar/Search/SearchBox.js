@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
   searchRoot: {
     position: 'relative',
     width: '100%',
-    marginBottom: 35,
+    marginBottom: 20,
     '& .MuiSvgIcon-root': {
       position: 'absolute',
       left: 18,

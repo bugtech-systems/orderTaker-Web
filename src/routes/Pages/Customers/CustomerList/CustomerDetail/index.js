@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const CustomerDetail = ({ open, handleDialog }) => {
   const classes = useStyles();
-  const { currentCustomer } = useSelector(({ customer }) => customer);
+  const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
 
   const onClickStarredIcon = status => {
@@ -72,8 +72,7 @@ const CustomerDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentCustomer({ ...currentCustomer, starred: status }));
   };
 
-  const { name, email_address, phones, company, designation, dpUrl, starred } = currentCustomer;
-
+  const { name, email_address, phones, limit, balance, dpUrl, starred } = currentCustomer;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
@@ -84,7 +83,7 @@ const CustomerDetail = ({ open, handleDialog }) => {
 
           <Box mt={-2}>
             <Box display="flex" alignItems="center">
-              <Typography className={classes.titleRoot}>{name}</Typography>
+              <Typography className={classes.titleRoot}> {name}</Typography>
               <Box ml={1}>
                 <Checkbox
                   icon={<StarBorderIcon />}
@@ -94,17 +93,17 @@ const CustomerDetail = ({ open, handleDialog }) => {
                 />
               </Box>
             </Box>
-            {(designation || company) && (
+            {/* {(limit || balance) && (
               <Box mt={-1}>
-                {designation && <Typography className={classes.subTitleRoot}>{designation}</Typography>}
-                {company && <Typography className={classes.subTitleRoot}>@{company}</Typography>}
+                {limit && <Typography className={classes.subTitleRoot}> Limit: ₱{limit}.00 </Typography>}
+                {balance && <Typography className={classes.subTitleRoot}> Balance: ₱{balance}.00 </Typography>}
               </Box>
-            )}
+            )} */}
           </Box>
         </Box>
         <Box ml="auto" mt={-2} display="flex" alignItems="center">
           <Box ml={1}>
-            <MoreOptions contact={currentCustomer} isFromDetailPage={true} isDetailView={true} />
+            <MoreOptions customer={currentCustomer} isFromDetailPage={true} isDetailView={true} />
           </Box>
           <Box ml={1}>
             <IconButton onClick={handleDialog}>

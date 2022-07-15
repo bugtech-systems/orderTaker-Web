@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Box from '@material-ui/core/Box';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   tableCellRoot: {
@@ -21,27 +22,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ListHeader = ({ contactsList, checkedContacts, handleHeaderCheckBox }) => {
+const ListHeader = ({ customersList, checkedCustomers, handleHeaderCheckBox }) => {
   const classes = useStyles();
   return (
     <TableHead>
       <TableRow>
         <TableCell className={classes.tableCellRoot}>
           <Box display="flex" alignItems="center">
-            <Box component="span" mr={2}>
+            <Box component="span" mr={1}>
               <Checkbox
                 color="primary"
-                indeterminate={checkedContacts.length > 0 && checkedContacts.length < contactsList.length}
-                checked={checkedContacts.length > 0 && checkedContacts.length === contactsList.length}
+                indeterminate={checkedCustomers.length > 0 && checkedCustomers.length < customersList.length}
+                checked={checkedCustomers.length > 0 && checkedCustomers.length === customersList.length}
                 onChange={e => handleHeaderCheckBox(e.target.checked)}
               />
             </Box>
-            Name
+          Customer Details
           </Box>
-        </TableCell>
-        <TableCell className={classes.tableCellRoot}>Limit</TableCell>
-        <TableCell className={classes.tableCellRoot}>Balance</TableCell>
-        <TableCell className={classes.tableCellRoot} />
+       </TableCell>
+          {/* <TableCell className={classes.tableCellRoot}>Limit</TableCell>
+          <TableCell className={classes.tableCellRoot}>Balance</TableCell> */}
+        <TableCell className={classes.tableCellRoot}/> 
       </TableRow>
     </TableHead>
   );
@@ -50,12 +51,12 @@ const ListHeader = ({ contactsList, checkedContacts, handleHeaderCheckBox }) => 
 export default ListHeader;
 
 ListHeader.prototype = {
-  checkedContacts: PropTypes.array,
-  contactsList: PropTypes.array,
+  checkedCustomers: PropTypes.array,
+  customersList: PropTypes.array,
   handleHeaderCheckBox: PropTypes.func,
 };
 
 ListHeader.defaultProps = {
-  checkedContacts: [],
-  contactList: [],
+  checkedCustomers: [],
+  customerList: [],
 };

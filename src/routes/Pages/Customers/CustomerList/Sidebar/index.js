@@ -7,10 +7,10 @@ import ListItem from '@material-ui/core/ListItem';
 import CmtList from '../../../../../@coremat/CmtList';
 import List from '@material-ui/core/List';
 import PropTypes from 'prop-types';
-import { getContactCounts, getLabelsList, setFilterType } from '../../../../../redux/actions/ContactApp';
+import { getCustomerCounts, getLabelsList, setFilterType } from '../../../../../redux/actions/Customer';
 import ItemCell from './ItemCell';
 import AddLabel from './AddLabel';
-import { foldersList } from '../../../../../@fake-db/apps/contact';
+import { foldersList } from '../../../../../@fake-db/modules/customers';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { withWidth } from '@material-ui/core';
 import { getAppSidebarHeight } from '../../../../../@jumbo/constants/AppConstants';
@@ -19,14 +19,14 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import LabelCell from './LabelCell';
 
-const Sidebar = ({ onClickCreateContact, width }) => {
-  const { isSideBarCollapsed, labelsList, filterType, contactsList } = useSelector(({ contactApp }) => contactApp);
+const Sidebar = ({ onClickCreateCustomer, width }) => {
+  const { isSideBarCollapsed, labelsList, filterType, customersList } = useSelector(({ customerApp }) => customerApp);
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getContactCounts());
-  }, [dispatch, contactsList]);
+    dispatch(getCustomerCounts());
+  }, [dispatch, customersList]);
 
   useEffect(() => {
     dispatch(getLabelsList());
@@ -61,7 +61,7 @@ const Sidebar = ({ onClickCreateContact, width }) => {
   return (
     <Box className={classes.inBuildAppSidebar}>
       <Box className={classes.inBuildAppSidebarHeader}>
-        <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateContact}>
+        <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateCustomer}>
           <PersonAddIcon />
           <Box component="span" className="add-task-btn-text">
             Create New
@@ -69,7 +69,7 @@ const Sidebar = ({ onClickCreateContact, width }) => {
         </Button>
       </Box>
 
-      <PerfectScrollbar className={classes.perfectScrollbarContactSidebar}>
+      <PerfectScrollbar className={classes.perfectScrollbarCustomerSidebar}>
         <List component="nav" className={classes.appNav}>
           <CmtList
             data={foldersList}
@@ -103,7 +103,7 @@ const Sidebar = ({ onClickCreateContact, width }) => {
             )}
           />
 
-          <MoreOptions classes={classes} contactsList={contactsList} />
+          <MoreOptions classes={classes} customersList={customersList} />
         </List>
       </PerfectScrollbar>
     </Box>
@@ -113,5 +113,5 @@ const Sidebar = ({ onClickCreateContact, width }) => {
 export default withWidth()(Sidebar);
 
 Sidebar.prototype = {
-  onClickCreateContact: PropTypes.func,
+  onClickCreateCustomer: PropTypes.func,
 };

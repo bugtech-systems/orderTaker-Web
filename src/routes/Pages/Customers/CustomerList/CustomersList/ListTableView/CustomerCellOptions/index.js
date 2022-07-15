@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { useDispatch } from 'react-redux';
-import { updateStarredStatus } from '../../../../../../../redux/actions/ContactApp';
+import { updateStarredStatus } from '../../../../../../../redux/actions/Customer';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import clsx from 'clsx';
@@ -14,7 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import MoreOptions from './MoreOptions';
 
 const useStyles = makeStyles(theme => ({
-  contactCellOptionsRoot: {
+  customerCellOptionsRoot: {
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
@@ -36,19 +36,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContactCellOptions = ({ contact, onClickEditContact }) => {
+const CustomerCellOptions = ({ customer, onClickEditCustomer }) => {
   const dispatch = useDispatch();
 
   const classes = useStyles();
 
   const onClickStarredIcon = status => {
-    dispatch(updateStarredStatus([contact.id], status));
+    console.log(status);
+
+    dispatch(updateStarredStatus([customer.id], status));
   };
 
-  const { starred } = contact;
+  const { starred } = customer;
 
   return (
-    <Box className={classes.contactCellOptionsRoot} onClick={e => e.stopPropagation()}>
+    <Box className={classes.customerCellOptionsRoot} onClick={e => e.stopPropagation()}>
       <Box className={clsx(classes.starViewRoot, 'star-view')}>
         <Checkbox
           icon={<StarBorderIcon />}
@@ -62,21 +64,21 @@ const ContactCellOptions = ({ contact, onClickEditContact }) => {
       <Box className={clsx(classes.actionOptionRoot, 'action-option')}>
         <Box ml={1}>
           <Tooltip title="Edit">
-            <IconButton size="small" onClick={() => onClickEditContact({ ...contact })}>
+            <IconButton size="small" onClick={() => onClickEditCustomer({ ...customer })}>
               <EditIcon />
             </IconButton>
           </Tooltip>
         </Box>
 
-        <MoreOptions contact={contact} />
+        <MoreOptions customer={customer} />
       </Box>
     </Box>
   );
 };
 
-export default ContactCellOptions;
+export default CustomerCellOptions;
 
-ContactCellOptions.prototype = {
-  contact: PropTypes.object.isRequired,
-  onClickEditContact: PropTypes.func,
+CustomerCellOptions.prototype = {
+  customer: PropTypes.object.isRequired,
+  onClickEditCustomer: PropTypes.func,
 };

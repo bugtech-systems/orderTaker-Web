@@ -41,7 +41,7 @@ export const getLabelsList = () => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/customer/labels')
+      .get('/customers/labels')
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -61,7 +61,7 @@ export const addNewLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/customer/labels', { label })
+      .post('/customers/labels', { label })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -81,7 +81,7 @@ export const deleteLabel = labelId => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/labels/delete', { labelId })
+      .put('/customers/labels/delete', { labelId })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -101,7 +101,7 @@ export const updateLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/labels', { label })
+      .put('/customers/labels', { label })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -118,11 +118,10 @@ export const updateLabel = label => {
 
 //for getting customers list
 export const getCustomersList = params => {
-  console.log(params);
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/customer', { params })
+      .get('/customers', { params })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -151,7 +150,7 @@ export const createCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/customer', { customer })
+      .post('/customers', { customer })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -171,7 +170,7 @@ export const onUpdateCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer', { customer })
+      .put('/customers', { customer })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -191,7 +190,7 @@ export const updateStarredStatus = (customerIds, status) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/update-starred', { customerIds, status })
+      .put('/customers/update-starred', { customerIds, status })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -214,7 +213,7 @@ export const deleteCustomer = customerIds => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/delete', { customerIds })
+      .put('/customers/delete', { customerIds })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -234,7 +233,7 @@ export const updateCustomersLabel = (customerIds, label) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customer/update-label', { customerIds, label })
+      .put('/customers/update-label', { customerIds, label })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -244,6 +243,7 @@ export const updateCustomersLabel = (customerIds, label) => {
         }
       })
       .catch(error => {
+        console.log(error);
         dispatch(fetchError('Something went wrong'));
       });
   };
@@ -253,7 +253,7 @@ export const updateCustomersLabel = (customerIds, label) => {
 export const getCustomerCounts = () => {
   return dispatch => {
     axios
-      .get('/customer/counter')
+      .get('/customers/counter')
       .then(data => {
         if (data.status === 200) {
           dispatch({ type: GET_CUSTOMER_COUNTS, payload: data.data });

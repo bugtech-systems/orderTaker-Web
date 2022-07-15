@@ -318,8 +318,8 @@ export const intranet = {
     bio: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     badge: '/images/dashboard/intranet/badge.png',
     stats: {
-      followers: 457,
-      courses: 12,
+      Transactions: 457,
+      Orders: 12,
       following: 697,
     },
   },
@@ -329,6 +329,8 @@ export const intranet = {
       name: 'Jumbo',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#03DAC5',
+      stocks: 10,
+      price: 160,
       sales_data: {
         income: 1800,
         sold_qty: 250,
@@ -340,78 +342,53 @@ export const intranet = {
       name: 'React',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#FF9F1C',
+      price: 150,
       sales_data: {
         income: 890,
         sold_qty: 100,
         sales_inflation: 20,
       },
+      stocks: 20
     },
     {
       id: 3,
       name: 'Flexile',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#55DDE0',
+      price: 100,
       sales_data: {
         income: 3500,
         sold_qty: 450,
         sales_inflation: 120,
       },
+      stocks: 5
     },
     {
       id: 4,
       name: 'Drift',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#2BA444',
+      price: 50,
       sales_data: {
         income: 380,
         sold_qty: 135,
         sales_inflation: -25,
       },
+      stocks: 10
     },
     {
       id: 5,
       name: 'Wield',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#EF8354',
+      price: 200,
       sales_data: {
         income: 9000,
         sold_qty: 1250,
         sales_inflation: 125,
       },
-    },
-    {
-      id: 6,
-      name: 'Apple',
-      logo: 'https://via.placeholder.com/40x40',
-      colorCode: '#ce93d8',
-      sales_data: {
-        income: 1800,
-        sold_qty: 250,
-        sales_inflation: 100,
-      },
-    },
-    {
-      id: 7,
-      name: 'Oracle',
-      logo: 'https://via.placeholder.com/40x40',
-      colorCode: '#dce775',
-      sales_data: {
-        income: 890,
-        sold_qty: 100,
-        sales_inflation: 20,
-      },
-    },
-    {
-      id: 8,
-      name: 'eBook',
-      logo: 'https://via.placeholder.com/40x40',
-      colorCode: '#bdbdbd',
-      sales_data: {
-        income: 3500,
-        sold_qty: 450,
-        sales_inflation: 120,
-      },
-    },
+      stocks: 7
+    }
   ],
   userPhotos: [
     {
@@ -1384,37 +1361,41 @@ export const intranet = {
     },
   ],
   ourOfficeData: {
-    title: 'Our Office',
-    description: 'Fusce eget dolor id justo lictus commodo pharetra nisi. Donec velit libero',
+    title: 'AJA HARDWARE',
+    description: 'Hamindangon st., Brgy Poblacion Del Norte, Villaba, Leyte',
     socialProfiles: [
       { title: 'twitter', url: '' },
-      { title: 'facebook', url: '' },
+      {
+        title: 'facebook',
+        url: 'https://web.facebook.com/pages/Aja-Hardware/174875422636347',
+      },
       { title: 'instagram', url: '' },
     ],
     addresses: [
       {
-        label: 'Head Office',
-        addressLine1: '488, blingum road',
-        addressLine2: 'JP Street',
-        city: 'NJ',
-        state: 'California',
-        zipCode: 455473,
-        phoneNumber: '+01-992856-8535',
-        emailAddress: 'bob.bulider@jobportal.com',
+        // label: 'Head Office',
+        // addressLine1: '488, blingum road',
+        // addressLine2: 'JP Street',
+        // city: 'NJ',
+        // state: 'California',
+        // zipCode: 455473,
+        phoneNumber1: '09777142354',
+        phoneNumber2: '09612402623',
+        emailAddress: 'ajahardware@icloud.com',
         mapDirectionLink:
-          'https://www.google.com/maps/place/RSETI,SBI,BIKANER/@28.017662,73.3346816,19z/data=!4m12!1m6!3m5!1s0x0:0x728b47887e97d499!2sLotus+Dairy!8m2!3d28.0161051!4d73.3321255!3m4!1s0x393fdd88866b7461:0x92ed0b10ac41fa6d!8m2!3d28.0177013!4d73.3361341',
+          'https://www.google.com/maps/dir/11.2291284,125.0057587/11.2120496,124.3917388/@11.1825919,124.4264297,10z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0',
       },
       {
-        label: 'Representative Office',
-        addressLine1: 'Rani bajar',
-        addressLine2: 'Jaipur road',
-        city: 'Bikaner',
-        state: 'Rajasthan',
-        zipCode: 334004,
-        phoneNumber: '+01-336558-8535',
-        emailAddress: 'john-smith@jobportal.com',
-        mapDirectionLink:
-          'https://www.google.com/maps/place/RSETI,SBI,BIKANER/@28.017662,73.3346816,19z/data=!4m12!1m6!3m5!1s0x0:0x728b47887e97d499!2sLotus+Dairy!8m2!3d28.0161051!4d73.3321255!3m4!1s0x393fdd88866b7461:0x92ed0b10ac41fa6d!8m2!3d28.0177013!4d73.3361341',
+        // label: 'Representative Office',
+        // addressLine1: 'Rani bajar',
+        // addressLine2: 'Jaipur road',
+        // city: 'Bikaner',
+        // state: 'Rajasthan',
+        // zipCode: 334004,
+        // phoneNumber: '+01-336558-8535',
+        // emailAddress: 'john-smith@jobportal.com',
+        // mapDirectionLink:
+        //   'https://www.google.com/maps/place/RSETI,SBI,BIKANER/@28.017662,73.3346816,19z/data=!4m12!1m6!3m5!1s0x0:0x728b47887e97d499!2sLotus+Dairy!8m2!3d28.0161051!4d73.3321255!3m4!1s0x393fdd88866b7461:0x92ed0b10ac41fa6d!8m2!3d28.0177013!4d73.3361341',
       },
     ],
   },
@@ -1603,6 +1584,144 @@ export const intranet = {
     },
   ],
   headerNotifications: [
+    {
+      id: 2,
+      user: {
+        id: 101,
+        name: 'Dinesh Suthar',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'POSTING',
+      metaData: {
+        post: {
+          type: 'album',
+          title: 'This is Beginning',
+          owner: {
+            id: 545,
+            name: 'Martin Guptil',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+        },
+      },
+      createdAt: getCustomDateTime(-27, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 3,
+      user: {
+        id: 102,
+        name: 'John Doe',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'SHARED_POST',
+      metaData: {
+        post: {
+          title: 'This is Beginning',
+          owner: {
+            id: 545,
+            name: 'Martin Guptil',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+        },
+      },
+      createdAt: getCustomDateTime(-50, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 1,
+      user: {
+        id: 100,
+        name: 'Atul Midha',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'INVITATION',
+      metaData: {
+        user: {
+          id: 105,
+          name: 'North Taylor',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        group: { id: 12, name: 'Global Health' },
+      },
+      date: getCustomDateTime(-90, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 4,
+      user: {
+        id: 105,
+        name: 'Sara John',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'BIRTHDAY',
+      createdAt: getCustomDateTime(-150, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 2,
+      user: {
+        id: 101,
+        name: 'Dinesh Suthar',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'POSTING',
+      metaData: {
+        post: {
+          type: 'album',
+          title: 'This is Beginning',
+          owner: {
+            id: 545,
+            name: 'Martin Guptil',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+        },
+      },
+      createdAt: getCustomDateTime(-27, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 3,
+      user: {
+        id: 102,
+        name: 'John Doe',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'SHARED_POST',
+      metaData: {
+        post: {
+          title: 'This is Beginning',
+          owner: {
+            id: 545,
+            name: 'Martin Guptil',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+        },
+      },
+      createdAt: getCustomDateTime(-50, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 1,
+      user: {
+        id: 100,
+        name: 'Atul Midha',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'INVITATION',
+      metaData: {
+        user: {
+          id: 105,
+          name: 'North Taylor',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        group: { id: 12, name: 'Global Health' },
+      },
+      date: getCustomDateTime(-90, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 4,
+      user: {
+        id: 105,
+        name: 'Sara John',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'BIRTHDAY',
+      createdAt: getCustomDateTime(-150, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
     {
       id: 2,
       user: {

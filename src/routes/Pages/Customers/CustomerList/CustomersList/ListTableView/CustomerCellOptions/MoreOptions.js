@@ -10,8 +10,8 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LabelIcon from '@material-ui/icons/Label';
 import DoneIcon from '@material-ui/icons/Done';
-import { deleteContact, setCurrentContact, updateContactsLabel } from '../../../../../../../redux/actions/ContactApp';
-import ExportContacts from '../../../ExportCustomers';
+import { deleteCustomer, setCurrentCustomer, updateCustomersLabel } from '../../../../../../../redux/actions/Customer';
+import ExportCustomers from '../../../ExportCustomers';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
@@ -43,13 +43,13 @@ const useStyles = makeStyles(theme => ({
 
 //isFromDetailPage ->  property is set to true if this file is called from detail page.
 
-const MoreOptions = ({ contact, isDetailView }) => {
+const MoreOptions = ({ customer, isDetailView }) => {
   const classes = useStyles();
-  const { labelsList } = useSelector(({ contactApp }) => contactApp);
+  const { labelsList } = useSelector(({ customerApp }) => customerApp);
   const [showMoreOptions, setShowMoreOptions] = useState(null);
   const dispatch = useDispatch();
-  const { labels } = contact;
-
+  const { labels } = customer;
+  // console.log(customer)
   const onShowMoreOptions = event => {
     setShowMoreOptions(event.currentTarget);
   };
@@ -59,21 +59,21 @@ const MoreOptions = ({ contact, isDetailView }) => {
   };
 
   const onClickDeleteOption = () => {
-    dispatch(deleteContact([contact.id]));
+    dispatch(deleteCustomer([customer.id]));
     onHideMoreOptions();
   };
 
   const onClickLabelOption = label => {
-    dispatch(updateContactsLabel([contact.id], label));
-
+    dispatch(updateCustomersLabel([customer.id], label));
+    console.log(customer);
     if (isDetailView) {
-      const newLabel = contact.labels.find(item => item === label);
+      const newLabel = customer.labels.find(item => item === label);
       if (newLabel) {
-        contact.labels = contact.labels.filter(item => item !== label);
+        customer.labels = customer.labels.filter(item => item !== label);
       } else {
-        contact.labels = contact.labels.concat(label);
+        customer.labels = customer.labels.concat(label);
       }
-      dispatch(setCurrentContact(contact));
+      dispatch(setCurrentCustomer(customer));
     }
 
     onHideMoreOptions();
@@ -91,14 +91,14 @@ const MoreOptions = ({ contact, isDetailView }) => {
 
       <Menu anchorEl={showMoreOptions} open={Boolean(showMoreOptions)} onClose={onHideMoreOptions}>
         <MenuItem onClick={onHideMoreOptions} className={classes.menuItemsRoot}>
-          <ExportContacts data={[{ ...contact }]}>
+          <ExportCustomers data={[{ ...customer }]}>
             <Box component="span" display="flex" alignItems="center">
               <CloudUploadIcon />
               <Box component="span" ml={4}>
                 Export
               </Box>
             </Box>
-          </ExportContacts>
+          </ExportCustomers>
         </MenuItem>
         <MenuItem onClick={onClickDeleteOption} className={classes.menuItemsRoot}>
           <DeleteIcon />

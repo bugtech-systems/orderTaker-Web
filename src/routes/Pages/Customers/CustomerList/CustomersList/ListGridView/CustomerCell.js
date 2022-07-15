@@ -4,29 +4,29 @@ import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../CustomerCell.style';
 import PropTypes from 'prop-types';
-import ContactCellOptions from '../ListTableView/CustomerCellOptions';
+import CustomerCellOptions from '../ListTableView/CustomerCellOptions';
 
-const ContactCell = ({ contact, onShowContactDetail, onClickEditContact }) => {
+const CustomerCell = ({ customer, onShowCustomerDetail, onClickEditCustomer }) => {
   const classes = useStyles();
 
-  const { fullName, email_address, phones, company, balance, limit, dpUrl } = contact;
+  const { name, email_address, phones, balance, limit, dpUrl } = customer;
   return (
-    <Box className={classes.gridContactCell} onClick={() => onShowContactDetail(contact)}>
-      <Box className={classes.gridContactCellHeader} display="flex" mb={3}>
+    <Box className={classes.gridCustomerCell} onClick={() => onShowCustomerDetail(customer)}>
+      <Box className={classes.gridCustomerCellHeader} display="flex" mb={3}>
         <Box width={{ sm: 'calc(100% - 56px)' }} display="flex" alignItems="center">
           <Box mr={4}>
-            <CmtAvatar size={40} src={dpUrl} alt={fullName} />
+            <CmtAvatar size={40} src={dpUrl} alt={name} />
           </Box>
 
           <Box width="calc(100% - 56px)">
             <Typography className={classes.titleRoot} component="div" variant="h4">
-              {fullName}
+              {name}
             </Typography>
             <Typography className={classes.subTitleRoot}>Balance: ₱{balance}.00</Typography>
           </Box>
         </Box>
         <Box ml={{ sm: 'auto' }} onClick={e => e.stopPropagation()}>
-          <ContactCellOptions contact={contact} onClickEditContact={onClickEditContact} />
+          <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} />
         </Box>
       </Box>
       <Box display="flex" flexDirection="column">
@@ -44,10 +44,10 @@ const ContactCell = ({ contact, onShowContactDetail, onClickEditContact }) => {
   );
 };
 
-export default ContactCell;
+export default CustomerCell;
 
-ContactCell.prototype = {
-  contact: PropTypes.object.isRequired,
-  onShowContactDetail: PropTypes.func,
-  onClickEditContact: PropTypes.func,
+CustomerCell.prototype = {
+  customer: PropTypes.object.isRequired,
+  onShowCustomerDetail: PropTypes.func,
+  onClickEditCustomer: PropTypes.func,
 };
