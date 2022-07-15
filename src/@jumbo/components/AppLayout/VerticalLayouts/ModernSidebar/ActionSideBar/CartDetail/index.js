@@ -87,8 +87,7 @@ const useStyles = makeStyles(theme => ({
 
 const Comments = () => {
   const classes = useStyles();
-  const { cart, cart_items_count }  = useSelector(state => state.cartApp);
-  const { cart_items } = cart;
+  const { cart_items, cart_items_count }  = useSelector(state => state.cartApp);
   const [subTotal, setSubTotal] = useState(0);
 
   // const totalCart = useMemo(() => cart_items.length, [cart_items]);

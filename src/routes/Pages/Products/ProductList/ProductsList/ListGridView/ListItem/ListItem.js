@@ -71,7 +71,7 @@ const productVariants = {
 const ListItem = ({ item }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { cart, cart: { cart_items } } = useSelector(state => state.cartApp);
+  const {  cart_items  } = useSelector(state => state.cartApp);
   const [revealed, setRevealed] = useState(false);
   const [openSnackBar, setSnackBarStatus] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
@@ -96,9 +96,7 @@ const ListItem = ({ item }) => {
     </Box>
   );
 
-  const handleCheckout = React.useCallback((a) => {
-    console.log(item);
-    console.log(a)
+  const handleCheckout = React.useCallback((qty) => {
     let ind = cart_items.find(a => a.id == item.id);
 
 
@@ -108,8 +106,8 @@ const ListItem = ({ item }) => {
       return a.id == item.id ?
        { ...item,
         price: item.price,
-        qty: a,
-        total: item.price * a,
+        qty: qty,
+        total: item.price * qty,
          product: { name: item.name, description: item.id }, inventory: { stocks: item.stocks } } : a
      })
 
@@ -127,8 +125,8 @@ const ListItem = ({ item }) => {
     cart_items.push({ 
       ...item, 
       price: item.price,
-      qty: a,
-      total: item.price * a,
+      qty: qty,
+      total: item.price * qty,
       product: { name: item.name, description: item.id }, inventory: { stocks: item.stocks } });
 
       dispatch({
