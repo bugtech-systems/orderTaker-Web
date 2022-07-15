@@ -20,7 +20,9 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetail } from '../../../../redux/actions/ProfileApp';
+import { getUsers} from '../../../../redux/actions/Users';
+
+
 
 const useStyles = makeStyles(() => ({
   pageFull: {
@@ -48,18 +50,31 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState('about');
-  const { business } = useSelector(({ auth }) => auth);
+  const { users } = useSelector((state) => state.usersReducer);
 
+
+
+let name = ['brix', 'jb'];
+console.log(name)
+console.log(name.length)
+console.log(users.length)
   // useEffect(() => {
   //   // dispatch(getUserDetail());
   // }, [dispatch]);
 
+
+  useEffect(() => {
+    console.log('Mounting users on dashboard')
+    dispatch(
+      getUsers()
+    );
+  }, [dispatch]);
+
+
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-
-  console.log(business);
-
+ 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
@@ -107,7 +122,7 @@ const Dashboard = () => {
               <CardWidget
                 icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
                 backgroundColor="#8DCD03"
-                title={543}
+                title={users.length}
                 subTitle="USERS"
                 Link="/users"
               />

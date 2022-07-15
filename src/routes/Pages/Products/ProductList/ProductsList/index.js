@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ListTableView from './ListTableView';
-import ListGridView from './ListGridView';
+import ListGridView from './ListGridView/ListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsList } from '../../../../../redux/actions/ProductApp';
 import PropTypes from 'prop-types';

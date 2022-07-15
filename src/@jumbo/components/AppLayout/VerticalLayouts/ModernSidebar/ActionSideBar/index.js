@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 
 import { Box, Hidden, IconButton, withWidth, Tooltip } from '@material-ui/core';
@@ -30,6 +29,9 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 
+
+//Redux
+import { useSelector, useDispatch } from 'react-redux';
 
 
 
@@ -75,6 +77,7 @@ let initSidebarWidth = 0;
 const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const cartState = useSelector(state => state.cartApp);
   const [isDrawerOpen, setDrawerStatus] = useState(false);
   const [activeOption, setActiveOption] = useState(null);
   const { isSidebarOpen, setSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
@@ -122,6 +125,19 @@ const ActionSideBar = ({ width }) => {
     }
   };
 
+
+
+
+
+  console.log(cartState);
+
+
+
+
+
+
+
+
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
       <Hidden smDown>
@@ -145,7 +161,7 @@ const ActionSideBar = ({ width }) => {
         </IconButton> */}
         <Tooltip title="Cart">
           <IconButton className={classes.iconBtn} onClick={() => onIconClick('cart')}>
-            <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+            <Badge badgeContent={cartState.cart_items_count} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <LocalGroceryStore />
             </Badge>
           </IconButton>

@@ -12,7 +12,7 @@ const breadcrumbs = [
   { label: 'Products', link: '/products' }
 ];
 
-const Sales = () => {
+const Products = () => {
   return (
     <PageContainer heading="Products" breadcrumbs={breadcrumbs}>
          <GridContainer>
@@ -24,4 +24,4 @@ const Sales = () => {
   );
 };
 
-export default Sales;
+export default Products;

@@ -3,7 +3,7 @@ import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER } from '
 const INIT_STATE = {
   authUser: null,
   loadUser: false,
-  send_forget_password_email: false,
+  send_forget_password_email: false
 };
 
 export default (state = INIT_STATE, action) => {

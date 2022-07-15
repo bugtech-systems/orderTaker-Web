@@ -5,7 +5,7 @@ import ProductCell from './ProductCell';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 
-import ListItem from '../../../PopularProducts/ListItem';
+import ListItem from './ListItem';
 import { intranet } from '../../../../../../@fake-db';
 
 

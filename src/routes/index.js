@@ -15,8 +15,6 @@ import UserManagement from './Pages/UserManagement';
 import Users from './Pages/Users';
 import Maps from './Pages';
 
-
-
 import Settings from './Pages/Settings';
 
 //Other Pages

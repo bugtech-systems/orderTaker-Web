@@ -16,6 +16,13 @@ import Profile from './UserDetail';
 import Cart from './CartDetail/index';
 
 
+//Redux
+import { useDispatch } from 'react-redux';
+import { CLEAR_CART } from '../../../../../../redux/actions/types';
+
+
+
+
 //Icons
 import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
@@ -87,6 +94,18 @@ const useStyles = makeStyles(theme => ({
 
 const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+
+
+  const handleClearCart = () => {
+
+    dispatch({ 
+      type: CLEAR_CART
+    })
+
+  }
+
 
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest}>
@@ -150,7 +169,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
           </PerfectScrollbar>
         </Box>
         {activeOption === 'cart' && <Box className={classes.cartButton}>
-      <Button variant="contained" color="default">Draft</Button>
+      <Button variant="contained" color="default" onClick={() => handleClearCart()}>Clear Cart</Button>
       <Button variant="contained" color="primary">Checkout</Button>
       </Box>}
 

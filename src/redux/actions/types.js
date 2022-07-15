@@ -34,6 +34,13 @@ export const UPDATE_CUSTOMER_LABEL = 'update_contact_label';
 export const UPDATE_CUSTOMER = 'update_contact';
 export const GET_CUSTOMER_COUNTS = 'get_contact_counts';
 
+
+//CART
+export const UPDATE_CART = 'update_cart';
+export const CLEAR_CART = 'clear_cart';
+export const UPDATE_CART_ITEMS = 'update_cart_items';
+export const SET_CART_ITEMS_COUNT = 'set_cart_items_count';
+
 //PRODUCT
 export const GET_PRODUCTS_LIST = 'get_products_list';
 export const SET_CURRENT_PRODUCT = 'set_current_product';

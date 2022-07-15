@@ -329,6 +329,8 @@ export const intranet = {
       name: 'Jumbo',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#03DAC5',
+      stocks: 10,
+      price: 160,
       sales_data: {
         income: 1800,
         sold_qty: 250,
@@ -340,78 +342,53 @@ export const intranet = {
       name: 'React',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#FF9F1C',
+      price: 150,
       sales_data: {
         income: 890,
         sold_qty: 100,
         sales_inflation: 20,
       },
+      stocks: 20
     },
     {
       id: 3,
       name: 'Flexile',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#55DDE0',
+      price: 100,
       sales_data: {
         income: 3500,
         sold_qty: 450,
         sales_inflation: 120,
       },
+      stocks: 5
     },
     {
       id: 4,
       name: 'Drift',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#2BA444',
+      price: 50,
       sales_data: {
         income: 380,
         sold_qty: 135,
         sales_inflation: -25,
       },
+      stocks: 10
     },
     {
       id: 5,
       name: 'Wield',
       logo: 'https://via.placeholder.com/40x40',
       colorCode: '#EF8354',
+      price: 200,
       sales_data: {
         income: 9000,
         sold_qty: 1250,
         sales_inflation: 125,
       },
-    },
-    {
-      id: 6,
-      name: 'Apple',
-      logo: 'https://via.placeholder.com/40x40',
-      colorCode: '#ce93d8',
-      sales_data: {
-        income: 1800,
-        sold_qty: 250,
-        sales_inflation: 100,
-      },
-    },
-    {
-      id: 7,
-      name: 'Oracle',
-      logo: 'https://via.placeholder.com/40x40',
-      colorCode: '#dce775',
-      sales_data: {
-        income: 890,
-        sold_qty: 100,
-        sales_inflation: 20,
-      },
-    },
-    {
-      id: 8,
-      name: 'eBook',
-      logo: 'https://via.placeholder.com/40x40',
-      colorCode: '#bdbdbd',
-      sales_data: {
-        income: 3500,
-        sold_qty: 450,
-        sales_inflation: 120,
-      },
-    },
+      stocks: 7
+    }
   ],
   userPhotos: [
     {
