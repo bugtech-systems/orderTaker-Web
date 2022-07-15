@@ -6,7 +6,6 @@ import {
   } from '../actions/types';
   
   const INIT_STATE = {
-    cart: {
         cart_items: [
             {
                 id: 1,
@@ -23,9 +22,8 @@ import {
                 qty: 3,
                 total: 300
               }
-        ]
-    },
-    cart_items_count: 0   
+        ],
+        cart_items_count: 0   
   };
   
   export default (state = INIT_STATE, action) => {
@@ -34,7 +32,7 @@ import {
       case UPDATE_CART: {
         return {
           ...state,
-          cart: action.payload
+          ...action.payload
         };
       }
 
@@ -43,20 +41,14 @@ import {
       case UPDATE_CART_ITEMS: {
         return {
           ...state,
-          cart: {
-            ...state.cart,
             cart_items: action.payload
-        }
         };
       }
 
       case CLEAR_CART: {
         return {
             ...state,
-            cart: {
-              ...state.cart,
-              cart_items: []
-          },
+              cart_items: [],
           cart_items_count: 0
         };
       }

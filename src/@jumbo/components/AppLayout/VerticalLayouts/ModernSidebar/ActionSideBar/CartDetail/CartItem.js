@@ -81,6 +81,7 @@ const useStyles = makeStyles(theme => ({
 
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
+  console.log(item)
   let { id, product: { name, cover, description }, inventory: { stocks }, price, total, qty } = item;
 
   const getTitle = () => {
@@ -90,7 +91,7 @@ const CommentItem = ({ item, handleItem }) => {
         Name: 
       </Box>
         <Box component="span" color="primary.main">
-          {item.product.name}
+          {name}
         </Box>
         
       </Box>
