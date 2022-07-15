@@ -89,7 +89,7 @@ export const updateUser = (user, callbackFun) => {
 };
 
 export const updateUserStatus = (data, callbackFun) => {
-  console.log(data);
+  console.log(data) 
   let { status, id } = data;
   return dispatch => {
     dispatch(fetchStart());
@@ -97,8 +97,10 @@ export const updateUserStatus = (data, callbackFun) => {
       .get(`${commonData.apiUrl}/users/${status === 'suspended' ? 'suspend' : 'activate'}/${id}`)
       .then(response => {
         if (response.status === 200) {
+          console.log(response)
           dispatch(fetchSuccess('User status was updated successfully.'));
-          dispatch({ type: EDIT_USER, payload: response.data });
+          dispatch(getUsers());
+          // dispatch({ type: EDIT_USER, payload: response.data });
           if (callbackFun) callbackFun(response.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));

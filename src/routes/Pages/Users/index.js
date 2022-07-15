@@ -17,7 +17,8 @@ import NoRecordFound from './NoRecordFound';
 
 const UsersModule = () => {
   const classes = useStyles();
-  const { users } = useSelector(({ usersReducer }) => usersReducer);
+  const { users } = useSelector((state) => state.usersReducer);
+
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const [page, setPage] = React.useState(0);
@@ -33,9 +34,9 @@ const UsersModule = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentUser, setCurrent] = useState({});
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('Mounting users on users')
     dispatch(
       getUsers(filterOptions, debouncedSearchTerm, () => {
         setFilterApplied(!!filterOptions.length || !!debouncedSearchTerm);
@@ -91,8 +92,7 @@ const UsersModule = () => {
   };
 
   const handleUserView = user => {
-    console.log(user);
-    setCurrent(user);
+    setCurrent(user)
     dispatch(setCurrentUser(user));
     setOpenViewDialog(true);
   };
@@ -122,6 +122,10 @@ const UsersModule = () => {
   };
 
   const isSelected = id => selected.indexOf(id) !== -1;
+
+
+
+
 
   return (
     <div className={classes.root}>

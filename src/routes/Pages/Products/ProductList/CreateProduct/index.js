@@ -6,8 +6,11 @@ import Grid from '@material-ui/core/Grid';
 import AppTextInput from '../../../../../@jumbo/components/Common/formElements/AppTextInput';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import { useDropzone } from 'react-dropzone';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from '@material-ui/core/Button';
 import CmtList from '../../../../../@coremat/CmtList';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import IconButton from '@material-ui/core/IconButton';
 import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
 import { emailNotValid, requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
@@ -54,8 +57,8 @@ function NumberFormatCustom({ onChange, value, ...other }) {
 }
 
 const labels = [
-  { title: 'Home', slug: 'home' },
-  { title: 'Office', slug: 'office' },
+  { title: 'Description', slug: 'description' },
+  { title: 'Yadop', slug: 'yadop' },
   { title: 'Other', slug: 'other' },
 ];
 
@@ -67,7 +70,7 @@ const CreateProduct = ({ open, handleDialog }) => {
     currentProduct
       ? currentProduct
       : {
-          phones: [{ phone: '', label: 'home' }],
+          product: [{ product: '', description: '' }],
         },
   );
   const [errors, setErrors] = useState({});
@@ -79,30 +82,29 @@ const CreateProduct = ({ open, handleDialog }) => {
     },
   });
 
-  const onAddPhoneRow = () => {
+  const onAddProductRow = () => {
     setValues({
       ...values,
-      phones: values.phones.concat({ phone: '', label: 'home' }),
+      product: values.product.concat({ product: '', description: '' }),
     });
   };
-
-  const onRemovePhoneRow = index => {
-    const updatedList = [...values.phones];
+  const onRemoveProductRow = index => {
+    const updatedList = [...values.product];
     updatedList.splice(index, 1);
-    setValues({ ...values, phones: updatedList });
+    setValues({ ...values, product: updatedList });
   };
-
-  const onAddPhoneNo = (number, index) => {
-    const updatedList = [...values.phones];
-    updatedList[index].phone = number;
-    setValues({ ...values, phones: updatedList });
-    setErrors({ ...errors, phones: '' });
+  
+  const onAddProduct = (description, index) => {
+    const updatedList = [...values.product];
+    updatedList[index].product = description;
+    setValues({ ...values, product: updatedList });
+    setErrors({ ...errors, product: '' });
   };
 
   const onSelectLabel = (value, index) => {
-    const updatedList = [...values.phones];
+    const updatedList = [...values.product];
     updatedList[index].label = value;
-    setValues({ ...values, phones: updatedList });
+    setValues({ ...values, product: updatedList });
   };
 
   const handleChange = prop => event => {
@@ -110,10 +112,10 @@ const CreateProduct = ({ open, handleDialog }) => {
     setErrors({ ...errors, [prop]: '' });
   };
 
-  const isPhonesMultiple = values.phones.length > 1;
+  const isproductMultiple = values.product.length > 1;
 
   const checkValidations = () => {
-    const phoneNumbers = values.phones.filter(item => item.phone.trim());
+    const phoneNumbers = values.product.filter(item => item.phone.trim());
 
     if (!values.firstName) {
       setErrors({ ...errors, firstName: requiredMessage });
@@ -122,7 +124,7 @@ const CreateProduct = ({ open, handleDialog }) => {
     } else if (!isValidEmail(values.email_address)) {
       setErrors({ ...errors, email_address: requiredMessage });
     } else if (phoneNumbers.length === 0) {
-      setErrors({ ...errors, phones: requiredMessage });
+      setErrors({ ...errors, product: requiredMessage });
     } else {
       handleSubmit(phoneNumbers);
     }
@@ -133,7 +135,7 @@ const CreateProduct = ({ open, handleDialog }) => {
     const product = {
       ...values,
       name: `${firstName} ${lastName}`,
-      phones: phoneNumbers,
+      product: phoneNumbers,
       limit: limit ? limit : 0,
       balance: balance ? balance : 0,
     };
@@ -154,7 +156,7 @@ const CreateProduct = ({ open, handleDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={values.dpUrl} />
+            <AddCircleIcon src={values.dpUrl} sx={{ size: 200 }}/>
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>
@@ -162,7 +164,7 @@ const CreateProduct = ({ open, handleDialog }) => {
                 fullWidth
                 variant="outlined"
                 value={values.name}
-                label="Complete Name"
+                label="Product Name"
                 onChange={handleChange('name')}
                 helperText={errors.name}
               />
@@ -175,9 +177,9 @@ const CreateProduct = ({ open, handleDialog }) => {
             <AppTextInput
               fullWidth
               variant="outlined"
-              value={values.email_address}
-              label="Email Address"
-              onChange={handleChange('email_address')}
+              value={values.description}
+              label="Product Description"
+              onChange={handleChange('Product Description')}
               helperText={errors.email_address}
             />
           </Grid>
@@ -186,31 +188,31 @@ const CreateProduct = ({ open, handleDialog }) => {
               fullWidth
               variant="outlined"
               value={values.address}
-              label="Home Address"
-              onChange={handleChange('address')}
+              label="Product Quantity"
+              onChange={handleChange('Quantity')}
               helperText={errors.address}
             />
           </Grid>
         </GridContainer>
 
         <CmtList
-          data={values.phones}
+          data={values.product}
           renderRow={(item, index) => (
             <GridContainer style={{ marginBottom: 12 }} key={index}>
-              <Grid item xs={12} sm={isPhonesMultiple ? 6 : 8}>
+              <Grid item xs={12} sm={isproductMultiple ? 6 : 8}>
                 <AppTextInput
                   fullWidth
                   variant="outlined"
                   label="Phone"
                   value={item.phone}
-                  onChange={number => onAddPhoneNo(number, index)}
-                  helperText={errors.phones}
+                  onChange={number => onAddProduct(number, index)}
+                  helperText={errors.product}
                   InputProps={{
                     inputComponent: NumberFormatCustom,
                   }}
                 />
               </Grid>
-              <Grid item xs={isPhonesMultiple ? 9 : 12} sm={4}>
+              <Grid item xs={isproductMultiple ? 9 : 12} sm={4}>
                 <AppSelectBox
                   fullWidth
                   data={labels}
@@ -222,9 +224,9 @@ const CreateProduct = ({ open, handleDialog }) => {
                   onChange={e => onSelectLabel(e.target.value, index)}
                 />
               </Grid>
-              {isPhonesMultiple && (
+              {isproductMultiple && (
                 <Grid item xs={3} sm={2}>
-                  <IconButton onClick={() => onRemovePhoneRow(index)}>
+                  <IconButton onClick={() => onRemoveProductRow(index)}>
                     <CancelIcon />
                   </IconButton>
                 </Grid>
@@ -237,18 +239,18 @@ const CreateProduct = ({ open, handleDialog }) => {
           mb={{ xs: 6, md: 5 }}
           display="flex"
           alignItems="center"
-          onClick={onAddPhoneRow}
+          onClick={onAddProduct}
           className="pointer"
           color="primary.main">
           <AddCircleOutlineIcon />
           <Box ml={2}>Add More</Box>
         </Box>
-
+  
         <Box
           mb={{ xs: 6, md: 5 }}
           display="flex"
           alignItems="center"
-          onClick={onAddPhoneRow}
+          onClick={onAddProduct}
           className="pointer"
           color="primary.main">
           <GridContainer>

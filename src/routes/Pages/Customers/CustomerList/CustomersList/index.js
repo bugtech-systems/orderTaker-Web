@@ -24,13 +24,9 @@ const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCusto
   }, [filterType, dispatch]);
 
   const handleCellCheckBox = (isChecked, id) => {
-    console.log(checkedCustomers)
-    console.log(isChecked)
     if (isChecked) {
-      console.log('CHeeeck!')
       setCheckedCustomers(checkedCustomers.concat(id));
     } else {
-      console.log('Wronged!')
       setCheckedCustomers(checkedCustomers.filter(customerId => customerId !== id));
     }
   };
@@ -57,7 +53,6 @@ const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCusto
   });
 
 
-console.log(checkedCustomers)
   return customersList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>
       <PerfectScrollbar className={classes.perfectScrollbarCustomerCon}>

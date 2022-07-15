@@ -4,12 +4,17 @@ import { Box, Button, makeStyles } from '@material-ui/core';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { alpha } from '@material-ui/core/styles';
 import CmtList from '../../../../../../../@coremat/CmtList';
-import { cart } from '../../../../../../../@fake-db/modules/cart';
+// import { cart } from '../../../../../../../@fake-db/modules/cart';
 import CartItem from './CartItem';
 
 
 import EmptyResult from '../EmptyResult';
 import SearchBox from '../Search/SearchBox';
+
+
+//Redux
+import { useSelector } from 'react-redux';
+
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -82,10 +87,11 @@ const useStyles = makeStyles(theme => ({
 
 const Comments = () => {
   const classes = useStyles();
-  const { cartItems } = cart;
+  const { cart, cart_items_count }  = useSelector(state => state.cartApp);
+  const { cart_items } = cart;
   const [subTotal, setSubTotal] = useState(0);
 
-  const totalCart = useMemo(() => cartItems.length, [cartItems]);
+  // const totalCart = useMemo(() => cart_items.length, [cart_items]);
 
 
   const handleItem = (id, action) => {
@@ -97,15 +103,16 @@ const Comments = () => {
   useEffect(() => {
   let sub = 0;
     
-    cartItems.map(a => {
+    cart_items.map(a => {
       sub += Number(a.price * a.qty);
     })
 
     setSubTotal(sub)
-  }, [cartItems])
+  }, [cart_items])
 
 
-  console.log(subTotal)
+  // console.log(cart)
+  // console.log(cart_items_count)
 
   return (
     <>
@@ -119,18 +126,18 @@ const Comments = () => {
 {/* 
       <SearchBox searchKeyword={searchKeyword}  placeholder="Search in messages..." /> */}
      
-      <Box className={classes.sectionHeading}>Cart Items ({totalCart})</Box>
-      <Box className={classes.sectionTotalHeading}>
+      <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box>
+      {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
         <Box>
         Sub-Total
         </Box>
         <Box pr={5} fontSize={18} fontWeight={700}>
         ₱{subTotal}
         </Box>
-      </Box>
-      {totalCart ? (
+      </Box>} 
+      {cart_items_count !== 0 ? (
         <PerfectScrollbar className={classes.scrollbarRoot}>
-          <CmtList data={cartItems} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem} />} />
+          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem} />} />
         </PerfectScrollbar>
         ) : (
         <EmptyResult content="No record found" />

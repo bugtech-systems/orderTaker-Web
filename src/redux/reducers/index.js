@@ -9,6 +9,7 @@ import Crud from './Crud';
 import Data from './Data';
 import ProductApp from './ProductApp';
 import Customer from './Customer';
+import Cart from './CartApp';
 
 export default history =>
   combineReducers({
@@ -21,4 +22,5 @@ export default history =>
     crud: Crud,
     productApp: ProductApp,
     customerApp: Customer,
+    cartApp: Cart
   });
