@@ -62,13 +62,13 @@ const HeaderOptions = ({ checkedProducts, productsList, labelsList, updateChecke
 
   return (
     <React.Fragment>
-      <Box ml={1}>
+      {/* <Box ml={1}>
         <Tooltip title="Print">
           <IconButton size="small" onClick={() => window.print()}>
             <PrintIcon />
           </IconButton>
         </Tooltip>
-      </Box>
+      </Box> */}
 
       <Box ml={1}>
         <ExportProducts data={getDataForExport()}>

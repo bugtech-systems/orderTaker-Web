@@ -29,37 +29,18 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
 
   return (
     <Box className={classes.inBuildAppHeader}>
-      <Box className={classes.inBuildAppHeaderSidebar}>
+      <Box 
+      className={classes.inBuildAppHeaderSidebar}
+      >
         <Hidden smDown>
           <IconButton onClick={() => dispatch(toggleExpandSidebar())}>
             <MenuIcon />
           </IconButton>
         </Hidden>
-        {/* <Typography className={classes.inBuildAppHeaderTitle} component="div" variant="h1">
-          Products
-        </Typography> */}
       </Box>
 
       <Box className={classes.inBuildAppHeaderContent}>
         <CmtSearch placeholder="Search Products..." value={searchText} onChange={handleSearchText} border={false} />
-        <Box ml="auto" display="flex" alignItems="center">
-          <Box ml={1}>
-            <IconButton
-              className="icon-btn active"
-              color={viewMode === 'table' ? 'primary' : 'default'}
-              onClick={() => onChangeViewMode('table')}>
-              <ListIcon />
-            </IconButton>
-          </Box>
-          <Box ml={1}>
-            <IconButton
-              className="icon-btn"
-              color={viewMode === 'grid' ? 'primary' : 'default'}
-              onClick={() => onChangeViewMode('grid')}>
-              <GridOnIcon />
-            </IconButton>
-          </Box>
-        </Box>
       </Box>
     </Box>
   );

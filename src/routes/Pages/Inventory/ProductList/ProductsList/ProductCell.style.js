@@ -38,6 +38,29 @@ const useStyles = makeStyles(theme => ({
       },
     },
   },
+  tableCellRootWrap: {
+    padding: '6px 10px',
+    color: theme.palette.text.secondary,
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+    borderBottom: '0 none',
+    '&:first-child': {
+      paddingLeft: 15,
+    },
+    '&:last-child': {
+      paddingRight: 15,
+      [theme.breakpoints.up('lg')]: {
+        paddingRight: 35,
+      },
+    },
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '300px',
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: '500px',
+      minWidth: '300px',
+    },
+  },
   tableCellAction: {
     width: 150,
   },

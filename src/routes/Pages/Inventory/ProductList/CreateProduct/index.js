@@ -9,11 +9,7 @@ import { useDropzone } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
 import CmtList from '../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
-import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
-import { emailNotValid, requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
-import { createProduct, onUpdateProduct } from '../../../../../redux/actions/ProductApp';
-import { useDispatch, useSelector } from 'react-redux';
-import NumberFormat from 'react-number-format';
+import {  requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -21,6 +17,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
+import { Typography, Menu, Tooltip, MenuItem } from '@material-ui/core';
+
+
+
+//Icons
+import DoneIcon from '@material-ui/icons/Done';
+import LabelIcon from '@material-ui/icons/Label';
+
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { createProduct, onUpdateProduct } from '../../../../../redux/actions/ProductApp';
+import { uploadFile } from '../../../../../redux/actions/Users';
+
+
+
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -32,85 +43,107 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.common.dark,
     },
   },
+  menuItemsRoot: {
+    width: 200,
+    fontSize: 14,
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '& .MuiTouchRipple-root': {
+      display: 'none',
+    },
+    '& .MuiSvgIcon-root': {
+      fontSize: 18,
+    },
+  },
+  iconBlock: {
+    display: 'block',
+  },
+  titleLabelsRoot: {
+    fontSize: 10,
+    letterSpacing: 1.5,
+    color: theme.palette.text.secondary,
+    textTransform: 'uppercase',
+    padding: '16px 16px 8px',
+  },
 }));
 
-function NumberFormatCustom({ onChange, value, ...other }) {
-  const [phoneNo, setPhone] = useState('');
-
-  useEffect(() => {
-    if (!phoneNo && value) {
-      setTimeout(() => {
-        setPhone(value);
-      }, 300);
-    }
-  }, [phoneNo, value]);
-
-  const onNumberChange = number => {
-    setPhone(number.formattedValue);
-    onChange(number.formattedValue);
-  };
-
-  return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####" />;
-}
-
-const labels = [
-  { title: 'Home', slug: 'home' },
-  { title: 'Office', slug: 'office' },
-  { title: 'Other', slug: 'other' },
-];
 
 const CreateProduct = ({ open, handleDialog }) => {
-  const { currentProduct } = useSelector(({ productApp }) => productApp);
+
+  const { currentProduct, labelsList } = useSelector(({ productApp }) => productApp);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [values, setValues] = useState(
-    currentProduct
-      ? currentProduct
-      : {
-          phones: [{ phone: '', label: 'home' }],
-        },
-  );
+  const [isDiscounted, setDiscounted] = useState(false);
+  const [showLabels, setShowLabels] = useState(null);
+  const [values, setValues] = useState({
+    limit: 0,
+    name: '',
+    description: '',
+    price: 0,
+    discount_price: 0,
+    cover: '',
+    labels: []
+  });
   const [errors, setErrors] = useState({});
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-      setValues({ ...values, dpUrl: URL.createObjectURL(acceptedFiles[0]) });
+      const formData = new FormData();
+      formData.append("file", acceptedFiles[0]);
+
+      dispatch(uploadFile(formData)).then(a => {
+        setValues({...values, cover: a.url})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
   });
 
-  const onAddPhoneRow = () => {
-    setValues({
-      ...values,
-      phones: values.phones.concat({ phone: '', label: 'home' }),
-    });
+  const onShowLabels = event => {
+    setShowLabels(event.currentTarget);
   };
 
-  const onRemovePhoneRow = index => {
-    const updatedList = [...values.phones];
-    updatedList.splice(index, 1);
-    setValues({ ...values, phones: updatedList });
+  const onHideLabels = () => {
+    setShowLabels(null);
   };
 
-  const onAddPhoneNo = (number, index) => {
-    const updatedList = [...values.phones];
-    updatedList[index].phone = number;
-    setValues({ ...values, phones: updatedList });
-    setErrors({ ...errors, phones: '' });
+
+  const onClickLabelOption = label => {
+    let newTags = [];
+    let tags = values && values.labels ? values.labels : [];
+    let ind = tags.find(a => a === label);
+
+    if(ind){
+      newTags = tags.filter(a => a !== label);
+    } else {
+      tags.push(label);
+     newTags = tags;
+    }
+    
+    console.log(newTags)
+
+    setValues({ ...values, labels: newTags  })
+    // dispatch(updateProductsLabel(checkedProducts, label.id));
+    // updateCheckedProducts([]);
+    // onHideLabels();
   };
 
-  const onSelectLabel = (value, index) => {
-    const updatedList = [...values.phones];
-    updatedList[index].label = value;
-    setValues({ ...values, phones: updatedList });
-  };
+  
 
   const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
-    setErrors({ ...errors, [prop]: '' });
-  };
 
-  const isPhonesMultiple = values.phones.length > 1;
+    if(prop === 'limit' || prop === 'price' || prop === 'discount_price'){
+      setValues({ ...values, [prop]: event.target.value >= 0 ? event.target.value : 0});
+      setErrors({ ...errors, [prop]: '' });
+    } else {
+      setValues({ ...values, [prop]: event.target.value });
+      setErrors({ ...errors, [prop]: '' });
+    }
+
+  };
 
   const checkValidations = () => {
     const phoneNumbers = values.phones.filter(item => item.phone.trim());
@@ -145,8 +178,17 @@ const CreateProduct = ({ open, handleDialog }) => {
     handleDialog();
   };
 
+
+  useEffect(() => {
+    if(currentProduct){
+      setValues(currentProduct) 
+    }
+  }, [currentProduct])
+
+console.log(values)
+
   return (
-    <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
+    <Dialog maxWidth="sm" fullWidth open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>
         {currentProduct ? 'Edit Product Details' : 'Create New Product'}
       </DialogTitle>
@@ -154,118 +196,106 @@ const CreateProduct = ({ open, handleDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={values.dpUrl} />
+            <CmtAvatar size={70} src={values.cover} />
           </Box>
           <GridContainer>
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={10} sm={10}>
               <AppTextInput
                 fullWidth
                 variant="outlined"
                 value={values.name}
-                label="Complete Name"
+                label="Product Name"
                 onChange={handleChange('name')}
                 helperText={errors.name}
               />
             </Grid>
+            <Grid item xs={2} sm={2}>
+            <Box ml={1}>
+              <Tooltip title="Labels">
+                <IconButton size="small" onClick={onShowLabels}>
+                  <LabelIcon color='primary' />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            </Grid>
+          
             {/* <Grid item xs={12} sm={7} /> */}
           </GridContainer>
         </Box>
         <GridContainer style={{ marginBottom: 12 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <AppTextInput
               fullWidth
+              multiline
+              minRows={4}
               variant="outlined"
-              value={values.email_address}
-              label="Email Address"
-              onChange={handleChange('email_address')}
-              helperText={errors.email_address}
+              value={values.description}
+              label="Product Description"
+              onChange={handleChange('description')}
+              helperText={errors.description}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <AppTextInput
-              fullWidth
-              variant="outlined"
-              value={values.address}
-              label="Home Address"
-              onChange={handleChange('address')}
-              helperText={errors.address}
-            />
-          </Grid>
-        </GridContainer>
-
-        <CmtList
-          data={values.phones}
-          renderRow={(item, index) => (
-            <GridContainer style={{ marginBottom: 12 }} key={index}>
-              <Grid item xs={12} sm={isPhonesMultiple ? 6 : 8}>
+              <Grid item xs={12} sm={6}>
                 <AppTextInput
                   fullWidth
+                  type="number"
                   variant="outlined"
-                  label="Phone"
-                  value={item.phone}
-                  onChange={number => onAddPhoneNo(number, index)}
-                  helperText={errors.phones}
-                  InputProps={{
-                    inputComponent: NumberFormatCustom,
-                  }}
+                  label="Selling Price"
+                  value={values.price}
+                  onChange={handleChange('price')}
                 />
               </Grid>
-              <Grid item xs={isPhonesMultiple ? 9 : 12} sm={4}>
-                <AppSelectBox
+              {isDiscounted && 
+              <Grid item xs={10} sm={5}>
+                <AppTextInput
                   fullWidth
-                  data={labels}
-                  label="Label"
-                  valueKey="slug"
+                  type="number"
                   variant="outlined"
-                  labelKey="title"
-                  value={item.label}
-                  onChange={e => onSelectLabel(e.target.value, index)}
+                  label="Discounted Price"
+                  value={values.discount_price}
+                  onChange={handleChange('discount_price')}
                 />
-              </Grid>
-              {isPhonesMultiple && (
-                <Grid item xs={3} sm={2}>
-                  <IconButton onClick={() => onRemovePhoneRow(index)}>
-                    <CancelIcon />
+              </Grid>}
+              {isDiscounted && (
+                <Grid item xs={2} sm={1}>
+                     <Box display="flex" alignItems="center" justifyContent="center" p={2}>
+                  <IconButton size="small" onClick={() => setDiscounted(false)}>
+                    <CancelIcon fontSize="small"/>
                   </IconButton>
+                  </Box>
                 </Grid>
               )}
             </GridContainer>
-          )}
-        />
 
+              {!isDiscounted && 
         <Box
           mb={{ xs: 6, md: 5 }}
           display="flex"
           alignItems="center"
-          onClick={onAddPhoneRow}
+          onClick={() => setDiscounted(true)}
           className="pointer"
           color="primary.main">
           <AddCircleOutlineIcon />
-          <Box ml={2}>Add More</Box>
-        </Box>
-
-        <Box
-          mb={{ xs: 6, md: 5 }}
-          display="flex"
-          alignItems="center"
-          onClick={onAddPhoneRow}
-          className="pointer"
-          color="primary.main">
-          <GridContainer>
-            <Grid item xs={12} sm={12}>
+         {!isDiscounted && <Box ml={2}>Add Discounted Price</Box> }
+        </Box>}
+        <br/>
+        <Box display="flex" flexDirection="column">
+        <Typography variant="h4">Minimum Stock Quantity Limit</Typography>
+        <br/>
+         <GridContainer>
+         <Grid item xs={12} sm={6}>
               <AppTextInput
                 fullWidth
                 type="number"
                 variant="outlined"
-                label="Credit Limit"
+                label="Quantity"
                 value={values.limit}
                 onChange={handleChange('limit')}
               />
             </Grid>
-            <Grid item xs={12} sm={7} />
+            <Grid item xs={12} sm={6} />
           </GridContainer>
-        </Box>
-
+          </Box>
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Button onClick={handleDialog}>Cancel</Button>
           <Box ml={2}>
@@ -274,6 +304,30 @@ const CreateProduct = ({ open, handleDialog }) => {
             </Button>
           </Box>
         </Box>
+        <Menu anchorEl={showLabels} open={Boolean(showLabels)} onClose={onHideLabels}>
+        <Box className={classes.titleLabelsRoot}>Labels</Box>
+
+        <CmtList
+          data={labelsList}
+          renderRow={(item, index) => (
+            <MenuItem key={index} onClick={() => onClickLabelOption(item.id)} className={classes.menuItemsRoot}>
+              <Box display="flex" alignItems="center" width={1}>
+                <Box>
+                  <LabelIcon className={classes.iconBlock} style={{ color: item.color }} />
+                </Box>
+                <Box ml={4} component="span">
+                  {item.name}
+                </Box>
+                {values && values.labels && values.labels.includes(item.id) && (
+                  <Box ml="auto">
+                    <DoneIcon className={classes.iconBlock} />
+                  </Box>
+                )}
+              </Box>
+            </MenuItem>
+          )}
+        />
+      </Menu>
       </DialogContent>
     </Dialog>
   );

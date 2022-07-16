@@ -1,5 +1,5 @@
 {
-  "name": "jumbo-material",
+  "name": "aja-pos",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -124,11 +124,6 @@
     "lint-staged": "^10.0.8",
     "prettier": "^1.19.1",
     "prettier-miscellaneous": "^1.5.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.+(js|jsx)": [ "eslint --fix" ],

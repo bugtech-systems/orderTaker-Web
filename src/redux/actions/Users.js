@@ -165,8 +165,8 @@ export const uploadFile = (data, callbackFun) => dispatch =>  {
         "Content-Type": "multipart/form-data"
       } })
       .then(doc => {
-        let { data } = doc.data;
-          dispatch(fetchSuccess('Selected user was deleted successfully.'));
+        let { data, message } = doc.data;
+          dispatch(fetchSuccess(message));
           return Promise.resolve(data);
       })
       .catch(error => {

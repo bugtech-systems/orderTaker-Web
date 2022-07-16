@@ -17,6 +17,7 @@ import {
 } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import axios from 'axios';
+import commonData from 'utils/commonData';
 
 //For expanding sidebar
 export const toggleExpandSidebar = value => {
@@ -41,14 +42,11 @@ export const getLabelsList = () => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/product/labels')
+      .get(`${commonData.apiUrl}/products/labels`)
       .then(data => {
-        if (data.status === 200) {
+        console.log(data)
           dispatch(fetchSuccess());
           dispatch({ type: GET_LABELS_LIST, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -58,17 +56,14 @@ export const getLabelsList = () => {
 
 //for adding new label
 export const addNewLabel = label => {
+  console.log(label)
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/product/labels', { label })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: ADD_LABEL, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .post(`${commonData.apiUrl}/products/labels`, label)
+      .then(({data}) => {
+          dispatch(fetchSuccess(data.message));
+          dispatch(getLabelsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -121,7 +116,7 @@ export const getProductsList = params => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get('/product', { params })
+      .get(`${commonData.apiUrl}/products`, { params })
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
@@ -135,6 +130,25 @@ export const getProductsList = params => {
       });
   };
 };
+
+
+export const getInventoryList = params => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios
+      .get(`${commonData.apiUrl}/products`, { params })
+      .then(data => {
+        console.log(data.data)
+          dispatch(fetchSuccess());
+          dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
 
 export const setCurrentProduct = product => {
   return dispatch => {

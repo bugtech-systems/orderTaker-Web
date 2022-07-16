@@ -40,8 +40,8 @@ const ListHeader = ({ customersList, checkedCustomers, handleHeaderCheckBox }) =
           Customer Details
           </Box>
        </TableCell>
-          {/* <TableCell className={classes.tableCellRoot}>Limit</TableCell>
-          <TableCell className={classes.tableCellRoot}>Balance</TableCell> */}
+          {/* <TableCell className={classes.tableCellRoot}>Limit</TableCell> */}
+          <TableCell className={classes.tableCellRoot}>Balance</TableCell>
         <TableCell className={classes.tableCellRoot}/> 
       </TableRow>
     </TableHead>

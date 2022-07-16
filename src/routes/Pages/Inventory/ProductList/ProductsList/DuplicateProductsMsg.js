@@ -30,25 +30,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DuplicateCustomersMsg = ({ productsList, toggleDuplicateMsgShow }) => {
-  const duplicateCustomers = [];
+  const limitedStocks = [];
   const classes = useStyles();
   productsList.reduce((res, itm) => {
     let result =
       res.length > 0 &&
       res.find(item => {
-        const itemPhones = item.phones.map(products => products.phone);
-        const itmPhones = itm.phones.map(products => products.phone);
-        return itemPhones.some(item => itmPhones.includes(item));
+        const itemStocks = productsList.map(products => products.stocks);
+        return itemStocks.some(item => item.limit && item.limit > item.stocks);
       });
     if (!result) {
       res.push(itm);
     } else {
-      duplicateCustomers.push(itm);
+      limitedStocks.push(itm);
     }
     return res;
   }, []);
 
-  const length = duplicateCustomers.length;
+  const length = limitedStocks.length;
 
   return (
     <React.Fragment>
@@ -60,9 +59,9 @@ const DuplicateCustomersMsg = ({ productsList, toggleDuplicateMsgShow }) => {
             </Box>
             <Box fontSize={14} component="p">
               {length > 2
-                ? `${duplicateCustomers[0].name}, ${duplicateCustomers[1].name} and ${length -
-                    2} more duplicate products found`
-                : `${length} duplicate product(s) found`}
+                ? `${limitedStocks[0].name}, ${limitedStocks[1].name} and ${length -
+                    2} more products stocks reached their minimum quantity limit.`
+                : `${length} limited product(s) found`}
             </Box>
           </Box>
           <Box ml="auto" display="flex" alignItems="center">

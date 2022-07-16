@@ -5,15 +5,10 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const today = new Date();
+const currentYear = today.getFullYear();
+const loginYear = 2021;
 
 export const foldersList = [
-  {id: 1, name: "All Products", slug: "products", icon: <GroupIcon />},
-  {id: 2, name: "Unpaid Products", slug: "unpaid", icon: <AccessTimeIcon />},
-  {id: 3, name: "Starred Products", slug: "starred", icon: <StarIcon />},
-  {id: 4, name: "Trash", slug: "trash", icon: <DeleteIcon />}
-];
-
-export const popularFoldersList = [
   {id: 1, name: "All Items", slug: "products", icon: <GroupIcon />},
   {id: 2, name: "Available stocks", slug: "available", icon: <AccessTimeIcon />},
   {id: 2, name: "Out of stocks", slug: "unavailable", icon: <AccessTimeIcon />},
@@ -323,7 +318,7 @@ export const popularProducts = [
     name: "Screw Driver",
     description: "Mekata screw driver. size - 10mm, color - yellow sdaddawdwadwa",
     price: 200,
-    discount_price: 180,
+    sale_price: 180,
     cover: "https://via.placeholder.com/80x80",
     stocks: 100,
     labels: [ 2 ],
@@ -336,7 +331,7 @@ export const popularProducts = [
     name: "Hammer",
     description: "Samsung rechargable hammer.",
     price: 100,
-    discount_price: 80,
+    sale_price: 80,
     cover: "https://via.placeholder.com/80x80",
     stocks: 10,
     labels: [ 1, 2 ],
