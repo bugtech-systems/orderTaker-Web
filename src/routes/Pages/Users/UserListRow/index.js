@@ -46,6 +46,7 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
   const dispatch = useDispatch();
 
   const onUserMenuClick = menu => {
+    console.log(menu)
     if (menu.action === 'view') {
       onUserView(row);
     } else if (menu.action === 'edit') {
@@ -80,7 +81,7 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
       <TableCell component="th" id={labelId} scope="row" padding="none">
         <Box display="flex" alignItems="center">
           <Box mr={{ xs: 4, md: 5 }}>
-            <CmtAvatar size={40} src={row.profile_pic} alt={row.name} />
+            <CmtAvatar size={40} src={row.dpUrl} alt={row.name} />
           </Box>
           <div>
             <Typography className={classes.titleRoot} component="div" variant="h4">
@@ -95,7 +96,7 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
       </TableCell>
       <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell>
       <TableCell align="center" onClick={event => event.stopPropagation()}>
-        <CmtDropdownMenu items={userActions} onItemClick={onUserMenuClick} TriggerComponent={<MoreHoriz />} />
+        <CmtDropdownMenu items={userActions} onItemClick={(e) => onUserMenuClick(e)} TriggerComponent={<MoreHoriz />} />
       </TableCell>
     </TableRow>
   );

@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, EDIT_USER } from '../../@jumbo/constants/ActionTypes';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, EDIT_USER, CLEAR_USER } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 
 import commonData from '../../utils/commonData';
+import { authHeader } from '../../services/auth-header';
 
 
 export const setAuthUser = user => {
@@ -34,25 +35,61 @@ export const setForgetPassMailSent = status => {
 };
 
 export const loginUser = (user, callbackFun) => {
-  console.log('Logiiiggn')
   return dispatch => {
     dispatch(fetchStart());
     axios
       .post(`${commonData.apiUrl}/auth/signin`, user)
       .then(data => {
-        console.log(data)
         let { accessToken, email, id, roles } = data.data;
           localStorage.setItem('user', JSON.stringify({email, id, roles}));
-          localStorage.setItem('idToken', JSON.stringify(`Bearer ${accessToken}`));
-          dispatch(setAuthUser(data.data));
-          dispatch(fetchSuccess());
+          localStorage.setItem('idToken', accessToken);
+          dispatch(getUserData());
           if (callbackFun) callbackFun(data.data);
       })
       .catch(error => {
         let { message } = error?.response?.data;
-        console.log(message)
         dispatch(fetchError(message.text));
-        // dispatch(fetchError(`There was something issue in responding server`));
       });
   };
+};
+
+
+export const getUserData = () => { 
+  console.log('getting user data')
+  return (dispatch) => {
+
+    console.log(authHeader())
+  axios.get(`${commonData.apiUrl}/auth`, { headers: authHeader() }).then(
+    (res) => {
+      console.log(res.data)
+      dispatch(setAuthUser(res.data))
+      dispatch(fetchSuccess());
+    },
+    (err) => {
+      console.log(err.response)
+      dispatch(fetchError('Something went wrong!'));
+      dispatch(logout())
+    }
+  );
+};
+}
+
+export const logout = () => {
+  return (dispatch) => {
+  axios.get(`${commonData.apiUrl}/auth/logout`)
+  .then(() => {
+    localStorage.clear();
+    dispatch({
+      type: CLEAR_USER
+    });
+    window.location.href = "/";
+  })
+  .catch(() => {
+    localStorage.clear();
+    dispatch({
+      type: CLEAR_USER
+    });
+    window.location.href = "/";
+  });
+  }
 };

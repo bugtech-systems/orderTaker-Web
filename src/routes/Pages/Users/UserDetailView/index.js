@@ -17,17 +17,16 @@ import useStyles from './index.style';
 import { Block, CheckCircleOutline } from '@material-ui/icons';
 import { Tooltip } from '@material-ui/core';
 
-const UserDetailView = ({ open, onCloseDialog }) => {
+const UserDetailView = ({ currentUser, open, onCloseDialog }) => {
   const classes = useStyles();
-  const { currentUser } = useSelector(({ usersReducer }) => usersReducer);
 
-  const { name, email, status, phones, company, designation, profile_pic, starred } = currentUser;
+  const { name, email, status, phones, company, designation, dpUrl, starred } = currentUser;
   return (
     <Dialog open={open} onClose={onCloseDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
         <Box mr={3} display="flex" alignItems="center">
           <Box className={classes.avatarView} mr={{ xs: 4, md: 6 }}>
-            <CmtAvatar size={70} src={profile_pic} alt={name} />
+            <CmtAvatar size={70} src={dpUrl} alt={name} />
           </Box>
 
           <Box mt={-2}>

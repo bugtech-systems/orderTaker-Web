@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import Box from '@material-ui/core/Box';
-import CmtImage from '../../../../../../../@coremat/CmtImage';
-import CmtMediaObject from '../../../../../../../@coremat/CmtMediaObject';
-import { IconButton } from '@material-ui/core';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import AddToCart from './AddToCart';
-import clsx from 'clsx';
-import ActionSnackBar from './ActionSnackBar';
-import useStyles from './ListItem.style';
+import React, {useState} from "react";
+import Box from "@material-ui/core/Box";
+import CmtImage from "../../../../../../../@coremat/CmtImage";
+import CmtMediaObject from "../../../../../../../@coremat/CmtMediaObject";
+import {IconButton} from "@material-ui/core";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import AddToCart from "./AddToCart";
+import clsx from "clsx";
+import ActionSnackBar from "./ActionSnackBar";
+import useStyles from "./ListItem.style";
 
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_CART_ITEMS_COUNT, UPDATE_CART_ITEMS } from '../../../../../../../redux/actions/types';
+import {useDispatch, useSelector} from "react-redux";
+import {
+  SET_CART_ITEMS_COUNT,
+  UPDATE_CART_ITEMS
+} from "../../../../../../../redux/actions/types";
 
-
-const VariantColor = ({ variant, onVariantClick }) => {
+const VariantColor = ({variant, onVariantClick}) => {
   const classes = useStyles();
 
   return (
@@ -28,7 +30,7 @@ const VariantColor = ({ variant, onVariantClick }) => {
             key={index}
             className={classes.dotsRoot}
             style={{
-              backgroundColor: option.value,
+              backgroundColor: option.value
             }}
             mr={2}
             onClick={() => onVariantClick(variant.label, option.value)}
@@ -39,7 +41,7 @@ const VariantColor = ({ variant, onVariantClick }) => {
   );
 };
 
-const VariantSize = ({ variant, onVariantClick }) => {
+const VariantSize = ({variant, onVariantClick}) => {
   const classes = useStyles();
 
   return (
@@ -54,7 +56,8 @@ const VariantSize = ({ variant, onVariantClick }) => {
             component="span"
             ml={1}
             className={classes.sizeVarRoot}
-            onClick={() => onVariantClick(variant.label, option.value)}>
+            onClick={() => onVariantClick(variant.label, option.value)}
+          >
             {option.value}
           </Box>
         ))}
@@ -65,22 +68,28 @@ const VariantSize = ({ variant, onVariantClick }) => {
 
 const productVariants = {
   color: React.memo(VariantColor),
-  size: React.memo(VariantSize),
+  size: React.memo(VariantSize)
 };
 
-const ListItem = ({ item }) => {
+const ListItem = ({item}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {  cart_items  } = useSelector(state => state.cartApp);
-  const [revealed, setRevealed] = useState(false);
-  const [openSnackBar, setSnackBarStatus] = useState(false);
-  const [snackBarMessage, setSnackBarMessage] = useState('');
+  const {cart_items} = useSelector(state => state.cartApp);
+  const [ revealed, setRevealed ] = useState(false);
+  const [ openSnackBar, setSnackBarStatus ] = useState(false);
+  const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
   const getVariants = () => {
     return item.variants
       ? item.variants.map((variant, index) => {
           const VariantOption = productVariants[variant.type];
-          return VariantOption ? <VariantOption key={index} variant={variant} onVariantClick={onVariantClick} /> : null;
+          return VariantOption ? (
+            <VariantOption
+              key={index}
+              variant={variant}
+              onVariantClick={onVariantClick}
+            />
+          ) : null;
         })
       : null;
   };
@@ -90,71 +99,73 @@ const ListItem = ({ item }) => {
       <Box component="span" mr={1} color="primary.main">
         ₱{item.sale_price}
       </Box>
-      <Box component="span" color="text.disabled" style={{ textDecoration: 'line-through' }}>
+      <Box
+        component="span"
+        color="text.disabled"
+        style={{textDecoration: "line-through"}}
+      >
         ₱{item.price}
       </Box>
     </Box>
   );
 
-
   const getStocks = () => (
-    <Box >
+    <Box>
       <Box component="span" mr={1} color="primary.main">
         Stocks: {item.stocks}
       </Box>
     </Box>
   );
 
-  const handleCheckout = (qty) => {
+  const handleCheckout = qty => {
     let cartItems = cart_items;
     let ind = cart_items.find(a => a.id == item.id);
 
+    if (ind) {
+      let newItems = cartItems.map(a => {
+        return a.id == item.id
+          ? {
+              ...item,
+              price: item.price,
+              qty: qty,
+              total: item.price * qty,
+              product: {name: item.name, description: item.id},
+              inventory: {stocks: item.stocks}
+            }
+          : a;
+      });
 
-  if(ind){
-    let newItems = cartItems.map(a => { 
-      return a.id == item.id ?
-       { ...item,
+      dispatch({
+        type: UPDATE_CART_ITEMS,
+        payload: newItems
+      });
+
+      dispatch({
+        type: SET_CART_ITEMS_COUNT,
+        payload: newItems.length
+      });
+    } else {
+      cartItems.push({
+        ...item,
         price: item.price,
         qty: qty,
         total: item.price * qty,
-         product: { name: item.name, description: item.id }, inventory: { stocks: item.stocks } } : a
-     })
-
-     dispatch({
-        type: UPDATE_CART_ITEMS,
-        payload: newItems
-     });
-   
-     dispatch({
-      type: SET_CART_ITEMS_COUNT,
-      payload: newItems.length
-   });
-     
-  } else {
-    cartItems.push({ 
-      ...item, 
-      price: item.price,
-      qty: qty,
-      total: item.price * qty,
-      product: { name: item.name, description: item.id }, inventory: { stocks: item.stocks } });
+        product: {name: item.name, description: item.id},
+        inventory: {stocks: item.stocks}
+      });
 
       dispatch({
         type: UPDATE_CART_ITEMS,
         payload: cartItems
-     });
+      });
 
-     
-     dispatch({
-      type: SET_CART_ITEMS_COUNT,
-      payload: cartItems.length
-   });
-  }
+      dispatch({
+        type: SET_CART_ITEMS_COUNT,
+        payload: cartItems.length
+      });
+    }
 
-
-  
-
-    
-    setSnackBarMessage('You have submitted for Checkout');
+    setSnackBarMessage("You have submitted for Checkout");
     setSnackBarStatus(true);
   };
 
@@ -165,31 +176,40 @@ const ListItem = ({ item }) => {
 
   const handleCloseSnackBar = React.useCallback(() => {
     setSnackBarStatus(false);
-    setSnackBarMessage('');
+    setSnackBarMessage("");
   }, []);
 
   return (
     <React.Fragment>
       <Box
         className={clsx(classes.productListItems, {
-          'active-activated': revealed,
-        })}>
+          "active-activated": revealed
+        })}
+      >
         <CmtMediaObject
-          avatar={<CmtImage src={item.logo} height={80} width={80} alt={item.name} />}
+          avatar={
+            <CmtImage src={item.logo} height={80} width={80} alt={item.name} />
+          }
           title={item.name}
           titleProps={{
-            variant: 'h4',
-            component: 'div',
-            className: classes.titleRoot,
+            variant: "h4",
+            component: "div",
+            className: classes.titleRoot
           }}
           subTitle={item.description}
           subTitleProps={{
-            variant: 'subtitle2',
-            component: 'p',
-            className: classes.subTitleRoot,
+            variant: "subtitle2",
+            component: "p",
+            className: classes.subTitleRoot
           }}
           actionsComponent={getActionComponent()}
-          content={item.stocks ? getStocks() : <Box color="text.secondary">Out of Stock</Box>}
+          content={
+            item.stocks ? (
+              getStocks()
+            ) : (
+              <Box color="text.secondary">Out of Stock</Box>
+            )
+          }
         />
         <Box className={classes.listItemAction}>
           <Box className={classes.listItemActionHover}>
@@ -197,11 +217,20 @@ const ListItem = ({ item }) => {
               <AddShoppingCartIcon />
             </IconButton>
           </Box>
-          <AddToCart className={classes.revealContainer} item={item} setRevealed={setRevealed} onCheckout={handleCheckout} />
+          <AddToCart
+            className={classes.revealContainer}
+            item={item}
+            setRevealed={setRevealed}
+            onCheckout={handleCheckout}
+          />
         </Box>
       </Box>
 
-      <ActionSnackBar message={snackBarMessage} open={openSnackBar} onClose={handleCloseSnackBar} />
+      <ActionSnackBar
+        message={snackBarMessage}
+        open={openSnackBar}
+        onClose={handleCloseSnackBar}
+      />
     </React.Fragment>
   );
 };

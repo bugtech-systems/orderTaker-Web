@@ -68,6 +68,7 @@ const Routes = () => {
         <RestrictedRoute path="/user-management" component={UserManagement} />
         <RestrictedRoute path="/users" component={Users} />
         <RestrictedRoute path="/products" component={Products} />
+        <RestrictedRoute path="/inventory" component={Inventory} />
         <RestrictedRoute path="/customers" component={Customers} />
         <RestrictedRoute path="/stocks" component={Inventory} />
         <RestrictedRoute path="/disbursement" component={Disbursement} />

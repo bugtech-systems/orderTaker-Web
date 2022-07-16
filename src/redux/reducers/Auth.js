@@ -1,4 +1,4 @@
-import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER } from '../../@jumbo/constants/ActionTypes';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, CLEAR_USER } from '../actions/types';
 
 const INIT_STATE = {
   authUser: null,
@@ -25,6 +25,13 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         send_forget_password_email: action.payload,
+      };
+    }
+    case CLEAR_USER: {
+      return {
+        ...state,
+        authUser: null,
+        loadUser: false,
       };
     }
     default:

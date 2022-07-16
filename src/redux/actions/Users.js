@@ -154,3 +154,25 @@ export const deleteUser = (userId, callbackFun) => {
       });
   };
 };
+
+
+export const uploadFile = (data, callbackFun) => dispatch =>  {
+ 
+    console.log('Uploading File')
+    dispatch(fetchStart());
+    return axios
+      .post(`${commonData.apiUrl}/upload`, data, { headers: {
+        "Content-Type": "multipart/form-data"
+      } })
+      .then(doc => {
+        let { data } = doc.data;
+          dispatch(fetchSuccess('Selected user was deleted successfully.'));
+          return Promise.resolve(data);
+      })
+      .catch(error => {
+        dispatch(fetchError('There was something issue in responding server'));
+        return Promise.reject(error);
+      });
+  };
+
+

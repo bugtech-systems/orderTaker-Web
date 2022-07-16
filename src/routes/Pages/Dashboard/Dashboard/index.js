@@ -97,7 +97,7 @@ console.log(users.length)
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
                 title={20}
                 subTitle="PRODUCTS"
-                Link="/products"
+                Link="/inventory"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
