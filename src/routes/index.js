@@ -76,11 +76,11 @@ const Routes = () => {
         <RestrictedRoute path="/maps" component={Maps} />
 
         {/* Other Pages */}
-        <RestrictedRoute path="/profile" component={Profile} />
+        {/* <RestrictedRoute path="/profile" component={Profile} /> */}
         <Route path="/signin" component={Login} />
         <Route path="/forgot-password" component={DefaultForgotPassword} />
 
-        <Route component={Error404} />
+        {/* <Route component={Error404} /> */}
       </Switch>
     </React.Fragment>
   );
