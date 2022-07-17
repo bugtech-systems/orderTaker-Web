@@ -62,7 +62,6 @@ const Routes = () => {
     <React.Fragment>
       <Switch>
         Main Pages
-        {/* <Redirect exact from={`/`} to={`/dashboard`} /> */}
         <RestrictedRoute path="/dashboard" component={Dashboard} />
         <RestrictedRoute path="/notifications" component={Notifications} />
         <RestrictedRoute path="/user-management" component={UserManagement} />
