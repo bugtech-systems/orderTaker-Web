@@ -47,6 +47,7 @@ export const loginUser = (user, callbackFun) => {
           if (callbackFun) callbackFun(data.data);
       })
       .catch(error => {
+        console.log(error)
         let { message } = error?.response?.data;
         dispatch(fetchError(message.text));
       });
@@ -55,13 +56,10 @@ export const loginUser = (user, callbackFun) => {
 
 
 export const getUserData = () => { 
-  console.log('getting user data')
   return (dispatch) => {
 
-    console.log(authHeader())
   axios.get(`${commonData.apiUrl}/auth`, { headers: authHeader() }).then(
     (res) => {
-      console.log(res.data)
       dispatch(setAuthUser(res.data))
       dispatch(fetchSuccess());
     },

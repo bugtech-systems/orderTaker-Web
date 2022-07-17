@@ -18,7 +18,6 @@ import { getUsers } from './Crud';
 
 
 export const setAuthUser = user => {
-  console.log('ddd')
   return dispatch => {
     dispatch({
       type: UPDATE_AUTH_USER,

@@ -19,6 +19,7 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
   const [showDuplicateMsg, setShowDuplicateMsg] = useState(true);
 
   useEffect(() => {
+    console.log(filterType)
     dispatch(getInventoryList(filterType));
   }, [filterType, dispatch]);
 
@@ -52,7 +53,6 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
   });
 
 
-  console.log(productsList)
 
   return productsList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>

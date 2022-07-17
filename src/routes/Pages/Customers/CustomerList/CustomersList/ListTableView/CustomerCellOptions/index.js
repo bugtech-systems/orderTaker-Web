@@ -42,7 +42,6 @@ const CustomerCellOptions = ({ customer, onClickEditCustomer }) => {
   const classes = useStyles();
 
   const onClickStarredIcon = status => {
-    console.log(status);
 
     dispatch(updateStarredStatus([customer.id], status));
   };

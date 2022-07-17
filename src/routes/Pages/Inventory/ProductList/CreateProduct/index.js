@@ -123,8 +123,6 @@ const CreateProduct = ({ open, handleDialog }) => {
      newTags = tags;
     }
     
-    console.log(newTags)
-
     setValues({ ...values, labels: newTags  })
     // dispatch(updateProductsLabel(checkedProducts, label.id));
     // updateCheckedProducts([]);
@@ -146,34 +144,24 @@ const CreateProduct = ({ open, handleDialog }) => {
   };
 
   const checkValidations = () => {
-    const phoneNumbers = values.phones.filter(item => item.phone.trim());
 
-    if (!values.firstName) {
-      setErrors({ ...errors, firstName: requiredMessage });
-    } else if (!values.email_address) {
-      setErrors({ ...errors, email_address: requiredMessage });
-    } else if (!isValidEmail(values.email_address)) {
-      setErrors({ ...errors, email_address: requiredMessage });
-    } else if (phoneNumbers.length === 0) {
-      setErrors({ ...errors, phones: requiredMessage });
+    if (!values.name) {
+      setErrors({ ...errors, name: requiredMessage });
+    } else if (!values.price) {
+      setErrors({ ...errors, price: 'Price is required!' });
+    } else if (values.price <= 0) {
+      setErrors({ ...errors, price: 'Price is required!' });
     } else {
-      handleSubmit(phoneNumbers);
+      handleSubmit();
     }
   };
 
-  const handleSubmit = phoneNumbers => {
-    let { limit, balance, firstName, lastName } = values;
-    const product = {
-      ...values,
-      name: `${firstName} ${lastName}`,
-      phones: phoneNumbers,
-      limit: limit ? limit : 0,
-      balance: balance ? balance : 0,
-    };
+  const handleSubmit = () => {
+ 
     if (currentProduct) {
-      dispatch(onUpdateProduct({ ...currentProduct, ...product }));
-    } else {
-      dispatch(createProduct(product));
+      dispatch(onUpdateProduct({ ...currentProduct, ...values }));
+    } else { 
+      dispatch(createProduct(values));
     }
     handleDialog();
   };
@@ -184,8 +172,6 @@ const CreateProduct = ({ open, handleDialog }) => {
       setValues(currentProduct) 
     }
   }, [currentProduct])
-
-console.log(values)
 
   return (
     <Dialog maxWidth="sm" fullWidth open={open} onClose={handleDialog} className={classes.dialogRoot}>

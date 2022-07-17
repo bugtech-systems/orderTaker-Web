@@ -1,6 +1,5 @@
 //For expanding sidebar
 import {
-  ADD_LABEL,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   DELETE_LABEL_ITEM,
@@ -44,7 +43,6 @@ export const getLabelsList = () => {
     axios
       .get(`${commonData.apiUrl}/products/labels`)
       .then(data => {
-        console.log(data)
           dispatch(fetchSuccess());
           dispatch({ type: GET_LABELS_LIST, payload: data.data });
       })
@@ -56,7 +54,6 @@ export const getLabelsList = () => {
 
 //for adding new label
 export const addNewLabel = label => {
-  console.log(label)
   return dispatch => {
     dispatch(fetchStart());
     axios
@@ -76,16 +73,13 @@ export const deleteLabel = labelId => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/product/labels/delete', { labelId })
+      .delete(`${commonData.apiUrl}/products/labels/${labelId}`)
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: DELETE_LABEL_ITEM, payload: labelId });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
-      })
+          dispatch(getLabelsList());
+          dispatch(fetchSuccess('Label Deleted Successfully!'));
+        })
       .catch(error => {
+        console.log(error)
         dispatch(fetchError('Something went wrong'));
       });
   };
@@ -96,14 +90,10 @@ export const updateLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/product/labels', { label })
+      .put(`${commonData.apiUrl}/product/labels`, { label })
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_LABEL_ITEM, payload: label });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+          dispatch(fetchSuccess('Label updated successfully'));
+          dispatch(getLabelsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -118,12 +108,8 @@ export const getProductsList = params => {
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(data => {
-        if (data.status === 200) {
           dispatch(fetchSuccess());
           dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -136,9 +122,8 @@ export const getInventoryList = params => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .get(`${commonData.apiUrl}/products`, { params })
+      .get(`${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
       .then(data => {
-        console.log(data.data)
           dispatch(fetchSuccess());
           dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
       })
@@ -164,14 +149,10 @@ export const createProduct = product => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/product', { product })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: CREATE_PRODUCT, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .post(`${commonData.apiUrl}/products`, product)
+      .then(({data}) => {
+          dispatch(fetchSuccess(data.message));
+          dispatch(getProductsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -184,14 +165,10 @@ export const onUpdateProduct = product => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/product', { product })
+      .put(`${commonData.apiUrl}/products`, { product })
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_PRODUCT, payload: product });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+          dispatch(fetchSuccess('Product Updated Successfully'));
+          dispatch(getProductsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -244,18 +221,13 @@ export const deleteProduct = productIds => {
 
 //for updating products label(through listing)
 export const updateProductsLabel = (productIds, label) => {
-  console.log('Wawa');
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/product/update-label', { productIds, label })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_PRODUCT_LABEL, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .put(`${commonData.apiUrl}/products/update-labels/${productIds }`, {label})
+      .then(({data}) => {
+        dispatch(fetchSuccess(data.message));
+          dispatch(getProductsList());
       })
       .catch(error => {
         console.log(error);
@@ -268,8 +240,9 @@ export const updateProductsLabel = (productIds, label) => {
 export const getProductCounts = () => {
   return dispatch => {
     axios
-      .get('/product/counter')
+      .get(`${commonData.apiUrl}/products/counter`)
       .then(data => {
+        console.log(data) 
         if (data.status === 200) {
           dispatch({ type: GET_PRODUCT_COUNTS, payload: data.data });
         }

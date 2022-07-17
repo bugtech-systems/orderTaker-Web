@@ -64,7 +64,6 @@ const Cart = () => {
   };
 
 
-  console.log(messages)
   return (
     <>
     <Box>

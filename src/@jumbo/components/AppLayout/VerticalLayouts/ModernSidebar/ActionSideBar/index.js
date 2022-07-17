@@ -129,14 +129,6 @@ const ActionSideBar = ({ width }) => {
 
 
 
-  console.log(cartState);
-
-
-
-
-
-
-
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>

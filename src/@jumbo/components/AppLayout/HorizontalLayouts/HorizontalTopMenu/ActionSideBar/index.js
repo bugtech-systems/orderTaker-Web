@@ -106,8 +106,6 @@ const ActionSideBar = ({ width }) => {
     setActiveOption(null);
   };
 
-  console.log(activeOption);
-  console.log(isSidebarOpen);
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>

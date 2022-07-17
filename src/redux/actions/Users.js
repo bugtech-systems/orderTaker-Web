@@ -43,14 +43,12 @@ export const setCurrentUser = user => {
 export const addNewUser = (user, callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
-    console.log(user)
     axios
       .post(`${commonData.apiUrl}/auth/signup`, user)
       .then(data => {
         if (data.status === 200) {
           dispatch(getUsers());
           dispatch(fetchSuccess('New user was added successfully.'));
-          console.log(data)
           if (callbackFun) callbackFun(data.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));
@@ -89,7 +87,6 @@ export const updateUser = (user, callbackFun) => {
 };
 
 export const updateUserStatus = (data, callbackFun) => {
-  console.log(data) 
   let { status, id } = data;
   return dispatch => {
     dispatch(fetchStart());
@@ -97,7 +94,6 @@ export const updateUserStatus = (data, callbackFun) => {
       .get(`${commonData.apiUrl}/users/${status === 'suspended' ? 'suspend' : 'activate'}/${id}`)
       .then(response => {
         if (response.status === 200) {
-          console.log(response)
           dispatch(fetchSuccess('User status was updated successfully.'));
           dispatch(getUsers());
           // dispatch({ type: EDIT_USER, payload: response.data });
@@ -113,13 +109,11 @@ export const updateUserStatus = (data, callbackFun) => {
 };
 
 export const deleteBulkUsers = (userIds, callbackFun) => {
-  console.log(userIds)
   return dispatch => {
     dispatch(fetchStart());
     axios
       .put(`${commonData.apiUrl}/users/delete`, { userIds })
       .then(response => {
-        console.log(response)
         if (response.status === 200) {
           dispatch(fetchSuccess('Selected users were deleted successfully.'));
           dispatch({ type: DELETE_BULK_USERS, payload: userIds });
@@ -136,7 +130,6 @@ export const deleteBulkUsers = (userIds, callbackFun) => {
 
 export const deleteUser = (userId, callbackFun) => {
   return dispatch => {
-    console.log(userId)
     dispatch(fetchStart());
     axios
       .put(`${commonData.apiUrl}/users/delete`, { userIds: [userId] })
@@ -158,7 +151,6 @@ export const deleteUser = (userId, callbackFun) => {
 
 export const uploadFile = (data, callbackFun) => dispatch =>  {
  
-    console.log('Uploading File')
     dispatch(fetchStart());
     return axios
       .post(`${commonData.apiUrl}/upload`, data, { headers: {

@@ -65,7 +65,6 @@ const MoreOptions = ({ product, isDetailView }) => {
 
   const onClickLabelOption = label => {
     dispatch(updateProductsLabel([product.id], label));
-    console.log(product);
     if (isDetailView) {
       const newLabel = product.labels.find(item => item === label);
       if (newLabel) {

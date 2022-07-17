@@ -37,7 +37,6 @@ const UsersModule = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('Mounting users on users')
     dispatch(
       getUsers(filterOptions, debouncedSearchTerm, () => {
         setFilterApplied(!!filterOptions.length || !!debouncedSearchTerm);

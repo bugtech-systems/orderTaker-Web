@@ -117,7 +117,6 @@ const SignIn = ({
   //   };
   const onSubmit = e => {
     e.preventDefault();
-    console.log(values);
     const isError = handleErrors();
     if (!isError) {
       dispatch(loginUser(values));

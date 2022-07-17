@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   duplicateRoot: {
     padding: '10px 24px',
     backgroundColor: '#C8FFF4',
-    color: '#018786',
+    // color: '#018786',
     display: 'flex',
     flexDirection: 'column',
     [theme.breakpoints.up('md')]: {
@@ -32,20 +32,12 @@ const useStyles = makeStyles(theme => ({
 const DuplicateCustomersMsg = ({ productsList, toggleDuplicateMsgShow }) => {
   const limitedStocks = [];
   const classes = useStyles();
-  productsList.reduce((res, itm) => {
-    let result =
-      res.length > 0 &&
-      res.find(item => {
-        const itemStocks = productsList.map(products => products.stocks);
-        return itemStocks.some(item => item.limit && item.limit > item.stocks);
-      });
-    if (!result) {
-      res.push(itm);
-    } else {
-      limitedStocks.push(itm);
+  productsList.forEach((res) => {
+      let ind = res.stocks !== 0 && res.limit > res.stocks
+    if (ind) {
+      limitedStocks.push(res);
     }
-    return res;
-  }, []);
+  });
 
   const length = limitedStocks.length;
 
@@ -61,7 +53,7 @@ const DuplicateCustomersMsg = ({ productsList, toggleDuplicateMsgShow }) => {
               {length > 2
                 ? `${limitedStocks[0].name}, ${limitedStocks[1].name} and ${length -
                     2} more products stocks reached their minimum quantity limit.`
-                : `${length} limited product(s) found`}
+                : `${length} ${length == 1 ? 'product' : 'products'} reached minimum quantity limit.`}
             </Box>
           </Box>
           <Box ml="auto" display="flex" alignItems="center">

@@ -53,24 +53,6 @@ const Dashboard = () => {
   const { users } = useSelector((state) => state.usersReducer);
 
 
-
-let name = ['brix', 'jb'];
-console.log(name)
-console.log(name.length)
-console.log(users.length)
-  // useEffect(() => {
-  //   // dispatch(getUserDetail());
-  // }, [dispatch]);
-
-
-  useEffect(() => {
-    console.log('Mounting users on dashboard')
-    dispatch(
-      getUsers()
-    );
-  }, [dispatch]);
-
-
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };

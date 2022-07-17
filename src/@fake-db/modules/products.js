@@ -16,9 +16,9 @@ export const foldersList = [
 export const popularFoldersList = [
   {id: 1, name: "All Items", slug: "products", icon: <GroupIcon />},
   {id: 2, name: "Available stocks", slug: "available", icon: <AccessTimeIcon />},
-  {id: 2, name: "Out of stocks", slug: "unavailable", icon: <AccessTimeIcon />},
-  {id: 3, name: "Starred Items", slug: "starred", icon: <StarIcon />},
-  {id: 4, name: "Trash", slug: "trash", icon: <DeleteIcon />}
+  {id: 3, name: "Out of stocks", slug: "unavailable", icon: <AccessTimeIcon />},
+  {id: 4, name: "Starred Items", slug: "starred", icon: <StarIcon />},
+  {id: 5, name: "Trash", slug: "trash", icon: <DeleteIcon />}
 ];
 
 export const labelsList = [
