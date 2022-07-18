@@ -1,9 +1,15 @@
 import mock from '../mockConfig';
 import { idGenerator } from '../../@jumbo/utils/commonHelper';
-import { products, foldersList, labelsList } from '../../@fake-db/modules/products';
+import { products, popularProducts, foldersList, popularFoldersList, labelsList } from '../../@fake-db/modules/products';
 
 let labels = labelsList;
 let productsList = products.map(a => {
+  a.unpaid = a.balance !== 0;
+  return a;
+});
+
+
+let popularProductsList = popularProducts.map(a => {
   a.unpaid = a.balance !== 0;
   return a;
 });
@@ -57,6 +63,39 @@ mock.onGet('/product').reply(config => {
 
   const total = folderProducts.length;
 
+  return [200, { folderProducts, total }];
+});
+
+mock.onGet('/inventory').reply(config => {
+  const { params } = config;
+  const { selectedFolder, selectedLabel, searchText } = params;
+  let folderProducts = [];
+  if (searchText) {
+    folderProducts = popularProductsList.filter(
+      product =>
+        String(product.id).toLowerCase().includes(searchText.toLowerCase()) ||
+        product.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchText.toLowerCase()) ||
+        product.code.toLowerCase().includes(searchText.toLowerCase()) ||
+        String(product.price).toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+  if (selectedFolder) {
+    if (selectedFolder === 'starred') {
+      folderProducts = popularProductsList.filter(product => product.starred);
+    } else if (selectedFolder === 'available') {
+      folderProducts = popularProductsList.filter(product => product.stocks != 0);
+    } else if (selectedFolder === 'unavailable') {
+      folderProducts = popularProductsList.filter(product => product.stocks == 0);
+    } else {
+      folderProducts = popularProductsList.filter(product => product.folder === selectedFolder);
+    }
+  }
+
+  if (selectedLabel) {
+    folderProducts = popularProductsList.filter(product => product.labels.includes(selectedLabel));
+  }
+  const total = folderProducts.length;
   return [200, { folderProducts, total }];
 });
 
@@ -144,3 +183,28 @@ mock.onGet('/product/counter').reply(config => {
 
   return [200, counter];
 });
+
+
+mock.onGet('/inventory/counter').reply(config => {
+  const counter = { folders: {}, labels: {} };
+  popularFoldersList.map(item => {
+    if (item.slug === 'starred') {
+      counter.folders[item.id] = productsList.filter(product => product.starred).length;
+    } else if (item.slug === 'available') {
+      counter.folders[item.id] = productsList.filter(product => product.stocks != 0).length;
+    } else if (item.slug === 'unavailable') {
+      counter.folders[item.id] = productsList.filter(product => product.stocks == 0).length;
+    } else {
+      counter.folders[item.id] = productsList.filter(product => product.folder === item.slug).length;
+    }
+    return null;
+  });
+
+  labelsList.map(item => {
+    counter.labels[item.id] = productsList.filter(product => product.labels.includes(item.id)).length;
+    return null;
+  });
+
+  return [200, counter];
+});
+

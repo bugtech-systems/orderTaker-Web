@@ -20,7 +20,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../@jumbo/utils/commonHelper';
-import { addNewUser, updateUser } from '../../../../redux/actions/Users';
+import { addNewUser, updateUser, uploadFile } from '../../../../redux/actions/Users';
 
 //Icons
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -91,13 +91,21 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     setErrors({...errors, [prop]: ''});
   }
 
-
-
-
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-      setDpUrl(URL.createObjectURL(acceptedFiles[0]));
+
+      const formData = new FormData();
+      formData.append("file", acceptedFiles[0]);
+
+      dispatch(uploadFile(formData)).then(a => {
+        console.log(a);
+        setDpUrl(a.url)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
     },
   });
 

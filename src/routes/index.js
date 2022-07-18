@@ -68,6 +68,7 @@ const Routes = () => {
         <RestrictedRoute path="/user-management" component={UserManagement} />
         <RestrictedRoute path="/users" component={Users} />
         <RestrictedRoute path="/products" component={Products} />
+        <RestrictedRoute path="/inventory" component={Inventory} />
         <RestrictedRoute path="/customers" component={Customers} />
         <RestrictedRoute path="/stocks" component={Inventory} />
         <RestrictedRoute path="/disbursement" component={Disbursement} />
@@ -80,8 +81,6 @@ const Routes = () => {
         <Route path="/signin" component={Login} />
         <Route path="/forgot-password" component={DefaultForgotPassword} />
 
-        {/* <Route path="/signup" component={Register} /> */}
-        {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
         <Route component={Error404} />
       </Switch>
     </React.Fragment>

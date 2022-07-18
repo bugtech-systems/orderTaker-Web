@@ -49,7 +49,6 @@ const MoreOptions = ({ product, isDetailView }) => {
   const [showMoreOptions, setShowMoreOptions] = useState(null);
   const dispatch = useDispatch();
   const { labels } = product;
-  // console.log(product)
   const onShowMoreOptions = event => {
     setShowMoreOptions(event.currentTarget);
   };
@@ -65,7 +64,6 @@ const MoreOptions = ({ product, isDetailView }) => {
 
   const onClickLabelOption = label => {
     dispatch(updateProductsLabel([product.id], label));
-    console.log(product);
     if (isDetailView) {
       const newLabel = product.labels.find(item => item === label);
       if (newLabel) {

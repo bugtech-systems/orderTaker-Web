@@ -12,7 +12,9 @@ const selectCategories = [
   { id: 12, label: 'None', slug: 'none' },
   { id: 344, label: 'All', slug: 'all' },
   { id: 11, label: 'Starred', slug: 'starred' },
-  { id: 1, label: 'Unpaid', slug: 'unpaid' },
+  { id: 1, label: 'Available', slug: 'available' },
+  { id: 2, label: 'Unavailable', slug: 'unavailable' },
+
 ];
 
 const onSelectProducts = (category, products) => {

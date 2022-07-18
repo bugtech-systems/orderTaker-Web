@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     padding: '11px 16px 10px 16px',
     [theme.breakpoints.up('md')]: {
-      width: 'calc(100% - 256px)',
+      // width: 'calc(100% - 256px)',
     },
     [theme.breakpoints.down('sm')]: {
       paddingLeft: 0,

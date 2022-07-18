@@ -33,7 +33,6 @@ const Sidebar = ({ onClickCreateCustomer, width }) => {
   }, [dispatch]);
 
   const onChangeFolder = folder => {
-    console.log(folder);
     dispatch(
       setFilterType({
         selectedFolder: folder,

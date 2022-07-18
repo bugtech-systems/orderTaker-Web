@@ -32,7 +32,7 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-
+import { logout } from 'redux/actions/Auth';
 
 
 const useStyles = makeStyles(theme => ({
@@ -113,7 +113,7 @@ const ActionSideBar = ({ width }) => {
   };
 
   const handleLogout = () => {
-    dispatch(AuhMethods[CurrentAuthMethod].onLogout());
+    dispatch(logout());
   };
 
   const onItemClick = item => {
@@ -124,14 +124,6 @@ const ActionSideBar = ({ width }) => {
       setActiveOption('profile');
     }
   };
-
-
-
-
-
-  console.log(cartState);
-
-
 
 
 

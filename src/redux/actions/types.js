@@ -5,7 +5,10 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_USER = 'SET_USER';
 export const SET_BUSINESS = 'SET_BUSINESS';
+export const UPDATE_AUTH_USER = 'UPDATE_AUTH_USER';
+export const UPDATE_LOAD_USER = 'UPDATE_LOAD_USER';
 export const CLEAR_USER = 'CLEAR_USER';
+export const SEND_FORGET_PASSWORD_EMAIL = 'SEND_FORGET_PASSWORD_EMAIL';
 
 //UI
 export const SET_MESSAGE = 'SET_MESSAGE';

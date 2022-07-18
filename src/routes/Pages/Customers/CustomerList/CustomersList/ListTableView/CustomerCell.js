@@ -40,7 +40,7 @@ const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCu
         </Box>
       </TableCell>
       {/* <TableCell>₱{limit}</TableCell> */}
-      {/* <TableCell>₱{balance}</TableCell> */}
+      <TableCell>₱{balance}</TableCell>
       {/* <TableCell className={classes.tableCellRoot}>{company}</TableCell> */}
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
         <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} />

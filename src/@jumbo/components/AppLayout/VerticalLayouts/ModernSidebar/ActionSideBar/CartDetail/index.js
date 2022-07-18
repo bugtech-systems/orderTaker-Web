@@ -94,8 +94,6 @@ const Comments = () => {
 
 
   const handleItem = (id, action) => {
-    console.log(id)
-    console.log(action)
 
   }
 
@@ -110,8 +108,6 @@ const Comments = () => {
   }, [cart_items])
 
 
-  // console.log(cart)
-  // console.log(cart_items_count)
 
   return (
     <>

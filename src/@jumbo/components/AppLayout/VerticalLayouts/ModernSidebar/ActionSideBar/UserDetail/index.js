@@ -87,7 +87,6 @@ const useStyles = makeStyles(theme => ({
 
 const UserDetail = () => {
   const { userDetails } = intranet;
-  console.log(userDetails)
   const classes = useStyles();
   return (
     <CmtAdvCard

@@ -9,14 +9,15 @@ import useStyles from '../ProductCell.style';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ProductCellOptions from './ProductCellOptions';
+import { InfoBox } from 'react-google-maps/lib/components/addons/InfoBox';
 
 const ProductCell = ({ product, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct }) => {
   const classes = useStyles();
-  const { id, name, phones, limit, balance, dpUrl } = product;
+  const { id, name, description, stocks, price, cover } = product;
   // console.log(product)
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowProductDetail(product)}>
-      <TableCell className={classes.tableCellRoot}>
+      <TableCell className={classes.tableCellRootWrap} >
         <Box display="flex" alignItems="center">
           <Box component="span" mr={2} onClick={e => e.stopPropagation()}>
             <Checkbox
@@ -27,23 +28,35 @@ const ProductCell = ({ product, checkedProducts, handleCellCheckBox, onShowProdu
           </Box>
           <Box display="flex" alignItems="center">
             <Box mr={{ xs: 4, md: 5 }}>
-              <CmtAvatar size={40} src={dpUrl} alt={name} />
+              <CmtAvatar size={40} src={cover} alt={name} />
             </Box>
-
             <Box>
               <Typography className={classes.titleRoot} component="div" variant="h4">
                 {name}
               </Typography>
-              <Typography className={classes.subTitleRoot}>{phones[0].phone}</Typography>
+              <Typography className={classes.subTitleRoot}>{description}</Typography>
             </Box>
           </Box>
         </Box>
       </TableCell>
-      <TableCell>₱{limit}.00</TableCell>
-      <TableCell>₱{balance}.00</TableCell>
-      {/* <TableCell className={classes.tableCellRoot}>{company}</TableCell> */}
+      <TableCell align='center' padding="none" >
+           <Box pr={5}>
+              <Typography className={classes.titleRoot} component="div" variant="h5">
+              {stocks}
+              </Typography>
+              </Box>
+       </TableCell>
+      <TableCell align='center' padding="none" mr={5}>
+      <Box pr={5}>
+              <Typography className={classes.titleRoot} component="div" variant="h5">
+              ₱{price}
+              </Typography>
+              </Box>
+       </TableCell>
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
+      <Box pr={10}>
         <ProductCellOptions product={product} onClickEditProduct={onClickEditProduct} />
+        </Box>
       </TableCell>
     </TableRow>
   );

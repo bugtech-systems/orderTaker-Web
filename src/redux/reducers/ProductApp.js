@@ -73,8 +73,8 @@ export default (state = INIT_STATE, action) => {
     case GET_PRODUCTS_LIST: {
       return {
         ...state,
-        productsList: action.payload.folderProducts,
-        totalProducts: action.payload.total,
+        productsList: action.payload,
+        totalProducts: action.payload.length,
       };
     }
 
@@ -140,7 +140,6 @@ export default (state = INIT_STATE, action) => {
 
     case UPDATE_PRODUCT_LABEL: {
       let productIds = action.payload.map(product => product.id);
-      console.log(productIds);
       const updatedList = state.productsList.map(mail => {
         if (productIds.includes(mail.id)) {
           return action.payload.find(selectedProduct => selectedProduct.id === mail.id);
