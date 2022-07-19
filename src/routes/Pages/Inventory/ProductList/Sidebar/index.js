@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { getProductCounts, getLabelsList, setFilterType } from '../../../../../redux/actions/ProductApp';
 import ItemCell from './ItemCell';
 import AddLabel from './AddLabel';
-import { popularFoldersList } from '../../../../../@fake-db/modules/products';
+import { foldersList } from '../../../../../@fake-db/modules/products';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { withWidth } from '@material-ui/core';
 import { getAppSidebarHeight } from '../../../../../@jumbo/constants/AppConstants';
@@ -71,7 +71,7 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
       <PerfectScrollbar className={classes.perfectScrollbarProductSidebar}>
         <List component="nav" className={classes.appNav}>
           <CmtList
-            data={popularFoldersList}
+            data={foldersList}
             renderRow={(item, index) => (
               <ItemCell
                 key={index}

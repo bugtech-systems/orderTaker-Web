@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ListTableView from './ListTableView';
-import ListGridView from './ListGridView/ListItem';
+import ListGridView from './ListGridView';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsList } from '../../../../../redux/actions/ProductApp';
+import { getProductsList, getInventoryList } from '../../../../../redux/actions/ProductApp';
 import PropTypes from 'prop-types';
 import DuplicateProductsMsg from './DuplicateProductsMsg';
 import { Box } from '@material-ui/core';
@@ -21,7 +21,7 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
   const [showDuplicateMsg, setShowDuplicateMsg] = useState(true);
 
   useEffect(() => {
-    dispatch(getProductsList(filterType));
+    dispatch(getInventoryList(filterType));
   }, [filterType, dispatch]);
 
   const handleCellCheckBox = (isChecked, id) => {
@@ -53,15 +53,18 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
     height: getProductContainerHeight(width, showFooter),
   });
 
+
+
+    console.log(viewMode)
   return productsList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>
       <PerfectScrollbar className={classes.perfectScrollbarProductCon}>
         {showDuplicateMsg && (
           <DuplicateProductsMsg productsList={productsList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
         )}
-        {viewMode === 'grid' ? (
-          <ListGridView onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} />
-        ) : viewMode === 'table' ? (
+        {/* {viewMode === 'grid' ? ( */}
+          <ListGridView productsList={productsList} onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} />
+        {/* ) : viewMode === 'table' ? (
           <ListTableView
             checkedProducts={checkedProducts}
             handleCellCheckBox={handleCellCheckBox}
@@ -72,7 +75,7 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
           />
         ) : (
           <Scanner />
-        )}
+        )} */}
       </PerfectScrollbar>
     </Box>
   ) : (

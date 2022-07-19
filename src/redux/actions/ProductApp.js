@@ -104,11 +104,9 @@ export const updateLabel = label => {
 //for getting products list
 export const getProductsList = params => {
   return dispatch => {
-    dispatch(fetchStart());
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(data => {
-          dispatch(fetchSuccess());
           dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
       })
       .catch(error => {
@@ -120,11 +118,9 @@ export const getProductsList = params => {
 
 export const getInventoryList = params => {
   return dispatch => {
-    dispatch(fetchStart());
     axios
       .get(`${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
       .then(data => {
-          dispatch(fetchSuccess());
           dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
       })
       .catch(error => {
@@ -178,20 +174,22 @@ export const onUpdateProduct = product => {
 
 //for updating products starred status(through listing)
 export const updateStarredStatus = (productIds, status) => {
+  const obj = {
+    ids: productIds,
+    status: status
+  }
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/product/update-starred', { productIds, status })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({
-            type: UPDATE_STARRED_STATUS,
-            payload: { productIds, status },
-          });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .put(`${commonData.apiUrl}/products/update-starred`, obj)
+      .then(({data}) => {
+          dispatch(getProductsList());
+          dispatch(fetchSuccess(data.message));
+          
+          // dispatch({
+          //   type: UPDATE_STARRED_STATUS,
+          //   payload: { productIds, status },
+          // });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -201,17 +199,18 @@ export const updateStarredStatus = (productIds, status) => {
 
 //for updating mails folder(through listing)
 export const deleteProduct = productIds => {
+  console.log(productIds)
+  let obj = {
+    ids: productIds
+  }
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/product/delete', { productIds })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: DELETE_PRODUCT, payload: productIds });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .patch(`${commonData.apiUrl}/products`, obj)
+      .then(({data}) => {
+        console.log(data)
+          dispatch(getProductsList());
+          dispatch(fetchSuccess(data.message));
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));

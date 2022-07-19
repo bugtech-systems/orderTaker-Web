@@ -32,16 +32,16 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
     );
   };
 
-  const handleScanner = e => {
-    console.log(e);
-    dispatch(
-      setFilterType({
-        selectedFolder: e ? '' : 'products',
-        selectedLabel: '',
-        searchText: e,
-      }),
-    );
-  };
+  // const handleScanner = e => {
+  //   console.log(e);
+  //   dispatch(
+  //     setFilterType({
+  //       selectedFolder: e ? '' : 'products',
+  //       selectedLabel: '',
+  //       searchText: e,
+  //     }),
+  //   );
+  // };
 
   return (
     <Box className={classes.inBuildAppHeader}>
@@ -51,16 +51,12 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        {/* <Typography className={classes.inBuildAppHeaderTitle} component="div" variant="h1">
-          Products
-        </Typography> */}
       </Box>
 
       <Box className={classes.inBuildAppHeaderContent}>
         <CmtSearch placeholder="Search Products..." value={searchText} onChange={handleSearchText} border={false} />
         <Box ml="auto" display="flex" alignItems="center">
-          <Box ml={1}>
-            {/* <BarcodeScanner onChange={handleScanner}/> */}
+          {/* <Box ml={1}>
             <IconButton
               className="icon-btn active"
               color={viewMode === 'scanner' ? 'primary' : 'default'}
@@ -75,22 +71,6 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
                 onChangeViewMode('scanner');
               }}>
               <CropFreeIcon />
-            </IconButton>
-          </Box>
-          {/* <Box ml={1}>
-            <IconButton
-              className="icon-btn active"
-              color={viewMode === 'table' ? 'primary' : 'default'}
-              onClick={() => onChangeViewMode('table')}>
-              <ListIcon />
-            </IconButton>
-          </Box>
-          <Box ml={1}>
-            <IconButton
-              className="icon-btn"
-              color={viewMode === 'grid' ? 'primary' : 'default'}
-              onClick={() => onChangeViewMode('grid')}>
-              <GridOnIcon />
             </IconButton>
           </Box> */}
         </Box>

@@ -79,7 +79,7 @@ const Dashboard = () => {
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
                 title={20}
                 subTitle="PRODUCTS"
-                Link="/inventory"
+                Link="/products"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>

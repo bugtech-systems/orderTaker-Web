@@ -38,7 +38,7 @@ const onSelectProducts = (category, products) => {
   return selectProducts.map(product => product.id);
 };
 
-const CheckedListHeader = ({ checkedProducts, handleHeaderCheckBox, updateCheckedProducts }) => {
+const CheckedListHeader = ({ checkedProducts, handleHeaderCheckBox, updateCheckedProducts, onDelete }) => {
   const [category, setCategory] = useState(selectCategories[0].slug);
   const classes = useStyles();
 
@@ -79,6 +79,7 @@ const CheckedListHeader = ({ checkedProducts, handleHeaderCheckBox, updateChecke
           productsList={productsList}
           labelsList={labelsList}
           updateCheckedProducts={updateCheckedProducts}
+          onDelete={onDelete}
         />
       </Box>
     </Box>

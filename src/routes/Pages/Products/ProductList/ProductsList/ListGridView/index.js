@@ -1,43 +1,33 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import CmtGridView from '../../../../../../@coremat/CmtGridView';
-import ProductCell from './ProductCell';
-import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import React from "react";
+import CmtCard from "../../../../../../@coremat/CmtCard";
+import CmtCardHeader from "../../../../../../@coremat/CmtCard/CmtCardHeader";
+import CmtCardContent from "../../../../../../@coremat/CmtCard/CmtCardContent";
+// import {popularProducts} from "../../../../../../@fake-db/modules/products";
+import ListItem from "./ListItem";
+import CmtGridView from "../../../../../../@coremat/CmtGridView";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { Box } from "@material-ui/core";
 
-import ListItem from './ListItem';
-import { intranet } from '../../../../../../@fake-db';
-
-
-const ListGridView = ({ onShowProductDetail, onClickEditProduct }) => {
-  // const { productsList } = useSelector(({ productApp }) => productApp);
-  const { popularProducts } = intranet;
-
+const PopularProducts = ({productsList}) => {
+  // console.log(popularProducts);
+  console.log(productsList)
   return (
-    <Box px={6} py={{ xs: 8, xl: 10 }}>
-      
-  <CmtGridView
-        border={true}
-        itemPadding={18}
-        responsive={{
-          xs: 1,
-          sm: 1,
-          md: 2,
-          lg: 2,
-          xl: 3,
-        }}
-        data={popularProducts}
-        renderRow={(item, index) => (
-          <ListItem key={index} item={item} />
-        )}
-      /> 
-    </Box>
+    <Box p={5}>
+        <CmtGridView
+          itemPadding={24}
+          responsive={{
+            xs: 1,
+            sm: 1,
+            md: 2,
+            lg: 2,
+            xl: 3
+          }}
+          data={productsList}
+          renderRow={(item, index) => <ListItem key={index} item={item} />}
+        />
+        {/* </PerfectScrollbar> */}
+        </Box>
   );
 };
 
-export default ListGridView;
-
-ListGridView.prototype = {
-  onShowProductDetail: PropTypes.func,
-  onClickEditProduct: PropTypes.func,
-};
+export default PopularProducts;
