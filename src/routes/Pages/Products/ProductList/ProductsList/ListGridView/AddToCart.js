@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import AppTextInput from "../../../../../../../@jumbo/components/Common/formElements/AppTextInput";
+import AppTextInput from "../../../../../../@jumbo/components/Common/formElements/AppTextInput";
 import {Box, Button, Typography} from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import makeStyles from "@material-ui/core/styles/makeStyles";

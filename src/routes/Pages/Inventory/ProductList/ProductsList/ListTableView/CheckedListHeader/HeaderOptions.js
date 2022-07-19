@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LabelIcon from '@material-ui/icons/Label';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-const HeaderOptions = ({ checkedProducts, productsList, labelsList, updateCheckedProducts }) => {
+const HeaderOptions = ({ onDelete, checkedProducts, productsList, labelsList, updateCheckedProducts }) => {
   const dispatch = useDispatch();
   const [showLabels, setShowLabels] = useState(null);
   const [showMoreOptions, setShowMoreOptions] = useState(null);
@@ -52,7 +52,8 @@ const HeaderOptions = ({ checkedProducts, productsList, labelsList, updateChecke
   };
 
   const onClickDeleteOption = () => {
-    dispatch(deleteProduct(checkedProducts));
+    onDelete(checkedProducts)
+    // dispatch(deleteProduct(checkedProducts));
     updateCheckedProducts([]);
   };
 

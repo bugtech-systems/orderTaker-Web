@@ -15,6 +15,11 @@ import ExportProducts from '../../../ExportProducts';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+//Icons
+import EditIcon from '@material-ui/icons/Edit';
+
+
+
 const useStyles = makeStyles(theme => ({
   menuItemsRoot: {
     width: 200,
@@ -43,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 //isFromDetailPage ->  property is set to true if this file is called from detail page.
 
-const MoreOptions = ({ product, isDetailView }) => {
+const MoreOptions = ({ product, isDetailView, onDelete, onClickEditProduct }) => {
   const classes = useStyles();
   const { labelsList } = useSelector(({ productApp }) => productApp);
   const [showMoreOptions, setShowMoreOptions] = useState(null);
@@ -58,8 +63,11 @@ const MoreOptions = ({ product, isDetailView }) => {
   };
 
   const onClickDeleteOption = () => {
-    dispatch(deleteProduct([product.id]));
+    onDelete([product.id])
+    // onDelete([product.id])
+    // dispatch(deleteProduct([product.id]));
     onHideMoreOptions();
+    return
   };
 
   const onClickLabelOption = label => {
@@ -88,6 +96,12 @@ const MoreOptions = ({ product, isDetailView }) => {
       </Box>
 
       <Menu anchorEl={showMoreOptions} open={Boolean(showMoreOptions)} onClose={onHideMoreOptions}>
+      <MenuItem onClick={onClickEditProduct} className={classes.menuItemsRoot}>
+         <EditIcon />
+          <Box component="span" ml={4}>
+            Edit
+          </Box>
+        </MenuItem>
         <MenuItem onClick={onHideMoreOptions} className={classes.menuItemsRoot}>
           <ExportProducts data={[{ ...product }]}>
             <Box component="span" display="flex" alignItems="center">

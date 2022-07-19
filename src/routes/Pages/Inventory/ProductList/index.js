@@ -8,7 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProductsList from './ProductsList';
 import ProductDetail from './ProductDetail';
 import CreateProduct from './CreateProduct';
-import { setCurrentProduct } from '../../../../redux/actions/ProductApp';
+import {  deleteProduct, setCurrentProduct } from '../../../../redux/actions/ProductApp';
+import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
+
+
 
 const Product = () => {
   const classes = useStyles();
@@ -16,6 +19,8 @@ const Product = () => {
   const [viewMode, setViewMode] = useState('table');
   const [showProductDetail, setShowProductDetail] = useState(false);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [selected, setSelected] = useState(false);
   const dispatch = useDispatch();
 
   const onChangeViewMode = mode => {
@@ -46,6 +51,26 @@ const Product = () => {
     setOpenCreateDialog(false);
   };
 
+  const handleCancelDelete = (data) => {
+    setSelected([]);
+    setConfirmDelete(false)
+  }
+
+  const handleConfirmDelete = () => {
+    dispatch(deleteProduct(selected))
+    setSelected([]);
+    setConfirmDelete(false)
+  }
+
+  const onDelete = (data) => {
+    console.log(data)
+    setSelected(data);
+    setConfirmDelete(true);
+
+  }
+
+
+
   return (
     <Box className={classes.inBuildAppCard}>
       <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} />
@@ -55,10 +80,18 @@ const Product = () => {
           viewMode={viewMode}
           onShowProductDetail={onShowProductDetail}
           onClickEditProduct={onClickEditProduct}
+          onDelete={onDelete}
         />
       </Box>
       {showProductDetail && <ProductDetail open={showProductDetail} handleDialog={onHideProductDetail} />}
       {openCreateDialog && <CreateProduct open={openCreateDialog} handleDialog={onCloseComposeDialog} />}
+      <ConfirmDialog
+        open={confirmDelete}
+        title={`Confirm delete`}
+        content={'Are you sure, you want to  delete?'}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
     </Box>
   );
 };

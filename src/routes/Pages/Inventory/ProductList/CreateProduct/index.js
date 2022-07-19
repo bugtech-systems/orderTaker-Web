@@ -94,6 +94,7 @@ const CreateProduct = ({ open, handleDialog }) => {
       formData.append("file", acceptedFiles[0]);
 
       dispatch(uploadFile(formData)).then(a => {
+        console.log(a.url)
         setValues({...values, cover: a.url})
       })
       .catch(err => {

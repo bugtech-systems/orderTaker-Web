@@ -23,14 +23,12 @@ const ListTableView = ({
   updateCheckedProducts,
   onShowProductDetail,
   onClickEditProduct,
+  onDelete
 }) => {
 const classes = useStyles();
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const { productsList } = useSelector(({ productApp }) => productApp);
-
-
-
 
 
   const handleRequestSort = (event, property) => {
@@ -51,6 +49,7 @@ const classes = useStyles();
           checkedProducts={checkedProducts}
           handleHeaderCheckBox={handleHeaderCheckBox}
           updateCheckedProducts={updateCheckedProducts}
+          onDelete={onDelete}
         />
       )}
       <Box className="Cmt-table-responsive">
@@ -78,6 +77,7 @@ const classes = useStyles();
                     handleCellCheckBox={handleCellCheckBox}
                     onShowProductDetail={onShowProductDetail}
                     onClickEditProduct={onClickEditProduct}
+                    onDelete={onDelete}
                   />
                   ))
               ) : (
@@ -104,6 +104,7 @@ ListTableView.prototype = {
   updateCheckedProducts: PropTypes.func,
   onShowProductDetail: PropTypes.func,
   onClickEditProduct: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 ListTableView.defaultProps = {

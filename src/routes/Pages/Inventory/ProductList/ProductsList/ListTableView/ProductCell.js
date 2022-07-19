@@ -9,12 +9,13 @@ import useStyles from '../ProductCell.style';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ProductCellOptions from './ProductCellOptions';
-import { InfoBox } from 'react-google-maps/lib/components/addons/InfoBox';
 
-const ProductCell = ({ product, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct }) => {
+const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct, onClickAddProduct }) => {
   const classes = useStyles();
   const { id, name, description, stocks, price, cover } = product;
-  // console.log(product)
+
+
+
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowProductDetail(product)}>
       <TableCell className={classes.tableCellRootWrap} >
@@ -55,7 +56,7 @@ const ProductCell = ({ product, checkedProducts, handleCellCheckBox, onShowProdu
        </TableCell>
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
       <Box pr={10}>
-        <ProductCellOptions product={product} onClickEditProduct={onClickEditProduct} />
+        <ProductCellOptions product={product} onDelete={onDelete} onClickEditProduct={onClickEditProduct} />
         </Box>
       </TableCell>
     </TableRow>
@@ -70,6 +71,9 @@ ProductCell.prototype = {
   handleCellCheckBox: PropTypes.func,
   onShowProductDetail: PropTypes.func,
   onClickEditProduct: PropTypes.func,
+  onDelete: PropTypes.func,
+  onClickAddProduct: PropTypes.func
+
 };
 
 ProductCell.defaultProps = {

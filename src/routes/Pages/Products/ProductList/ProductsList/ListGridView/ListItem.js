@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
-import CmtImage from "../../../../../../../@coremat/CmtImage";
-import CmtMediaObject from "../../../../../../../@coremat/CmtMediaObject";
+import CmtImage from "../../../../../../@coremat/CmtImage";
+import CmtMediaObject from "../../../../../../@coremat/CmtMediaObject";
 import {IconButton} from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import AddToCart from "./AddToCart";
@@ -14,7 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   SET_CART_ITEMS_COUNT,
   UPDATE_CART_ITEMS
-} from "../../../../../../../redux/actions/types";
+} from "../../../../../../redux/actions/types";
 
 const VariantColor = ({variant, onVariantClick}) => {
   const classes = useStyles();
@@ -97,14 +97,14 @@ const ListItem = ({item}) => {
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
-        ₱{item.sale_price}
+        ₱{item.price}
       </Box>
       <Box
         component="span"
         color="text.disabled"
         style={{textDecoration: "line-through"}}
       >
-        ₱{item.price}
+        ₱{item.discount_price}
       </Box>
     </Box>
   );
@@ -188,7 +188,7 @@ const ListItem = ({item}) => {
       >
         <CmtMediaObject
           avatar={
-            <CmtImage src={item.logo} height={80} width={80} alt={item.name} />
+            <CmtImage src={item.cover} height={80} width={80} alt={item.name} />
           }
           title={item.name}
           titleProps={{

@@ -5,24 +5,19 @@ const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-const ExportContacts = ({ children, data }) => {
-  const contacts = data.map(item => {
-    item.phoneStrings = item.phones.map(contact => contact.phone).join(',');
-    return item;
-  });
+const ExportProducts = ({ children, data }) => {
 
   return (
     <ExcelFile element={children}>
-      <ExcelSheet data={contacts} name="Customers">
+      <ExcelSheet data={data} name="Products">
         <ExcelColumn label="Id" value="id" />
         <ExcelColumn label="Name" value="name" />
-        <ExcelColumn label="Email" value="email_address" />
-        <ExcelColumn label="Phones" value="phoneStrings" />
-        <ExcelColumn label="Limit" value="limit" />
-        <ExcelColumn label="Balance" value="balance" />
+        <ExcelColumn label="Description" value="description" />
+        <ExcelColumn label="Available Stocks" value="stocks" />
+        <ExcelColumn label="Selling price" value="price" />
       </ExcelSheet>
     </ExcelFile>
   );
 };
 
-export default ExportContacts;
+export default ExportProducts;

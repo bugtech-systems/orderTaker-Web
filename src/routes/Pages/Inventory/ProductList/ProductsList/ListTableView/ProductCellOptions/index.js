@@ -10,8 +10,11 @@ import { updateStarredStatus } from '../../../../../../../redux/actions/ProductA
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import clsx from 'clsx';
-import EditIcon from '@material-ui/icons/Edit';
 import MoreOptions from './MoreOptions';
+
+
+//Icons
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const useStyles = makeStyles(theme => ({
   productCellOptionsRoot: {
@@ -36,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductCellOptions = ({ product, onClickEditProduct }) => {
+const ProductCellOptions = ({ product, onClickEditProduct, onDelete, onClickAddProduct }) => {
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -50,6 +53,15 @@ const ProductCellOptions = ({ product, onClickEditProduct }) => {
   return (
     <Box className={classes.productCellOptionsRoot} onClick={e => e.stopPropagation()}>
       <Box className={clsx(classes.starViewRoot, 'star-view')}>
+      <Tooltip title="Add Stocks Purchase">
+            <IconButton size="small" onClick={() => onClickAddProduct({ ...product })}>
+            <AddShoppingCartIcon color="primary"/>
+            </IconButton>
+          </Tooltip>
+     
+      </Box>
+      <Box className={clsx(classes.actionOptionRoot, 'action-option')}>
+        <Box ml={1}>
         <Checkbox
           icon={<StarBorderIcon />}
           checkedIcon={<StarIcon style={{ color: '#FF8C00' }} />}
@@ -57,18 +69,8 @@ const ProductCellOptions = ({ product, onClickEditProduct }) => {
           onChange={e => onClickStarredIcon(e.target.checked)}
           size="small"
         />
-      </Box>
-
-      <Box className={clsx(classes.actionOptionRoot, 'action-option')}>
-        <Box ml={1}>
-          <Tooltip title="Edit">
-            <IconButton size="small" onClick={() => onClickEditProduct({ ...product })}>
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
         </Box>
-
-        <MoreOptions product={product} />
+        <MoreOptions product={product} onDelete={onDelete} onClickEditProduct={() => onClickEditProduct({ ...product })} />
       </Box>
     </Box>
   );
@@ -79,4 +81,7 @@ export default ProductCellOptions;
 ProductCellOptions.prototype = {
   product: PropTypes.object.isRequired,
   onClickEditProduct: PropTypes.func,
+  onDelete: PropTypes.func,
+  onClickAddProduct: PropTypes.func
+
 };
