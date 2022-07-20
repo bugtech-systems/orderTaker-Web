@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ProductCellOptions from './ProductCellOptions';
 
-const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct, onClickAddProduct }) => {
+const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct, onClickAddStocks }) => {
   const classes = useStyles();
   const { id, name, description, stocks, price, cover } = product;
 
@@ -56,7 +56,7 @@ const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, o
        </TableCell>
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
       <Box pr={10}>
-        <ProductCellOptions product={product} onDelete={onDelete} onClickEditProduct={onClickEditProduct} />
+        <ProductCellOptions product={product} onDelete={onDelete} onClickEditProduct={onClickEditProduct} onClickAddStocks={onClickAddStocks} />
         </Box>
       </TableCell>
     </TableRow>
@@ -72,7 +72,7 @@ ProductCell.prototype = {
   onShowProductDetail: PropTypes.func,
   onClickEditProduct: PropTypes.func,
   onDelete: PropTypes.func,
-  onClickAddProduct: PropTypes.func
+  onClickAddStocks: PropTypes.func
 
 };
 

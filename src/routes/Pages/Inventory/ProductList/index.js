@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProductsList from './ProductsList';
 import ProductDetail from './ProductDetail';
 import CreateProduct from './CreateProduct';
-import {  deleteProduct, setCurrentProduct } from '../../../../redux/actions/ProductApp';
+import AddStocks from './AddStocks';
+
+import {  deleteProduct, setCurrentProduct, addProductStocks } from '../../../../redux/actions/ProductApp';
 import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
 
 
@@ -21,6 +23,7 @@ const Product = () => {
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [selected, setSelected] = useState(false);
+  const [addStock, setAddStocks] = useState(false);
   const dispatch = useDispatch();
 
   const onChangeViewMode = mode => {
@@ -69,6 +72,24 @@ const Product = () => {
 
   }
 
+  const onClickAddStocks = (val) => {
+    console.log(val)
+    dispatch(setCurrentProduct(val));
+    setAddStocks(true);
+  }
+
+
+  const onCloseAddStockDialog = () => {
+    setAddStocks(false);
+    dispatch(setCurrentProduct(null));
+  };
+  
+
+  const handleAddStocks = (val) => {
+    console.log(val)
+    dispatch(addProductStocks(val));
+
+  }
 
 
   return (
@@ -81,10 +102,12 @@ const Product = () => {
           onShowProductDetail={onShowProductDetail}
           onClickEditProduct={onClickEditProduct}
           onDelete={onDelete}
+          onClickAddStocks={onClickAddStocks}
         />
       </Box>
       {showProductDetail && <ProductDetail open={showProductDetail} handleDialog={onHideProductDetail} />}
       {openCreateDialog && <CreateProduct open={openCreateDialog} handleDialog={onCloseComposeDialog} />}
+      {addStock && <AddStocks open={addStock} handleDialog={onCloseAddStockDialog} onSubmit={handleAddStocks} />}
       <ConfirmDialog
         open={confirmDelete}
         title={`Confirm delete`}

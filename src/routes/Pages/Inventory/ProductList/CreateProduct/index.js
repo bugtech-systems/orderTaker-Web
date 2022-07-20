@@ -158,13 +158,12 @@ const CreateProduct = ({ open, handleDialog }) => {
   };
 
   const handleSubmit = () => {
- 
+    handleDialog();
     if (currentProduct) {
       dispatch(onUpdateProduct({ ...currentProduct, ...values }));
     } else { 
       dispatch(createProduct(values));
     }
-    handleDialog();
   };
 
 
@@ -293,7 +292,6 @@ const CreateProduct = ({ open, handleDialog }) => {
         </Box>
         <Menu anchorEl={showLabels} open={Boolean(showLabels)} onClose={onHideLabels}>
         <Box className={classes.titleLabelsRoot}>Labels</Box>
-
         <CmtList
           data={labelsList}
           renderRow={(item, index) => (

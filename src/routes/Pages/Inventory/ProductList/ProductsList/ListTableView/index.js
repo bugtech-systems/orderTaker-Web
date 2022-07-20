@@ -23,6 +23,7 @@ const ListTableView = ({
   updateCheckedProducts,
   onShowProductDetail,
   onClickEditProduct,
+  onClickAddStocks,
   onDelete
 }) => {
 const classes = useStyles();
@@ -77,6 +78,7 @@ const classes = useStyles();
                     handleCellCheckBox={handleCellCheckBox}
                     onShowProductDetail={onShowProductDetail}
                     onClickEditProduct={onClickEditProduct}
+                    onClickAddStocks={onClickAddStocks}
                     onDelete={onDelete}
                   />
                   ))
@@ -104,6 +106,7 @@ ListTableView.prototype = {
   updateCheckedProducts: PropTypes.func,
   onShowProductDetail: PropTypes.func,
   onClickEditProduct: PropTypes.func,
+  onClickAddStocks: PropTypes.func,
   onDelete: PropTypes.func
 };
 

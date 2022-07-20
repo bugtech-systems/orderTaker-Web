@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductCellOptions = ({ product, onClickEditProduct, onDelete, onClickAddProduct }) => {
+const ProductCellOptions = ({ product, onClickEditProduct, onDelete, onClickAddStocks }) => {
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -48,13 +48,16 @@ const ProductCellOptions = ({ product, onClickEditProduct, onDelete, onClickAddP
     dispatch(updateStarredStatus([product.id], status));
   };
 
+  
+
+
   const { starred } = product;
 
   return (
     <Box className={classes.productCellOptionsRoot} onClick={e => e.stopPropagation()}>
       <Box className={clsx(classes.starViewRoot, 'star-view')}>
       <Tooltip title="Add Stocks Purchase">
-            <IconButton size="small" onClick={() => onClickAddProduct({ ...product })}>
+            <IconButton size="small" onClick={() => onClickAddStocks({ ...product })}>
             <AddShoppingCartIcon color="primary"/>
             </IconButton>
           </Tooltip>
@@ -82,6 +85,6 @@ ProductCellOptions.prototype = {
   product: PropTypes.object.isRequired,
   onClickEditProduct: PropTypes.func,
   onDelete: PropTypes.func,
-  onClickAddProduct: PropTypes.func
+  onClickAddStocks: PropTypes.func
 
 };

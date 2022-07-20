@@ -158,12 +158,13 @@ export const createProduct = product => {
 
 //for updating product through detail page
 export const onUpdateProduct = product => {
+
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put(`${commonData.apiUrl}/products`, { product })
-      .then(data => {
-          dispatch(fetchSuccess('Product Updated Successfully'));
+      .put(`${commonData.apiUrl}/products/${product.id}`, product)
+      .then(({data}) => {
+          dispatch(fetchSuccess(data.message));
           dispatch(getProductsList());
       })
       .catch(error => {
@@ -178,6 +179,7 @@ export const updateStarredStatus = (productIds, status) => {
     ids: productIds,
     status: status
   }
+  console.log(obj)
   return dispatch => {
     dispatch(fetchStart());
     axios
@@ -245,6 +247,21 @@ export const getProductCounts = () => {
         if (data.status === 200) {
           dispatch({ type: GET_PRODUCT_COUNTS, payload: data.data });
         }
+      })
+      .catch(error => {
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+
+export const addProductStocks = (val) => {
+  return dispatch => {
+    axios
+      .post(`${commonData.apiUrl}/products/stocks`, val)
+      .then(({data}) => {
+        dispatch(fetchSuccess(data.message));
+        dispatch(getProductsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));

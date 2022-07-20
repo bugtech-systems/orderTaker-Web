@@ -62,6 +62,12 @@ const MoreOptions = ({ product, isDetailView, onDelete, onClickEditProduct }) =>
     setShowMoreOptions(null);
   };
 
+  const handleEdit = () => {
+      onClickEditProduct()
+      onHideMoreOptions();
+  }
+
+
   const onClickDeleteOption = () => {
     onDelete([product.id])
     // onDelete([product.id])
@@ -96,7 +102,7 @@ const MoreOptions = ({ product, isDetailView, onDelete, onClickEditProduct }) =>
       </Box>
 
       <Menu anchorEl={showMoreOptions} open={Boolean(showMoreOptions)} onClose={onHideMoreOptions}>
-      <MenuItem onClick={onClickEditProduct} className={classes.menuItemsRoot}>
+      <MenuItem onClick={handleEdit} className={classes.menuItemsRoot}>
          <EditIcon />
           <Box component="span" ml={4}>
             Edit

@@ -11,7 +11,7 @@ import { getProductContainerHeight } from '../../../../../@jumbo/constants/AppCo
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import EmptyProductResult from './EmptyProductResult';
 
-const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct }) => {
+const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct, onClickAddStocks }) => {
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
   const { filterType, productsList } = useSelector(({ productApp }) => productApp);
@@ -68,6 +68,7 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
             onShowProductDetail={onShowProductDetail}
             onClickEditProduct={onClickEditProduct}
             onDelete={onDelete}
+            onClickAddStocks={onClickAddStocks}
           />
       </PerfectScrollbar>
     </Box>
@@ -84,7 +85,9 @@ ProductsList.prototype = {
   viewMode: PropTypes.string,
   onShowProductDetail: PropTypes.func,
   onClickEditProduct: PropTypes.func,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+  onClickAddStocks: PropTypes.func
+
 };
 
 ProductsList.defaultProps = {
