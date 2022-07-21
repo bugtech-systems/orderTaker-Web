@@ -12,14 +12,14 @@ import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
+// import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+// import CancelIcon from '@material-ui/icons/Cancel';
+// import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { Typography, MenuItem, TextField, InputAdornment, IconButton } from '@material-ui/core';
 
-import {
-  DatePicker,
-} from '@material-ui/pickers';
+// import {
+//   DatePicker,
+// } from '@material-ui/pickers';
 
 //Icons
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -27,10 +27,10 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 
 //Redux
-import { addNewUser, updateUser, uploadFile } from '../../../../../redux/actions/Data';
+import { uploadFile } from '../../../../../redux/actions/Data';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRoles, createUser, updateUserById } from 'redux/actions/Crud';
-import { CLEAR_DATA, SET_INIT_OBJ } from 'redux/actions/types';
+// import { CLEAR_DATA, SET_INIT_OBJ } from 'redux/actions/types';
 
 
 
@@ -49,24 +49,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function PhoneNumberInput({ onChange, value, ...other }) {
-  const [phoneNumber, setPhoneNumber] = useState('');
+// function PhoneNumberInput({ onChange, value, ...other }) {
+//   const [phoneNumber, setPhoneNumber] = useState('');
 
-  useEffect(() => {
-    if (!phoneNumber && value) {
-      setTimeout(() => {
-        setPhoneNumber(value);
-      }, 300);
-    }
-  }, [phoneNumber, value]);
+//   useEffect(() => {
+//     if (!phoneNumber && value) {
+//       setTimeout(() => {
+//         setPhoneNumber(value);
+//       }, 300);
+//     }
+//   }, [phoneNumber, value]);
 
 
-  const onNumberChange = number => {
-    setPhoneNumber(number.formattedValue);
-    onChange(number.formattedValue);
-  };
-  return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNumber} format="(###) ###-####" />;
-}
+//   const onNumberChange = number => {
+//     setPhoneNumber(number.formattedValue);
+//     onChange(number.formattedValue);
+//   };
+//   return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNumber} format="(###) ###-####" />;
+// }
 
 
 const AddEditUser = ({ open, onCloseDialog }) => {

@@ -13,10 +13,10 @@ import { intranet } from '../../../../../@fake-db';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { blue, pink } from '@material-ui/core/colors';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
+// import TwitterIcon from '@material-ui/icons/Twitter';
+// import FacebookIcon from '@material-ui/icons/Facebook';
+// import InstagramIcon from '@material-ui/icons/Instagram';
+// import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -94,9 +94,9 @@ const OurStore = () => {
     <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
   ));
 
-  const handleAddressChange = event => {
-    setAddress(addresses.find(item => item.label === event.target.value));
-  };
+  // const handleAddressChange = event => {
+  //   setAddress(addresses.find(item => item.label === event.target.value));
+  // };
 
   return (
     <CmtCard className={classes.cardRoot}>
