@@ -6,7 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Box from '@material-ui/core/Box';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   tableCellRoot: {

@@ -5,10 +5,10 @@ import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
 import { GoogleMap, withGoogleMap } from 'react-google-maps';
 
 import Box from '@material-ui/core/Box';
-import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
+// import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import CallIcon from '@material-ui/icons/Call';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import { intranet } from '../../../../../@fake-db';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -79,12 +79,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const socialMediaLinks = [
-  { title: 'twitter', url: '', icon: <TwitterIcon /> },
-  { title: 'facebook', url: '', icon: <FacebookIcon /> },
-  { title: 'instagram', url: '', icon: <InstagramIcon /> },
-  { title: 'linkedin', url: '', icon: <LinkedInIcon /> },
-];
+// const socialMediaLinks = [
+//   { title: 'twitter', url: '', icon: <TwitterIcon /> },
+//   { title: 'facebook', url: '', icon: <FacebookIcon /> },
+//   { title: 'instagram', url: '', icon: <InstagramIcon /> },
+//   { title: 'linkedin', url: '', icon: <LinkedInIcon /> },
+// ];
 
 const OurStore = () => {
   const { addresses, title, description } = intranet.ourOfficeData;

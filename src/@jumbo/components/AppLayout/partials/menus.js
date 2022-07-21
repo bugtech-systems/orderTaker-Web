@@ -7,106 +7,106 @@ import {
   Category,
   Store,
   Dashboard,
-  LocalMall,
+  // LocalMall,
   Assessment,
-  LocalAtm,
+  // LocalAtm,
   SupervisedUserCircle,
   Settings,
   ContactPhone,
 } from '@material-ui/icons';
 
-const storeMenus = {
-  name: <IntlMessages id={'sidebar.store'} />,
-  icon: <Store />,
-  type: 'collapse',
-  children: [
-    {
-      name: <IntlMessages id={'sidebar.dashboard'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/store/dashboard',
-    },
+// const storeMenus = {
+//   name: <IntlMessages id={'sidebar.store'} />,
+//   icon: <Store />,
+//   type: 'collapse',
+//   children: [
+//     {
+//       name: <IntlMessages id={'sidebar.dashboard'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/store/dashboard',
+//     },
 
-    {
-      name: <IntlMessages id={'sidebar.customers'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/store/customers',
-    },
-  ],
-};
+//     {
+//       name: <IntlMessages id={'sidebar.customers'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/store/customers',
+//     },
+//   ],
+// };
 
-const inventoryMenus = {
-  name: <IntlMessages id={'sidebar.inventory'} />,
-  icon: <Category />,
-  type: 'collapse',
-  children: [
-    {
-      name: <IntlMessages id={'sidebar.products'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/inventory/products',
-    },
-    {
-      name: <IntlMessages id={'sidebar.stocks'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/inventory/stocks',
-    },
-    {
-      name: <IntlMessages id={'sidebar.purchases'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/inventory/purchases',
-    },
-  ],
-};
+// const inventoryMenus = {
+//   name: <IntlMessages id={'sidebar.inventory'} />,
+//   icon: <Category />,
+//   type: 'collapse',
+//   children: [
+//     {
+//       name: <IntlMessages id={'sidebar.products'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/inventory/products',
+//     },
+//     {
+//       name: <IntlMessages id={'sidebar.stocks'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/inventory/stocks',
+//     },
+//     {
+//       name: <IntlMessages id={'sidebar.purchases'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/inventory/purchases',
+//     },
+//   ],
+// };
 
-const salesMenus = {
-  name: <IntlMessages id={'sidebar.report'} />,
-  icon: <Assessment />,
-  type: 'collapse',
-  children: [
-    {
-      name: <IntlMessages id={'sidebar.sales'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/reports/sales',
-    },
-    {
-      name: <IntlMessages id={'sidebar.remittance'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/reports/remittances',
-    },
-    {
-      name: <IntlMessages id={'sidebar.expense'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/reports/expenses',
-    },
-  ],
-};
+// const salesMenus = {
+//   name: <IntlMessages id={'sidebar.report'} />,
+//   icon: <Assessment />,
+//   type: 'collapse',
+//   children: [
+//     {
+//       name: <IntlMessages id={'sidebar.sales'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/reports/sales',
+//     },
+//     {
+//       name: <IntlMessages id={'sidebar.remittance'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/reports/remittances',
+//     },
+//     {
+//       name: <IntlMessages id={'sidebar.expense'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/reports/expenses',
+//     },
+//   ],
+// };
 
-const settingsMenus = {
-  name: <IntlMessages id={'sidebar.settings'} />,
-  icon: <Settings />,
-  type: 'collapse',
-  children: [
-    {
-      name: <IntlMessages id={'sidebar.config'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/settings/configurations',
-    },
-    {
-      name: <IntlMessages id={'sidebar.user'} />,
-      icon: <ArrowForward />,
-      type: 'item',
-      link: '/settings/user-management',
-    },
-  ],
-};
+// const settingsMenus = {
+//   name: <IntlMessages id={'sidebar.settings'} />,
+//   icon: <Settings />,
+//   type: 'collapse',
+//   children: [
+//     {
+//       name: <IntlMessages id={'sidebar.config'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/settings/configurations',
+//     },
+//     {
+//       name: <IntlMessages id={'sidebar.user'} />,
+//       icon: <ArrowForward />,
+//       type: 'item',
+//       link: '/settings/user-management',
+//     },
+//   ],
+// };
 
 export const sidebarNavs = [
   {

@@ -4,9 +4,9 @@ import StarIcon from '@material-ui/icons/Star';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const today = new Date();
-const currentYear = today.getFullYear();
-const loginYear = 2021;
+// const today = new Date();
+// // const currentYear = today.getFullYear();
+// // const loginYear = 2021;
 
 export const foldersList = [
   { id: 1, name: 'All Customers', slug: 'customers', icon: <GroupIcon /> },

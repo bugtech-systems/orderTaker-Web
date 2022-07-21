@@ -5,8 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ExportCustomers from '../ExportCustomers';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import PrintIcon from '@material-ui/icons/Print';
+// import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+// import PrintIcon from '@material-ui/icons/Print';
 
 const MoreOptions = ({ classes, customersList }) => {
   return (

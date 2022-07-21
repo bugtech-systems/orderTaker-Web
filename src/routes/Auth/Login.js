@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import TextField from "@material-ui/core/TextField";
 import IntlMessages from "../../@jumbo/utils/IntlMessages";
 import {useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
 import {Box} from "@material-ui/core";
-import {AuhMethods} from "../../services/auth";
+// import {AuhMethods} from "../../services/auth";
 import ContentLoader from "../../@jumbo/components/ContentLoader";
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import CmtImage from "../../@coremat/CmtImage";

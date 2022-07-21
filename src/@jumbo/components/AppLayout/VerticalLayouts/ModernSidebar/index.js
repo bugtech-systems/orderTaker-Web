@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
-import Hidden from '@material-ui/core/Hidden';
+// import Hidden from '@material-ui/core/Hidden';
 
 import CmtVerticalLayout from '../../../../../@coremat/CmtLayouts/Vertical';
 import CmtSidebar from '../../../../../@coremat/CmtLayouts/Vertical/Sidebar';
@@ -12,8 +12,8 @@ import SideBar from '../../partials/SideBar';
 import Customizer from './Customizer';
 import ContentLoader from '../../../ContentLoader';
 import ActionSideBar from './ActionSideBar';
-import Logo from '../../partials/Logo';
-import { THEME_TYPES } from '../../../../constants/ThemeOptions';
+// import Logo from '../../partials/Logo';
+// import { THEME_TYPES } from '../../../../constants/ThemeOptions';
 import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
 import defaultContext from '../../../contextProvider/AppContextProvider/defaultContext';
 
@@ -36,9 +36,9 @@ const layoutOptions = {
 };
 
 const ModernSideBar = ({ children, className }) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
-  const { themeType } = useContext(AppContext);
+  // const { themeType } = useContext(AppContext);
 
   return (
     <CmtVerticalLayout

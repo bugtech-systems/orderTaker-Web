@@ -1,7 +1,6 @@
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import axios from 'axios';
 import {
-  ADD_USER,
   DELETE_BULK_USERS,
   DELETE_USER,
   EDIT_USER,
@@ -10,7 +9,7 @@ import {
 } from '../../@jumbo/constants/ActionTypes';
 import { SET_SELECTED_USER } from './types';
 
-import CrudService from '../../services/http-api/crud.service';
+// import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
 
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {

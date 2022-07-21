@@ -16,60 +16,60 @@ import {
   UPDATE_CART_ITEMS
 } from "../../../../../../redux/actions/types";
 
-const VariantColor = ({variant, onVariantClick}) => {
-  const classes = useStyles();
+// const VariantColor = ({variant, onVariantClick}) => {
+//   const classes = useStyles();
 
-  return (
-    <Box display="flex" alignItems="center" color="text.secondary">
-      <Box fontSize={12} component="span" mt={1}>
-        {variant.label}:
-      </Box>
-      <Box display="flex" alignItems="center" ml={2} mt={1}>
-        {variant.options.map((option, index) => (
-          <Box
-            key={index}
-            className={classes.dotsRoot}
-            style={{
-              backgroundColor: option.value
-            }}
-            mr={2}
-            onClick={() => onVariantClick(variant.label, option.value)}
-          />
-        ))}
-      </Box>
-    </Box>
-  );
-};
+//   return (
+//     <Box display="flex" alignItems="center" color="text.secondary">
+//       <Box fontSize={12} component="span" mt={1}>
+//         {variant.label}:
+//       </Box>
+//       <Box display="flex" alignItems="center" ml={2} mt={1}>
+//         {variant.options.map((option, index) => (
+//           <Box
+//             key={index}
+//             className={classes.dotsRoot}
+//             style={{
+//               backgroundColor: option.value
+//             }}
+//             mr={2}
+//             onClick={() => onVariantClick(variant.label, option.value)}
+//           />
+//         ))}
+//       </Box>
+//     </Box>
+//   );
+// };
 
-const VariantSize = ({variant, onVariantClick}) => {
-  const classes = useStyles();
+// const VariantSize = ({variant, onVariantClick}) => {
+//   const classes = useStyles();
 
-  return (
-    <Box display="flex" alignItems="center" color="text.secondary">
-      <Box fontSize={12} mt={1} component="span">
-        {variant.label}:
-      </Box>
-      <Box display="flex" alignItems="center" ml={2} mt={1}>
-        {variant.options.map((option, index) => (
-          <Box
-            key={index}
-            component="span"
-            ml={1}
-            className={classes.sizeVarRoot}
-            onClick={() => onVariantClick(variant.label, option.value)}
-          >
-            {option.value}
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
-};
+//   return (
+//     <Box display="flex" alignItems="center" color="text.secondary">
+//       <Box fontSize={12} mt={1} component="span">
+//         {variant.label}:
+//       </Box>
+//       <Box display="flex" alignItems="center" ml={2} mt={1}>
+//         {variant.options.map((option, index) => (
+//           <Box
+//             key={index}
+//             component="span"
+//             ml={1}
+//             className={classes.sizeVarRoot}
+//             onClick={() => onVariantClick(variant.label, option.value)}
+//           >
+//             {option.value}
+//           </Box>
+//         ))}
+//       </Box>
+//     </Box>
+//   );
+// };
 
-const productVariants = {
-  color: React.memo(VariantColor),
-  size: React.memo(VariantSize)
-};
+// const productVariants = {
+//   color: React.memo(VariantColor),
+//   size: React.memo(VariantSize)
+// };
 
 const ListItem = ({item}) => {
   const classes = useStyles();
@@ -79,20 +79,20 @@ const ListItem = ({item}) => {
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
-  const getVariants = () => {
-    return item.variants
-      ? item.variants.map((variant, index) => {
-          const VariantOption = productVariants[variant.type];
-          return VariantOption ? (
-            <VariantOption
-              key={index}
-              variant={variant}
-              onVariantClick={onVariantClick}
-            />
-          ) : null;
-        })
-      : null;
-  };
+  // const getVariants = () => {
+  //   return item.variants
+  //     ? item.variants.map((variant, index) => {
+  //         const VariantOption = productVariants[variant.type];
+  //         return VariantOption ? (
+  //           <VariantOption
+  //             key={index}
+  //             variant={variant}
+  //             onVariantClick={onVariantClick}
+  //           />
+  //         ) : null;
+  //       })
+  //     : null;
+  // };
 
   const getActionComponent = () => (
     <Box>
@@ -123,7 +123,7 @@ const ListItem = ({item}) => {
 
     if (ind) {
       let newItems = cartItems.map(a => {
-        return a.id === item.id
+        return a.id == item.id
           ? {
               ...item,
               price: item.price,

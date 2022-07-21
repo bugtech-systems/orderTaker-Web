@@ -3,7 +3,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableRow from '@material-ui/core/TableRow';
 import { timeFromNow } from '../../../../@jumbo/utils/dateHelper';
-import { Block, CheckCircleOutline, Delete, Edit, Mail, MoreHoriz, Visibility } from '@material-ui/icons';
+import { Block, CheckCircleOutline, Delete, Edit, MoreHoriz, Visibility } from '@material-ui/icons';
 import CmtDropdownMenu from '../../../../@coremat/CmtDropdownMenu';
 import CmtAvatar from '../../../../@coremat/CmtAvatar';
 import { Box, Typography } from '@material-ui/core';

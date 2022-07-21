@@ -7,7 +7,7 @@ import UserTableHead from './UserTableHead';
 import UserTableToolbar from './UserTableToolbar';
 import { getComparator, stableSort } from '../../../../@jumbo/utils/tableHelper';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, getUsers, setCurrentUser } from '../../../../redux/actions/Users';
+import { getUsers, setCurrentUser } from '../../../../redux/actions/Users';
 import AddEditUser from './AddEditUser';
 import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
 import { useDebounce } from '../../../../@jumbo/utils/commonHelper';
