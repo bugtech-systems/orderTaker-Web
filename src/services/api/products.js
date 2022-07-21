@@ -84,9 +84,9 @@ mock.onGet('/inventory').reply(config => {
     if (selectedFolder === 'starred') {
       folderProducts = popularProductsList.filter(product => product.starred);
     } else if (selectedFolder === 'available') {
-      folderProducts = popularProductsList.filter(product => product.stocks != 0);
+      folderProducts = popularProductsList.filter(product => product.stocks !== 0);
     } else if (selectedFolder === 'unavailable') {
-      folderProducts = popularProductsList.filter(product => product.stocks == 0);
+      folderProducts = popularProductsList.filter(product => product.stocks === 0);
     } else {
       folderProducts = popularProductsList.filter(product => product.folder === selectedFolder);
     }
@@ -191,9 +191,9 @@ mock.onGet('/inventory/counter').reply(config => {
     if (item.slug === 'starred') {
       counter.folders[item.id] = productsList.filter(product => product.starred).length;
     } else if (item.slug === 'available') {
-      counter.folders[item.id] = productsList.filter(product => product.stocks != 0).length;
+      counter.folders[item.id] = productsList.filter(product => product.stocks !== 0).length;
     } else if (item.slug === 'unavailable') {
-      counter.folders[item.id] = productsList.filter(product => product.stocks == 0).length;
+      counter.folders[item.id] = productsList.filter(product => product.stocks === 0).length;
     } else {
       counter.folders[item.id] = productsList.filter(product => product.folder === item.slug).length;
     }

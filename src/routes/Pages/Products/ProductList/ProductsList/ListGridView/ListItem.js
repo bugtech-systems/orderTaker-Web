@@ -119,11 +119,11 @@ const ListItem = ({item}) => {
 
   const handleCheckout = qty => {
     let cartItems = cart_items;
-    let ind = cart_items.find(a => a.id == item.id);
+    let ind = cart_items.find(a => a.id === item.id);
 
     if (ind) {
       let newItems = cartItems.map(a => {
-        return a.id == item.id
+        return a.id === item.id
           ? {
               ...item,
               price: item.price,

@@ -47,7 +47,7 @@ const UsersModule = () => {
 
 
   console.log(user)
-  let usersArr = user.id ? users.filter(a => { return user.id != a.id  }) : users;
+  let usersArr = user.id ? users.filter(a => { return user.id !== a.id  }) : users;
 
   useEffect(() => {
     dispatch(
