@@ -21,6 +21,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers} from '../../../../redux/actions/Users';
+import { getAdminDashboard } from 'redux/actions/Dashboard';
 
 
 
@@ -51,12 +52,31 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState('about');
   const { users } = useSelector((state) => state.usersReducer);
+  const { loadUser, authUser } = useSelector(({auth}) => auth);
+  const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
+
+
+
+
+
 
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
- 
+
+  
+
+  useEffect(() => {
+    if(loadUser){
+    dispatch(getAdminDashboard())
+    }
+  }, [loadUser, authUser])
+
+console.log(counts)
+
+
+
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
@@ -65,6 +85,7 @@ const Dashboard = () => {
           <GridContainer>
             <Grid item xs={12} sm={12} xl={12}>
               <OurStore
+              data={business}
               // backgroundColor="#6200EE"
               // icon={<StarIcon style={{ color: '#ffffff' }} />}
               // title={20}
@@ -77,34 +98,34 @@ const Dashboard = () => {
               <CardWidget
                 backgroundColor="#6200EE"
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
-                title={20}
+                title={counts.products}
                 subTitle="PRODUCTS"
                 Link="/products"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
               <CardWidget
+                backgroundColor="#6200EE"
+                icon={<AssessmentIcon style={{ color: '#ffffff' }} />}
+                title={counts.orders}
+                subTitle="Orders"
+                Link="/reports"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6}>
+              <CardWidget
                 icon={<ContactPhone style={{ color: '#ffffff' }} />}
                 backgroundColor="#0795F4"
-                title={23}
+                title={counts.customers}
                 subTitle="CUSTOMERS"
                 Link="/customers"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
               <CardWidget
-                backgroundColor="#6200EE"
-                icon={<AssessmentIcon style={{ color: '#ffffff' }} />}
-                title={20}
-                subTitle="REPORTS"
-                Link="/reports"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={6}>
-              <CardWidget
                 icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
                 backgroundColor="#8DCD03"
-                title={users.length}
+                title={counts.users}
                 subTitle="USERS"
                 Link="/users"
               />
@@ -124,11 +145,16 @@ const Dashboard = () => {
 
         <Grid item xs={12} lg={12} xl={8} className={classes.orderLg1}>
           <Box pb={6}>
-            <PopularAgents />
+            <PopularAgents 
+              unpaidCustomers={unpaidCustomers}
+              count={unpaidCustomers.length}
+            />
           </Box>
         </Grid>
         <Grid item xs={12} xl={5}>
-          <RecentPayments />
+          <RecentPayments 
+            unpaidOrders={unpaidOrders}
+          />
         </Grid>
       </GridContainer>
     </PageContainer>

@@ -73,8 +73,8 @@ export default (state = INIT_STATE, action) => {
     case GET_CUSTOMERS_LIST: {
       return {
         ...state,
-        customersList: action.payload.folderCustomers,
-        totalCustomers: action.payload.total,
+        customersList: action.payload,
+        totalCustomers: action.payload.length
       };
     }
 

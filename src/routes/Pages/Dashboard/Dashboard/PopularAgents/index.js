@@ -27,13 +27,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PopularAgents = () => {
+const PopularAgents = ({unpaidCustomers, count}) => {
   const classes = useStyles();
+
+
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader
         className={classes.cardHeaderRoot}
-        title={'Popular Customers'}
+        title={`Unpaid Customers (${count})`}
         titleProps={{
           variant: 'h4',
           component: 'div',
@@ -45,7 +47,9 @@ const PopularAgents = () => {
           <NavigateNextIcon />
         </Button>
       </CmtCardHeader>
-      <AgentsList />
+      <AgentsList 
+        unpaidCustomers={unpaidCustomers}
+      />
     </CmtCard>
   );
 };

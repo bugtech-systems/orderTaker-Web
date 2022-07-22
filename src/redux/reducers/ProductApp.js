@@ -24,26 +24,7 @@ const INIT_STATE = {
     searchText: '',
   },
   productsList: [],
-  currentProduct: {
-    "id": 2,
-    "name": "Basic Nail - 14\"",
-    "description": "Basic Nail 14 inch",
-    "price": 200,
-    "discount_price": 180,
-    "limit": 10,
-    "stocks": 50,
-    "cover": null,
-    "starred": false,
-    "deletedAt": null,
-    "createdAt": null,
-    "updatedAt": null,
-    "businessId": 3,
-    "labels": [
-        1,
-        2
-    ],
-    "folder": "products"
-  },
+  currentProduct: null,
   totalProducts: null,
   counter: null,
 };

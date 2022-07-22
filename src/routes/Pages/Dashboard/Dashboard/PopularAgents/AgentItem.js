@@ -1,5 +1,6 @@
 import React from 'react';
 import StarRateIcon from '@material-ui/icons/StarRate';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import { Box } from '@material-ui/core';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -25,8 +26,13 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: 0.25,
     marginBottom: 6,
   },
-  starIcon: {
+  starIconActive: {
     color: theme.palette.warning.main,
+    fontSize: 20,
+    marginRight: 3,
+  },
+  starIcon: {
+    color: theme.palette.grey[400],
     fontSize: 20,
     marginRight: 3,
   },
@@ -45,6 +51,7 @@ const useStyles = makeStyles(theme => ({
 
 const AgentItem = ({ item }) => {
   const classes = useStyles();
+  console.log(item)
   return (
     <Box className={classes.agentItemsRoot}>
       <Box className={classes.cardRoot}>
@@ -61,9 +68,12 @@ const AgentItem = ({ item }) => {
           {item.name}
         </Typography>
         <Box display="flex" alignItems="center">
-          <StarRateIcon className={classes.starIcon} />
+          {/* {item.starred ?  */}
+          <StarRateIcon className={ item.starred ? classes.starIconActive : classes.starIcon} />
+          {/* : <StarOutlineIcon className={classes.starIcon} /> */}
+          {/* } */}
           <Box component="p" color="text.secondary" fontSize={12}>
-            {item.rating} | {`${item.deals} deals`}
+            Limit: ₱{item.limit} | Balance: ₱{`${item.balance}`}
           </Box>
         </Box>
       </Box>

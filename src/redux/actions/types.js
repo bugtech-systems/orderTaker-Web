@@ -66,3 +66,9 @@ export const GET_USER_DETAIL = 'get_user_detail';
 export const GET_FEED_POSTS = 'get_feed_posts';
 export const CREATE_POST = 'create_post';
 export const UPDATE_POST = 'update_post';
+
+
+
+
+//DASHBOARD
+export const SET_DASHBOARD_DATA = 'SET_DASHBOARD_DATA';

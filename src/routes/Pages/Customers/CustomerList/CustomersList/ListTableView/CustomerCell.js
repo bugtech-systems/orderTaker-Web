@@ -13,7 +13,6 @@ import CustomerCellOptions from './CustomerCellOptions';
 const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer }) => {
   const classes = useStyles();
   const { id, name, phones, limit, balance, dpUrl } = customer;
-  // console.log(customer)
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowCustomerDetail(customer)}>
       <TableCell className={classes.tableCellRoot}>
@@ -34,7 +33,7 @@ const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCu
               <Typography className={classes.titleRoot} component="div" variant="h4">
                 {name}
               </Typography>
-              <Typography className={classes.subTitleRoot}>{phones[0].phone}</Typography>
+              <Typography className={classes.subTitleRoot}>{phones[0]?.phone}</Typography>
             </Box>
           </Box>
         </Box>

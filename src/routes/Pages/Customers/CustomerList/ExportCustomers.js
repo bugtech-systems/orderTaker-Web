@@ -16,7 +16,7 @@ const ExportContacts = ({ children, data }) => {
       <ExcelSheet data={contacts} name="Customers">
         <ExcelColumn label="Id" value="id" />
         <ExcelColumn label="Name" value="name" />
-        <ExcelColumn label="Email" value="email_address" />
+        <ExcelColumn label="Email" value="email" />
         <ExcelColumn label="Phones" value="phoneStrings" />
         <ExcelColumn label="Limit" value="limit" />
         <ExcelColumn label="Balance" value="balance" />

@@ -7,6 +7,7 @@ import {
   
   const INIT_STATE = {
         cart_items: [],
+        total: 0,
         cart_items_count: 0   
   };
   

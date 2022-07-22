@@ -18,6 +18,9 @@ import {
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import axios from 'axios';
 
+import commonData from 'utils/commonData';
+
+
 //For expanding sidebar
 export const toggleExpandSidebar = value => {
   return dispatch => {
@@ -39,16 +42,10 @@ export const setFilterType = filterType => {
 //for getting labels list
 export const getLabelsList = () => {
   return dispatch => {
-    dispatch(fetchStart());
     axios
-      .get('/customers/labels')
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: GET_LABELS_LIST, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .get(`${commonData.apiUrl}/customers/tags`)
+      .then(({data}) => {
+          dispatch({ type: GET_LABELS_LIST, payload: data });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -61,14 +58,10 @@ export const addNewLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/customers/labels', { label })
+      .post(`${commonData}/customers/tags`, label)
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: ADD_LABEL, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+        dispatch(fetchSuccess(data.message));
+        dispatch(getLabelsList()); 
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -119,16 +112,11 @@ export const updateLabel = label => {
 //for getting customers list
 export const getCustomersList = params => {
   return dispatch => {
-    dispatch(fetchStart());
     axios
-      .get('/customers', { params })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: GET_CUSTOMERS_LIST, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+    .get(`${commonData.apiUrl}/customers?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
+    .then(({data}) => {
+      console.log(data)
+          dispatch({ type: GET_CUSTOMERS_LIST, payload: data });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -150,14 +138,9 @@ export const createCustomer = customer => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post('/customers', { customer })
+      .post(`${commonData.apiUrl}/customers`, customer)
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: CREATE_CUSTOMER, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+          dispatch(fetchSuccess(data.message));
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -253,11 +236,9 @@ export const updateCustomersLabel = (customerIds, label) => {
 export const getCustomerCounts = () => {
   return dispatch => {
     axios
-      .get('/customers/counter')
+      .get(`${commonData.apiUrl}/customers/counter`)
       .then(data => {
-        if (data.status === 200) {
           dispatch({ type: GET_CUSTOMER_COUNTS, payload: data.data });
-        }
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));

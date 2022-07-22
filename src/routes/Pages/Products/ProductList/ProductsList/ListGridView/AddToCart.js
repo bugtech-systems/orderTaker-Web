@@ -54,7 +54,11 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
 
   useEffect(
     () => {
+      if(item.stocks > 0){
       setStocks(item.stocks - quantity);
+    } else {
+      setQuantity(0)
+    }
     },
     [ item.stocks ]
   );
@@ -109,7 +113,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
           </Box>
           <Box component="span" fontSize={{xl: 16}}>
             Available Stocks:{" "}
-            {stocks !== 0 ? (
+            {stocks > 0 ? (
               <Typography color="primary" component="span">
                 {stocks}
               </Typography>

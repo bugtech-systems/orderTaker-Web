@@ -52,6 +52,8 @@ const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCusto
     height: getCustomerContainerHeight(width, showFooter),
   });
 
+  console.log(customersList)
+
 
   return customersList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>

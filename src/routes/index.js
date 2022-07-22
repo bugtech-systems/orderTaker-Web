@@ -10,16 +10,9 @@ import Customers from './Pages/Customers';
 import Inventory from './Pages/Inventory';
 import Products from './Pages/Products';
 import SalesReport from './Pages/Reports';
-import Disbursement from './Pages/Disbursement';
-import UserManagement from './Pages/UserManagement';
 import Users from './Pages/Users';
-import Maps from './Pages';
-
 import Settings from './Pages/Settings';
 
-//Other Pages
-import Profile from './Pages/Profile';
-import Notifications from './Pages/Notifications';
 
 import Error404 from './Pages/404';
 import Login from './Auth/Login';
@@ -63,20 +56,14 @@ const Routes = () => {
       <Switch>
         Main Pages
         <RestrictedRoute path="/dashboard" component={Dashboard} />
-        <RestrictedRoute path="/notifications" component={Notifications} />
-        <RestrictedRoute path="/user-management" component={UserManagement} />
         <RestrictedRoute path="/users" component={Users} />
         <RestrictedRoute path="/products" component={Products} />
         <RestrictedRoute path="/inventory" component={Inventory} />
         <RestrictedRoute path="/customers" component={Customers} />
-        <RestrictedRoute path="/stocks" component={Inventory} />
-        <RestrictedRoute path="/disbursement" component={Disbursement} />
         <RestrictedRoute path="/reports" component={SalesReport} />
         <RestrictedRoute path="/settings" component={Settings} />
-        <RestrictedRoute path="/maps" component={Maps} />
 
         {/* Other Pages */}
-        <RestrictedRoute path="/profile" component={Profile} />
         <Route path="/signin" component={Login} />
         <Route path="/forgot-password" component={DefaultForgotPassword} />
 

@@ -11,8 +11,7 @@ const loginYear = 2021;
 export const foldersList = [
   { id: 1, name: 'All Customers', slug: 'customers', icon: <GroupIcon /> },
   { id: 2, name: 'Unpaid Customers', slug: 'unpaid', icon: <AccessTimeIcon /> },
-  { id: 3, name: 'Starred Customers', slug: 'starred', icon: <StarIcon /> },
-  { id: 4, name: 'Trash', slug: 'trash', icon: <DeleteIcon /> },
+  { id: 3, name: 'Starred Customers', slug: 'starred', icon: <StarIcon /> }
 ];
 
 export const labelsList = [

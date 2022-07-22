@@ -22,6 +22,7 @@ const LabelCell = ({ classes, item, selectedItem, onChange }) => {
   const [anchorEditEl, setAnchorEditEl] = useState(null);
   const labelRef = useRef(null);
 
+
   const handleMenuClick = event => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
@@ -60,9 +61,9 @@ const LabelCell = ({ classes, item, selectedItem, onChange }) => {
           {item.icon ? item.icon : <LabelIcon style={{ color: item.color }} />}
         </ListItemIcon>
         <ListItemText className="Cmt-nav-text" primary={item.name} />
-        {counter && counter.labels[item.id] > 0 && (
+        {counter && counter.tags[item.id] > 0 && (
           <Box component="span" className="Cmt-nav-count">
-            {counter.labels[item.id]}
+            {counter.tags[item.id]}
           </Box>
         )}
         <Box className="Cmt-more-vert-icon">

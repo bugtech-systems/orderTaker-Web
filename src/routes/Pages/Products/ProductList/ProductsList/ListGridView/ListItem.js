@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Box from "@material-ui/core/Box";
+import { Box, Typography} from "@material-ui/core";
 import CmtImage from "../../../../../../@coremat/CmtImage";
 import CmtMediaObject from "../../../../../../@coremat/CmtMediaObject";
 import {IconButton} from "@material-ui/core";
@@ -79,32 +79,11 @@ const ListItem = ({item}) => {
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
-  const getVariants = () => {
-    return item.variants
-      ? item.variants.map((variant, index) => {
-          const VariantOption = productVariants[variant.type];
-          return VariantOption ? (
-            <VariantOption
-              key={index}
-              variant={variant}
-              onVariantClick={onVariantClick}
-            />
-          ) : null;
-        })
-      : null;
-  };
 
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
         ₱{item.price}
-      </Box>
-      <Box
-        component="span"
-        color="text.disabled"
-        style={{textDecoration: "line-through"}}
-      >
-        ₱{item.discount_price}
       </Box>
     </Box>
   );
@@ -119,18 +98,20 @@ const ListItem = ({item}) => {
 
   const handleCheckout = qty => {
     let cartItems = cart_items;
-    let ind = cart_items.find(a => a.id == item.id);
+    let ind = cart_items.find(a => a.productId == item.id);
 
     if (ind) {
       let newItems = cartItems.map(a => {
-        return a.id == item.id
+        return a.productId == item.id
           ? {
               ...item,
               price: item.price,
               qty: qty,
               total: item.price * qty,
-              product: {name: item.name, description: item.id},
-              inventory: {stocks: item.stocks}
+              stocks: item.stocks - qty,
+              productId: item.id,
+              name: item.name,
+              description: item.description
             }
           : a;
       });
@@ -150,8 +131,10 @@ const ListItem = ({item}) => {
         price: item.price,
         qty: qty,
         total: item.price * qty,
-        product: {name: item.name, description: item.id},
-        inventory: {stocks: item.stocks}
+        stocks: item.stocks - qty,
+        productId: item.id,
+        name: item.name,
+        description: item.description
       });
 
       dispatch({
@@ -204,10 +187,12 @@ const ListItem = ({item}) => {
           }}
           actionsComponent={getActionComponent()}
           content={
-            item.stocks ? (
+            item.stocks && item.stocks !== 0 ? (
               getStocks()
             ) : (
-              <Box color="text.secondary">Out of Stock</Box>
+              <Typography color="secondary" component="span">
+              Out of Stock!
+            </Typography>
             )
           }
         />

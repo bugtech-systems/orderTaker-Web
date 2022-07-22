@@ -1,14 +1,14 @@
 import React from 'react';
 import AgentItem from './AgentItem';
 import CmtList from '../../../../../@coremat/CmtList';
-import { popularAgents } from '../../../../../@fake-db';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-const AgentsList = () => {
+const AgentsList = ({unpaidCustomers}) => {
+  console.log(unpaidCustomers)
   return (
     <PerfectScrollbar style={{ width: '100%' }}>
       <CmtList
-        data={popularAgents}
+        data={unpaidCustomers}
         style={{
           display: 'flex',
           flexDirection: 'row',

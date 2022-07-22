@@ -1,14 +1,11 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import CmtMediaObject from '../../../../../../../@coremat/CmtMediaObject';
 import Box from '@material-ui/core/Box';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
-import { timeFromNow } from '../../../../../../../@jumbo/utils/dateHelper';
-import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
-import { Fab, IconButton, Typography } from '@material-ui/core';
+import {IconButton } from '@material-ui/core';
 
-
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
 
 // Icons
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -81,7 +78,16 @@ const useStyles = makeStyles(theme => ({
 
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
-  let { id, product: { name, cover, description }, inventory: { stocks }, price, total, qty } = item;
+  const [values, setValues] = useState({});
+  let { productId } = item;
+
+
+
+
+  useEffect(() => {
+    setValues(item);
+  }, [item]);
+
 
   const getTitle = () => {
     return (
@@ -90,46 +96,11 @@ const CommentItem = ({ item, handleItem }) => {
         Name: 
       </Box>
         <Box component="span" color="primary.main">
-          {name}
+          {values.name}
         </Box>
-        
       </Box>
     );
   };
-
-  const getFooter = () => (
-    <Box>
-        <Box display="flex" flexDirection="column" alignItems="center">
-        <Box fontSize={14} alignItems="center" style={{marginBottom: 5}} color="text.disabled">
-        ₱{total}
-      </Box>
-      {/* <Box display="flex" alignItems="center" className={classes.actionButtons}>
-        {/* <Fab size="small" className="btn-white" onClick={handleItem(id, 'remove')}>
-          <ClearIcon fontSize='small' />
-        </Fab> */}
-        <Box display="flex" alignItems="center" className={classes.actionCounter}>
-        <IconButton className="btn-white"
-        size="small"
-          onClick={handleItem(id, 'less')}
-        >
-          <RemoveCircleOutlineIcon 
-          // fontSize="small" 
-          />
-        </IconButton>
-        <Box ml={3} mr={3} display="flex" alignItems="center" style={{ fontSize: 18}}>{qty}</Box>
-        <IconButton className="btn-white"
-        size="small"
-        onClick={handleItem(id, 'add')}
-        >
-          <AddCircleIcon
-          //  fontSize="small"
-          />
-        </IconButton>
-      </Box>
-     
-      </Box>
-    </Box>
-  );
 
   const getSubtitle = () => (
     <Box display="relative">
@@ -144,10 +115,10 @@ const CommentItem = ({ item, handleItem }) => {
 </Box>
 <Box display="relative">
 <Box fontSize={14} color="text.disabled">
-      ₱{price}
+      ₱{values.price}
       </Box>
       <Box fontSize={14} color="text.disabled">
-      {stocks}
+      {values.stocks}
       </Box>
 </Box>
       </Box>
@@ -167,7 +138,31 @@ const CommentItem = ({ item, handleItem }) => {
           variant: 'inherit',
           gutterBottom: false,
         }}
-        footerComponent={getFooter()}
+        footerComponent={ <Box>
+          <Box display="flex" flexDirection="column" alignItems="center">
+          <Box fontSize={14} alignItems="center" style={{marginBottom: 5}} color="text.disabled">
+          ₱{values.total}
+        </Box>
+          <Box display="flex" alignItems="center" className={classes.actionCounter}>
+          <IconButton className="btn-white"
+          size="small"
+            onClick={() => handleItem(values, 'less')}
+          >
+            <RemoveCircleOutlineIcon 
+            />
+          </IconButton>
+          <Box ml={3} mr={3} display="flex" alignItems="center" style={{ fontSize: 18}}>{values.qty}</Box>
+          <IconButton className="btn-white"
+          size="small"
+          disabled={values.stocks <= 0}
+          onClick={() => handleItem(values, 'add')}
+          >
+            <AddCircleIcon
+            />
+          </IconButton>
+        </Box>
+        </Box>
+      </Box>}
       />
     </Box>
   );

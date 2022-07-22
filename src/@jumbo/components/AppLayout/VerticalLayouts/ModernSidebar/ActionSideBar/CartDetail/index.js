@@ -1,19 +1,18 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import React, {  useState, useEffect } from 'react';
+import { Box,  makeStyles } from '@material-ui/core';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { alpha } from '@material-ui/core/styles';
 import CmtList from '../../../../../../../@coremat/CmtList';
-// import { cart } from '../../../../../../../@fake-db/modules/cart';
 import CartItem from './CartItem';
 
 
 import EmptyResult from '../EmptyResult';
-import SearchBox from '../Search/SearchBox';
 
 
 //Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { UPDATE_CART, SET_CART_ITEMS_COUNT } from '../../../../../../../redux/actions/types';
 
 
 const useStyles = makeStyles(theme => ({
@@ -87,14 +86,92 @@ const useStyles = makeStyles(theme => ({
 
 const Comments = () => {
   const classes = useStyles();
-  const { cart_items, cart_items_count }  = useSelector(state => state.cartApp);
+  const dispatch = useDispatch();
+  const { cart_items, cart_items_count, total }  = useSelector(({cartApp}) => cartApp);
   const [subTotal, setSubTotal] = useState(0);
 
-  // const totalCart = useMemo(() => cart_items.length, [cart_items]);
+
+  const handleItem = (val, action) => {
+    let items = [];
+    let id = val.productId;
+    let sub = 0;
+    items = cart_items;
+
+    if(Number(val.qty) <= 1){
+      console.log(items)
+      console.log(id)
+      let newItems = items.filter(a => a.productId !== id);
+      console.log(items)
+      console.log(newItems)
+
+      let ind = items.find(a => a.productId === id)
+      
+      console.log(ind)
+      items.map(a => {
+        sub += Number(a.price * a.qty);
+      })
 
 
-  const handleItem = (id, action) => {
 
+      dispatch({
+        type: UPDATE_CART,
+        payload: { cart_items: newItems, total: sub}
+      })
+  
+      dispatch({
+        type: SET_CART_ITEMS_COUNT,
+        payload: newItems.length
+      })
+
+      return;
+    } else {
+
+    if(action === 'add'){
+      items.map(a => {
+        if(a.productId === id){
+            a.stocks--;
+            a.qty++;
+            a.total = a.qty * a.price;
+            return a;
+        } else {
+            return a;
+        }
+      })
+    
+    } else {
+
+   
+      items.map(a => {
+        if(a.productId === id){
+            a.stocks++;
+            a.qty--;
+            a.total = a.qty * a.price;
+            return a;
+        } else {
+            return a;
+        }
+      })
+    }
+
+
+
+    items.map(a => {
+      sub += Number(a.price * a.qty);
+    })
+
+
+    dispatch({
+      type: UPDATE_CART,
+      payload: { cart_items: items, total: sub}
+    })
+
+    dispatch({
+      type: SET_CART_ITEMS_COUNT,
+      payload: items.length
+    })
+
+    return;
+  }
   }
 
   useEffect(() => {
@@ -105,22 +182,13 @@ const Comments = () => {
     })
 
     setSubTotal(sub)
-  }, [cart_items])
+  }, [total, cart_items])
 
 
 
   return (
     <>
       <Box>
-      {/* <Box className={classes.header}>
-        <Box fontSize={22} fontWeight={700}>
-          Cart
-        </Box>
-        <Button color="primary">Save as Draft</Button>
-      </Box> */}
-{/* 
-      <SearchBox searchKeyword={searchKeyword}  placeholder="Search in messages..." /> */}
-     
       <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box>
       {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
         <Box>
@@ -132,7 +200,7 @@ const Comments = () => {
       </Box>} 
       {cart_items_count !== 0 ? (
         <PerfectScrollbar className={classes.scrollbarRoot}>
-          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem} />} />
+          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem}/>} />
         </PerfectScrollbar>
         ) : (
         <EmptyResult content="No record found" />
