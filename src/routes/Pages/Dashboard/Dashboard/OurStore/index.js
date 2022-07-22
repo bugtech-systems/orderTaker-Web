@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
-import { GoogleMap, withGoogleMap } from 'react-google-maps';
+// import { GoogleMap, withGoogleMap } from 'react-google-maps';
 
 import Box from '@material-ui/core/Box';
 // import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
@@ -88,11 +88,11 @@ const useStyles = makeStyles(theme => ({
 
 const OurStore = () => {
   const { addresses, title, description } = intranet.ourOfficeData;
-  const [currentAddress, setAddress] = useState(addresses[0]);
+  const [currentAddress ] = useState(addresses[0]);
   const classes = useStyles();
-  const GoogleMapBox = withGoogleMap(() => (
-    <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
-  ));
+  // const GoogleMapBox = withGoogleMap(() => (
+    // <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
+  // ));
 
   // const handleAddressChange = event => {
   //   setAddress(addresses.find(item => item.label === event.target.value));

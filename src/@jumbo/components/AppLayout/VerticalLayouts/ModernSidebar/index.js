@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
@@ -14,19 +14,19 @@ import ContentLoader from '../../../ContentLoader';
 import ActionSideBar from './ActionSideBar';
 // import Logo from '../../partials/Logo';
 // import { THEME_TYPES } from '../../../../constants/ThemeOptions';
-import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
+// import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
 import defaultContext from '../../../contextProvider/AppContextProvider/defaultContext';
 
-const useStyles = makeStyles(theme => ({
-  sidebarHeader: {
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: '5px 10px',
-      height: 72,
-    },
-  },
-}));
+// const useStyles = makeStyles(theme => ({
+//   sidebarHeader: {
+//     [theme.breakpoints.up('md')]: {
+//       display: 'flex',
+//       alignItems: 'center',
+//       padding: '5px 10px',
+//       height: 72,
+//     },
+//   },
+// }));
 
 const layoutOptions = {
   sidebarType: defaultContext.sidebarType,

@@ -3,15 +3,15 @@ import IntlMessages from '../../../utils/IntlMessages';
 
 import {
   PostAdd,
-  ArrowForward,
+  // ArrowForward,
   Category,
-  Store,
+  // Store,
   Dashboard,
   // LocalMall,
   Assessment,
   // LocalAtm,
   SupervisedUserCircle,
-  Settings,
+  // Settings,
   ContactPhone,
 } from '@material-ui/icons';
 

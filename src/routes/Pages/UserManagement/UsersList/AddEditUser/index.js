@@ -7,7 +7,7 @@ import AppTextInput from '../../../../../@jumbo/components/Common/formElements/A
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import { useDropzone } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
-import NumberFormat from 'react-number-format';
+// import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -15,7 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 // import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 // import CancelIcon from '@material-ui/icons/Cancel';
 // import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
-import { Typography, MenuItem, TextField, InputAdornment, IconButton } from '@material-ui/core';
+import { Typography, TextField, InputAdornment, IconButton } from '@material-ui/core';
 
 // import {
 //   DatePicker,

@@ -1,6 +1,6 @@
-import {fetchError, fetchStart, fetchSuccess} from "../actions";
+// import {fetchError, fetchStart, fetchSuccess} from "../actions";
 
-import {LOGOUT, CLEAR_USER, SET_MESSAGE} from "./types";
+import {SET_MESSAGE} from "./types";
 
 import DataServices from "../../services/http-api/data.service";
 
