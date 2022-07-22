@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ListTableView from './ListTableView';
+// import ListTableView from './ListTableView';
 import ListGridView from './ListGridView';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsList, getInventoryList } from '../../../../../redux/actions/ProductApp';
+import { getInventoryList } from '../../../../../redux/actions/ProductApp';
 import PropTypes from 'prop-types';
 import DuplicateProductsMsg from './DuplicateProductsMsg';
 import { Box } from '@material-ui/core';
@@ -11,7 +11,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { getProductContainerHeight } from '../../../../../@jumbo/constants/AppConstants';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import EmptyProductResult from './EmptyProductResult';
-import Scanner from '../../Scanner';
+// import Scanner from '../../Scanner';
 
 const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct }) => {
   const { showFooter } = useContext(AppContext);
@@ -24,26 +24,26 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
     dispatch(getInventoryList(filterType));
   }, [filterType, dispatch]);
 
-  const handleCellCheckBox = (isChecked, id) => {
-    if (isChecked) {
-      setCheckedProducts(checkedProducts.concat(id));
-    } else {
-      setCheckedProducts(checkedProducts.filter(productId => productId !== id));
-    }
-  };
+  // const handleCellCheckBox = (isChecked, id) => {
+  //   if (isChecked) {
+  //     setCheckedProducts(checkedProducts.concat(id));
+  //   } else {
+  //     setCheckedProducts(checkedProducts.filter(productId => productId !== id));
+  //   }
+  // };
 
   const toggleDuplicateMsgShow = () => {
     setShowDuplicateMsg(!showDuplicateMsg);
   };
 
-  const handleHeaderCheckBox = isChecked => {
-    if (isChecked) {
-      const ids = productsList.map(product => product.id);
-      updateCheckedProducts(ids);
-    } else {
-      updateCheckedProducts([]);
-    }
-  };
+  // const handleHeaderCheckBox = isChecked => {
+  //   if (isChecked) {
+  //     const ids = productsList.map(product => product.id);
+  //     updateCheckedProducts(ids);
+  //   } else {
+  //     updateCheckedProducts([]);
+  //   }
+  // };
 
   const updateCheckedProducts = productIds => {
     setCheckedProducts(productIds);

@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const [ quantity, setQuantity ] = useState(1);
   const [ stocks, setStocks ] = useState(0);
-  const [ addedToCart, updateCart ] = useState(false);
+  const [ addedToCart] = useState(false);
   const classes = useStyles();
 
   const handleQuantity = val => {

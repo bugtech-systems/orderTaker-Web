@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import CmtList from '../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
 import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
-import { emailNotValid, requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
+import { requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
 import { createCustomer, onUpdateCustomer } from '../../../../../redux/actions/Customer';
 import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
@@ -131,7 +131,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
   };
 
   const handleSubmit = phoneNumbers => {
-    let { limit, balance, name } = values;
+    let { limit, balance } = values;
     const customer = {
       ...values,
       phones: phoneNumbers,

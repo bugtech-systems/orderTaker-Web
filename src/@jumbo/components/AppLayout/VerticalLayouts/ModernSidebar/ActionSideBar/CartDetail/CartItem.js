@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme => ({
 
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
-  let { id, product: { name, cover, description }, inventory: { stocks }, price, total, qty } = item;
+  let { id, product: { name }, inventory: { stocks }, price, total, qty } = item;
 
   const getTitle = () => {
     return (

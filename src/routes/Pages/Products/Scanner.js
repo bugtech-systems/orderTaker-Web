@@ -11,17 +11,17 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 // import CropFreeIcon from '@material-ui/icons/CropFree';
 // import { Button, IconButton } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  dialogRoot: {
-    position: 'relative',
-  },
-  dialogTitleRoot: {
-    '& .MuiTypography-h6': {
-      fontSize: 18,
-      color: theme.palette.common.dark,
-    },
-  },
-}));
+// const useStyles = makeStyles(theme => ({
+//   dialogRoot: {
+//     position: 'relative',
+//   },
+//   dialogTitleRoot: {
+//     '& .MuiTypography-h6': {
+//       fontSize: 18,
+//       color: theme.palette.common.dark,
+//     },
+//   },
+// }));
 
 
 

@@ -123,7 +123,7 @@ const ListItem = ({item}) => {
 
     if (ind) {
       let newItems = cartItems.map(a => {
-        return a.id == item.id
+        return a.id === item.id
           ? {
               ...item,
               price: item.price,
@@ -169,10 +169,10 @@ const ListItem = ({item}) => {
     setSnackBarStatus(true);
   };
 
-  const onVariantClick = React.useCallback((label, value) => {
-    setSnackBarMessage(`You choose ${label} ${value}`);
-    setSnackBarStatus(true);
-  }, []);
+  // const onVariantClick = React.useCallback((label, value) => {
+  //   setSnackBarMessage(`You choose ${label} ${value}`);
+  //   setSnackBarStatus(true);
+  // }, []);
 
   const handleCloseSnackBar = React.useCallback(() => {
     setSnackBarStatus(false);

@@ -12,7 +12,7 @@ import CustomerCellOptions from './CustomerCellOptions';
 
 const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer }) => {
   const classes = useStyles();
-  const { id, name, phones, limit, balance, dpUrl } = customer;
+  const { id, name, phones, balance, dpUrl } = customer;
   // console.log(customer)
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowCustomerDetail(customer)}>

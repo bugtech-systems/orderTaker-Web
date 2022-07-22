@@ -11,7 +11,7 @@ import Routes from './routes';
 import jwtDecode from 'jwt-decode';
 
 // Redux
-import {LOGIN} from "./redux/actions/types";
+// import {LOGIN} from "./redux/actions/types";
 import {logout, getUserData} from "./redux/actions/Auth";
 
 const store = configureStore();
