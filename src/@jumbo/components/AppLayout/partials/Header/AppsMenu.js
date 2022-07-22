@@ -103,7 +103,7 @@ const AppsMenu = () => {
   };
 
   const handleMoreClick = e => {
-    if (String(e.label).toLowerCase() == 'close') {
+    if (String(e.label).toLowerCase() === 'close') {
       onClosePopOver();
       return;
     }

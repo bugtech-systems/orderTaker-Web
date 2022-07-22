@@ -1,6 +1,6 @@
 //for getting  mail detail
-import {fetchError, fetchStart, fetchSuccess} from "./Common";
-import axios from "axios";
+import {fetchStart, fetchSuccess} from "./Common";
+// import axios from "axios";
 import {GET_USER_DETAIL} from "../../@jumbo/constants/ActionTypes";
 import {userDetails} from "utils/dummyData";
 

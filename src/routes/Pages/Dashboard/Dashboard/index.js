@@ -11,6 +11,9 @@ import OurStore from './OurStore';
 import WeeklySales from './WeeklySales';
 import PopularAgents from './PopularAgents';
 import RecentPayments from './RecentPayments';
+import PopularProducts from './PopularProducts';
+
+
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -39,6 +42,11 @@ const useStyles = makeStyles(() => ({
     '@media screen and (min-width: 1280px) and (max-width: 1499px)': {
       flexBasis: '100%',
       maxWidth: '100%',
+    },
+  },
+  popularProductRoot: {
+    '& .scrollbar-container': {
+      height: '266px !important',
     },
   },
 }));
@@ -73,7 +81,6 @@ const Dashboard = () => {
     }
   }, [loadUser, authUser])
 
-console.log(counts)
 
 
 
@@ -81,11 +88,11 @@ console.log(counts)
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
         {/* Business Profile Component - Top left side   */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} lg={6}>
           <GridContainer>
-            <Grid item xs={12} sm={12} xl={12}>
+            <Grid item xs={12} sm={12} lg={12}>
               <OurStore
-              data={business}
+              business={business}
               // backgroundColor="#6200EE"
               // icon={<StarIcon style={{ color: '#ffffff' }} />}
               // title={20}
@@ -99,8 +106,8 @@ console.log(counts)
                 backgroundColor="#6200EE"
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
                 title={counts.products}
-                subTitle="PRODUCTS"
-                Link="/products"
+                subTitle="Products"
+                Link="/inventory"
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
@@ -133,7 +140,7 @@ console.log(counts)
           </GridContainer>
         </Grid>
         {/* Business CalendarEvents - Top right side */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} lg={6}>
           <WeeklySales
           // backgroundColor="#6200EE"
           // icon={<StarIcon style={{ color: '#ffffff' }} />}
@@ -142,8 +149,15 @@ console.log(counts)
           // Link="/products"
           />
         </Grid>
-
-        <Grid item xs={12} lg={12} xl={8} className={classes.orderLg1}>
+        <Grid item xs={12} lg={12} className={classes.orderLg1}>
+          <Box pb={6} className={classes.popularProductRoot}>
+            <PopularProducts
+              productsList={popularProducts}
+              count={popularProducts.length}
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6}>
             <PopularAgents 
               unpaidCustomers={unpaidCustomers}

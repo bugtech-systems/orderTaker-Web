@@ -53,7 +53,7 @@ const DuplicateCustomersMsg = ({ productsList, toggleDuplicateMsgShow }) => {
               {length > 2
                 ? `${limitedStocks[0].name}, ${limitedStocks[1].name} and ${length -
                     2} more products stocks reached their minimum quantity limit.`
-                : `${length} ${length == 1 ? 'product' : 'products'} reached minimum quantity limit.`}
+                : `${length} ${length === 1 ? 'product' : 'products'} reached minimum quantity limit.`}
             </Box>
           </Box>
           <Box ml="auto" display="flex" alignItems="center">

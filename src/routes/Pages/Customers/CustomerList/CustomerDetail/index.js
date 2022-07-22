@@ -72,7 +72,7 @@ const CustomerDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentCustomer({ ...currentCustomer, starred: status }));
   };
 
-  const { name, email_address, phones, limit, balance, dpUrl, starred } = currentCustomer;
+  const { name, email_address, phones, dpUrl, starred } = currentCustomer;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>

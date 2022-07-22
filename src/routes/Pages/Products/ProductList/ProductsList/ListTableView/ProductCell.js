@@ -13,7 +13,6 @@ import ProductCellOptions from './ProductCellOptions';
 const ProductCell = ({ product, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct }) => {
   const classes = useStyles();
   const { id, name, phones, limit, balance, dpUrl } = product;
-  // console.log(product)
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowProductDetail(product)}>
       <TableCell className={classes.tableCellRoot}>

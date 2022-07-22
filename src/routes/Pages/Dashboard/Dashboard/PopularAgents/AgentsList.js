@@ -4,7 +4,6 @@ import CmtList from '../../../../../@coremat/CmtList';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const AgentsList = ({unpaidCustomers}) => {
-  console.log(unpaidCustomers)
   return (
     <PerfectScrollbar style={{ width: '100%' }}>
       <CmtList

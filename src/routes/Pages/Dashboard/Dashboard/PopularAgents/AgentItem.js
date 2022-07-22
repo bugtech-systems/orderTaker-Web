@@ -51,7 +51,6 @@ const useStyles = makeStyles(theme => ({
 
 const AgentItem = ({ item }) => {
   const classes = useStyles();
-  console.log(item)
   return (
     <Box className={classes.agentItemsRoot}>
       <Box className={classes.cardRoot}>

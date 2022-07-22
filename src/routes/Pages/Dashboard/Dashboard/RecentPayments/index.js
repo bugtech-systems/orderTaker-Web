@@ -36,7 +36,7 @@ const RecentPayments = () => {
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader
         className="pt-4"
-        title="Recent Payments"
+        title="Recent Orders"
         titleProps={{
           variant: 'h4',
           component: 'div',

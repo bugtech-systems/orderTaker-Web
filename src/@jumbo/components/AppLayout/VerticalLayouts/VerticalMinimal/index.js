@@ -8,7 +8,7 @@ import CmtHeader from '../../../../../@coremat/CmtLayouts/Vertical/Header';
 import CmtSidebar from '../../../../../@coremat/CmtLayouts/Vertical/Sidebar';
 import CmtContent from '../../../../../@coremat/CmtLayouts/Vertical/Content';
 
-import Header from '../../partials/Header';
+// import Header from '../../partials/Header';
 import SidebarHeader from '../../partials/SidebarHeader';
 import SideBar from '../../partials/SideBar';
 import Customizer from './Customizer';

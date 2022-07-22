@@ -12,7 +12,7 @@ import CustomerCellOptions from './CustomerCellOptions';
 
 const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer }) => {
   const classes = useStyles();
-  const { id, name, phones, limit, balance, dpUrl } = customer;
+  const { id, name, phones, balance, dpUrl } = customer;
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowCustomerDetail(customer)}>
       <TableCell className={classes.tableCellRoot}>
@@ -38,9 +38,7 @@ const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCu
           </Box>
         </Box>
       </TableCell>
-      {/* <TableCell>₱{limit}</TableCell> */}
       <TableCell>₱{balance}</TableCell>
-      {/* <TableCell className={classes.tableCellRoot}>{company}</TableCell> */}
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
         <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} />
       </TableCell>

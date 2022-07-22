@@ -4,14 +4,14 @@ import Header from './Header';
 import GridContainer from '../../../@jumbo/components/GridContainer';
 import Grid from '@material-ui/core/Grid';
 import Contact from './Contact';
-import Friends from './Friends';
+// import Friends from './Friends';
 import About from './About';
-import Biography from './Biography';
-import Events from './Events';
+// import Biography from './Biography';
+// import Events from './Events';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetail } from '../../../redux/actions/ProfileApp';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import UserPhotos from './UserPhotos';
+// import UserPhotos from './UserPhotos';
 
 const useStyles = makeStyles(() => ({
   pageFull: {

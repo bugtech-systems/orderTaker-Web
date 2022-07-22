@@ -46,7 +46,6 @@ const UsersModule = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
 
-  console.log(user)
   let usersArr = user.id ? users.filter(a => { return user.id !== a.id  }) : users;
 
   useEffect(() => {

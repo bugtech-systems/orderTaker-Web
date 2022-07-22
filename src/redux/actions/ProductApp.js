@@ -1,18 +1,18 @@
 //For expanding sidebar
 import {
-  CREATE_PRODUCT,
-  DELETE_PRODUCT,
-  DELETE_LABEL_ITEM,
+  // CREATE_PRODUCT,
+  // DELETE_PRODUCT,
+  // DELETE_LABEL_ITEM,
   GET_PRODUCT_COUNTS,
   GET_PRODUCTS_LIST,
   GET_LABELS_LIST,
   SET_CURRENT_PRODUCT,
   SET_FILTER_TYPE,
   TOGGLE_SIDEBAR_COLLAPSED,
-  UPDATE_PRODUCT,
-  UPDATE_PRODUCT_LABEL,
-  UPDATE_LABEL_ITEM,
-  UPDATE_STARRED_STATUS,
+  // UPDATE_PRODUCT,
+  // UPDATE_PRODUCT_LABEL,
+  // UPDATE_LABEL_ITEM,
+  // UPDATE_STARRED_STATUS,
 } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import axios from 'axios';
@@ -179,7 +179,6 @@ export const updateStarredStatus = (productIds, status) => {
     ids: productIds,
     status: status
   }
-  console.log(obj)
   return dispatch => {
     dispatch(fetchStart());
     axios
@@ -201,7 +200,6 @@ export const updateStarredStatus = (productIds, status) => {
 
 //for updating mails folder(through listing)
 export const deleteProduct = productIds => {
-  console.log(productIds)
   let obj = {
     ids: productIds
   }
@@ -210,7 +208,6 @@ export const deleteProduct = productIds => {
     axios
       .patch(`${commonData.apiUrl}/products`, obj)
       .then(({data}) => {
-        console.log(data)
           dispatch(getProductsList());
           dispatch(fetchSuccess(data.message));
       })
@@ -243,7 +240,6 @@ export const getProductCounts = () => {
     axios
       .get(`${commonData.apiUrl}/products/counter`)
       .then(data => {
-        console.log(data) 
         if (data.status === 200) {
           dispatch({ type: GET_PRODUCT_COUNTS, payload: data.data });
         }

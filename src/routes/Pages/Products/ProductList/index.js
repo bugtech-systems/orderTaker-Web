@@ -25,7 +25,7 @@ const Product = () => {
 
   const onChangeViewMode = mode => {
 
-    if(mode == viewMode){
+    if(mode === viewMode){
      return setViewMode('table');
     } else {
       setViewMode(mode);

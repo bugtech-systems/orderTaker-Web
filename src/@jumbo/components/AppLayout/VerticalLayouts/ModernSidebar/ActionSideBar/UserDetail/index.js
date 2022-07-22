@@ -1,12 +1,12 @@
 import React from 'react';
 import CmtAdvCard from '../../../../../../../@coremat/CmtAdvCard';
-import CmtAdvCardContent from '../../../../../../../@coremat/CmtAdvCard/CmtAdvCardContent';
+// import CmtAdvCardContent from '../../../../../../../@coremat/CmtAdvCard/CmtAdvCardContent';
 import CmtCardMedia from '../../../../../../../@coremat/CmtCard/CmtCardMedia';
 import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
 import { intranet } from '../../../../../../../@fake-db';
 import CmtImage from '../../../../../../../@coremat/CmtImage';
-import UserInfo from './UserInfo';
+// import UserInfo from './UserInfo';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';

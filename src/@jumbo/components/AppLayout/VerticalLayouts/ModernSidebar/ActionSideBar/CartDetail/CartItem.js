@@ -1,11 +1,14 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import CmtMediaObject from '../../../../../../../@coremat/CmtMediaObject';
 import Box from '@material-ui/core/Box';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import {IconButton } from '@material-ui/core';
+// import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
+// import { timeFromNow } from '../../../../../../../@jumbo/utils/dateHelper';
+// import DoneIcon from '@material-ui/icons/Done';
+// import ClearIcon from '@material-ui/icons/Clear';
+import {IconButton} from '@material-ui/core';
 
-//Redux
-import { useDispatch, useSelector } from 'react-redux';
+
 
 // Icons
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -79,7 +82,6 @@ const useStyles = makeStyles(theme => ({
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
   const [values, setValues] = useState({});
-  let { productId } = item;
 
 
 

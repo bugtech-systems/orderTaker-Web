@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import CmtList from '../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
 import AppSelectBox from '../../../../@jumbo/components/Common/formElements/AppSelectBox';
-import { emailNotValid, requiredMessage } from '../../../../@jumbo/constants/ErrorMessages';
+import { requiredMessage } from '../../../../@jumbo/constants/ErrorMessages';
 import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
@@ -99,7 +99,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
       formData.append("file", acceptedFiles[0]);
 
       dispatch(uploadFile(formData)).then(a => {
-        console.log(a);
         setDpUrl(a.url)
       })
       .catch(err => {
@@ -112,7 +111,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser)
       setValues({ ...currentUser, roles: currentUser.roles[0].name})
       setDpUrl(currentUser.dpUrl);
       setPhones(currentUser.phones);
@@ -137,7 +135,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   };
 
   const onLabelChange = (value, index) => {
-    console.log(value)
     const updatedList = [...phones];
     updatedList[index].label = value;
     setPhones(updatedList);
@@ -168,14 +165,12 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     if (currentUser) {
       dispatch(
         updateUser({ ...currentUser, ...userDetail }, (a) => {
-          console.log(a)
           onCloseDialog();
         }),
       );
     } else {
       dispatch(
         addNewUser(userDetail, (a) => {
-          console.log(a)
           onCloseDialog();
         }),
       );
@@ -183,7 +178,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   };
 
   const isPhonesMultiple = phones.length > 1;
-  console.log(values)
   return (
     <Dialog open={open} onClose={onCloseDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>

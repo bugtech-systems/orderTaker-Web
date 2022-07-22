@@ -27,7 +27,6 @@ export const setAuthUser = user => {
 };
 
 export const updateLoadUser = loading => {
-  console.log('aaa')
 
   return dispatch => {
     dispatch({
@@ -60,7 +59,6 @@ export const register = (values) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      console.log(error.response)
       const message =
         (error.response &&
           error.response.data &&
@@ -80,7 +78,6 @@ export const register = (values) => (dispatch) => {
 };
 
 export const login = (values) => (dispatch) => {
-  console.log('logiin')
   dispatch({
     type: SET_LOADING
   });
@@ -100,7 +97,6 @@ export const login = (values) => (dispatch) => {
     },
     (error) => {
 
-      console.log(error.response)
       error.response?.data?.errors && 
       dispatch({
         type: SET_ERRORS,
@@ -123,7 +119,6 @@ export const login = (values) => (dispatch) => {
 };
 
 export const getUserData = (history) => (dispatch) => {
-  console.log('getttings')
   return AuthService.getAuthUser().then(
     (res) => {
       let { user, business } = res.data;

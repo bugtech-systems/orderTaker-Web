@@ -1,25 +1,22 @@
 //For expanding sidebar
 import {
-  ADD_LABEL,
-  CREATE_CUSTOMER,
-  DELETE_CUSTOMER,
-  DELETE_LABEL_ITEM,
+  // CREATE_CUSTOMER,
+  // DELETE_CUSTOMER,
+  // DELETE_LABEL_ITEM,
   GET_CUSTOMER_COUNTS,
   GET_CUSTOMERS_LIST,
   GET_LABELS_LIST,
   SET_CURRENT_CUSTOMER,
   SET_FILTER_TYPE,
   TOGGLE_SIDEBAR_COLLAPSED,
-  UPDATE_CUSTOMER,
-  UPDATE_CUSTOMER_LABEL,
-  UPDATE_LABEL_ITEM,
-  UPDATE_STARRED_STATUS,
+  // UPDATE_CUSTOMER,
+  // UPDATE_CUSTOMER_LABEL,
+  // UPDATE_LABEL_ITEM,
+  // UPDATE_STARRED_STATUS,
 } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import axios from 'axios';
-
 import commonData from 'utils/commonData';
-
 
 //For expanding sidebar
 export const toggleExpandSidebar = value => {
@@ -43,9 +40,9 @@ export const setFilterType = filterType => {
 export const getLabelsList = () => {
   return dispatch => {
     axios
-      .get(`${commonData.apiUrl}/customers/tags`)
-      .then(({data}) => {
-          dispatch({ type: GET_LABELS_LIST, payload: data });
+      .get(`${commonData.apiUrl}/customers/labels`)
+      .then(data => {
+          dispatch({ type: GET_LABELS_LIST, payload: data.data });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -58,10 +55,10 @@ export const addNewLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post(`${commonData}/customers/tags`, label)
-      .then(data => {
-        dispatch(fetchSuccess(data.message));
-        dispatch(getLabelsList()); 
+      .post(`${commonData.apiUrl}/customers/labels`, label)
+      .then(({data}) => {
+          dispatch(fetchSuccess(data.message));
+          dispatch(getLabelsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -74,16 +71,13 @@ export const deleteLabel = labelId => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customers/labels/delete', { labelId })
+      .delete(`${commonData.apiUrl}/customers/labels/${labelId}`)
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: DELETE_LABEL_ITEM, payload: labelId });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
-      })
+          dispatch(getLabelsList());
+          dispatch(fetchSuccess('Label Deleted Successfully!'));
+        })
       .catch(error => {
+        console.log(error)
         dispatch(fetchError('Something went wrong'));
       });
   };
@@ -94,14 +88,10 @@ export const updateLabel = label => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customers/labels', { label })
+      .put(`${commonData.apiUrl}/customers/labels/${label.id}`, label)
       .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_LABEL_ITEM, payload: label });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+          dispatch(fetchSuccess('Label updated successfully'));
+          dispatch(getLabelsList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -110,19 +100,22 @@ export const updateLabel = label => {
 };
 
 //for getting customers list
-export const getCustomersList = params => {
+export const getCustomersList = (params = {})  => {
   return dispatch => {
     axios
-    .get(`${commonData.apiUrl}/customers?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
-    .then(({data}) => {
-      console.log(data)
-          dispatch({ type: GET_CUSTOMERS_LIST, payload: data });
+      .get(`${commonData.apiUrl}/customers?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
+      .then(data => {
+        console.log(data)
+          dispatch({ type: GET_CUSTOMERS_LIST, payload: data.data });
       })
       .catch(error => {
+        console.log(error)
         dispatch(fetchError('Something went wrong'));
       });
   };
 };
+
+
 
 export const setCurrentCustomer = customer => {
   return dispatch => {
@@ -139,8 +132,9 @@ export const createCustomer = customer => {
     dispatch(fetchStart());
     axios
       .post(`${commonData.apiUrl}/customers`, customer)
-      .then(data => {
+      .then(({data}) => {
           dispatch(fetchSuccess(data.message));
+          dispatch(getCustomersList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -150,17 +144,14 @@ export const createCustomer = customer => {
 
 //for updating customer through detail page
 export const onUpdateCustomer = customer => {
+
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customers', { customer })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_CUSTOMER, payload: customer });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .put(`${commonData.apiUrl}/customers/${customer.id}`, customer)
+      .then(({data}) => {
+          dispatch(fetchSuccess(data.message));
+          dispatch(getCustomersList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -170,22 +161,26 @@ export const onUpdateCustomer = customer => {
 
 //for updating customers starred status(through listing)
 export const updateStarredStatus = (customerIds, status) => {
+  const obj = {
+    ids: customerIds,
+    status: status
+  }
+  console.log(obj)
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customers/update-starred', { customerIds, status })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({
-            type: UPDATE_STARRED_STATUS,
-            payload: { customerIds, status },
-          });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .put(`${commonData.apiUrl}/customers/update-starred`, obj)
+      .then(({data}) => {
+        console.log(data)
+          dispatch(fetchSuccess(data.message));
+          // dispatch(getCustomersList());
+          // dispatch({
+          //   type: UPDATE_STARRED_STATUS,
+          //   payload: { customerIds, status },
+          // });
       })
       .catch(error => {
+        console.log(error)
         dispatch(fetchError('Something went wrong'));
       });
   };
@@ -193,17 +188,18 @@ export const updateStarredStatus = (customerIds, status) => {
 
 //for updating mails folder(through listing)
 export const deleteCustomer = customerIds => {
+  console.log(customerIds)
+  let obj = {
+    ids: customerIds
+  }
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customers/delete', { customerIds })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: DELETE_CUSTOMER, payload: customerIds });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .patch(`${commonData.apiUrl}/customers`, obj)
+      .then(({data}) => {
+        console.log(data)
+          dispatch(getCustomersList());
+          dispatch(fetchSuccess(data.message));
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -216,14 +212,10 @@ export const updateCustomersLabel = (customerIds, label) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/customers/update-label', { customerIds, label })
-      .then(data => {
-        if (data.status === 200) {
-          dispatch(fetchSuccess());
-          dispatch({ type: UPDATE_CUSTOMER_LABEL, payload: data.data });
-        } else {
-          dispatch(fetchError('Something went wrong'));
-        }
+      .put(`${commonData.apiUrl}/customers/update-labels/${customerIds }`, {label})
+      .then(({data}) => {
+        dispatch(fetchSuccess(data.message));
+          dispatch(getCustomersList());
       })
       .catch(error => {
         console.log(error);
@@ -238,7 +230,25 @@ export const getCustomerCounts = () => {
     axios
       .get(`${commonData.apiUrl}/customers/counter`)
       .then(data => {
+        console.log(data) 
+        if (data.status === 200) {
           dispatch({ type: GET_CUSTOMER_COUNTS, payload: data.data });
+        }
+      })
+      .catch(error => {
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+
+export const addCustomerStocks = (val) => {
+  return dispatch => {
+    axios
+      .post(`${commonData.apiUrl}/customers/stocks`, val)
+      .then(({data}) => {
+        dispatch(fetchSuccess(data.message));
+        dispatch(getCustomersList());
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));

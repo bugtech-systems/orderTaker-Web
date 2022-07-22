@@ -1,16 +1,14 @@
 import React from "react";
-import CmtCard from "../../../../../../@coremat/CmtCard";
-import CmtCardHeader from "../../../../../../@coremat/CmtCard/CmtCardHeader";
-import CmtCardContent from "../../../../../../@coremat/CmtCard/CmtCardContent";
+// import CmtCard from "../../../../../../@coremat/CmtCard";
+// import CmtCardHeader from "../../../../../../@coremat/CmtCard/CmtCardHeader";
+// import CmtCardContent from "../../../../../../@coremat/CmtCard/CmtCardContent";
 // import {popularProducts} from "../../../../../../@fake-db/modules/products";
 import ListItem from "./ListItem";
 import CmtGridView from "../../../../../../@coremat/CmtGridView";
-import PerfectScrollbar from "react-perfect-scrollbar";
+// import PerfectScrollbar from "react-perfect-scrollbar";
 import { Box } from "@material-ui/core";
 
 const PopularProducts = ({productsList}) => {
-  // console.log(popularProducts);
-  console.log(productsList)
   return (
     <Box p={5}>
         <CmtGridView

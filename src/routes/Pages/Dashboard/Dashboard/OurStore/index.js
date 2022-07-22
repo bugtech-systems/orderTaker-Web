@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
-import { GoogleMap, withGoogleMap } from 'react-google-maps';
+// import { GoogleMap, withGoogleMap } from 'react-google-maps';
 
 import Box from '@material-ui/core/Box';
-import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
+// import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import CallIcon from '@material-ui/icons/Call';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import { intranet } from '../../../../../@fake-db';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { blue, pink } from '@material-ui/core/colors';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
+// import TwitterIcon from '@material-ui/icons/Twitter';
+// import FacebookIcon from '@material-ui/icons/Facebook';
+// import InstagramIcon from '@material-ui/icons/Instagram';
+// import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -79,28 +79,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const socialMediaLinks = [
-  { title: 'twitter', url: '', icon: <TwitterIcon /> },
-  { title: 'facebook', url: '', icon: <FacebookIcon /> },
-  { title: 'instagram', url: '', icon: <InstagramIcon /> },
-  { title: 'linkedin', url: '', icon: <LinkedInIcon /> },
-];
+// const socialMediaLinks = [
+//   { title: 'twitter', url: '', icon: <TwitterIcon /> },
+//   { title: 'facebook', url: '', icon: <FacebookIcon /> },
+//   { title: 'instagram', url: '', icon: <InstagramIcon /> },
+//   { title: 'linkedin', url: '', icon: <LinkedInIcon /> },
+// ];
 
-const OurStore = () => {
+const OurStore = ({business}) => {
   const { addresses, title, description } = intranet.ourOfficeData;
-  const [currentAddress, setAddress] = useState(addresses[0]);
+  const { name, address } = business;
+  const [currentAddress ] = useState(addresses[0]);
   const classes = useStyles();
-  const GoogleMapBox = withGoogleMap(() => (
-    <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
-  ));
+  // const GoogleMapBox = withGoogleMap(() => (
+    // <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
+  // ));
 
-  const handleAddressChange = event => {
-    setAddress(addresses.find(item => item.label === event.target.value));
-  };
+  // const handleAddressChange = event => {
+  //   setAddress(addresses.find(item => item.label === event.target.value));
+  // };
 
   return (
     <CmtCard className={classes.cardRoot}>
-      <CmtCardHeader title={title} subTitle={description} />
+      <CmtCardHeader title={name} subTitle={address} />
 
       <CmtCardContent>
         {/* <Box className={classes.selectBoxRoot}>

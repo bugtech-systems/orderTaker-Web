@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, EDIT_USER, CLEAR_USER } from './types';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, CLEAR_USER } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 
 import commonData from '../../utils/commonData';

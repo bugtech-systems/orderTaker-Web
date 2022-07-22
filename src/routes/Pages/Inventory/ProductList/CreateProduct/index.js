@@ -16,7 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
+// import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { Typography, Menu, Tooltip, MenuItem } from '@material-ui/core';
 
 
@@ -94,7 +94,6 @@ const CreateProduct = ({ open, handleDialog }) => {
       formData.append("file", acceptedFiles[0]);
 
       dispatch(uploadFile(formData)).then(a => {
-        console.log(a.url)
         setValues({...values, cover: a.url})
       })
       .catch(err => {

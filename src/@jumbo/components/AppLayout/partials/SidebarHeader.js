@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { CurrentAuthMethod } from '../../../constants/AppConstants';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 import SidebarThemeContext from '../../../../@coremat/CmtLayouts/SidebarThemeContext/SidebarThemeContext';
 import LayoutContext from '../../../../@coremat/CmtLayouts/LayoutContext';
 

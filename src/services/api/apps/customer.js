@@ -2,15 +2,12 @@ import mock from '../../mockConfig';
 import { idGenerator } from '../../../@jumbo/utils/commonHelper';
 import { customers, foldersList, labelsList } from '../../../@fake-db/modules/customers';
 
-console.log(labelsList);
-
 let labels = labelsList;
 let customersList = customers.map(ab => {
   ab.unpaid = ab.balance !== 0;
   return ab;
 });
 
-// console.log(customersList)
 mock.onGet('/customers/labels').reply(200, labelsList);
 
 mock.onPost('/customers/labels').reply(request => {
@@ -28,9 +25,7 @@ mock.onPut('/customers/labels').reply(request => {
 
 mock.onPut('/customers/labels/delete').reply(request => {
   const { labelId } = JSON.parse(request.data);
-  console.log(labelId);
   labels = labels.filter(item => item.id !== labelId);
-  console.log(labels);
   return [200];
 });
 
@@ -145,6 +140,5 @@ mock.onGet('/customers/counter').reply(config => {
     counter.labels[item.id] = customersList.filter(customer => customer.labels.includes(item.id)).length;
     return null;
   });
-  console.log(counter);
   return [200, counter];
 });

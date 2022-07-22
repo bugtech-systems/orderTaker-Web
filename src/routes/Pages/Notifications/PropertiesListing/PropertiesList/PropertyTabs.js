@@ -54,7 +54,6 @@ const PropertyTabs = ({ tabValue, onChangeTab }) => {
       >
       <Tab key={0} label="All" value="" />
       {propertyTabCategories.map((tab, index) => {
-        console.log(index)
         return <Tab key={index + 1} label={tab.name} value={tab.slug} {...a11yProps(index)} />;
       })}
     </Tabs>

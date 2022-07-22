@@ -19,7 +19,6 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
   const [showDuplicateMsg, setShowDuplicateMsg] = useState(true);
 
   useEffect(() => {
-    console.log(filterType)
     dispatch(getInventoryList(filterType));
   }, [filterType, dispatch]);
 

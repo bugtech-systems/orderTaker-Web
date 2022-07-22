@@ -28,7 +28,7 @@ mock.onPut('/contact/labels/delete').reply(request => {
 
 mock.onGet('/contact').reply(config => {
   const { params } = config;
-  const { selectedFolder, selectedLabel, searchText } = params;
+  const { selectedFolder, searchText } = params;
   let folderContacts = [];
   if (searchText) {
     folderContacts = contactsList.filter(

@@ -2,9 +2,9 @@ import GroupIcon from "@material-ui/icons/Group";
 import React from "react";
 import StarIcon from "@material-ui/icons/Star";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import DeleteIcon from "@material-ui/icons/Delete";
+// import DeleteIcon from "@material-ui/icons/Delete";
 
-const today = new Date();
+// const today = new Date();
 
 export const foldersList = [
   {id: 1, name: "All Items", slug: "products", icon: <GroupIcon />},

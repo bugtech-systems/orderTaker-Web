@@ -5,11 +5,9 @@ import CmtCardContent from '../../../../@coremat/CmtCard/CmtCardContent';
 import { intranet } from '../../../../@fake-db';
 import ListItem from './ListItem';
 import CmtGridView from '../../../../@coremat/CmtGridView';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const PopularProducts = () => {
   const { popularProducts } = intranet;
-  console.log(popularProducts)
   return (
     <CmtCard>
       <CmtCardHeader title="Popular Products" />

@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import { Box, Hidden, IconButton, withWidth, Tooltip } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import MessageIcon from '@material-ui/icons/Message';
+// import SearchIcon from '@material-ui/icons/Search';
+// import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CloseIcon from '@material-ui/icons/Close';
 
 import CmtDropdownMenu from '../../../../../../@coremat/CmtDropdownMenu';
@@ -20,7 +20,7 @@ import LayoutContext from '../../../../../../@coremat/CmtLayouts/LayoutContext';
 
 import { AuhMethods } from '../../../../../../services/auth';
 import { CurrentAuthMethod } from '../../../../../constants/AppConstants';
-import Logo from '../../../partials/Logo';
+// import Logo from '../../../partials/Logo';
 import ActionBarDrawer from './ActionBarDrawer';
 
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
@@ -80,7 +80,7 @@ const ActionSideBar = ({ width }) => {
   const cartState = useSelector(state => state.cartApp);
   const [isDrawerOpen, setDrawerStatus] = useState(false);
   const [activeOption, setActiveOption] = useState(null);
-  const { isSidebarOpen, setSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
+  const { isSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
 
   useEffect(() => {
     initSidebarWidth = sidebarWidth;

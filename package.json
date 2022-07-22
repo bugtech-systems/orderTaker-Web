@@ -19,7 +19,7 @@
     "body-scroll-lock": "^3.1.5",
     "chart.js": "^2.9.3",
     "clipboard-copy": "^3.1.0",
-    "clsx": "^1.1.1",
+    "clsx": "^1.2.1",
     "connected-react-router": "^6.8.0",
     "cross-fetch": "^3.0.5",
     "draft-js": "^0.11.6",
@@ -99,7 +99,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [ ">0.2%", "not dead", "not op_mini all" ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "ie 11",
       "last 1 chrome version",
@@ -126,7 +130,11 @@
     "prettier-miscellaneous": "^1.5.3"
   },
   "lint-staged": {
-    "*.+(js|jsx)": [ "eslint --fix" ],
-    "*.+(js|jsx|json|css|md)": [ "prettier --write" ]
+    "*.+(js|jsx)": [
+      "eslint --fix"
+    ],
+    "*.+(js|jsx|json|css|md)": [
+      "prettier --write"
+    ]
   }
 }

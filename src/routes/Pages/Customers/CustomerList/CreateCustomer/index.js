@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import CmtList from '../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
 import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
-import { emailNotValid, requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
+import { requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
 import { createCustomer, onUpdateCustomer } from '../../../../../redux/actions/Customer';
 import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
@@ -21,6 +21,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
+import { uploadFile } from '../../../../../redux/actions/Users';
+
+
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -50,7 +53,7 @@ function NumberFormatCustom({ onChange, value, ...other }) {
     onChange(number.formattedValue);
   };
 
-  return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####" />;
+  return <NumberFormat {...other}  onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####" />;
 }
 
 const labels = [
@@ -63,19 +66,28 @@ const CreateCustomer = ({ open, handleDialog }) => {
   const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [values, setValues] = useState(
-    currentCustomer
-      ? currentCustomer
-      : {
-          phones: [{ phone: '', label: 'home' }],
-        },
-  );
+  const [values, setValues] = useState({
+    name: 'Raymund Ogsimer',
+    address: 'Tacloban City',
+    email: 'ray@yahoo.com',
+    phones: [{ phone: '9774461641', label: 'home' }],
+    tags: [],
+    limit: 0
+  });
   const [errors, setErrors] = useState({});
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-      setValues({ ...values, dpUrl: URL.createObjectURL(acceptedFiles[0]) });
+      const formData = new FormData();
+      formData.append("file", acceptedFiles[0]);
+
+      dispatch(uploadFile(formData)).then(a => {
+        setValues({...values, cover: a.url})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
   });
 
@@ -114,24 +126,21 @@ const CreateCustomer = ({ open, handleDialog }) => {
 
   const checkValidations = () => {
     const phoneNumbers = values.phones.filter(item => item.phone.trim());
-
     if (!values.name) {
       setErrors({ ...errors, name: requiredMessage });
-    } else if (!values.email_address) {
-      setErrors({ ...errors, email_address: requiredMessage });
-    } else if (!isValidEmail(values.email_address)) {
-      setErrors({ ...errors, email_address: requiredMessage });
+    } else if (!values.email) {
+      setErrors({ ...errors, email: requiredMessage });
+    } else if (!isValidEmail(values.email)) {
+      setErrors({ ...errors, email: requiredMessage });
     } else if (phoneNumbers.length === 0) {
       setErrors({ ...errors, phones: requiredMessage });
     } else {
       handleSubmit(phoneNumbers);
     }
-    console.log(errors);
-    console.log(values);
   };
 
   const handleSubmit = phoneNumbers => {
-    let { limit, balance, name } = values;
+    let { limit, balance } = values;
     const customer = {
       ...values,
       phones: phoneNumbers,
@@ -141,10 +150,18 @@ const CreateCustomer = ({ open, handleDialog }) => {
     if (currentCustomer) {
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
     } else {
-      dispatch(createCustomer(customer));
+      dispatch(createCustomer({...currentCustomer, ...customer}));
     }
     handleDialog();
   };
+
+
+  useEffect(() => {
+    if(currentCustomer){
+      setValues(currentCustomer)
+    }
+  }, [currentCustomer])
+
 
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
@@ -155,7 +172,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={values.dpUrl} />
+            <CmtAvatar size={70} src={values.cover} />
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>
@@ -172,17 +189,17 @@ const CreateCustomer = ({ open, handleDialog }) => {
           </GridContainer>
         </Box>
         <GridContainer style={{ marginBottom: 12 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <AppTextInput
               fullWidth
               variant="outlined"
-              value={values.email_address}
+              value={values.email}
               label="Email Address"
-              onChange={handleChange('email_address')}
-              helperText={errors.email_address}
+              onChange={handleChange('email')}
+              helperText={errors.email}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <AppTextInput
               fullWidth
               variant="outlined"
@@ -202,11 +219,13 @@ const CreateCustomer = ({ open, handleDialog }) => {
                 <AppTextInput
                   fullWidth
                   variant="outlined"
-                  label="Phone"
+                  label="Phones"
+
                   value={item.phone}
                   onChange={number => onAddPhoneNo(number, index)}
                   helperText={errors.phones}
                   InputProps={{
+                  
                     inputComponent: NumberFormatCustom,
                   }}
                 />

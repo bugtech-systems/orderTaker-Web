@@ -26,9 +26,6 @@ const ListTableView = ({
 
 
 
-  console.log(customersList)
-
-
 
   return (
     <React.Fragment>

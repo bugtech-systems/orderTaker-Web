@@ -6,11 +6,9 @@ import React from 'react';
 
 const users = usersModule.usersList;
 
-console.log(users);
 
 const BasicAuth = {
   onRegister: ({ name, email, password }) => {
-    console.log('registering');
     return dispatch => {
       dispatch(fetchStart());
 
@@ -24,13 +22,11 @@ const BasicAuth = {
   },
 
   onLogin: ({ email, password }) => {
-    console.log(email);
     return dispatch => {
       try {
         dispatch(fetchStart());
         setTimeout(() => {
           const user = users.find(a => a.email === email);
-          console.log(user.status)
           if(user.status !== 'active') return dispatch(fetchError('User suspended!'))
           if (!user) return dispatch(fetchError('User not found!'));
           dispatch(fetchSuccess());

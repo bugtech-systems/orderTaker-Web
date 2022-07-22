@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Box, Typography} from "@material-ui/core";
-import CmtImage from "../../../../../../@coremat/CmtImage";
-import CmtMediaObject from "../../../../../../@coremat/CmtMediaObject";
+import CmtImage from "../../../../../@coremat/CmtImage";
+import CmtMediaObject from "../../../../../@coremat/CmtMediaObject";
 import {IconButton} from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import AddToCart from "./AddToCart";
@@ -14,7 +14,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   SET_CART_ITEMS_COUNT,
   UPDATE_CART_ITEMS
-} from "../../../../../../redux/actions/types";
+} from "../../../../../redux/actions/types";
+
+
+import productCover from '../../../../../assets/logo250.png';
 
 // const VariantColor = ({variant, onVariantClick}) => {
 //   const classes = useStyles();
@@ -172,7 +175,7 @@ const ListItem = ({item}) => {
       >
         <CmtMediaObject
           avatar={
-            <CmtImage src={item.cover} height={80} width={80} alt={item.name} />
+            <CmtImage src={item.cover ? item.cover : productCover} height={80} width={80} alt={item.name} />
           }
           title={item.name}
           titleProps={{
@@ -199,7 +202,7 @@ const ListItem = ({item}) => {
         />
         <Box className={classes.listItemAction}>
           <Box className={classes.listItemActionHover}>
-          <IconButton className="btn" onClick={() => setRevealed(true)} disabled={item.stocks <= 0}>
+            <IconButton className="btn" onClick={() => setRevealed(true)} disabled={item.stocks <= 0}>
               <AddShoppingCartIcon />
             </IconButton>
           </Box>

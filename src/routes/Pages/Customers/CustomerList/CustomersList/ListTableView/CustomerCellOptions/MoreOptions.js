@@ -49,7 +49,6 @@ const MoreOptions = ({ customer, isDetailView }) => {
   const [showMoreOptions, setShowMoreOptions] = useState(null);
   const dispatch = useDispatch();
   const { labels } = customer;
-  // console.log(customer)
   const onShowMoreOptions = event => {
     setShowMoreOptions(event.currentTarget);
   };

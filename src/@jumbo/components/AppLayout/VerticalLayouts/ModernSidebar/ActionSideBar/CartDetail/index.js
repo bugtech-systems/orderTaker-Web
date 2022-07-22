@@ -1,5 +1,5 @@
-import React, {  useState, useEffect } from 'react';
-import { Box,  makeStyles } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Box, makeStyles } from '@material-ui/core';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { alpha } from '@material-ui/core/styles';
@@ -8,6 +8,7 @@ import CartItem from './CartItem';
 
 
 import EmptyResult from '../EmptyResult';
+// import SearchBox from '../Search/SearchBox';
 
 
 //Redux
@@ -98,15 +99,10 @@ const Comments = () => {
     items = cart_items;
 
     if(Number(val.qty) <= 1){
-      console.log(items)
-      console.log(id)
       let newItems = items.filter(a => a.productId !== id);
-      console.log(items)
-      console.log(newItems)
 
       let ind = items.find(a => a.productId === id)
       
-      console.log(ind)
       items.map(a => {
         sub += Number(a.price * a.qty);
       })

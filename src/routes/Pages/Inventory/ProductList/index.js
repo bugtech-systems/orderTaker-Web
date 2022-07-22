@@ -66,14 +66,12 @@ const Product = () => {
   }
 
   const onDelete = (data) => {
-    console.log(data)
     setSelected(data);
     setConfirmDelete(true);
 
   }
 
   const onClickAddStocks = (val) => {
-    console.log(val)
     dispatch(setCurrentProduct(val));
     setAddStocks(true);
   }
@@ -86,7 +84,6 @@ const Product = () => {
   
 
   const handleAddStocks = (val) => {
-    console.log(val)
     dispatch(addProductStocks(val));
 
   }

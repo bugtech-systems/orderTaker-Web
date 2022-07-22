@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import Dialog from '@material-ui/core/Dialog';
+// import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { setFilterType} from '../../../redux/actions/ProductApp';
 
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import CropFreeIcon from '@material-ui/icons/CropFree';
-import { Button, IconButton } from '@material-ui/core';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import CropFreeIcon from '@material-ui/icons/CropFree';
+// import { Button, IconButton } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  dialogRoot: {
-    position: 'relative',
-  },
-  dialogTitleRoot: {
-    '& .MuiTypography-h6': {
-      fontSize: 18,
-      color: theme.palette.common.dark,
-    },
-  },
-}));
+// const useStyles = makeStyles(theme => ({
+//   dialogRoot: {
+//     position: 'relative',
+//   },
+//   dialogTitleRoot: {
+//     '& .MuiTypography-h6': {
+//       fontSize: 18,
+//       color: theme.palette.common.dark,
+//     },
+//   },
+// }));
 
 
 
 const ProductScanner = ({onChangeViewMode}) => {
-    const classes = useStyles();
+    // const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const [scan, setScan] = useState(false);
-    const [logs, setLog] = useState([]);
+    // const [scan, setScan] = useState(false);
+    const [logs] = useState([]);
   
     const barcodeScannerComponentHandleUpdate = (error, result) => {
         console.log(error)
@@ -48,7 +48,6 @@ const ProductScanner = ({onChangeViewMode}) => {
 
 
     const handleScanner = e => {
-        console.log(e)
         // alert(e)
         onChangeViewMode('table');
         dispatch(
@@ -62,9 +61,9 @@ const ProductScanner = ({onChangeViewMode}) => {
       };
 
 
-    const handleClose = () => {
-        setOpen(false)
-    }
+    // const handleClose = () => {
+    //     setOpen(false)
+    // }
 
 
     useEffect(() => {

@@ -14,7 +14,6 @@ const createLeader = (data, location) => {
 };
 
 const uploadFile = (data, type) => {
-  console.log(type)
   return axios.post(constant.apiUrl + `/fileupload/${type}`, data);
 }
 
