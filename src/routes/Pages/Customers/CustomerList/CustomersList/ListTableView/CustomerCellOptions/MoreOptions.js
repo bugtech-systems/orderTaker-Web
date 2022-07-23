@@ -43,33 +43,37 @@ const useStyles = makeStyles(theme => ({
 
 //isFromDetailPage ->  property is set to true if this file is called from detail page.
 
-const MoreOptions = ({ customer, isDetailView }) => {
+const MoreOptions = ({ customer, isDetailView, onDelete }) => {
   const classes = useStyles();
   const { labelsList } = useSelector(({ customerApp }) => customerApp);
   const [showMoreOptions, setShowMoreOptions] = useState(null);
   const dispatch = useDispatch();
-  const { labels } = customer;
+  const { tags } = customer;
   const onShowMoreOptions = event => {
     setShowMoreOptions(event.currentTarget);
   };
+
 
   const onHideMoreOptions = () => {
     setShowMoreOptions(null);
   };
 
   const onClickDeleteOption = () => {
-    dispatch(deleteCustomer([customer.id]));
+    onDelete([customer.id])
+    // onDelete([product.id])
+    // dispatch(deleteProduct([product.id]));
     onHideMoreOptions();
+    return
   };
 
   const onClickLabelOption = label => {
     dispatch(updateCustomersLabel([customer.id], label));
     if (isDetailView) {
-      const newLabel = customer.labels.find(item => item === label);
+      const newLabel = customer.tags.find(item => item === label);
       if (newLabel) {
-        customer.labels = customer.labels.filter(item => item !== label);
+        customer.tags = customer.tags.filter(item => item !== label);
       } else {
-        customer.labels = customer.labels.concat(label);
+        customer.tags = customer.tags.concat(label);
       }
       dispatch(setCurrentCustomer(customer));
     }
@@ -116,7 +120,7 @@ const MoreOptions = ({ customer, isDetailView }) => {
                 <Box ml={4} component="span">
                   {item.name}
                 </Box>
-                {labels.includes(item.id) && (
+                {tags.includes(item.id) && (
                   <Box ml="auto">
                     <DoneIcon className={classes.iconBlock} />
                   </Box>

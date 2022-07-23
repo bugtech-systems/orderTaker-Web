@@ -15,15 +15,9 @@ const ListTableView = ({
   updateCheckedCustomers,
   onShowCustomerDetail,
   onClickEditCustomer,
+  onDelete
 }) => {
   const { customersList } = useSelector(({ customerApp }) => customerApp);
-
-
-
-
-
-
-
 
 
 
@@ -34,6 +28,7 @@ const ListTableView = ({
           checkedCustomers={checkedCustomers}
           handleHeaderCheckBox={handleHeaderCheckBox}
           updateCheckedCustomers={updateCheckedCustomers}
+          onDelete={onDelete}
         />
       )}
       <Box className="Cmt-table-responsive">
@@ -43,6 +38,7 @@ const ListTableView = ({
               customersList={customersList}
               checkedCustomers={checkedCustomers}
               handleHeaderCheckBox={handleHeaderCheckBox}
+              onDelete={onDelete}
             />
           )}
           <TableBody>
@@ -54,6 +50,7 @@ const ListTableView = ({
                 handleCellCheckBox={handleCellCheckBox}
                 onShowCustomerDetail={onShowCustomerDetail}
                 onClickEditCustomer={onClickEditCustomer}
+                onDelete={onDelete}
               />
             ))}
           </TableBody>
@@ -72,6 +69,7 @@ ListTableView.prototype = {
   updateCheckedCustomers: PropTypes.func,
   onShowCustomerDetail: PropTypes.func,
   onClickEditCustomer: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 ListTableView.defaultProps = {

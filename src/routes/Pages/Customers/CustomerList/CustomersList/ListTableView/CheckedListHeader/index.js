@@ -36,7 +36,7 @@ const onSelectCustomers = (category, customers) => {
   return selectCustomers.map(customer => customer.id);
 };
 
-const CheckedListHeader = ({ checkedCustomers, handleHeaderCheckBox, updateCheckedCustomers }) => {
+const CheckedListHeader = ({ checkedCustomers, handleHeaderCheckBox, updateCheckedCustomers, onDelete }) => {
   const [category, setCategory] = useState(selectCategories[0].slug);
   const classes = useStyles();
 
@@ -77,6 +77,7 @@ const CheckedListHeader = ({ checkedCustomers, handleHeaderCheckBox, updateCheck
           customersList={customersList}
           labelsList={labelsList}
           updateCheckedCustomers={updateCheckedCustomers}
+          onDelete={onDelete}
         />
       </Box>
     </Box>
@@ -89,4 +90,5 @@ CheckedListHeader.prototype = {
   checkedCustomers: PropTypes.array.isRequired,
   handleHeaderCheckBox: PropTypes.func,
   updateCheckedCustomers: PropTypes.func,
+  onDelete: PropTypes.func
 };

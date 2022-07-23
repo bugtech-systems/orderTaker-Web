@@ -10,9 +10,14 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import CustomerCellOptions from './CustomerCellOptions';
 
-const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer }) => {
+const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer, onDelete }) => {
   const classes = useStyles();
   const { id, name, phones, balance, dpUrl } = customer;
+
+
+
+
+  
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowCustomerDetail(customer)}>
       <TableCell className={classes.tableCellRoot}>
@@ -40,7 +45,7 @@ const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCu
       </TableCell>
       <TableCell>₱{balance}</TableCell>
       <TableCell className={clsx(classes.tableCellRoot, classes.tableCellAction)}>
-        <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} />
+        <CustomerCellOptions customer={customer} onClickEditCustomer={onClickEditCustomer} onDelete={onDelete} />
       </TableCell>
     </TableRow>
   );
@@ -54,6 +59,7 @@ CustomerCell.prototype = {
   handleCellCheckBox: PropTypes.func,
   onShowCustomerDetail: PropTypes.func,
   onClickEditCustomer: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 CustomerCell.defaultProps = {

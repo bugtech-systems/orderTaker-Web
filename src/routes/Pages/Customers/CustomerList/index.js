@@ -8,7 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomersList from './CustomersList';
 import CustomerDetail from './CustomerDetail';
 import CreateCustomer from './CreateCustomer';
-import { setCurrentCustomer } from '../../../../redux/actions/Customer';
+import { setCurrentCustomer, deleteCustomer } from '../../../../redux/actions/Customer';
+import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
+
+
 
 const Customer = () => {
   const classes = useStyles();
@@ -16,6 +19,11 @@ const Customer = () => {
   const [viewMode, setViewMode] = useState('table');
   const [showCustomerDetail, setShowCustomerDetail] = useState(false);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [selected, setSelected] = useState(false);
+
+
+
   const dispatch = useDispatch();
 
   const onChangeViewMode = mode => {
@@ -46,6 +54,25 @@ const Customer = () => {
     setOpenCreateDialog(false);
   };
 
+  const onDelete = (data) => {
+    console.log(data)
+    setSelected(data);
+    setConfirmDelete(true);
+
+  }
+
+
+  const handleCancelDelete = (data) => {
+    setSelected([]);
+    setConfirmDelete(false)
+  }
+
+  const handleConfirmDelete = () => {
+    dispatch(deleteCustomer(selected))
+    setSelected([]);
+    setConfirmDelete(false)
+  }
+
   return (
     <Box className={classes.inBuildAppCard}>
       <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} />
@@ -53,12 +80,20 @@ const Customer = () => {
         <Sidebar onClickCreateCustomer={onClickCreateCustomer} />
         <CustomersList
           viewMode={viewMode}
+          onDelete={onDelete}
           onShowCustomerDetail={onShowCustomerDetail}
           onClickEditCustomer={onClickEditCustomer}
         />
       </Box>
       {showCustomerDetail && <CustomerDetail open={showCustomerDetail} handleDialog={onHideCustomerDetail} />}
       {openCreateDialog && <CreateCustomer open={openCreateDialog} handleDialog={onCloseComposeDialog} />}
+      <ConfirmDialog
+        open={confirmDelete}
+        title={`Confirm delete`}
+        content={'Are you sure, you want to  delete?'}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
     </Box>
   );
 };

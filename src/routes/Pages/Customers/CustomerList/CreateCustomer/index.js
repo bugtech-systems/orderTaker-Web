@@ -66,13 +66,9 @@ const CreateCustomer = ({ open, handleDialog }) => {
   const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [values, setValues] = useState({
-    name: 'Raymund Ogsimer',
-    address: 'Tacloban City',
-    email: 'ray@yahoo.com',
-    phones: [{ phone: '9774461641', label: 'home' }],
-    tags: [],
-    limit: 0
+  const [values, setValues] = useState({ 
+    phones:[{phone: '', label: 'home'}],
+    tags: []
   });
   const [errors, setErrors] = useState({});
 
@@ -132,8 +128,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
       setErrors({ ...errors, email: requiredMessage });
     } else if (!isValidEmail(values.email)) {
       setErrors({ ...errors, email: requiredMessage });
-    } else if (phoneNumbers.length === 0) {
-      setErrors({ ...errors, phones: requiredMessage });
     } else {
       handleSubmit(phoneNumbers);
     }
@@ -148,6 +142,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
       balance: balance ? balance : 0,
     };
     if (currentCustomer) {
+      console.log(currentCustomer)
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}));

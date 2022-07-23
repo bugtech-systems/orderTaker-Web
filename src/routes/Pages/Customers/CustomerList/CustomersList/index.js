@@ -12,7 +12,7 @@ import { getCustomerContainerHeight } from '../../../../../@jumbo/constants/AppC
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import EmptyCustomerResult from './EmptyCustomerResult';
 
-const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCustomer }) => {
+const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCustomer, onDelete }) => {
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
   const { filterType, customersList } = useSelector(({ customerApp }) => customerApp);
@@ -68,6 +68,7 @@ const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCusto
             updateCheckedCustomers={updateCheckedCustomers}
             onShowCustomerDetail={onShowCustomerDetail}
             onClickEditCustomer={onClickEditCustomer}
+            onDelete={onDelete}
           />
         ) : (
           <>
@@ -89,6 +90,7 @@ CustomersList.prototype = {
   viewMode: PropTypes.string,
   onShowCustomerDetail: PropTypes.func,
   onClickEditCustomer: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 CustomersList.defaultProps = {

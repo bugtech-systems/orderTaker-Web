@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CustomerCellOptions = ({ customer, onClickEditCustomer }) => {
+const CustomerCellOptions = ({ customer, onClickEditCustomer, onDelete }) => {
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -47,6 +47,8 @@ const CustomerCellOptions = ({ customer, onClickEditCustomer }) => {
   };
 
   const { starred } = customer;
+
+  
 
   return (
     <Box className={classes.customerCellOptionsRoot} onClick={e => e.stopPropagation()}>
@@ -69,7 +71,7 @@ const CustomerCellOptions = ({ customer, onClickEditCustomer }) => {
           </Tooltip>
         </Box>
 
-        <MoreOptions customer={customer} />
+        <MoreOptions customer={customer} onDelete={onDelete} />
       </Box>
     </Box>
   );
@@ -80,4 +82,5 @@ export default CustomerCellOptions;
 CustomerCellOptions.prototype = {
   customer: PropTypes.object.isRequired,
   onClickEditCustomer: PropTypes.func,
+  onDelete: PropTypes.func
 };

@@ -76,14 +76,16 @@ export const logout = () => {
   return (dispatch) => {
   axios.get(`${commonData.apiUrl}/auth/logout`)
   .then(() => {
-    localStorage.clear();
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('user');
     dispatch({
       type: CLEAR_USER
     });
     window.location.href = "/";
   })
   .catch(() => {
-    localStorage.clear();
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('user');
     dispatch({
       type: CLEAR_USER
     });
