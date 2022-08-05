@@ -79,7 +79,6 @@ const ListItem = ({item}) => {
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
-  
 
   const getActionComponent = () => (
     <Box>
@@ -199,7 +198,7 @@ const ListItem = ({item}) => {
         />
         <Box className={classes.listItemAction}>
           <Box className={classes.listItemActionHover}>
-          <IconButton className="btn" onClick={() => setRevealed(true)} disabled={item.stocks <= 0}>
+            <IconButton className="btn" onClick={() => setRevealed(true)}>
               <AddShoppingCartIcon />
             </IconButton>
           </Box>

@@ -83,7 +83,7 @@ const CreateProduct = ({ open, handleDialog }) => {
     setValues({
       ...values,
       phones: values.phones.concat({ phone: '', label: 'home' }),
-    });
+    }); 
   };
 
   const onRemovePhoneRow = index => {

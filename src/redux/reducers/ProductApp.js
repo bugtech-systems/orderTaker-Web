@@ -13,6 +13,7 @@ import {
   UPDATE_PRODUCT_LABEL,
   UPDATE_LABEL_ITEM,
   UPDATE_STARRED_STATUS,
+  SET_OTHER_AMOUNTS
 } from '../actions/types';
 
 const INIT_STATE = {
@@ -24,6 +25,7 @@ const INIT_STATE = {
     searchText: '',
   },
   productsList: [],
+  tax_disc: [],
   currentProduct: null,
   totalProducts: null,
   counter: null,
@@ -42,6 +44,13 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         filterType: action.payload,
+      };
+    }
+
+    case SET_OTHER_AMOUNTS: {
+      return {
+        ...state,
+        tax_disc: action.payload,
       };
     }
 

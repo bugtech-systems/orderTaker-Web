@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtDrawer from '../../../../../../@coremat/CmtDrawer';
@@ -14,6 +14,7 @@ import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 import Notifications from './Notifications';
 import Profile from './UserDetail';
 import Cart from './CartDetail/index';
+import CartFooter from './CartDetail/CartFooter';
 
 
 //Redux
@@ -92,63 +93,21 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) => {
+const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, handleClick, ...rest }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
 
 
-  const handleClearCart = () => {
 
-    dispatch({ 
-      type: CLEAR_CART
-    })
 
-  }
+
+
 
 
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest}>
       <Box className={clsx(classes.root)}>
-          {/* <Hidden smDown>
-        <Box className={classes.actionSidebar}>
-          <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
-            <CloseIcon />
-          </IconButton>
-          <Tooltip title="Profile">
-            <IconButton
-              className={clsx(classes.iconBtn, {
-                active: activeOption === 'profile',
-              })}
-              onClick={() => onIconClick('profile')}>
-              <CmtAvatar src={'https://via.placeholder.com/150'} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip title="Cart">
-            <IconButton
-              className={clsx(classes.iconBtn, {
-                active: activeOption === 'cart',
-              })}
-              onClick={() => onIconClick('cart')}>
-              <Badge badgeContent={5} classes={{ badge: classes.counterRoot }} overlap="rectangular">
-                <LocalGroceryStore />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-
-          <IconButton
-            className={clsx(classes.iconBtn, {
-              active: activeOption === 'notifications',
-            })}
-            onClick={() => onIconClick('notifications')}>
-            <Badge badgeContent={4} classes={{ badge: classes.counterRoot }} overlap="rectangular">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Box>
-        </Hidden> */}
-        <Box className={classes.contentArea}>
+               <Box className={classes.contentArea}>
         {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton> */}
@@ -165,13 +124,13 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, ...rest }) 
           <PerfectScrollbar className={classes.scrollbarRoot}>
             {activeOption === 'notifications' && <Notifications />}
             {activeOption === 'profile' && <Profile/>}
-            {activeOption === 'cart' && <Cart />}
+            {activeOption === 'cart' && <Cart cartAction={action}/>}
           </PerfectScrollbar>
         </Box>
-        {activeOption === 'cart' && <Box className={classes.cartButton}>
-      <Button variant="contained" color="default" onClick={() => handleClearCart()}>Clear Cart</Button>
-      <Button variant="contained" color="primary">Checkout</Button>
-      </Box>}
+        {activeOption === 'cart' && <CartFooter
+          handleClick={handleClick}
+          cartAction={action}
+        />}
 
     
       </Box>

@@ -10,10 +10,6 @@ import CartItem from './CartItem';
 import EmptyResult from '../EmptyResult';
 // import SearchBox from '../Search/SearchBox';
 
-import CartSummary from './CartSummary';
-import CartItemList from './CartItemList';
-
-
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -89,7 +85,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Comments = ({cartAction}) => {
+const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { cart_items, cart_items_count, total }  = useSelector(({cartApp}) => cartApp);
@@ -188,10 +184,22 @@ const Comments = ({cartAction}) => {
 
   return (
     <>
-      <Box>
-      {cartAction === 'cartItems' && <CartItemList/>}
-      {cartAction === 'summary' && <CartSummary/>}
-    </Box>
+      <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box>
+      {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
+        <Box>
+        Sub-Total
+        </Box>
+        <Box pr={5} fontSize={18} fontWeight={700}>
+        ₱{subTotal}
+        </Box>
+      </Box>} 
+      {cart_items_count !== 0 ? (
+        <PerfectScrollbar className={classes.scrollbarRoot}>
+          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem}/>} />
+        </PerfectScrollbar>
+        ) : (
+        <EmptyResult content="No record found" />
+      )}
         </>
   );
 };

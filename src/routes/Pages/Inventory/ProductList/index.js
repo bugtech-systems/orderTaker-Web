@@ -20,7 +20,7 @@ const Product = () => {
   const { isSideBarCollapsed } = useSelector(({ productApp }) => productApp);
   const [viewMode, setViewMode] = useState('table');
   const [showProductDetail, setShowProductDetail] = useState(false);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [openCreateDialog, setOpenCreateDialog] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [selected, setSelected] = useState(false);
   const [addStock, setAddStocks] = useState(false);

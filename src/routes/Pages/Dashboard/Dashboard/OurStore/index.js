@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 
 const OurStore = ({business}) => {
   const { addresses, title, description } = intranet.ourOfficeData;
-  const { name, address } = business;
+  const { name, address } = business ? business : {};
   const [currentAddress ] = useState(addresses[0]);
   const classes = useStyles();
   // const GoogleMapBox = withGoogleMap(() => (

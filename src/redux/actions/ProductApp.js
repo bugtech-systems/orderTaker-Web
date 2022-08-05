@@ -104,6 +104,7 @@ export const updateLabel = label => {
 //for getting products list
 export const getProductsList = params => {
   return dispatch => {
+    // dispatch(fetchStart());
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(data => {
@@ -119,10 +120,12 @@ export const getProductsList = params => {
 export const getInventoryList = params => {
   console.log(params)
   return dispatch => {
+    // dispatch(fetchStart());
     axios
       .get(`${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
       .then(data => {
           dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
+          // dispatch(fetchSuccess('Kuha na'));
       })
       .catch(error => {
         console.log(error)
@@ -148,9 +151,9 @@ export const createProduct = product => {
     axios
       .post(`${commonData.apiUrl}/products`, product)
       .then(({data}) => {
-          dispatch(fetchSuccess(data.message));
           dispatch(getProductsList());
-      })
+          dispatch(fetchSuccess(data.message));
+        })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
       });
@@ -257,8 +260,8 @@ export const addProductStocks = (val) => {
     axios
       .post(`${commonData.apiUrl}/products/stocks`, val)
       .then(({data}) => {
-        dispatch(fetchSuccess(data.message));
         dispatch(getProductsList());
+        dispatch(fetchSuccess(data.message));
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));

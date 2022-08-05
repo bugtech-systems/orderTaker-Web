@@ -32,7 +32,9 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from 'redux/actions/Auth';
+import { CLEAR_CART } from '../../../../../../redux/actions/types';
+import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
+import { logout } from '../../../../../../redux/actions/Auth';
 
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +82,70 @@ const ActionSideBar = ({ width }) => {
   const cartState = useSelector(state => state.cartApp);
   const [isDrawerOpen, setDrawerStatus] = useState(false);
   const [activeOption, setActiveOption] = useState(null);
-  const { isSidebarOpen, sidebarWidth, setSidebarWidth } = useContext(LayoutContext);
+  const [action, setAction] = useState('summary');
+  const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
+
+
+  const handleClearCart = () => {
+    dispatch({ 
+      type: CLEAR_CART
+    })
+    dispatch(setCurrentCustomer(null))
+  }
+
+  const handleClick = (type, data) => {
+
+    if(type === 'back' && action === 'cartItems'){
+      handleClearCart(); 
+      onDrawerClose();
+    }
+
+    if(type === 'submit' && action === 'cartItems'){
+      setAction('summary');
+    }
+
+        
+    if(type === 'back' && action === 'summary'){
+      setAction('cartItems');
+    }
+
+    if(type === 'submit' && action === 'cartItems'){
+      setAction('summary');
+    }
+
+  }
+
+
+
+  const onIconClick = option => {
+    console.log(option)
+    setSidebarOpen(false)
+    setActiveOption(option);
+    if(option === 'cart'){
+      setAction('cartItems');
+    }
+  };
+
+  const onDrawerClose = () => {
+    setDrawerStatus(false);
+    setActiveOption(null);
+  };
+
+  const handleLogout = () => {
+        dispatch(logout());
+    // dispatch(logout());
+  };
+
+  const onItemClick = item => {
+    if (item.label === 'Logout') {
+      dispatch(AuhMethods[CurrentAuthMethod].onLogout());
+    }
+    if (item.label === 'Account') {
+      setActiveOption('profile');
+    }
+  };
+
+
 
   useEffect(() => {
     initSidebarWidth = sidebarWidth;
@@ -98,36 +163,12 @@ const ActionSideBar = ({ width }) => {
 
   useEffect(() => {
     if (activeOption && !isDrawerOpen) {
+      setSidebarOpen(false)
       setDrawerStatus(true);
+
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
-
-  const onIconClick = option => {
-    setActiveOption(option);
-  };
-
-  const onDrawerClose = () => {
-    setDrawerStatus(false);
-    setActiveOption(null);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
-  const onItemClick = item => {
-    if (item.label === 'Logout') {
-      dispatch(AuhMethods[CurrentAuthMethod].onLogout());
-    }
-    if (item.label === 'Account') {
-      setActiveOption('profile');
-    }
-  };
-
-
-
-
 
 
   return (
@@ -202,6 +243,8 @@ const ActionSideBar = ({ width }) => {
         open={isDrawerOpen}
         onDrawerClose={onDrawerClose}
         onIconClick={onIconClick}
+        handleClick={handleClick}
+        action={action}
       />
     </div>
   );

@@ -31,12 +31,12 @@ const PopularProducts = ({productsList}) => {
       <CmtCardContent>
         <PerfectScrollbar style={{ height: 600, overflow: 'scroll' }}>
           <CmtGridView
-            itemPadding={15}
+            itemPadding={10}
             responsive={{
               xs: 1,
               sm: 1,
               md: 2,
-              lg: 3,
+              lg: 2,
               xl: 3,
             }}
             data={productsList}

@@ -100,7 +100,7 @@ export const updateLabel = label => {
 };
 
 //for getting customers list
-export const getCustomersList = (params)  => {
+export const getCustomersList = (params = {})  => {
 
   return dispatch => {
     axios

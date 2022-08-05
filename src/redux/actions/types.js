@@ -19,6 +19,8 @@ export const SET_LOADING = 'SET_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
 export const SET_HEADER_TITLE = 'SET_HEADER_TITLE';
 export const SET_USERMANAGEMENT_TAB = 'SET_USERMANAGEMENT_TAB';
+export const SET_CREATE_CUSTOMER_DIALOG = 'SET_CREATE_CUSTOMER_DIALOG';
+
 
 //DATA
 export const SET_DATA = 'SET_DATA';
@@ -52,6 +54,10 @@ export const DELETE_PRODUCT = 'delete_product';
 export const UPDATE_PRODUCT_LABEL = 'update_product_label';
 export const UPDATE_PRODUCT = 'update_product';
 export const GET_PRODUCT_COUNTS = 'get_product_counts';
+export const SET_OTHER_AMOUNTS = 'set_other_amounts';
+
+
+
 
 export const ADD_LABEL = 'add_label';
 export const GET_LABELS_LIST = 'get_labels_list';

@@ -4,7 +4,6 @@ import useStyles from './index.style';
 import AppHeader from './AppHeader';
 import clsx from 'clsx';
 import Sidebar from './Sidebar';
-import { useDispatch, useSelector } from 'react-redux';
 import CustomersList from './CustomersList';
 import CustomerDetail from './CustomerDetail';
 import CreateCustomer from './CreateCustomer';
@@ -12,13 +11,17 @@ import { setCurrentCustomer, deleteCustomer } from '../../../../redux/actions/Cu
 import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
 
 
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_CREATE_CUSTOMER_DIALOG } from 'redux/actions/types';
+
 
 const Customer = () => {
   const classes = useStyles();
   const { isSideBarCollapsed } = useSelector(({ customerApp }) => customerApp);
+  const { create_customer } = useSelector(({ uiReducer }) => uiReducer);
   const [viewMode, setViewMode] = useState('table');
   const [showCustomerDetail, setShowCustomerDetail] = useState(false);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [selected, setSelected] = useState(false);
 
@@ -41,17 +44,26 @@ const Customer = () => {
   };
 
   const onClickCreateCustomer = () => {
-    setOpenCreateDialog(true);
+    dispatch({
+      type: SET_CREATE_CUSTOMER_DIALOG,
+      payload: true
+    })
   };
 
   const onClickEditCustomer = customer => {
     dispatch(setCurrentCustomer(customer));
-    setOpenCreateDialog(true);
+    dispatch({
+      type: SET_CREATE_CUSTOMER_DIALOG,
+      payload: true
+    })
   };
 
   const onCloseComposeDialog = () => {
     dispatch(setCurrentCustomer(null));
-    setOpenCreateDialog(false);
+    dispatch({
+      type: SET_CREATE_CUSTOMER_DIALOG,
+      payload: false
+    })
   };
 
   const onDelete = (data) => {
@@ -86,7 +98,7 @@ const Customer = () => {
         />
       </Box>
       {showCustomerDetail && <CustomerDetail open={showCustomerDetail} handleDialog={onHideCustomerDetail} />}
-      {openCreateDialog && <CreateCustomer open={openCreateDialog} handleDialog={onCloseComposeDialog} />}
+      {create_customer && <CreateCustomer open={create_customer} handleDialog={onCloseComposeDialog} />}
       <ConfirmDialog
         open={confirmDelete}
         title={`Confirm delete`}

@@ -16,14 +16,23 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
-import { Typography, Menu, Tooltip, MenuItem } from '@material-ui/core';
+import { Typography, Menu, Tooltip, MenuItem, Checkbox, TextField, InputAdornment } from '@material-ui/core';
+
+
+//Components
+import Autocomplete  from './AutoComplete';
+import MoreMenu from './MoreMenu';
 
 
 
 //Icons
 import DoneIcon from '@material-ui/icons/Done';
 import LabelIcon from '@material-ui/icons/Label';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,19 +80,28 @@ const useStyles = makeStyles(theme => ({
 
 const CreateProduct = ({ open, handleDialog }) => {
 
-  const { currentProduct, labelsList } = useSelector(({ productApp }) => productApp);
+  const { currentProduct, labelsList, tax_disc } = useSelector(({ productApp }) => productApp);
+
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [isDiscounted, setDiscounted] = useState(false);
+  const [isAddVD, setIsAddVD] = useState('tax');
   const [showLabels, setShowLabels] = useState(null);
+  const [other_amounts, setOtherAmounts] = useState({
+    type: null,
+    title: '',
+    value: 0,
+    amount_type: 'Rate'
+  });
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const [values, setValues] = useState({
     limit: 0,
     name: '',
     description: '',
     price: 0,
-    discount_price: 0,
     cover: '',
-    labels: []
+    labels: [],
+    other_amounts: []
   });
   const [errors, setErrors] = useState({});
 
@@ -109,6 +127,56 @@ const CreateProduct = ({ open, handleDialog }) => {
   const onHideLabels = () => {
     setShowLabels(null);
   };
+
+
+  const handleClickOA = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleCloseOA = () => {
+    setAnchorEl(null);
+  }
+
+  const handleSelectOA = (val) => {
+    console.log(val)
+    setOtherAmounts({...other_amounts, amount_type: val})
+    handleCloseOA()
+  }
+
+  const handleSelectOAType = (val) => {
+    setOtherAmounts({...other_amounts, type: val})
+    setIsAddVD(val)
+  }
+
+  const handleRemoveOA = (val) => {
+      if(!val){
+        setOtherAmounts({
+          type: 'Rate',
+          title: '',
+          value: 0
+        })
+        setIsAddVD(null)
+      } else {
+        console.log(val)
+      }
+  }
+
+  const handleAddOtherAmounts = (val) => {
+    console.log(val)
+    let oa = values.other_amounts;
+     oa.push(other_amounts);
+      setValues({...values, other_amounts: oa})
+      setOtherAmounts({
+        type: 'Rate',
+        title: '',
+        value: 0
+      })   
+      setIsAddVD(null)
+  }
+
+
+
+
 
 
   const onClickLabelOption = label => {
@@ -166,6 +234,42 @@ const CreateProduct = ({ open, handleDialog }) => {
   };
 
 
+
+  const onAddVD = () => {
+    setValues({
+      ...values,
+      phones: values.phones.concat({ phone: '', label: 'home' }),
+    });
+  };
+
+  const onRemoveOARow = index => {
+    const updatedList = [...values.other_amounts];
+    updatedList.splice(index, 1);
+    setValues({ ...values, other_amounts: updatedList });
+  };
+
+  const onChangeVD = (field, value, index) => {
+    const updatedList = [...values.other_amounts];
+    updatedList[index][field] = value;
+    setValues({ ...values, other_amounts: updatedList });
+    setErrors({ ...errors, other_amounts: '' });
+  };
+
+  const handleOAChange = (val, index, field) => {
+      let oa = values.other_amounts;
+        oa[index] = { ...oa[index], [field]: val }
+      setValues({...values, other_amounts: oa})
+
+  };  
+
+  const handleOtherAmounts = (prop) => event => {
+    console.log(prop)
+    console.log(event)
+    setOtherAmounts({...other_amounts, [prop]: event.target.value})
+
+  }
+
+
   useEffect(() => {
     if(currentProduct){
       setValues(currentProduct) 
@@ -173,7 +277,9 @@ const CreateProduct = ({ open, handleDialog }) => {
   }, [currentProduct])
 
   return (
-    <Dialog maxWidth="sm" fullWidth open={open} onClose={handleDialog} className={classes.dialogRoot}>
+    <Dialog maxWidth="sm" fullWidth 
+    open={true} 
+      onClose={handleDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>
         {currentProduct ? 'Edit Product Details' : 'Create New Product'}
       </DialogTitle>
@@ -207,68 +313,22 @@ const CreateProduct = ({ open, handleDialog }) => {
             {/* <Grid item xs={12} sm={7} /> */}
           </GridContainer>
         </Box>
-        <GridContainer style={{ marginBottom: 12 }}>
-          <Grid item xs={12} sm={12}>
-            <AppTextInput
-              fullWidth
-              multiline
-              minRows={4}
-              variant="outlined"
-              value={values.description}
-              label="Product Description"
-              onChange={handleChange('description')}
-              helperText={errors.description}
-            />
-          </Grid>
-              <Grid item xs={12} sm={6}>
+        <GridContainer >
+         <Grid item xs={12} sm={6} lg={6}>
+         <Typography variant="h4">Selling Price</Typography>
+              <br/>
                 <AppTextInput
                   fullWidth
                   type="number"
                   variant="outlined"
-                  label="Selling Price"
+                  label="amount"
                   value={values.price}
                   onChange={handleChange('price')}
                 />
               </Grid>
-              {isDiscounted && 
-              <Grid item xs={10} sm={5}>
-                <AppTextInput
-                  fullWidth
-                  type="number"
-                  variant="outlined"
-                  label="Discounted Price"
-                  value={values.discount_price}
-                  onChange={handleChange('discount_price')}
-                />
-              </Grid>}
-              {isDiscounted && (
-                <Grid item xs={2} sm={1}>
-                     <Box display="flex" alignItems="center" justifyContent="center" p={2}>
-                  <IconButton size="small" onClick={() => setDiscounted(false)}>
-                    <CancelIcon fontSize="small"/>
-                  </IconButton>
-                  </Box>
-                </Grid>
-              )}
-            </GridContainer>
-
-              {!isDiscounted && 
-        <Box
-          mb={{ xs: 6, md: 5 }}
-          display="flex"
-          alignItems="center"
-          onClick={() => setDiscounted(true)}
-          className="pointer"
-          color="primary.main">
-          <AddCircleOutlineIcon />
-         {!isDiscounted && <Box ml={2}>Add Discounted Price</Box> }
-        </Box>}
-        <br/>
-        <Box display="flex" flexDirection="column">
-        <Typography variant="h4">Minimum Stock Quantity Limit</Typography>
-        <br/>
-         <GridContainer>
-         <Grid item xs={12} sm={6}>
+         <Grid item xs={12} sm={6} lg={6}>
+         <Typography variant="h4">Stock Limit</Typography>
+              <br/>
               <AppTextInput
                 fullWidth
                 type="number"
@@ -278,10 +338,169 @@ const CreateProduct = ({ open, handleDialog }) => {
                 onChange={handleChange('limit')}
               />
             </Grid>
-            <Grid item xs={12} sm={6} />
+            {/* <Grid item xs={12} sm={6} /> */}
+            
           </GridContainer>
+        <GridContainer style={{ marginBottom: 12 }}>
+          <Grid item xs={12} sm={12}>
+            <AppTextInput
+              fullWidth
+              multiline
+              minRows={3}
+              variant="outlined"
+              value={values.description}
+              label="Product Description"
+              onChange={handleChange('description')}
+              helperText={errors.description}
+            />
+          </Grid>
+            </GridContainer>
+          <CmtList
+          data={values.other_amounts}
+          renderRow={(item, index) => (
+            <GridContainer style={{ marginBottom: 12 }} key={index}>
+            {/* <Grid style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: "space-between"}} item xs={2}>
+                
+                </Grid> */}
+                <Grid item xs={12} sm={12}>
+                <Box display="flex" alignItems="center">
+                <Checkbox
+                  size="small"
+                  checked={item.isActive}
+                  onChange={() => onChangeVD('isActive', !item.isActive, index)}
+                 />
+              <Autocomplete
+                 fullWidth
+                 variant="outlined"
+                 label="Title"
+                 size="small"
+                 value={item.name}
+                 onChange={handleOtherAmounts}
+                 options={tax_disc}
+                />
+         <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true" onClick={handleClickOA}>
+<MoreVertIcon fontSize='small'/>
+</IconButton>
+<Menu
+  id="simple-menu"
+  anchorEl={anchorEl}
+  keepMounted
+  open={Boolean(anchorEl)}
+  onClose={handleCloseOA}
+>
+  <MenuItem onClick={(e) => handleOAChange('Rate', index, 'amount_type')}>Rate</MenuItem>
+  <MenuItem onClick={(e) => handleOAChange('Amount', index, 'amount_type')}>Amount</MenuItem>
+</Menu>
+<AppTextInput
+                  fullWidth
+                  type="number"
+                  variant="outlined"
+                  label={item.amount_type}
+                  value={item.value}
+                  onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                  style={{width: '200px'}}
+                />
+                    <IconButton size="small" onClick={() => onRemoveOARow(index)}>
+                    <CancelIcon fontSize="small"/>
+                  </IconButton>
           </Box>
-        <Box display="flex" justifyContent="flex-end" mb={4}>
+              </Grid>
+             
+            </GridContainer>
+          )}
+        />
+<Typography style={{marginLeft: '30px', marginBottom: '10px'}}>{isAddVD === 'tax' ? 'ADD TAX' : isAddVD === 'charges' ? 'Add CHARGES' : isAddVD === 'discounts' && 'LESS DISCOUNTS'}</Typography> 
+<GridContainer >
+       {isAddVD ? 
+       <>
+       <Grid item xs={12} sm={12}>
+        <Box display="flex" alignItems="center">
+        <IconButton style={{marginRight: '5px'}} size="small" onClick={() => handleRemoveOA()} >
+            <CancelIcon fontSize="small"/>
+          </IconButton>
+              <Autocomplete
+                 fullWidth
+                 variant="outlined"
+                 label="Title"
+                 size="small"
+                 value={other_amounts.name}
+                 handleChange={handleOtherAmounts('name')}
+                 options={tax_disc}
+                />
+         <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true" onClick={handleClickOA}>
+<MoreVertIcon fontSize='small'/>
+</IconButton>
+<Menu
+  id="simple-menu"
+  anchorEl={anchorEl}
+  keepMounted
+  open={Boolean(anchorEl)}
+  onClose={handleCloseOA}
+>
+  <MenuItem onClick={() => handleSelectOA('Rate')}>Rate</MenuItem>
+  <MenuItem onClick={() => handleSelectOA('Amount')}>Amount</MenuItem>
+</Menu>
+<AppTextInput
+                  fullWidth
+                  type="number"
+                  variant="outlined"
+                  label={other_amounts.amount_type}
+                  value={other_amounts.value}
+                  onChange={handleOtherAmounts('value')}
+                  style={{width: '200px'}}
+                />
+       
+          <IconButton 
+         style={{marginLeft: '10px'}}
+          size="small" 
+            onClick={() => handleAddOtherAmounts()}
+          >
+             <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
+         </IconButton>
+          </Box>
+          </Grid>
+          </>
+         : 
+         <Grid item xs={12} sm={12}>
+          <Box display="flex" alignItems="center" justifyContent="space-around">
+          <Box
+          mb={{ xs: 6, md: 5 }}
+          display="flex"
+          alignItems="center"
+          onClick={() => handleSelectOAType('tax')}
+          className="pointer"
+          color="primary.main">
+          <AddCircleOutlineIcon />
+            <Box ml={2}>TAX</Box>
+        </Box>
+        <Box
+          mb={{ xs: 6, md: 5 }}
+          display="flex"
+          alignItems="center"
+          onClick={() => handleSelectOAType('charges')}
+          className="pointer"
+          color="primary.main">
+          <AddCircleOutlineIcon />
+            <Box ml={2}>CHARGES</Box>
+        </Box>
+        <Box
+          mb={{ xs: 6, md: 5 }}
+          display="flex"
+          alignItems="center"
+          onClick={() => handleSelectOAType('discounts')}
+          className="pointer"
+          color="secondary.main">
+          <RemoveCircleOutlineIcon />
+            <Box ml={2}>DISCOUNTS</Box>
+        </Box>
+          </Box>
+       
+        </Grid>
+
+      }
+       
+  </GridContainer>
+        <Box display="flex" justifyContent="flex-end" mt={5} mb={4}>
           <Button onClick={handleDialog}>Cancel</Button>
           <Box ml={2}>
             <Button variant="contained" color="primary" onClick={checkValidations}>
