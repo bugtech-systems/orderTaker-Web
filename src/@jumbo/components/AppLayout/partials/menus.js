@@ -13,6 +13,8 @@ import {
   SupervisedUserCircle,
   // Settings,
   ContactPhone,
+  // Product,
+  LocalOffer,
 } from '@material-ui/icons';
 
 // const storeMenus = {
@@ -121,7 +123,7 @@ export const sidebarNavs = [
       },
       {
         name: <IntlMessages id={'sidebar.products'} />,
-        icon: <Category />,
+        icon: <LocalOffer />,
         type: 'item',
         link: '/products',
       },

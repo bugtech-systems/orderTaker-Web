@@ -1,4 +1,4 @@
-import GroupIcon from "@material-ui/icons/Group";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import React from "react";
 import StarIcon from "@material-ui/icons/Star";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -7,7 +7,7 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 // const today = new Date();
 
 export const foldersList = [
-  {id: 1, name: "All Items", slug: "products", icon: <GroupIcon />},
+  {id: 1, name: "All Items", slug: "products", icon: <LocalOfferIcon />},
   {id: 2, name: "Available stocks", slug: "available", icon: <AccessTimeIcon />},
   {id: 3, name: "Out of stocks", slug: "unavailable", icon: <AccessTimeIcon />},
   {id: 4, name: "Starred Items", slug: "starred", icon: <StarIcon />},
@@ -15,7 +15,7 @@ export const foldersList = [
 ];
 
 export const popularFoldersList = [
-  {id: 1, name: "All Items", slug: "products", icon: <GroupIcon />},
+  {id: 1, name: "All Items", slug: "products", icon: <LocalOfferIcon />},
   {id: 3, name: "Out of stocks", slug: "unavailable", icon: <AccessTimeIcon />},
   {id: 4, name: "Starred Items", slug: "starred", icon: <StarIcon />},
   // {id: 5, name: "Trash", slug: "trash", icon: <DeleteIcon />}

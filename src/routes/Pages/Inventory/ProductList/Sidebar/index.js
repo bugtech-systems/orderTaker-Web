@@ -18,6 +18,7 @@ import MoreOptions from './MoreOptions';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import LabelCell from './LabelCell';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const Sidebar = ({ onClickCreateProduct, width }) => {
   const { isSideBarCollapsed, labelsList, filterType, productsList } = useSelector(({ productApp }) => productApp);
@@ -61,7 +62,7 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
     <Box className={classes.inBuildAppSidebar}>
       <Box className={classes.inBuildAppSidebarHeader}>
         <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateProduct}>
-          <PersonAddIcon />
+          <LocalOfferIcon />
           <Box component="span" className="add-task-btn-text">
             Create New
           </Box>

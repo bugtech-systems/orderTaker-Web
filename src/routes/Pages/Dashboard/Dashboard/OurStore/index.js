@@ -11,12 +11,14 @@ import CallIcon from '@material-ui/icons/Call';
 // import IconButton from '@material-ui/core/IconButton';
 import { intranet } from '../../../../../@fake-db';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import { blue, pink } from '@material-ui/core/colors';
 // import TwitterIcon from '@material-ui/icons/Twitter';
 // import FacebookIcon from '@material-ui/icons/Facebook';
 // import InstagramIcon from '@material-ui/icons/Instagram';
 // import LinkedInIcon from '@material-ui/icons/LinkedIn';
+
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -100,9 +102,13 @@ const OurStore = ({business}) => {
   // };
 
   return (
-    <CmtCard className={classes.cardRoot}>
+    <CmtCard className={classes.cardRoot}> 
+    <Box display="flex" alignItems="center" justifyContent="space-between" mr={5}>
       <CmtCardHeader title={name} subTitle={address} />
-
+      <IconButton>
+      <EditIcon />
+      </IconButton>
+    </Box>
       <CmtCardContent>
         {/* <Box className={classes.selectBoxRoot}>
           <AppSelectBox
