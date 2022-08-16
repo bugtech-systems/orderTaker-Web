@@ -136,6 +136,5 @@
     "*.+(js|jsx|json|css|md)": [
       "prettier --write"
     ]
-  },
-  "proxy": "http://localhost:3001"
+  }
 }
