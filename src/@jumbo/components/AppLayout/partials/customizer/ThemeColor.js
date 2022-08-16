@@ -52,9 +52,6 @@ const ThemeColor = () => {
   });
 
 
-  console.log(themeColors)
-  console.log(activeTheme.primary)
-
 
   useEffect(() => {
     if (themeColors.primary !== activeTheme.primary || themeColors.secondary !== activeTheme.secondary) {

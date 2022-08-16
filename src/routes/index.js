@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {  useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 //Pages
@@ -19,6 +18,13 @@ import Login from './Auth/Login';
 import DefaultForgotPassword from './Pages/forgot-password/Default';
 // import Register from './Auth/Register';
 // import ForgotPasswordPage from './Auth/ForgotPassword';
+
+//Redux
+import { useSelector, useDispatch } from 'react-redux';
+import {getAllProductOtherAmount} from '../redux/actions/ProductApp';
+
+
+
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
   const { authUser } = useSelector(({ auth }) => auth);
@@ -42,8 +48,15 @@ const RestrictedRoute = ({ component: Component, ...rest }) => {
 };
 
 const Routes = () => {
+  const dispatch = useDispatch()
   const { authUser } = useSelector(({ auth }) => auth);
   const location = useLocation();
+
+
+
+
+
+
 
   if (location.pathname === '' || location.pathname === '/') {
     return <Redirect to={'/dashboard'} />;
@@ -51,10 +64,20 @@ const Routes = () => {
     return <Redirect to={'/dashboard'} />;
   }
 
+
+
+
+
+
+
+
+
+
+
   return (
     <React.Fragment>
       <Switch>
-        Main Pages
+        {/* Main Pages */}
         <RestrictedRoute path="/dashboard" component={Dashboard} />
         <RestrictedRoute path="/users" component={Users} />
         <RestrictedRoute path="/products" component={Products} />

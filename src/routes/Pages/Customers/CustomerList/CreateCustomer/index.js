@@ -142,7 +142,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
       balance: balance ? balance : 0,
     };
     if (currentCustomer) {
-      console.log(currentCustomer)
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}));
@@ -156,7 +155,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
       setValues(currentCustomer)
     }
   }, [currentCustomer])
-
 
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
@@ -205,7 +203,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
             />
           </Grid>
         </GridContainer>
-
         <CmtList
           data={values.phones}
           renderRow={(item, index) => (

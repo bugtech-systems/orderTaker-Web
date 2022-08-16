@@ -1,41 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Divider, IconButton, makeStyles, Typography } from '@material-ui/core';
+import GridContainer from '../../../../../GridContainer';
+import { Box, Divider, IconButton, makeStyles, Typography, Checkbox, Menu, MenuItem, Grid } from '@material-ui/core';
+import AppTextInput from '../../../../../Common/formElements/AppTextInput';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { alpha } from '@material-ui/core/styles';
-import CmtList from '../../../../../../../@coremat/CmtList';
-import CartItem from './CartItem';
-
-
-import EmptyResult from '../EmptyResult';
-// import SearchBox from '../Search/SearchBox';
-
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { getCustomers, setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
-import { SET_CREATE_CUSTOMER_DIALOG } from '../../../../../../../redux/actions/types';
-
-
+import { handleCart } from '../../../../../../../redux/actions/CartApp';
+import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from '../../../../../../../redux/actions/types';
 
 //Components
 import CustomerAutoComplete from './AutoComplete';
 import CreateCustomer from '../../../../../../../routes/Pages/Customers/CustomerList/CreateCustomer';
 
-
-
-
 //Icons
 import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import CancelIcon from '@material-ui/icons/Cancel';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+ 
 
 const useStyles = makeStyles(theme => ({
+  rootWrap: {
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    maxHeight: '90vh',
+    paddingBottom: '100px'
+  },
   cardRoot: {
     position: 'relative',
     '& .Cmt-card-content': {
       paddingLeft: 0,
       paddingRight: 0,
     },
+  },
+  divider: {
+    backgroundColor: alpha(theme.palette.primary.main, 0.1),
   },
   scrollbarRoot: {
     marginRight: 10,
@@ -137,41 +142,112 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     color: theme.palette.text.secondary,
   },
+  btnWrap: {
+    '&:hover': {
+      '& $btnTax': {
+        display: 'flex',
+        visibility: 'visible',
+        opacity: 1,
+      },
+      '& $btnCharge': {
+        display: 'flex',
+        visibility: 'visible',
+        opacity: 1,
+      },
+      '& $btnDiscount': {
+        display: 'flex',
+        visibility: 'visible',
+        opacity: 1,
+      },
+      '& $closeButton': {
+        display: 'flex',
+        visibility: 'visible',
+        opacity: 1,
+      }
+     }
+  },
+  closeButton: {
+    position: 'relative',
+    // right: '15px',
+    color: theme.palette.text.secondary,
+    // display: 'none'
+  },
+  btnTax: {
+    display: 'none',
+    cursor: 'pointer'
+  },
+  btnTD: {
+    cursor: 'pointer'
+  },
+  btnCharge: {
+    display: 'none',
+    cursor: 'pointer'
+  },
+  btnDiscount: {
+    display: 'none',
+    cursor: 'pointer'
+  },
   userInfoRoot: {
     borderBottom: `1px solid ${theme.palette.borderColor.main}`,
     padding: '20px 24px',
     display: 'flex',
     flexDirection: 'column',
     [theme.breakpoints.up('md')]: {
-      flexDirection: 'row',
-    },
+    flexDirection: 'row'
+    }
   },
-}));
+})); 
 
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
+  const { productsList }  = useSelector(({productApp}) => productApp);
+  const { gross_total, amount_due, tax_disc, payment, change }  = useSelector(({cartApp}) => cartApp);
   const { create_customer } = useSelector(({ uiReducer }) => uiReducer);
-
+  const [anchorEl, setAnchorEl] = useState(null);
   const [isSearch, setIsSearch] = useState(false);
+  const [addOA, setAddOa] = useState(null);
+
 
   
+
   const onCloseDialog = () => {
     dispatch({
         type: SET_CREATE_CUSTOMER_DIALOG,
         payload: false
       })
-  }
-
+    }
 
     const handleSelect = (data) => {
         console.log(data)
+    dispatch(setCurrentCustomer(data));
+    dispatch({type: UPDATE_CART, payload: { customerId: data.id }})
     }
 
-    
-  const handleValue = (data) => {
-    dispatch(setCurrentCustomer(data));
+  const handleClickOA = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleCloseOA = () => {
+    setAnchorEl(null);
+  }
+
+  const handlePayment = (val) => {
+
+    if(val >= 0){
+      dispatch({type: UPDATE_CART, payload: { payment: val }})
+    }
+
+    if(Number(amount_due) < Number(val) ){
+      dispatch({type: UPDATE_CART, payload: { change: val - amount_due }})
+    }
+
+    if(Number(amount_due) >= Number(val) ){
+      dispatch({type: UPDATE_CART, payload: { change: 0 }})
+    }
+
+
   }
 
 
@@ -184,24 +260,123 @@ const Comments = () => {
         setIsSearch(false);
     }
   }, [currentCustomer]);
-  return (
-    <>
-      <Box mb={2} className={classes.sectionHeading}>
-        <Typography variant="body1" style={{fontWeight: 'bolder'}}>Cart Summary</Typography>
+
+
+  useEffect(() => {
+    if(currentCustomer && isSearch){
+        setIsSearch(false);
+    }
+  }, [productsList]);
+
+  const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
+      return (
+      <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  key={index} >
+        <Grid item xs={8} lg={8}>
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+          {a.description}
+            </Typography>
+        </Grid>
+        <Grid item xs={2} lg={2} >
+          <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+          <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+          {a.total}
+            </Typography>
+          </Box>
+          </Grid>
+          <Grid item xs={2} lg={2}>
+          </Grid>
+        </GridContainer>
+      )
+  })
+
+const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
+    return (
+      <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  key={index} >
+      <Grid item xs={8} lg={8}>
+      <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        {a.description}
+          </Typography>
+      </Grid>
+      <Grid item xs={2} lg={2} >
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        {/* {a.total} */}
+        Add:
+          </Typography>
         </Box>
+        </Grid>
+        <Grid item xs={2} lg={2}>
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+          {Number(a.total).toFixed(2)}
+          </Typography>
+        </Box>
+        </Grid>
+      </GridContainer>
+    )
+})
+
+const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) => {
+  return (
+    <GridContainer style={{paddingRight: 5, paddingLeft: 5}} key={index} >
+      <Grid item xs={8} lg={8}>
+      <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        {a.description}
+          </Typography>
+      </Grid>
+      <Grid item xs={2} lg={2} >
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        {/* {a.total} */}
+        Less:
+          </Typography>
+        </Box>
+        </Grid>
+        <Grid item xs={2} lg={2}>
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+            ({Number(a.total).toFixed(2)})
+          </Typography>
+        </Box>
+        </Grid>
+      </GridContainer>
+
+  )
+})
+
+
+let hasTaxes = tax_disc.filter(a => a.type === 'tax').length !== 0  ? true : false;
+
+
+let hasDiscounts = tax_disc.filter(a => a.type === 'discounts').length !== 0 ? true : false;
+
+
+let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true : false;
+
+
+  console.log(tax_disc)
+
+  return (
+    <Box className={classes.rootWrap}>
       <Divider/>
-       <Box mb={2} mt={1} className={classes.sectionCustomer}>
-       <Box sx={{pr: 10 }} mb={1} display="flex" flexDirection="column" flexGrow={1}>
-        <Box flexGrow={1} display="flex" alignItems="center" justifyContent="flex-start">
-        <Typography variant="subtitle2" style={{fontWeight: 'bolder', flexGrow: 1}}>
+       <Box mb={1} className={classes.sectionCustomer}>
+       <Box sx={{pr: 10, pt: 2 }} mb={1} display="flex" flexDirection="column" flexGrow={1}>
+        <Box display="flex">
+        <Typography variant="h3" style={{fontWeight: 'bolder', flexGrow: 1}}>
         Customer Details
         </Typography>
-            <IconButton style={{marginTop: 5}} size='small' onClick={() => setIsSearch(!isSearch)} >
-               {isSearch ? < HighlightOffIcon/> : <SearchIcon fontSize="small"/>  }
-            </IconButton>
-        </Box>
+        {currentCustomer && <IconButton style={{marginTop: 5}} size='small'
+                 onClick={() => {
+                  dispatch({type: UPDATE_CART, payload: { customerId: null }})
+                  dispatch(setCurrentCustomer(null));
+                 }
+                }
+                  >
+              <HighlightOffIcon fontSize="small"/>  
+            </IconButton>}
+            </Box>
         {/* <Box  flexGrow={1} > */}
-        {isSearch &&
+        {!currentCustomer &&
             <CustomerAutoComplete
                 placeholder="Select"
                 margin="dense"
@@ -213,10 +388,7 @@ const Comments = () => {
         }
         {/* </Box> */}
         </Box>
-       {!currentCustomer ?
-         <Box display="flex" justifyContent="center" alignItems="center">
-          <Typography variant="h2">Walk-in Customer</Typography>
-        </Box> : 
+       {currentCustomer && 
         <Box sx={{pr: 10, p: 2 }} display="flex" flexDirection="column" flexGrow={1}>
         <Box mt={-2}>
             {currentCustomer && currentCustomer.id &&
@@ -235,62 +407,396 @@ const Comments = () => {
             </Box>
             </Box>
             }
-          </Box>
+        </Box>
         </Box>}
       </Box>
       <Divider/>
-      <Box mt={5} className={classes.sectionTotal}>
+      <Box mt={3} className={classes.sectionTotal}>
         <Box sx={{pr: 10 }} display="flex" flexDirection="column" flexGrow={1}>
-        <Box>
-        <Typography variant="h2" style={{fontWeight: 'bolder'}}>
-        Order Details
-        </Typography>
         </Box>
-        <Box >
-          <br/>
-        <Divider/>
-            <Box display="flex" m={2} alignItems="center" justifyContent="space-between" >
-              <Typography variant="h3">Gross Total</Typography>              <Typography variant="h3" align='left'>1000</Typography>
+        <Box style={{marginTop: 5}}>
+        <GridContainer style={{padding: 5}}>
+              <Grid item xs={8} lg={8}>
+              <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                  Gross total
+                  </Typography>
+              </Grid>
+              <Grid item xs={2} lg={2} >
+                <Box display="flex" alignItems="flex-start" justifyContent="center">
+                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                 
+                  </Typography>
+                </Box>
+                </Grid>
+                <Grid item xs={2} lg={2}>
+                <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                {gross_total}
+                  </Typography>
+                </Box>
+                </Grid>
+          </GridContainer>
+        <Divider style={{margin: 5}}/>
+        {getTaxes}
+        <Box className={classes.btnWrap}>
+        {/* {addOA === 'tax' ? (
+                  <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
+                  <Box style={{flexGrow: 1}}>
+                               <IconButton size="small" 
+                               style={{marginRight: 3}}
+                          className={classes.closeButton1}
+                          onClick={() => setAddOa(null)}
+                            >
+                          <CancelIcon fontSize="small"/>
+                        </IconButton>
+                  <AppTextInput
+                        fullWidth
+                        variant="outlined"
+                        // label={item.amount_type}
+                        // value={item.value}
+                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        style={{width: '200px'}}
+                      />
+                                  </Box>
+                                  <Box >
+      
+               <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
+                onClick={handleClickOA}
+                >
+      <MoreVertIcon fontSize='small'/>
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleCloseOA}
+      >
+        <MenuItem 
+        // onClick={(e) => handleOAChange('Rate', index, 'amount_type')}
+        >Rate</MenuItem>
+        <MenuItem 
+        // onClick={(e) => handleOAChange('Amount', index, 'amount_type')}
+        >Amount</MenuItem>
+      </Menu>
+      <AppTextInput
+                        fullWidth
+                        type="number"
+                        variant="outlined"
+                        // label={item.amount_type}
+                        // value={item.value}
+                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        style={{width: '100px'}}
+                        className={classes.textInput}
+                      />
+                </Box>
+                <IconButton 
+                size="small" 
+                className={classes.closeButton}
+                  // onClick={() => handleAddOtherAmounts()}
+                >
+                   <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
+               </IconButton>
+                  </Box>
+                  
+            ) : 
+            <>
+            <Box m={1} display="flex" alignItems="flex-start" >
+              <Box
+            display="flex"
+            alignItems="center"
+            onClick={() => setAddOa('discounts')}
+            className={hasTaxes ? classes.btnTax  : classes.btnTD}
+            color="secondary.main">
+            <RemoveCircleOutlineIcon />
+              <Box ml={2}>add VAT</Box>
+          </Box>
+              </Box>
+                    <Box m={1} display="flex" alignItems="flex-start" >
+                    <Box
+                  display="flex"
+                  alignItems="center"
+                  onClick={() => setAddOa('discounts')}
+                  className={hasTaxes ? classes.btnTax  : classes.btnTD}
+                  color="secondary.main">
+                  <RemoveCircleOutlineIcon />
+                    <Box ml={2}>add VAT</Box>
+                </Box>
+                    </Box>
+                    </>
+              } */}
+        <Divider style={{margin: 5}}/>
+        <GridContainer style={{padding: 5}} >
+              <Grid item xs={8} lg={8}>
+              <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+                <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+                Total Sales {hasTaxes ? '(Vat Inclusive)' : ''}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={2} lg={2} >
+                </Grid>
+                <Grid item xs={2} lg={2}>
+                <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+                <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+                {gross_total}
+                  </Typography>
+                </Box>
+                </Grid>
+            </GridContainer>
+     {getDiscounts}
+     {getCharges}
+        <Box className={classes.btnWrap}>
+            {addOA === 'discounts' ? (
+                  <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
+                  <Box style={{flexGrow: 1}}>
+                               <IconButton size="small" 
+                               style={{marginRight: 3}}
+                          className={classes.closeButton1}
+                          onClick={() => setAddOa(null)}
+                            >
+                          <CancelIcon fontSize="small"/>
+                        </IconButton>
+                  <AppTextInput
+                        fullWidth
+                        variant="outlined"
+                        // label={item.amount_type}
+                        // value={item.value}
+                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        style={{width: '200px'}}
+                      />
+                                  </Box>
+                                  <Box >
+      
+               <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
+                onClick={handleClickOA}
+                >
+      <MoreVertIcon fontSize='small'/>
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleCloseOA}
+      >
+        <MenuItem 
+        // onClick={(e) => handleOAChange('Rate', index, 'amount_type')}
+        >Rate</MenuItem>
+        <MenuItem 
+        // onClick={(e) => handleOAChange('Amount', index, 'amount_type')}
+        >Amount</MenuItem>
+      </Menu>
+      <AppTextInput
+                        fullWidth
+                        type="number"
+                        variant="outlined"
+                        // label={item.amount_type}
+                        // value={item.value}
+                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        style={{width: '100px'}}
+                        className={classes.textInput}
+                      />
+                </Box>
+                <IconButton 
+                size="small" 
+                className={classes.closeButton}
+                  // onClick={() => handleAddOtherAmounts()}
+                >
+                   <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
+               </IconButton>
+                  </Box>
+                  
+            ) : 
+            <Box m={1} display="flex" alignItems="flex-start" >
+              <Box
+            display="flex"
+            alignItems="center"
+            onClick={() => setAddOa('discounts')}
+            className={hasDiscounts ? classes.btnTax  : classes.btnTD}
+            color="secondary.main">
+            <RemoveCircleOutlineIcon />
+              <Box ml={2}>Less Discounts</Box>
+          </Box>
+              </Box>}
+              {addOA === 'charges' ? (
+                  <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
+                  <Box style={{flexGrow: 1}}>
+                               <IconButton size="small" 
+                               style={{marginRight: 3}}
+                          className={classes.closeButton1}
+                          onClick={() => setAddOa(null)}
+                            >
+                          <CancelIcon fontSize="small"/>
+                        </IconButton>
+                  <AppTextInput
+                        fullWidth
+                        variant="outlined"
+                        // label={item.amount_type}
+                        // value={item.value}
+                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        style={{width: '200px'}}
+                      />
+                                  </Box>
+                                  <Box >
+      
+               <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
+                onClick={handleClickOA}
+                >
+      <MoreVertIcon fontSize='small'/>
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleCloseOA}
+      >
+        <MenuItem 
+        // onClick={(e) => handleOAChange('Rate', index, 'amount_type')}
+        >Rate</MenuItem>
+        <MenuItem 
+        // onClick={(e) => handleOAChange('Amount', index, 'amount_type')}
+        >Amount</MenuItem>
+      </Menu>
+      <AppTextInput
+                        fullWidth
+                        type="number"
+                        variant="outlined"
+                        // label={item.amount_type}
+                        // value={item.value}
+                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        style={{width: '100px'}}
+                        className={classes.textInput}
+                      />
+                </Box>
+                <IconButton 
+                size="small" 
+                className={classes.closeButton}
+                  // onClick={() => handleAddOtherAmounts()}
+                >
+                   <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
+               </IconButton>
+                  </Box>
+                  
+            ) : 
+            <Box m={1} display="flex" alignItems="flex-start" >
+              <Box
+            display="flex"
+            alignItems="center"
+            onClick={() => setAddOa('charges')}
+            className={hasCharges ? classes.btnTax : classes.btnTD}
+            color="primary.main">
+            <AddCircleOutlineIcon />
+              <Box ml={2}>Add Other Charges</Box>
+          </Box>
+              </Box>}
+              <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  >
+              <Grid item xs={8} lg={8}>
+              <Box display="flex">
+                {/* <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+                Total Sales (Vat Inclusive)
+                  </Typography> */}
+                </Box>
+              </Grid>
+              <Grid item xs={2} lg={2} >
+                </Grid>
+                <Grid item xs={2} lg={2}>
+                <Box display="flex" alignItems="flex-start" justifyContent="center">
+               
+                </Box>
+                </Grid>
+            </GridContainer>
+            {/* <GridContainer style={{paddingRight: 5, paddingLeft: 5}} >
+              <Grid item xs={8} lg={8}>
+              <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+                Discounts / Other Charges
+                  </Typography>
+              </Grid>
+              <Grid item xs={2} lg={2} >
+                <Box display="flex" alignItems="flex-start" justifyContent="center">
+                <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+                 
+                  </Typography>
+                </Box>
+                </Grid>
+                <Grid item xs={2} lg={2}>
+                <Box display="flex" alignItems="flex-start" justifyContent="center">
+                <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+                {amount_due}
+                  </Typography>
+                </Box>
+                </Grid>
+            </GridContainer> */}
+              </Box>
+              </Box>
+
+
+
+           
+<Divider style={{margin: 5}}/>
+            <GridContainer style={{padding: 5}} >
+              <Grid item xs={8} lg={8}>
+              <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                  Total Amount Due
+                  </Typography>
+              </Grid>
+              <Grid item xs={2} lg={2} >
+                <Box display="flex" alignItems="flex-start" justifyContent="center">
+                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                 
+                  </Typography>
+                </Box>
+                </Grid>
+                <Grid item xs={2} lg={2}>
+                <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                {amount_due}
+                  </Typography>
+                </Box>
+                </Grid>
+            </GridContainer>
 
             </Box>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography>Discount</Typography>              <Typography  align='left'>12%</Typography>
-
-            </Box>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography>Subtotal Less Discount</Typography>              <Typography>12%</Typography>
-
-            </Box>
-            <Divider/>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography>TAX RATE(12%)</Typography>              <Typography>12%</Typography>
-
-            </Box>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography>Total Tax</Typography>              <Typography>120</Typography>
-
-            </Box>
-            <Divider/>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography>Shipping/Handling</Typography>              <Typography>1000</Typography>
-
-            </Box>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography>Other</Typography>              <Typography>1000</Typography>
-
-            </Box>
-            <Divider style={{height: 10}}/>
-            <Box m={2} display="flex" alignItems="center" justifyContent="space-between" >
-              <Typography variant="h1" style={{fontWeight: 'bold'}}>Grand Total</Typography>              <Typography variant="h2">1000</Typography>
-
-            </Box>
-            <Divider style={{height: 5}}/>
-        </Box>
-        </Box>
+      </Box>
+      <br/>
+      <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-around"
+      // style={{paddingLeft: '10px', paddingRight: '20px'}}
+      >
+            <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
+      <Typography style={{marginBottom: 5}}>
+        Amount Paid
+      </Typography>
+      <AppTextInput
+                        fullWidth
+                        variant="outlined"
+                        type="number"
+                        label="Amount"
+                        value={payment}
+                        onChange={(e) => handlePayment(e.target.value)}
+                        style={{maxWidth: '300px'}}
+                      />
+                      </Box>
+                      <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
+      <Typography style={{marginBottom: 5}}>
+        Change
+      </Typography>
+      <AppTextInput
+                        fullWidth
+                        variant="outlined"
+                        type="number"
+                        label="Amount"
+                        value={change}
+                        onChange={(e) => dispatch({type: UPDATE_CART, payload: { change: e.target.value }})
+                      }
+                        style={{maxWidth: '300px'}}
+                      />
+                      </Box>
       </Box>
       {create_customer && <CreateCustomer open={create_customer} handleDialog={onCloseDialog} />}
-   </>
+   </Box>
   );
 };
 
 export default Comments;
+

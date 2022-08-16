@@ -1,31 +1,88 @@
+/* eslint-disable no-use-before-define */
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { TextField, Box, IconButton, Menu, MenuItem,} from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 
-export default function FreeSolo({label, handleChange, options = [], value}) {
+//Icons
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+
+const filter = createFilterOptions();
+
+export default function FreeSoloCreateOptionDialog({value, setDialogValue, options = [], handleChange, size, label, variant }) {
+
+
+
   return (
+    <React.Fragment>
       <Autocomplete
-        freeSolo
-        disableClearable
+        value={value}
+        onChange={(event, newValue) => {
+          console.log(newValue)
+
+          if (typeof newValue === 'string') {
+            // timeout to avoid instant validation of the dialog's form.
+            setTimeout(() => {
+              setDialogValue({
+                name: newValue
+              });
+            });
+          } else if (newValue && newValue.inputValue) {
+            setDialogValue({
+              name: newValue.inputValue
+            });
+          } else {
+            console.log(newValue)
+            if(newValue){
+              handleChange(newValue);
+            }
+          }
+        }}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params);
+
+          if (params.inputValue !== '') {
+            filtered.push({
+              inputValue: params.inputValue,
+              name: `Add "${params.inputValue}"`,
+            });
+          }
+
+          return filtered;
+        }}
+        id="free-solo"
+        options={options}
+        getOptionLabel={(option) => {
+
+          // e.g value selected with enter, right from the input
+          if (typeof option === 'string') {
+            return option;
+          }
+          if (option.inputValue) {
+            return option.inputValue;
+          }
+          console.log(option)
+          return option.name;
+        }}
         selectOnFocus
         // clearOnBlur
-        onInputChange={handleChange}
-        options={options.map(a => {return a.name})}
+        // handleHomeEndKeys
+        renderOption={(option) => option.name ?  `${option.name} ${option.value ? ` - ${option.value}${option.amount_type === 'rate' ? '%' : ''}` : ''}` : option.name}
+        freeSolo
         fullWidth
-        onChange={(e) => {
-          console.log(e)
-        }}
-        value={value}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            fullWidth
-            size='small'
-            label={label}
-            variant="outlined"
-            InputProps={{ ...params.InputProps, type: 'search' }}
-          />
+          <TextField {...params} label={label} size={size} fullWidth variant={variant} />
         )}
       />
+    </React.Fragment>
   );
 }
+
+

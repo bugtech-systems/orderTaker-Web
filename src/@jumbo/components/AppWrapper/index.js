@@ -45,8 +45,6 @@ const AppWrapper = ({ children }) => {
 
     if(theme && theme.palette){
       let { primary, secondary } = theme.palette
-      console.log(primary)
-      console.log(secondary)
       def.theme = {
         primary: primary.main,
         secondary: secondary.main
@@ -63,8 +61,6 @@ const AppWrapper = ({ children }) => {
       if(df.theme_type){
         setThemeType(df.theme_type);
       }
-
-      console.log(df.theme)
 
       if(df.theme && df.theme.primary && df.theme.secondary){
         setTheme(theme => ({

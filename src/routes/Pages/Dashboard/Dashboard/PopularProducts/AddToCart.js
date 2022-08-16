@@ -4,6 +4,15 @@ import {Box, Button, Typography} from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
+//Redux
+import {useDispatch, useSelector} from "react-redux";
+import {
+  handleCartItem
+ } from "../../../../../redux/actions/CartApp";
+import { UPDATE_CART_ITEMS } from "redux/actions/types";
+
+
+
 const useStyles = makeStyles(theme => ({
   btnRoot: {
     whiteSpace: "nowrap"
@@ -27,20 +36,31 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
+  const dispatch = useDispatch();
   const [ quantity, setQuantity ] = useState(1);
   const [ stocks, setStocks ] = useState(0);
   const [ addedToCart] = useState(false);
   const classes = useStyles();
 
   const handleQuantity = val => {
-    if (item.stocks >= val && val >= 0) {
+    if (item.stocks >= val && val > 0) {
       setQuantity(val);
       setStocks(item.stocks - val);
     }
   };
 
   const addToCart = () => {
-    onCheckout(quantity);
+    // onCheckout(quantity);
+    let obj = {
+      product: item,
+      productId: item.id,
+      name: item.name,
+      stocks: item.stocks - quantity,
+      price: item.price,
+      total: item.price * quantity,
+      other_amounts: item.other_amounts ? item.other_amounts : []
+    }
+    dispatch(handleCartItem(quantity, obj))
     setRevealed(false);
   };
 

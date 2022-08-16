@@ -7,6 +7,7 @@ import { authHeader } from '../../services/auth-header';
 
 
 export const setAuthUser = user => {
+  console.log(user)
   return dispatch => {
     dispatch({
       type: UPDATE_AUTH_USER,
@@ -37,11 +38,13 @@ export const setForgetPassMailSent = status => {
 export const loginUser = (user, callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
+    setTimeout(() => {
+      dispatch(fetchError('Connection timeout!'));
+    }, 60000)
     axios
       .post(`${commonData.apiUrl}/auth/signin`, user)
       .then(data => {
-        let { accessToken, email, id, roles } = data.data;
-          localStorage.setItem('user', JSON.stringify({email, id, roles}));
+        let { accessToken} = data.data;
           localStorage.setItem('idToken', accessToken);
           dispatch(getUserData());
           if (callbackFun) callbackFun(data.data);
@@ -60,6 +63,9 @@ export const getUserData = () => {
 
   axios.get(`${commonData.apiUrl}/auth`, { headers: authHeader() }).then(
     (res) => {
+      let { email, id, roles, name, address } = res.data;
+      localStorage.setItem('user', JSON.stringify({email, id, roles, name, address}));
+
       dispatch(setAuthUser(res.data))
       dispatch(fetchSuccess());
     },

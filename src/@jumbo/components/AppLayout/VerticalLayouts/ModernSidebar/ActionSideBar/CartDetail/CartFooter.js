@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 
+//Redux
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const useStyles = makeStyles(theme => ({
@@ -77,8 +79,6 @@ export default function CartFooter({cartAction, handleClick}) {
     const classes = useStyles();
 
 
-
-
   return (
     <>
     <Box className={classes.cartButton}>
@@ -86,7 +86,7 @@ export default function CartFooter({cartAction, handleClick}) {
         {cartAction === 'cartItems' ? 'Clear Cart' : cartAction === 'summary' && 'Back'}
         </Button>
     <Button variant="contained" color="primary" onClick={() => handleClick('submit')}>
-    {cartAction === 'cartItems' ? 'Next' : cartAction === 'summary' && 'Submit'}
+    {cartAction === 'cartItems' ? 'Next' : cartAction === 'summary' && 'Checkout'}
     </Button>
     </Box>
     </>

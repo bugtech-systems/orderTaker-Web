@@ -35,6 +35,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_CART } from '../../../../../../redux/actions/types';
 import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
 import { logout } from '../../../../../../redux/actions/Auth';
+import { createOrder } from 'redux/actions/CartApp';
 
 
 const useStyles = makeStyles(theme => ({
@@ -79,10 +80,10 @@ let initSidebarWidth = 0;
 const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const cartState = useSelector(state => state.cartApp);
+  const cart = useSelector(({cartApp}) => cartApp);
   const [isDrawerOpen, setDrawerStatus] = useState(false);
   const [activeOption, setActiveOption] = useState(null);
-  const [action, setAction] = useState('summary');
+  const [action, setAction] = useState('cartItems');
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
 
@@ -109,10 +110,15 @@ const ActionSideBar = ({ width }) => {
       setAction('cartItems');
     }
 
-    if(type === 'submit' && action === 'cartItems'){
-      setAction('summary');
+    if(type === 'submit' && action === 'summary'){
+          dispatch(createOrder(cart))
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
     }
-
   }
 
 
@@ -194,7 +200,7 @@ const ActionSideBar = ({ width }) => {
         </IconButton> */}
         <Tooltip title="Cart">
           <IconButton className={classes.iconBtn} onClick={() => onIconClick('cart')}>
-            <Badge badgeContent={cartState.cart_items_count} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+            <Badge badgeContent={cart.cart_items_count} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <LocalGroceryStore />
             </Badge>
           </IconButton>

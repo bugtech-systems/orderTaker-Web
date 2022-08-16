@@ -67,7 +67,6 @@ const Customer = () => {
   };
 
   const onDelete = (data) => {
-    console.log(data)
     setSelected(data);
     setConfirmDelete(true);
 

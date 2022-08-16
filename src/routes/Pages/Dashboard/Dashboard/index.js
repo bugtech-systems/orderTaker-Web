@@ -25,6 +25,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers} from '../../../../redux/actions/Users';
 import { getAdminDashboard } from 'redux/actions/Dashboard';
+import { getInventoryList } from 'redux/actions/ProductApp';
 
 
 
@@ -60,6 +61,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState('about');
   const { users } = useSelector((state) => state.usersReducer);
+  const { filterType, productsList } = useSelector(({ productApp }) => productApp);
   const { loadUser, authUser } = useSelector(({auth}) => auth);
   const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
 
@@ -78,11 +80,12 @@ const Dashboard = () => {
   useEffect(() => {
     if(loadUser){
     dispatch(getAdminDashboard())
+    dispatch(getInventoryList(filterType));
     }
   }, [loadUser, authUser])
 
 
-
+  // console.log(productsList)
 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>

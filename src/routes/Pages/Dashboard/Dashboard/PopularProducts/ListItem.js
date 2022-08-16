@@ -11,68 +11,8 @@ import useStyles from "./ListItem.style";
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
-import {
-  SET_CART_ITEMS_COUNT,
-  UPDATE_CART_ITEMS
-} from "../../../../../redux/actions/types";
-
-
 import productCover from '../../../../../assets/logo250.png';
 
-// const VariantColor = ({variant, onVariantClick}) => {
-//   const classes = useStyles();
-
-//   return (
-//     <Box display="flex" alignItems="center" color="text.secondary">
-//       <Box fontSize={12} component="span" mt={1}>
-//         {variant.label}:
-//       </Box>
-//       <Box display="flex" alignItems="center" ml={2} mt={1}>
-//         {variant.options.map((option, index) => (
-//           <Box
-//             key={index}
-//             className={classes.dotsRoot}
-//             style={{
-//               backgroundColor: option.value
-//             }}
-//             mr={2}
-//             onClick={() => onVariantClick(variant.label, option.value)}
-//           />
-//         ))}
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// const VariantSize = ({variant, onVariantClick}) => {
-//   const classes = useStyles();
-
-//   return (
-//     <Box display="flex" alignItems="center" color="text.secondary">
-//       <Box fontSize={12} mt={1} component="span">
-//         {variant.label}:
-//       </Box>
-//       <Box display="flex" alignItems="center" ml={2} mt={1}>
-//         {variant.options.map((option, index) => (
-//           <Box
-//             key={index}
-//             component="span"
-//             ml={1}
-//             className={classes.sizeVarRoot}
-//             onClick={() => onVariantClick(variant.label, option.value)}
-//           >
-//             {option.value}
-//           </Box>
-//         ))}
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// const productVariants = {
-//   color: React.memo(VariantColor),
-//   size: React.memo(VariantSize)
-// };
 
 const ListItem = ({item}) => {
   const classes = useStyles();
@@ -99,67 +39,6 @@ const ListItem = ({item}) => {
       </Box>
     </Box>
   );
-
-  const handleCheckout = qty => {
-    let cartItems = cart_items;
-    let ind = cart_items.find(a => a.productId == item.id);
-
-    if (ind) {
-      let newItems = cartItems.map(a => {
-        return a.productId == item.id
-          ? {
-              ...item,
-              price: item.price,
-              qty: qty,
-              total: item.price * qty,
-              stocks: item.stocks - qty,
-              productId: item.id,
-              name: item.name,
-              description: item.description
-            }
-          : a;
-      });
-
-      dispatch({
-        type: UPDATE_CART_ITEMS,
-        payload: newItems
-      });
-
-      dispatch({
-        type: SET_CART_ITEMS_COUNT,
-        payload: newItems.length
-      });
-    } else {
-      cartItems.push({
-        ...item,
-        price: item.price,
-        qty: qty,
-        total: item.price * qty,
-        stocks: item.stocks - qty,
-        productId: item.id,
-        name: item.name,
-        description: item.description
-      });
-
-      dispatch({
-        type: UPDATE_CART_ITEMS,
-        payload: cartItems
-      });
-
-      dispatch({
-        type: SET_CART_ITEMS_COUNT,
-        payload: cartItems.length
-      });
-    }
-
-    setSnackBarMessage("You have submitted for Checkout");
-    setSnackBarStatus(true);
-  };
-
-  // const onVariantClick = React.useCallback((label, value) => {
-  //   setSnackBarMessage(`You choose ${label} ${value}`);
-  //   setSnackBarStatus(true);
-  // }, []);
 
   const handleCloseSnackBar = React.useCallback(() => {
     setSnackBarStatus(false);
@@ -201,8 +80,8 @@ const ListItem = ({item}) => {
           }
         />
         <Box className={classes.listItemAction}>
-          <Box className={classes.listItemActionHover}>
-            <IconButton className="btn" onClick={() => setRevealed(true)} disabled={item.stocks <= 0}>
+          <Box className={classes.listItemActionHover} onClick={() => setRevealed(true)}>
+            <IconButton className="btn"  disabled={item.stocks <= 0}>
               <AddShoppingCartIcon />
             </IconButton>
           </Box>
@@ -210,7 +89,6 @@ const ListItem = ({item}) => {
             className={classes.revealContainer}
             item={item}
             setRevealed={setRevealed}
-            onCheckout={handleCheckout}
           />
         </Box>
       </Box>

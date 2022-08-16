@@ -20,7 +20,6 @@ import {
             headers: authHeader(),
           })
         .then(({data}) => {
-            console.log(data.data)
             dispatch({ type: SET_DASHBOARD_DATA, payload: data });
             dispatch(fetchSuccess())
         })

@@ -152,6 +152,8 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     }
   }, [])
 
+
+  console.log(roles)
   useEffect(() => {
       if(selectedUser._id){
         // delete selected._id;

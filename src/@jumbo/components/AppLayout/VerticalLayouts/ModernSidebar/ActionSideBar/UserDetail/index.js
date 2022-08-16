@@ -10,6 +10,7 @@ import CmtImage from '../../../../../../../@coremat/CmtImage';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useSelector } from 'react-redux';
 
 const actions = [
   {
@@ -87,22 +88,27 @@ const useStyles = makeStyles(theme => ({
 
 const UserDetail = () => {
   const { userDetails } = intranet;
+  const { authUser } = useSelector(({auth}) => auth);
   const classes = useStyles();
+
+
+  let role = authUser.roles ? String(authUser.roles[0].name).toUpperCase() : ''
+
   return (
     <CmtAdvCard
       actionsPos="top-corner"
-      actions={actions}
+      // actions={actions}
       actionHandleIcon={<MoreVertIcon />}
       actionMenuClassName={classes.actionMenu}>
       <CmtCardMedia className={classes.cardMediaRoot} image={'https://via.placeholder.com/350x200'}>
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={userDetails.profile_pic} alt={userDetails.name} />
+              <CmtAvatar className={classes.avatarRoot} size={56} src={authUser.profile_pic} alt={authUser.name} />
             }
-            title={userDetails.name}
+            title={authUser.name}
             titleProps={{ style: { color: '#fff' } }}
-            subTitle={userDetails.job_title}
+            subTitle={role}
             subTitleProps={{ style: { color: '#fff' } }}
             showItemBadge={false}
             anchorOrigin={{
@@ -110,13 +116,13 @@ const UserDetail = () => {
               horizontal: 'right',
             }}
             avatarProps={{ variant: 'circle' }}
-            badge={<CmtImage src={userDetails.badge} alt="Badge" />}
+            // badge={<CmtImage src={authUser.badge} alt="Badge" />}
             align="vertical"
           />
         </Box>
       </CmtCardMedia>
       {/* <CmtAdvCardContent>
-        <UserInfo userDetails={userDetails} />
+        <UserInfo authUser={authUser} />
       </CmtAdvCardContent> */}
     </CmtAdvCard>
   );

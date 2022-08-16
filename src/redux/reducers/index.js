@@ -9,7 +9,7 @@ import Crud from './Crud';
 import Data from './Data';
 import ProductApp from './ProductApp';
 import Customer from './Customer';
-import Cart from './CartApp';
+import Cart from './CartApp.reducer';
 import Dashboard from './Dashboard';
 import uiReducer from './Ui';
 

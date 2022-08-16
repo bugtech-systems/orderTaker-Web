@@ -18,8 +18,10 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    overflowY: 'hidden'
   },
   actionSidebar: {
+    overflowY: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

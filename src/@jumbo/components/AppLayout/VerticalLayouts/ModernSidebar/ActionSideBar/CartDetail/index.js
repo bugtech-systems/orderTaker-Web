@@ -18,9 +18,20 @@ import CartItemList from './CartItemList';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { UPDATE_CART, SET_CART_ITEMS_COUNT } from '../../../../../../../redux/actions/types';
+import {
+  handleCartItem
+ } from "../../../../../../../redux/actions/CartApp";
 
+//mockdb
+import { cart } from '../../../../../../../@fake-db/modules/cart';
+
+
+import "./styles.css";
 
 const useStyles = makeStyles(theme => ({
+  rootWrap: {
+    overflowY: 'hidden'
+  },
   cardRoot: {
     position: 'relative',
     '& .Cmt-card-content': {
@@ -92,107 +103,31 @@ const useStyles = makeStyles(theme => ({
 const Comments = ({cartAction}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { cart_items, cart_items_count, total }  = useSelector(({cartApp}) => cartApp);
-  const [subTotal, setSubTotal] = useState(0);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
 
 
-  const handleItem = (val, action) => {
-    let items = [];
-    let id = val.productId;
-    let sub = 0;
-    items = cart_items;
+  // useEffect(() => {
+  //   console.log(productsList)
+  //   if(productsList.length !== 0){
+  //     let obj = {
+  //       ...productsList[0],
+  //       product: productsList[0],
+  //       qty: 1
+  //     }
 
-    if(Number(val.qty) <= 1){
-      let newItems = items.filter(a => a.productId !== id);
-
-      let ind = items.find(a => a.productId === id)
-      
-      items.map(a => {
-        sub += Number(a.price * a.qty);
-      })
-
-
-
-      dispatch({
-        type: UPDATE_CART,
-        payload: { cart_items: newItems, total: sub}
-      })
-  
-      dispatch({
-        type: SET_CART_ITEMS_COUNT,
-        payload: newItems.length
-      })
-
-      return;
-    } else {
-
-    if(action === 'add'){
-      items.map(a => {
-        if(a.productId === id){
-            a.stocks--;
-            a.qty++;
-            a.total = a.qty * a.price;
-            return a;
-        } else {
-            return a;
-        }
-      })
-    
-    } else {
-
-   
-      items.map(a => {
-        if(a.productId === id){
-            a.stocks++;
-            a.qty--;
-            a.total = a.qty * a.price;
-            return a;
-        } else {
-            return a;
-        }
-      })
-    }
-
-
-
-    items.map(a => {
-      sub += Number(a.price * a.qty);
-    })
-
-
-    dispatch({
-      type: UPDATE_CART,
-      payload: { cart_items: items, total: sub}
-    })
-
-    dispatch({
-      type: SET_CART_ITEMS_COUNT,
-      payload: items.length
-    })
-
-    return;
-  }
-  }
-
-  useEffect(() => {
-  let sub = 0;
-    
-    cart_items.map(a => {
-      sub += Number(a.price * a.qty);
-    })
-
-    setSubTotal(sub)
-  }, [total, cart_items])
+  //      dispatch(handleCartItem(1, obj))
+  //   }
+  // }, [productsList])
 
 
 
   return (
     <>
-      <Box>
+      <Box className={classes.rootWrap}>
       {cartAction === 'cartItems' && <CartItemList/>}
       {cartAction === 'summary' && <CartSummary/>}
     </Box>
-        </>
+    </>
   );
 };
 

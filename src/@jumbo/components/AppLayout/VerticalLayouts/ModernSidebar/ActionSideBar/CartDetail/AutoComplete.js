@@ -20,7 +20,8 @@ export default function FreeSoloCreateOptionDialog({
     fullWidth,
     label,
     placeholder,
-    margin
+    margin,
+    handleSelect
 }) {
     const dispatch = useDispatch();
     const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
@@ -41,11 +42,10 @@ export default function FreeSoloCreateOptionDialog({
   };
 
   const handleValue = (data) => {
-    dispatch(setCurrentCustomer(data));
+    handleSelect(data)
   }
 
   const handleDialogValue = (data) => {
-    console.log(data);
     dispatch(setCurrentCustomer({
     phones:[{phone: '', label: 'home'}],
     tags: [], name: data.name}));

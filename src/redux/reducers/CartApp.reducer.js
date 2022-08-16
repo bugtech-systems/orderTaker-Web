@@ -4,16 +4,28 @@ import {
     CLEAR_CART,
     SET_CART_ITEMS_COUNT
   } from '../actions/types';
-  
+
   const INIT_STATE = {
         cart_items: [],
-        total: 0,
-        cart_items_count: 0   
+        other_amounts: [],
+        tax_disc: [], 
+        sub_total: 0,
+        gross_total: 0,
+        grand_total: 0,
+        amount_due: 0,
+        cart_items_count: 0,
+        payment: 0,
+        change: 0,
+        notes: ''
   };
   
   export default (state = INIT_STATE, action) => {
+
+
+ 
     switch (action.type) {
-     
+
+
       case UPDATE_CART: {
         return {
           ...state,

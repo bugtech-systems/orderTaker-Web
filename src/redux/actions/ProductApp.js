@@ -9,6 +9,7 @@ import {
   SET_CURRENT_PRODUCT,
   SET_FILTER_TYPE,
   TOGGLE_SIDEBAR_COLLAPSED,
+  SET_OTHER_AMOUNTS,
   // UPDATE_PRODUCT,
   // UPDATE_PRODUCT_LABEL,
   // UPDATE_LABEL_ITEM,
@@ -118,14 +119,12 @@ export const getProductsList = params => {
 
 
 export const getInventoryList = params => {
-  console.log(params)
   return dispatch => {
     // dispatch(fetchStart());
     axios
       .get(`${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`)
       .then(data => {
           dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
-          // dispatch(fetchSuccess('Kuha na'));
       })
       .catch(error => {
         console.log(error)
@@ -264,6 +263,75 @@ export const addProductStocks = (val) => {
         dispatch(fetchSuccess(data.message));
       })
       .catch(error => {
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+
+export const addProductOtherAmount = (val) => {
+  return dispatch => {
+   return axios
+      .post(`${commonData.apiUrl}/products/other_amount`, val)
+      .then(({data}) => {
+        dispatch(getAllProductOtherAmount());
+        // dispatch(getProductsList());
+        // dispatch(fetchSuccess(data.message));
+        return data.data
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+
+export const updateProductOtherAmount = (val) => {
+  return dispatch => {
+    axios
+      .put(`${commonData.apiUrl}/products/other_amount`, val)
+      .then(({data}) => {
+        console.log(data)
+        // dispatch(getProductsList());
+        // dispatch(fetchSuccess(data.message));
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+export const deleteProductOtherAmount = (val) => {
+  return dispatch => {
+    axios
+      .delete(`${commonData.apiUrl}/products/other_amount/:id`)
+      .then(({data}) => {
+        console.log(data)
+        dispatch(getAllProductOtherAmount());
+        // dispatch(fetchSuccess(data.message));
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+export const getAllProductOtherAmount = () => {
+  console.log('GET ALL OTHER AMOUNTS')
+  return dispatch => {
+    axios
+      .get(`${commonData.apiUrl}/products/other_amount`)
+      .then(({data}) => {
+        console.log(data)
+        dispatch({type: SET_OTHER_AMOUNTS, payload: data})
+        // dispatch(getProductsList());
+        // dispatch(fetchSuccess(data.message));
+      })
+      .catch(error => {
+        console.log(error)
         dispatch(fetchError('Something went wrong'));
       });
   };

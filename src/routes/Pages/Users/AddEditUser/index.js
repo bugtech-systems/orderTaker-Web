@@ -65,7 +65,8 @@ const labels = [
 
 const roles = [
   { id: 3, name: 'cashier' },
-  { id: 4, name: 'admin' }
+  { id: 4, name: 'admin' },
+  { id: 1, name: 'super' }
 ];
 
 
@@ -270,6 +271,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
           id="role"
           select
           label="Role"
+          disabled={values.roles === 'super'}
           value={values.roles}
           onChange={e => {
             setValues({...values, roles: e.target.value});
@@ -284,7 +286,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
               
             </option> */}
           {roles.map((option, index) => (
-            <option key={index} value={option.name}>
+            <option key={index} value={option.name} disabled={option.name === 'super'}>
              {String(option.name).toUpperCase()}
             </option>
           ))}

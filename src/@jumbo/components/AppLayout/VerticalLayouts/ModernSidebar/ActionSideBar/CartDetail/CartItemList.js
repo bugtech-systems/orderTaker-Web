@@ -14,6 +14,8 @@ import EmptyResult from '../EmptyResult';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { UPDATE_CART, SET_CART_ITEMS_COUNT } from '../../../../../../../redux/actions/types';
+import { handleCartItem } from '../../../../../../../redux/actions/CartApp';
+import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
 
 
 const useStyles = makeStyles(theme => ({
@@ -68,6 +70,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 10,
     textTransform: 'uppercase',
   },
+
   cartButton: {
     position: 'absolute',
     width: '100%',
@@ -88,111 +91,34 @@ const useStyles = makeStyles(theme => ({
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { cart_items, cart_items_count, total }  = useSelector(({cartApp}) => cartApp);
-  const [subTotal, setSubTotal] = useState(0);
+  const { cart_items, cart_items_count, grand_total, gross_total }  = useSelector(({cartApp}) => cartApp);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+
 
 
   const handleItem = (val, action) => {
-    let items = [];
-    let id = val.productId;
-    let sub = 0;
-    items = cart_items;
-
-    if(Number(val.qty) <= 1){
-      let newItems = items.filter(a => a.productId !== id);
-
-      let ind = items.find(a => a.productId === id)
-      
-      items.map(a => {
-        sub += Number(a.price * a.qty);
-      })
-
-
-
-      dispatch({
-        type: UPDATE_CART,
-        payload: { cart_items: newItems, total: sub}
-      })
   
-      dispatch({
-        type: SET_CART_ITEMS_COUNT,
-        payload: newItems.length
-      })
-
-      return;
-    } else {
-
-    if(action === 'add'){
-      items.map(a => {
-        if(a.productId === id){
-            a.stocks--;
-            a.qty++;
-            a.total = a.qty * a.price;
-            return a;
-        } else {
-            return a;
-        }
-      })
-    
-    } else {
-
-   
-      items.map(a => {
-        if(a.productId === id){
-            a.stocks++;
-            a.qty--;
-            a.total = a.qty * a.price;
-            return a;
-        } else {
-            return a;
-        }
-      })
+    let qty = action === 'add' ? Number(val.qty) + 1 : action === 'less' ? Number(val.qty) - 1 : 0; 
+    let obj = {
+      ...val,
+      qty: Number(qty)
     }
 
-
-
-    items.map(a => {
-      sub += Number(a.price * a.qty);
-    })
-
-
-    dispatch({
-      type: UPDATE_CART,
-      payload: { cart_items: items, total: sub}
-    })
-
-    dispatch({
-      type: SET_CART_ITEMS_COUNT,
-      payload: items.length
-    })
-
-    return;
+      dispatch(handleCartItem(qty, obj))
   }
-  }
-
-  useEffect(() => {
-  let sub = 0;
-    
-    cart_items.map(a => {
-      sub += Number(a.price * a.qty);
-    })
-
-    setSubTotal(sub)
-  }, [total, cart_items])
-
 
 
   return (
     <>
-      <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box>
       {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
         <Box>
-        Sub-Total
+        Gross total
         </Box>
         <Box pr={5} fontSize={18} fontWeight={700}>
-        ₱{subTotal}
+        ₱{gross_total}
         </Box>
       </Box>} 
+      <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box>
       {cart_items_count !== 0 ? (
         <PerfectScrollbar className={classes.scrollbarRoot}>
           <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem}/>} />

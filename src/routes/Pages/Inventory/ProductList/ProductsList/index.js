@@ -52,6 +52,7 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
   });
 
 
+  console.log(productsList)
 
   return productsList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>

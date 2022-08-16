@@ -9,6 +9,7 @@ const INIT_STATE = {
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case UPDATE_AUTH_USER: {
+  console.log(action.payload);
       return {
         ...state,
         authUser: action.payload,

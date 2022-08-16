@@ -6,14 +6,14 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 // import { timeFromNow } from '../../../../../../../@jumbo/utils/dateHelper';
 // import DoneIcon from '@material-ui/icons/Done';
 // import ClearIcon from '@material-ui/icons/Clear';
-import {IconButton} from '@material-ui/core';
+import {IconButton, Typography} from '@material-ui/core';
 
 
 
 // Icons
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles(theme => ({
   itemRoot: {
@@ -29,6 +29,17 @@ const useStyles = makeStyles(theme => ({
         opacity: 1,
       },
       '& $actionCounter': {
+        display: 'flex',
+        opacity: 1,
+      },
+      '& $clearButton': {
+        position: 'absolute',
+        display: 'flex',
+        right: -20,
+        top: -10,
+        opacity: 1,
+      },
+      '& $htext': {
         display: 'flex',
         opacity: 1,
       },
@@ -77,6 +88,12 @@ const useStyles = makeStyles(theme => ({
       marginRight: 12,
     },
   },
+  clearButton: {
+     display: 'none'   
+  },
+  htext: {
+    display: 'none'
+  }
 }));
 
 const CommentItem = ({ item, handleItem }) => {
@@ -89,7 +106,6 @@ const CommentItem = ({ item, handleItem }) => {
   useEffect(() => {
     setValues(item);
   }, [item]);
-
 
   const getTitle = () => {
     return (
@@ -111,18 +127,18 @@ const CommentItem = ({ item, handleItem }) => {
 <Box fontSize={14} color="text.disabled" mr={6}>
         Price: 
       </Box>
-      <Box fontSize={14} color="text.disabled">
+  <Box fontSize={14} color="text.disabled" className={classes.htext}>
         Stocks: 
       </Box>
 </Box>
 <Box display="relative">
-<Box fontSize={14} color="text.disabled">
+    <Box fontSize={14} color="text.disabled">
       ₱{values.price}
       </Box>
-      <Box fontSize={14} color="text.disabled">
+      <Box fontSize={14} color="text.disabled" className={classes.htext}>
       {values.stocks}
       </Box>
-</Box>
+    </Box>
       </Box>
 
     </Box>
@@ -143,8 +159,14 @@ const CommentItem = ({ item, handleItem }) => {
         footerComponent={ <Box>
           <Box display="flex" flexDirection="column" alignItems="center">
           <Box fontSize={14} alignItems="center" style={{marginBottom: 5}} color="text.disabled">
-          ₱{values.total}
-        </Box>
+         <Typography>₱{values.total}</Typography> 
+         <IconButton className={classes.clearButton}
+          size="small"
+            onClick={() => handleItem(values, 'remove')}
+          >
+            <ClearIcon fontSize="small" />
+          </IconButton>
+        </Box> 
           <Box display="flex" alignItems="center" className={classes.actionCounter}>
           <IconButton className="btn-white"
           size="small"

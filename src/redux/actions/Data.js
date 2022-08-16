@@ -9,7 +9,6 @@ export const uploadFile = (file, type) => async dispatch => {
   return await DataServices.uploadFile(file, type).then(
     res => {
       let data = res.data;
-      console.log(data);
       //   dispatch({type: SET_DATA, payload: { name: 'users', data: data }})
       return Promise.resolve(data);
     },

@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     width: '100wh',
-    
+    overflowY: 'hidden'
   },
   actionSidebar: {
     display: 'flex',
@@ -40,14 +40,15 @@ const useStyles = makeStyles(theme => ({
     padding: '15px 5px',
     width: '100%',
     borderRight: `1px solid ${theme.palette.divider}`,
+    overflowY: 'hidden'
   },
   contentArea: {
     width: '100vw',
-    // overflow: 'hidden',
+    overflowY: 'hidden',
     height: '100%',
     [theme.breakpoints.up('sm')]: {
       width: 579,
-      // overflow: 'hidden',
+      overflow: 'hidden',
       height: '100%'
 
     },
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   scrollbarRoot: {
     // height: '100%',
     margin: 15,
-    overflow: 'hidden'
+    overflowY: 'hidden'
   },
   iconBtn: {
     position: 'relative',
@@ -105,7 +106,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
 
 
   return (
-    <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest}>
+    <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
                <Box className={classes.contentArea}>
         {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
@@ -131,8 +132,6 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
           handleClick={handleClick}
           cartAction={action}
         />}
-
-    
       </Box>
     </CmtDrawer>
   );
