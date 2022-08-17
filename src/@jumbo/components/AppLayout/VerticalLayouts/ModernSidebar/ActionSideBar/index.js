@@ -81,6 +81,7 @@ const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
+  const { notifications } = useSelector(({uiReducer}) => uiReducer)
   const [isDrawerOpen, setDrawerStatus] = useState(false);
   const [activeOption, setActiveOption] = useState(null);
   const [action, setAction] = useState('cartItems');
@@ -207,7 +208,7 @@ const ActionSideBar = ({ width }) => {
         </Tooltip>
         <Tooltip title="Notifications">
           <IconButton className={classes.iconBtn} onClick={() => onIconClick('notifications')}>
-            <Badge badgeContent={4} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+            <Badge badgeContent={notifications.length} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <NotificationsIcon />
             </Badge>
           </IconButton>

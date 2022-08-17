@@ -1,7 +1,8 @@
-import {SET_CREATE_CUSTOMER_DIALOG} from "../actions/types";
+import {SET_CREATE_CUSTOMER_DIALOG, SET_NOTIFICATIONS} from "../actions/types";
 
 const INIT_STATE = {
-    create_customer: false
+    create_customer: false,
+    notifications: []
 };
 
 export default (state = INIT_STATE, action) => {
@@ -12,6 +13,13 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         create_customer: payload ? payload : !state.create_customer
+      };
+    }
+
+    case SET_NOTIFICATIONS: {
+      return {
+        ...state,
+        notifications: payload
       };
     }
   

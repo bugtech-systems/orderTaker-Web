@@ -5,6 +5,10 @@ import CmtList from '../../../../../../@coremat/CmtList';
 import NotificationItem from '../../../partials/Header/HeaderNotifications/NotificationItem';
 import EmptyResult from './EmptyResult';
 
+
+//Redux
+import {useDispatch, useSelector} from "react-redux";
+
 const useStyles = makeStyles(theme => ({
   header: {
     display: 'flex',
@@ -21,14 +25,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Notifications = () => {
-  const { headerNotifications } = intranet;
+  // const { headerNotifications } = intranet;
   const classes = useStyles();
+  const { notifications } = useSelector(({uiReducer}) => uiReducer)
 
   return (
     <Box>
       <Box className={classes.sectionHeading}>Latest Notifications</Box>
-      {headerNotifications.length > 0 ? (
-        <CmtList data={headerNotifications} renderRow={(item, index) => <NotificationItem key={index} item={item} />} />
+      {notifications.length > 0 ? (
+        <CmtList data={notifications} renderRow={(item, index) => <NotificationItem key={index} item={item} />} />
       ) : (
         <EmptyResult content="No record found" />
       )}
