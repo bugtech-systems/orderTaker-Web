@@ -77,15 +77,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function CartFooter({cartAction, handleClick}) {
     const classes = useStyles();
-
-
+    const { cart_items } = useSelector(({cartApp}) => cartApp);
+console.log(cart_items);
+console.log(cartAction)
   return (
     <>
     <Box className={classes.cartButton}>
     <Button variant="contained" color="default" onClick={() => handleClick('back')}>
         {cartAction === 'cartItems' ? 'Clear Cart' : cartAction === 'summary' && 'Back'}
         </Button>
-    <Button variant="contained" color="primary" onClick={() => handleClick('submit')}>
+    <Button variant="contained" color="primary" onClick={() => handleClick('submit')}  disabled={cartAction === 'cartItems' && cart_items.length === 0}>
     {cartAction === 'cartItems' ? 'Next' : cartAction === 'summary' && 'Checkout'}
     </Button>
     </Box>
