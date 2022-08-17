@@ -15,6 +15,7 @@ import {
   SET_CART_ITEMS_COUNT,
   UPDATE_CART_ITEMS
 } from "../../../../../../redux/actions/types";
+import commonData from "utils/commonData";
 
 const ListItem = ({item}) => {
   const classes = useStyles();
@@ -116,7 +117,7 @@ const ListItem = ({item}) => {
       >
         <CmtMediaObject
           avatar={
-            <CmtImage src={item.cover} height={80} width={80} alt={item.name} />
+            <CmtImage src={`${commonData.staticUrl}${item.cover}`} height={80} width={80} alt={item.name} />
           }
           title={item.name}
           titleProps={{

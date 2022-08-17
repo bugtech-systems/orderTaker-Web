@@ -44,9 +44,18 @@ import {
 
       case CLEAR_CART: {
         return {
-            ...state,
-              cart_items: [],
-          cart_items_count: 0
+            // ...state,
+        cart_items: [],
+        other_amounts: [],
+        tax_disc: [], 
+        sub_total: 0,
+        gross_total: 0,
+        grand_total: 0,
+        amount_due: 0,
+        cart_items_count: 0,
+        payment: 0,
+        change: 0,
+        notes: ''
         };
       }
 

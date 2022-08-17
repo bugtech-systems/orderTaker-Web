@@ -11,7 +11,7 @@ import useStyles from "./ListItem.style";
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
-import productCover from '../../../../../assets/logo250.png';
+import commonData from "utils/commonData";
 
 
 const ListItem = ({item}) => {
@@ -44,6 +44,7 @@ const ListItem = ({item}) => {
     setSnackBarStatus(false);
     setSnackBarMessage("");
   }, []);
+  console.log(item)
 
   return (
     <React.Fragment>
@@ -54,7 +55,7 @@ const ListItem = ({item}) => {
       >
         <CmtMediaObject
           avatar={
-            <CmtImage src={item.cover ? item.cover : productCover} height={80} width={80} alt={item.name} />
+            <CmtImage src={`${commonData.staticUrl}${item.cover}`} height={80} width={80} alt={item.name} />
           }
           title={item.name}
           titleProps={{

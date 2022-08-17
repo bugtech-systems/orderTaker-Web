@@ -38,15 +38,17 @@ export const setForgetPassMailSent = status => {
 export const loginUser = (user, callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
-    setTimeout(() => {
+    const ot = setTimeout(() => {
       dispatch(fetchError('Connection timeout!'));
-    }, 60000)
+    }, 30000);
+
     axios
       .post(`${commonData.apiUrl}/auth/signin`, user)
       .then(data => {
         let { accessToken} = data.data;
           localStorage.setItem('idToken', accessToken);
           dispatch(getUserData());
+          clearTimeout(ot);
           if (callbackFun) callbackFun(data.data);
       })
       .catch(error => {
