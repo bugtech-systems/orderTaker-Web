@@ -313,6 +313,11 @@ export const intranet = {
   userDetails: {
     id: 123,
     name: 'John Doe',
+    email: 'John@doe420@gmail.com',
+    phone: '+639261905502',
+    birthdate: 'April 20, 1995',
+    age: '16',
+    address: 'Brgy.420, Jamaica Street',
     profile_pic: 'https://via.placeholder.com/150x150',
     job_title: 'General Manager',
     bio: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',

@@ -6,10 +6,13 @@ import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
 import { intranet } from '../../../../../../../@fake-db';
 import CmtImage from '../../../../../../../@coremat/CmtImage';
-// import UserInfo from './UserInfo';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import Buttons from './Buttons';
+import UserData from './UserData';
+import UserInfo from './UserInfo';
 
 const actions = [
   {
@@ -83,10 +86,21 @@ const useStyles = makeStyles(theme => ({
   avatarRoot: {
     border: `solid 2px ${theme.palette.common.white}`,
   },
+  Buttons: {
+    padding: '40px 24px',
+    position: 'relative',
+    zIndex: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
 }));
 
 const UserDetail = () => {
   const { userDetails } = intranet;
+
   const classes = useStyles();
   return (
     <CmtAdvCard
@@ -94,31 +108,24 @@ const UserDetail = () => {
       actions={actions}
       actionHandleIcon={<MoreVertIcon />}
       actionMenuClassName={classes.actionMenu}>
-      <CmtCardMedia className={classes.cardMediaRoot} image={'https://via.placeholder.com/350x200'}>
-        <Box className={classes.cardMediaContent}>
-          <CmtObjectSummary
-            avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={userDetails.profile_pic} alt={userDetails.name} />
-            }
-            title={userDetails.name}
-            titleProps={{ style: { color: '#fff' } }}
-            subTitle={userDetails.job_title}
-            subTitleProps={{ style: { color: '#fff' } }}
-            showItemBadge={false}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            avatarProps={{ variant: 'circle' }}
-            badge={<CmtImage src={userDetails.badge} alt="Badge" />}
-            align="vertical"
-          />
-        </Box>
+      <CmtCardMedia className={classes.cardMediaRoot} image={'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'}>
       </CmtCardMedia>
-      {/* <CmtAdvCardContent>
-        <UserInfo userDetails={userDetails} />
-      </CmtAdvCardContent> */}
-    </CmtAdvCard>
+      <div>
+        <UserInfo />
+      </div>
+   
+
+      <div className={classes.Buttons}>
+          <Buttons/>
+      </div>
+
+      <div>
+        <UserData />
+      </div>
+
+
+
+      </CmtAdvCard>
   );
 };
 

@@ -2,8 +2,10 @@ import React from 'react';
 
 import Box from '@material-ui/core/Box';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { intranet } from '../../../../../../../@fake-db';
 
 const useStyles = makeStyles(theme => ({
+  
   cardServicesView: {
     borderBottom: `1px solid ${theme.palette.borderColor.main}`,
     marginLeft: -24,
@@ -34,7 +36,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const UserInfo = ({ userDetails }) => {
+const UserInfo = ({ userDetail }) => {
+  const { userDetails } = intranet;
   const classes = useStyles();
   return (
     <Box>
@@ -58,14 +61,6 @@ const UserInfo = ({ userDetails }) => {
           ))}
         </Box>
       </Box>
-      {/* <Box className={classes.cardContentRoot}>
-        <Box>{userDetails.bio}</Box>
-        <Box ml={2}>
-          <Fab size="medium" color="primary">
-            <SendIcon />
-          </Fab>
-        </Box>
-      </Box> */}
     </Box>
   );
 };
