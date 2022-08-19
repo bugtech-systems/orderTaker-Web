@@ -35,7 +35,7 @@ const PopularAgents = ({unpaidCustomers, count}) => {
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader
         className={classes.cardHeaderRoot}
-        title={`Unpaid Customers (${count})`}
+        title={count > 0 ?`Unpaid Customers (${count})` : ''}
         titleProps={{
           variant: 'h4',
           component: 'div',

@@ -75,49 +75,51 @@ export const handleCartItem = (qty, item)  => dispatch => {
 
 export const handleCart = (cartItem)  => dispatch => {
 
-  let { cart_items } = cartItem;
+  let { cart_items, other_amounts } = cartItem;
   let gross_total = 0;
   let amount_due = 0;
+  let total_vatable = 0;
   let total_discounts = 0;
   let total_charges = 0;
   let tax_disc = [];
 
 
   for(let val of cart_items){
+
       //Gross Total
       let total = val.price * val.qty;
       gross_total += total;
 
-
       //Vatable
-    let vats = val.other_amounts.filter(a => a.type === 'tax');
-    console.log(vats)
-    if(vats.length !== 0){
-      vats.forEach(a => {
-        console.log(a)
-        let vatable = total / (1 + (a.value / 100));
-        console.log(vatable)
-        if(a.type === 'tax'){
-          console.log(a)
-          tax_disc.push({
-            description: 'Vatables Sales',
-            type: 'tax',
-            total: Number(vatable).toFixed(2)
-          });
+    let vats = val.other_amounts.find(a => a.type === 'tax' && !a.isCart);
+    if(vats){
+      let vatable = 0;
+        vatable += total / (1 + (vats.value / 100));
+
+        let ind = tax_disc.map(ab => { return ab.id }).indexOf(vats.id);
+        if(ind !== -1){
+          tax_disc[ind].total += total - vatable;
+        } else {
 
           tax_disc.push({
+            id: vats.id,
             description: 'VAT - 12%',
             type: 'tax',
-            total: Number(total - vatable).toFixed(2)
+            total: total - vatable
           })
         }
-      })
+
+        total_vatable += vatable;
+
+
+     
+     
     }
-      //Vat
+   //Vat
 
 
       //Discounts
-      let discs = val.other_amounts.filter(a => a.type === 'discounts');
+      let discs = val.other_amounts.filter(a => a.type === 'discounts' && !a.isCart);
       if(discs.length !== 0){
         discs.forEach(a => {
               let inds = tax_disc.map(a => {return a.id}).indexOf(a.id);
@@ -138,7 +140,7 @@ export const handleCart = (cartItem)  => dispatch => {
 
    
       //Charges
-      let chrgs = val.other_amounts.filter(a => a.type === 'charges');
+      let chrgs = val.other_amounts.filter(a => a.type === 'charges' && !a.isCart);
       if(chrgs.length !== 0){
         chrgs.forEach(a => {
               let inds = tax_disc.map(a => {return a.id}).indexOf(a.id);
@@ -161,8 +163,37 @@ export const handleCart = (cartItem)  => dispatch => {
       //Amount Due
   }
 
- 
-  amount_due = gross_total - total_discounts + total_charges;
+
+  for(let val of other_amounts){
+    console.log(val.type);
+    let total = val.amount_type === 'rate' ? gross_total * (val.value / 100) : val.value;
+    console.log(total)
+    if(val.type === 'discounts'){
+      total_discounts += Number(total)
+    }
+
+    if(val.type === 'charges'){
+      total_charges += Number(total)
+    }
+
+
+    tax_disc.push({
+      id: val.id,
+      description: `${val.name}${val.amount_type === 'rate' ? ` - ${val.value}%` : ''}`,
+      total: Number(total),
+      type: val.type,
+      isCart: true
+    })
+  }
+
+
+
+  console.log('total discounts');
+  console.log(total_discounts)
+
+  let disc_gross = Number(gross_total) - Number(total_discounts)
+  console.log(disc_gross)
+  amount_due = disc_gross + Number(total_charges);
 
   dispatch({
     type: UPDATE_CART,
@@ -172,7 +203,9 @@ export const handleCart = (cartItem)  => dispatch => {
       tax_disc: tax_disc,
       gross_total: Number(gross_total).toFixed(2),
       amount_due: Number(amount_due).toFixed(2),
-      cart_items_count: cart_items.length
+      cart_items_count: cart_items.length,
+      total_vatable: Number(total_vatable).toFixed(2),
+      other_amounts: other_amounts
     }
   });
 };
@@ -181,16 +214,5 @@ export const createOrder = (cart) => dispatch => {
   console.log(cart)
     dispatch(fetchStart());
     return axios
-      .post(`${commonData.apiUrl}/orders`, cart, { headers: authHeader() })
-      .then(data => {
-        console.log(data)
-        dispatch(fetchSuccess());
-        return data.data;
-      })
-      .catch(error => {
-        console.log(error)
-        let { message } = error?.response?.data;
-        dispatch(fetchError(message.text));
-        return error
-      });
+      .post(`${commonData.apiUrl}/orders`, cart, { headers: authHeader() });
 };

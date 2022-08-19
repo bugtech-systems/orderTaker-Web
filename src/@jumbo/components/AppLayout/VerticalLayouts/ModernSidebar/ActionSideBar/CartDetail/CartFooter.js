@@ -78,8 +78,6 @@ const useStyles = makeStyles(theme => ({
 export default function CartFooter({cartAction, handleClick}) {
     const classes = useStyles();
     const { cart_items } = useSelector(({cartApp}) => cartApp);
-console.log(cart_items);
-console.log(cartAction)
   return (
     <>
     <Box className={classes.cartButton}>

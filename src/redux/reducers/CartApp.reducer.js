@@ -55,6 +55,7 @@ import {
         cart_items_count: 0,
         payment: 0,
         change: 0,
+        total_vatable: 0,
         notes: ''
         };
       }

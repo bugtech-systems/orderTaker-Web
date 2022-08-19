@@ -203,12 +203,20 @@ const Comments = () => {
   const dispatch = useDispatch();
   const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
   const { productsList }  = useSelector(({productApp}) => productApp);
-  const { gross_total, amount_due, tax_disc, payment, change }  = useSelector(({cartApp}) => cartApp);
+  const { gross_total, amount_due, tax_disc, payment, change, total_vatable, other_amounts }  = useSelector(({cartApp}) => cartApp);
+  const cart  = useSelector(({cartApp}) => cartApp);
+
   const { create_customer } = useSelector(({ uiReducer }) => uiReducer);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isSearch, setIsSearch] = useState(false);
   const [addOA, setAddOa] = useState(null);
-
+  const [oaValue, setOaValue] = useState({
+    value: 0,
+    type: '',
+    name: '',
+    amount_type: 'rate',
+    isCart: true
+  });
 
   
 
@@ -233,8 +241,9 @@ const Comments = () => {
     setAnchorEl(null);
   }
 
-  const handlePayment = (val) => {
+  const handlePayment = (val, type) => {
 
+    if(type === 'payment'){
     if(val >= 0){
       dispatch({type: UPDATE_CART, payload: { payment: val }})
     }
@@ -247,7 +256,53 @@ const Comments = () => {
       dispatch({type: UPDATE_CART, payload: { change: 0 }})
     }
 
+  } else{
+    dispatch({type: UPDATE_CART, payload: { change: val }})
+  }
 
+
+  }
+
+  const handleOaValue = prop => event => {
+    setOaValue({...oaValue, [prop]: event.target.value})
+  }
+
+  const handleOaAdd = prop => {
+    let id = Math.random();
+
+    setAddOa(prop);
+    setOaValue({ 
+      id,
+    type: prop,
+    amount_type: 'rate',
+    value: 0,
+    name: '',
+    isCart: true
+  })
+  }
+
+  const handleOaRemove = prop => {
+    let ind = other_amounts.filter(a => a.id !== prop);
+    dispatch(handleCart({ ...cart, other_amounts: ind}))
+ 
+  }
+
+  const handleOaClose = prop => {
+    setAddOa(null);
+    setOaValue({
+      type: '',
+      amount_type: 'rate',
+      value: 0,
+      name: '',
+      isCart: true
+    })
+  }
+
+  const handleOaSave = () => {
+    let oa = other_amounts;
+    oa.push({...oaValue, type: addOA});
+    dispatch(handleCart({ ...cart, other_amounts: oa}))
+    handleOaClose()
   }
 
 
@@ -268,6 +323,8 @@ const Comments = () => {
     }
   }, [productsList]);
 
+  console.log(other_amounts)
+
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
       return (
       <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  key={index} >
@@ -277,9 +334,9 @@ const Comments = () => {
             </Typography>
         </Grid>
         <Grid item xs={2} lg={2} >
-          <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+          <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
           <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-          {a.total}
+          {Number(a.total).toFixed(2)}
             </Typography>
           </Box>
           </Grid>
@@ -293,12 +350,21 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
     return (
       <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  key={index} >
       <Grid item xs={8} lg={8}>
+      <Box display="flex" alignItems="center" justifContent="flex-start">
+      {a.isCart && <IconButton size="small" 
+                                   style={{marginRight: 3}}
+                              className={classes.closeButton1}
+                              onClick={() => handleOaRemove(a.id)}
+                                >
+                              <CancelIcon fontSize="small"/>
+                            </IconButton>}
       <Typography variant="h4" style={{fontWeight: 'bolder'}}>
         {a.description}
           </Typography>
+          </Box>
       </Grid>
       <Grid item xs={2} lg={2} >
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
         {/* {a.total} */}
         Add:
@@ -306,7 +372,7 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
         </Box>
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
           {Number(a.total).toFixed(2)}
           </Typography>
@@ -320,12 +386,22 @@ const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) 
   return (
     <GridContainer style={{paddingRight: 5, paddingLeft: 5}} key={index} >
       <Grid item xs={8} lg={8}>
-      <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        <Box display="flex" alignItems="center" justifContent="flex-start">
+        {a.isCart && <IconButton size="small" 
+                                   style={{marginRight: 3}}
+                              className={classes.closeButton1}
+                              onClick={() => handleOaRemove(a.id)}
+                                >
+                              <CancelIcon fontSize="small"/>
+                            </IconButton>}
+                            <Typography variant="h4" style={{fontWeight: 'bolder'}}>
         {a.description}
           </Typography>
+        </Box>
+    
       </Grid>
       <Grid item xs={2} lg={2} >
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
         {/* {a.total} */}
         Less:
@@ -333,7 +409,7 @@ const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) 
         </Box>
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
             ({Number(a.total).toFixed(2)})
           </Typography>
@@ -354,7 +430,6 @@ let hasDiscounts = tax_disc.filter(a => a.type === 'discounts').length !== 0 ? t
 let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true : false;
 
 
-  console.log(tax_disc)
 
   return (
     <Box className={classes.rootWrap}>
@@ -437,94 +512,25 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                 </Grid>
           </GridContainer>
         <Divider style={{margin: 5}}/>
+        <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  >
+        <Grid item xs={8} lg={8}>
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+            Total Vatable Sales
+            </Typography>
+        </Grid>
+        <Grid item xs={2} lg={2} >
+          <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
+          <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+          {total_vatable}
+            </Typography>
+          </Box>
+          </Grid>
+          <Grid item xs={2} lg={2}>
+          </Grid>
+        </GridContainer>
         {getTaxes}
         <Box className={classes.btnWrap}>
-        {/* {addOA === 'tax' ? (
-                  <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
-                  <Box style={{flexGrow: 1}}>
-                               <IconButton size="small" 
-                               style={{marginRight: 3}}
-                          className={classes.closeButton1}
-                          onClick={() => setAddOa(null)}
-                            >
-                          <CancelIcon fontSize="small"/>
-                        </IconButton>
-                  <AppTextInput
-                        fullWidth
-                        variant="outlined"
-                        // label={item.amount_type}
-                        // value={item.value}
-                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
-                        style={{width: '200px'}}
-                      />
-                                  </Box>
-                                  <Box >
-      
-               <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
-                onClick={handleClickOA}
-                >
-      <MoreVertIcon fontSize='small'/>
-      </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleCloseOA}
-      >
-        <MenuItem 
-        // onClick={(e) => handleOAChange('Rate', index, 'amount_type')}
-        >Rate</MenuItem>
-        <MenuItem 
-        // onClick={(e) => handleOAChange('Amount', index, 'amount_type')}
-        >Amount</MenuItem>
-      </Menu>
-      <AppTextInput
-                        fullWidth
-                        type="number"
-                        variant="outlined"
-                        // label={item.amount_type}
-                        // value={item.value}
-                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
-                        style={{width: '100px'}}
-                        className={classes.textInput}
-                      />
-                </Box>
-                <IconButton 
-                size="small" 
-                className={classes.closeButton}
-                  // onClick={() => handleAddOtherAmounts()}
-                >
-                   <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
-               </IconButton>
-                  </Box>
-                  
-            ) : 
-            <>
-            <Box m={1} display="flex" alignItems="flex-start" >
-              <Box
-            display="flex"
-            alignItems="center"
-            onClick={() => setAddOa('discounts')}
-            className={hasTaxes ? classes.btnTax  : classes.btnTD}
-            color="secondary.main">
-            <RemoveCircleOutlineIcon />
-              <Box ml={2}>add VAT</Box>
-          </Box>
-              </Box>
-                    <Box m={1} display="flex" alignItems="flex-start" >
-                    <Box
-                  display="flex"
-                  alignItems="center"
-                  onClick={() => setAddOa('discounts')}
-                  className={hasTaxes ? classes.btnTax  : classes.btnTD}
-                  color="secondary.main">
-                  <RemoveCircleOutlineIcon />
-                    <Box ml={2}>add VAT</Box>
-                </Box>
-                    </Box>
-                    </>
-              } */}
+    
         <Divider style={{margin: 5}}/>
         <GridContainer style={{padding: 5}} >
               <Grid item xs={8} lg={8}>
@@ -553,16 +559,16 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                                <IconButton size="small" 
                                style={{marginRight: 3}}
                           className={classes.closeButton1}
-                          onClick={() => setAddOa(null)}
+                          onClick={() => handleOaClose()}
                             >
                           <CancelIcon fontSize="small"/>
                         </IconButton>
                   <AppTextInput
                         fullWidth
                         variant="outlined"
-                        // label={item.amount_type}
-                        // value={item.value}
-                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        label="Name"
+                        value={oaValue.name}
+                        onChange={handleOaValue('name')}
                         style={{width: '200px'}}
                       />
                                   </Box>
@@ -581,19 +587,25 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
         onClose={handleCloseOA}
       >
         <MenuItem 
-        // onClick={(e) => handleOAChange('Rate', index, 'amount_type')}
+        onClick={(e) => { 
+          setOaValue({...oaValue, amount_type: 'rate'  })
+          handleCloseOA()
+      }}
         >Rate</MenuItem>
         <MenuItem 
-        // onClick={(e) => handleOAChange('Amount', index, 'amount_type')}
+        onClick={(e) => {
+          handleCloseOA()
+          setOaValue({...oaValue, amount_type: 'amount'  })
+        }}
         >Amount</MenuItem>
       </Menu>
       <AppTextInput
                         fullWidth
                         type="number"
                         variant="outlined"
-                        // label={item.amount_type}
-                        // value={item.value}
-                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
+                        label={oaValue.amount_type}
+                        value={oaValue.value}
+                        onChange={handleOaValue('value')}
                         style={{width: '100px'}}
                         className={classes.textInput}
                       />
@@ -601,7 +613,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                 <IconButton 
                 size="small" 
                 className={classes.closeButton}
-                  // onClick={() => handleAddOtherAmounts()}
+                  onClick={() => handleOaSave()}
                 >
                    <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
                </IconButton>
@@ -612,7 +624,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
               <Box
             display="flex"
             alignItems="center"
-            onClick={() => setAddOa('discounts')}
+            onClick={() => handleOaAdd('discounts')}
             className={hasDiscounts ? classes.btnTax  : classes.btnTD}
             color="secondary.main">
             <RemoveCircleOutlineIcon />
@@ -620,71 +632,77 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
           </Box>
               </Box>}
               {addOA === 'charges' ? (
-                  <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
-                  <Box style={{flexGrow: 1}}>
-                               <IconButton size="small" 
-                               style={{marginRight: 3}}
-                          className={classes.closeButton1}
-                          onClick={() => setAddOa(null)}
-                            >
-                          <CancelIcon fontSize="small"/>
-                        </IconButton>
-                  <AppTextInput
-                        fullWidth
-                        variant="outlined"
-                        // label={item.amount_type}
-                        // value={item.value}
-                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
-                        style={{width: '200px'}}
-                      />
-                                  </Box>
-                                  <Box >
-      
-               <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
-                onClick={handleClickOA}
-                >
-      <MoreVertIcon fontSize='small'/>
-      </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleCloseOA}
-      >
-        <MenuItem 
-        // onClick={(e) => handleOAChange('Rate', index, 'amount_type')}
-        >Rate</MenuItem>
-        <MenuItem 
-        // onClick={(e) => handleOAChange('Amount', index, 'amount_type')}
-        >Amount</MenuItem>
-      </Menu>
-      <AppTextInput
-                        fullWidth
-                        type="number"
-                        variant="outlined"
-                        // label={item.amount_type}
-                        // value={item.value}
-                        // onChange={(e) => handleOAChange(e.taget.value, index, 'amount_type')}
-                        style={{width: '100px'}}
-                        className={classes.textInput}
-                      />
-                </Box>
-                <IconButton 
-                size="small" 
-                className={classes.closeButton}
-                  // onClick={() => handleAddOtherAmounts()}
-                >
-                   <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
-               </IconButton>
-                  </Box>
+                      <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
+                      <Box style={{flexGrow: 1}}>
+                                   <IconButton size="small" 
+                                   style={{marginRight: 3}}
+                              className={classes.closeButton1}
+                              onClick={() => handleOaClose()}
+                                >
+                              <CancelIcon fontSize="small"/>
+                            </IconButton>
+                      <AppTextInput
+                            fullWidth
+                            variant="outlined"
+                            label="Name"
+                            value={oaValue.name}
+                            onChange={handleOaValue('name')}
+                            style={{width: '200px'}}
+                          />
+                                      </Box>
+                                      <Box >
+          
+                   <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
+                    onClick={handleClickOA}
+                    >
+          <MoreVertIcon fontSize='small'/>
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleCloseOA}
+          >
+            <MenuItem 
+            onClick={(e) => { 
+              setOaValue({...oaValue, amount_type: 'rate'  })
+              handleCloseOA()
+          }}
+            >Rate</MenuItem>
+            <MenuItem 
+            onClick={(e) => {
+              handleCloseOA()
+              setOaValue({...oaValue, amount_type: 'amount'  })
+            }}
+            >Amount</MenuItem>
+          </Menu>
+          <AppTextInput
+                            fullWidth
+                            type="number"
+                            variant="outlined"
+                            label={oaValue.amount_type}
+                            value={oaValue.value}
+                            onChange={handleOaValue('value')}
+                            style={{width: '100px'}}
+                            className={classes.textInput}
+                          />
+                    </Box>
+                    <IconButton 
+                    size="small" 
+                    className={classes.closeButton}
+                      onClick={() => handleOaSave()}
+                    >
+                       <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
+                   </IconButton>
+                      </Box>
                   
             ) : 
             <Box m={1} display="flex" alignItems="flex-start" >
               <Box
             display="flex"
             alignItems="center"
-            onClick={() => setAddOa('charges')}
+            onClick={() => handleOaAdd('charges')}
             className={hasCharges ? classes.btnTax : classes.btnTD}
             color="primary.main">
             <AddCircleOutlineIcon />
@@ -707,27 +725,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                 </Box>
                 </Grid>
             </GridContainer>
-            {/* <GridContainer style={{paddingRight: 5, paddingLeft: 5}} >
-              <Grid item xs={8} lg={8}>
-              <Typography variant="h5" style={{fontWeight: 'bolder'}}>
-                Discounts / Other Charges
-                  </Typography>
-              </Grid>
-              <Grid item xs={2} lg={2} >
-                <Box display="flex" alignItems="flex-start" justifyContent="center">
-                <Typography variant="h5" style={{fontWeight: 'bolder'}}>
-                 
-                  </Typography>
-                </Box>
-                </Grid>
-                <Grid item xs={2} lg={2}>
-                <Box display="flex" alignItems="flex-start" justifyContent="center">
-                <Typography variant="h5" style={{fontWeight: 'bolder'}}>
-                {amount_due}
-                  </Typography>
-                </Box>
-                </Grid>
-            </GridContainer> */}
+         
               </Box>
               </Box>
 
@@ -773,7 +771,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                         type="number"
                         label="Amount"
                         value={payment}
-                        onChange={(e) => handlePayment(e.target.value)}
+                        onChange={(e) => handlePayment(e.target.value, 'payment')}
                         style={{maxWidth: '300px'}}
                       />
                       </Box>
@@ -787,8 +785,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                         type="number"
                         label="Amount"
                         value={change}
-                        onChange={(e) => dispatch({type: UPDATE_CART, payload: { change: e.target.value }})
-                      }
+                        onChange={(e) => handlePayment(e.target.value, 'change')}
                         style={{maxWidth: '300px'}}
                       />
                       </Box>

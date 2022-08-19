@@ -35,7 +35,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_CART } from '../../../../../../redux/actions/types';
 import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
 import { logout } from '../../../../../../redux/actions/Auth';
-import { createOrder } from 'redux/actions/CartApp';
+import { createOrder } from '../../../../../../redux/actions/CartApp';
+import { fetchError, fetchSuccess } from '../../../../../../redux/actions/Common';
 
 
 const useStyles = makeStyles(theme => ({
@@ -113,12 +114,20 @@ const ActionSideBar = ({ width }) => {
 
     if(type === 'submit' && action === 'summary'){
           dispatch(createOrder(cart))
-          .then(res => {
-            console.log(res)
-          })
-          .catch(err => {
-            console.log(err)
-          })
+          
+      .then(data => {
+        dispatch(fetchSuccess('Order Created Successfully!'));
+        dispatch({type: CLEAR_CART})
+        setAction('cartItems');
+        onDrawerClose();
+        return ;
+      })
+      .catch(error => {
+        console.log(error)
+        let msg = error.response && error.response.data
+        dispatch(fetchError(msg.message ? msg.message : 'Something went wrong!  '));
+        return error
+      });
     }
   }
 

@@ -44,7 +44,6 @@ const ListItem = ({item}) => {
     setSnackBarStatus(false);
     setSnackBarMessage("");
   }, []);
-  console.log(item)
 
   return (
     <React.Fragment>

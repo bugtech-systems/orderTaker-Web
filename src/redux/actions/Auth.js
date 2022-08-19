@@ -7,7 +7,6 @@ import { authHeader } from '../../services/auth-header';
 
 
 export const setAuthUser = user => {
-  console.log(user)
   return dispatch => {
     dispatch({
       type: UPDATE_AUTH_USER,
@@ -53,6 +52,7 @@ export const loginUser = (user, callbackFun) => {
       })
       .catch(error => {
         console.log(error)
+        clearTimeout(ot);
         let { message } = error?.response?.data;
         dispatch(fetchError(message.text));
       });

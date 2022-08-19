@@ -72,7 +72,7 @@ const AgentItem = ({ item }) => {
           {/* : <StarOutlineIcon className={classes.starIcon} /> */}
           {/* } */}
           <Box component="p" color="text.secondary" fontSize={12}>
-            Limit: ₱{item.limit} | Balance: ₱{`${item.balance}`}
+            Balance: ₱{`${item.balance}`}
           </Box>
         </Box>
       </Box>
