@@ -11,6 +11,9 @@ import { SET_SELECTED_USER } from './types';
 
 // import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
+import { authHeader } from '../../services/auth-header';
+
+
 
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
   return dispatch => {
@@ -43,7 +46,7 @@ export const addNewUser = (user, callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .post(`${commonData.apiUrl}/auth/signup`, user)
+      .post(`${commonData.apiUrl}/auth/signup`, user, { headers: authHeader() })
       .then(data => {
         if (data.status === 200) {
           dispatch(getUsers());

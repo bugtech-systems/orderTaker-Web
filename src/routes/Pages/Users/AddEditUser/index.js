@@ -64,8 +64,8 @@ const labels = [
 ];
 
 const roles = [
-  { id: 3, name: 'cashier' },
-  { id: 4, name: 'admin' },
+  { id: 3, name: 'sales' },
+  { id: 2, name: 'admin' },
   { id: 1, name: 'super' }
 ];
 

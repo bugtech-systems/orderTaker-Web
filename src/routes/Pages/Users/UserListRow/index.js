@@ -20,13 +20,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const getUserActions = user => {
-  const actions = [
-    { action: 'view', label: 'View', icon: <Visibility /> },
-    { action: 'edit', label: 'Edit', icon: <Edit /> },
-    // { action: 'email', label: 'Email', icon: <Mail /> },
-  ];
 
+
+const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, onUserView }) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+
+  const getUserActions = user => {
+    const actions = [
+      { action: 'view', label: 'View', icon: <Visibility /> },
+      { action: 'edit', label: 'Edit', icon: <Edit /> },
+      // { action: 'email', label: 'Email', icon: <Mail /> },
+    ];
+ if(row.roles && !row.roles.find(a => a.name === 'super')){
   if (user.status === 'suspended') {
     actions.push({
       action: 'activate',
@@ -36,14 +43,14 @@ const getUserActions = user => {
   } else {
     actions.push({ action: 'suspend', label: 'Suspend', icon: <Block /> });
   }
-
   actions.push({ action: 'delete', label: 'Delete', icon: <Delete /> });
-  return actions;
-};
 
-const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, onUserView }) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+ }
+   
+  
+    return actions;
+  };
+
 
   const onUserMenuClick = menu => {
     if (menu.action === 'view') {
@@ -65,17 +72,18 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
   const isItemSelected = isSelected(row.id);
   const userActions = getUserActions(row);
 
+  console.log(row)
   return (
     <TableRow
       hover
-      onClick={event => onRowClick(event, row.id)}
+      onClick={event =>  row.roles && !row.roles.find(a => a.name === 'super') && onRowClick(event, row.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
       key={row.id}
       selected={isItemSelected}>
       <TableCell padding="checkbox">
-        <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
+      { row.roles && !row.roles.find(a => a.name === 'super') && <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} /> }
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">
         <Box display="flex" alignItems="center">
@@ -95,7 +103,7 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
       </TableCell>
       <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell>
       <TableCell align="center" onClick={event => event.stopPropagation()}>
-        <CmtDropdownMenu items={userActions} onItemClick={(e) => onUserMenuClick(e)} TriggerComponent={<MoreHoriz />} />
+  <CmtDropdownMenu items={userActions} onItemClick={(e) => onUserMenuClick(e)} TriggerComponent={<MoreHoriz />} />
       </TableCell>
     </TableRow>
   );

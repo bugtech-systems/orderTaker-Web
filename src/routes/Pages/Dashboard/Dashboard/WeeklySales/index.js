@@ -35,7 +35,7 @@ const WeeklySales = () => {
 
   return (
     <CmtCard className={classes.cardRoot}>
-      <CmtCardHeader title="WEEKLY SALES" subTitle="12 - 18 June, 2020" subTitleProps={{ className: classes.subTitleRoot }}>
+      <CmtCardHeader title="DAILY SALES" subTitle="21 August, 2022" subTitleProps={{ className: classes.subTitleRoot }}>
         <IconButton onClick={toggleShowChart} edge="end" style={{ marginTop: -6 }}>
           <ShowChartIcon />
         </IconButton>
@@ -56,7 +56,7 @@ const WeeklySales = () => {
         <Collapse in={!showChart} timeout="auto" unmountOnExit>
           <ProductsTable selectedProducts={selectedProducts} />
         </Collapse>
-        <Button component={Link} to="/Profile" color="primary" className={classes.btnRoot}>
+        <Button component={Link} to="/reports" color="primary" className={classes.btnRoot}>
           View All
         </Button>
       </CmtCardContent>

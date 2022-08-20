@@ -62,7 +62,7 @@ const Dashboard = () => {
   const [tabValue, setTabValue] = useState('about');
   const { users } = useSelector((state) => state.usersReducer);
   const { filterType, productsList } = useSelector(({ productApp }) => productApp);
-  const { loadUser, authUser } = useSelector(({auth}) => auth);
+  const { loadUser, authUser, isAdmin } = useSelector(({auth}) => auth);
   const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
 
 
@@ -104,16 +104,16 @@ const Dashboard = () => {
               />
             </Grid>
             {/* Easy Access Widget Portion */}
-            <Grid item xs={12} sm={6} lg={6}>
+            <Grid item xs={12} sm={isAdmin ? 6 : 12} lg={isAdmin ? 6 : 12}>
               <CardWidget
                 backgroundColor="#6200EE"
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
                 title={counts.products}
                 subTitle="Products"
-                Link="/inventory"
+                Link={isAdmin ? "/inventory" : "/products"}
               />
             </Grid>
-            <Grid item xs={12} sm={6} lg={6}>
+            <Grid item xs={12} sm={isAdmin ? 6 : 12} lg={isAdmin ? 6 : 12}>
               <CardWidget
                 backgroundColor="#6200EE"
                 icon={<AssessmentIcon style={{ color: '#ffffff' }} />}
@@ -122,6 +122,8 @@ const Dashboard = () => {
                 Link="/reports"
               />
             </Grid>
+          {isAdmin &&
+          <>
             <Grid item xs={12} sm={6} lg={6}>
               <CardWidget
                 icon={<ContactPhone style={{ color: '#ffffff' }} />}
@@ -140,6 +142,8 @@ const Dashboard = () => {
                 Link="/users"
               />
             </Grid>
+            </>
+            }
           </GridContainer>
         </Grid>
         {/* Business CalendarEvents - Top right side */}
