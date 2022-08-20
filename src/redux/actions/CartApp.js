@@ -23,9 +23,9 @@ export const handleCartItem = (qty, item)  => dispatch => {
 
 
 
-  if(qty !== 0){
+  if(qty >= 0){
 
-    let newStock = stocks > qty && qty > 0 ? stocks - qty : 0;
+    let newStock = stocks > qty && qty >= 0 ? stocks - qty : 0;
 
   if (inds !== -1) {
 

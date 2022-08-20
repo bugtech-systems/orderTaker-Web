@@ -29,7 +29,7 @@ const ListItem = ({item}) => {
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
-        ₱{item.price}
+        ₱{item.price}  / {item.uom}
       </Box>
     </Box>
   );

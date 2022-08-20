@@ -6,7 +6,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 // import { timeFromNow } from '../../../../../../../@jumbo/utils/dateHelper';
 // import DoneIcon from '@material-ui/icons/Done';
 // import ClearIcon from '@material-ui/icons/Clear';
-import {IconButton, Typography} from '@material-ui/core';
+import {IconButton, TextField, Typography} from '@material-ui/core';
 
 
 
@@ -106,6 +106,7 @@ const CommentItem = ({ item, handleItem }) => {
   useEffect(() => {
     setValues(item);
   }, [item]);
+  console.log(item)
 
   const getTitle = () => {
     return (
@@ -133,7 +134,7 @@ const CommentItem = ({ item, handleItem }) => {
 </Box>
 <Box display="relative">
     <Box fontSize={14} color="text.disabled">
-      ₱{values.price}
+      ₱{values.price}{values.product && values.product.uom ? `/${values.product.uom}` : ''}
       </Box>
       <Box fontSize={14} color="text.disabled" className={classes.htext}>
       {values.stocks}
@@ -175,7 +176,9 @@ const CommentItem = ({ item, handleItem }) => {
             <RemoveCircleOutlineIcon 
             />
           </IconButton>
-          <Box ml={3} mr={3} display="flex" alignItems="center" style={{ fontSize: 18}}>{values.qty}</Box>
+          <Box ml={3} mr={3} display="flex" justifyContent="center" alignItems="center" style={{ fontSize: 18, textAlign: 'center'}}>
+            <TextField value={values.qty} style={{width: '25px', textAlign: 'center'}}/> 
+            </Box>
           <IconButton className="btn-white"
           size="small"
           disabled={values.stocks <= 0}

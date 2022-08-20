@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   handleCartItem
  } from "../../../../../redux/actions/CartApp";
-import { UPDATE_CART_ITEMS } from "redux/actions/types";
+import { fetchError } from "redux/actions";
 
 
 
@@ -37,13 +37,13 @@ const useStyles = makeStyles(theme => ({
 
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
-  const [ quantity, setQuantity ] = useState(1);
+  const [ quantity, setQuantity ] = useState(0);
   const [ stocks, setStocks ] = useState(0);
   const [ addedToCart] = useState(false);
   const classes = useStyles();
 
   const handleQuantity = val => {
-    if (item.stocks >= val && val > 0) {
+    if (item.stocks >= val && val >= 0) {
       setQuantity(val);
       setStocks(item.stocks - val);
     }
@@ -51,6 +51,14 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
 
   const addToCart = () => {
     // onCheckout(quantity);
+    console.log('Quants')
+    console.log(quantity)
+  if(Number(quantity) === 0) {
+    return dispatch(fetchError('Cant add 0 quantity!'))
+  } else {
+
+
+
     let obj = {
       product: item,
       productId: item.id,
@@ -62,6 +70,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
     }
     dispatch(handleCartItem(quantity, obj))
     setRevealed(false);
+  }
   };
 
   const checkoutOrder = () => {
@@ -129,7 +138,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
       <Box display="flex" alignItems="center">
         <Box display="flex" flexDirection="column">
           <Box component="span" fontSize={{xl: 16}}>
-            Price: ₱{item.price}
+            Price: ₱{item.price} / {item.uom}
           </Box>
           <Box component="span" fontSize={{xl: 16}}>
             Stocks:{" "}
