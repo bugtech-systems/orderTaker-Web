@@ -13,8 +13,11 @@ import {
   SupervisedUserCircle,
   // Settings,
   ContactPhone,
+  LowPriority,
+  NaturePeople,
+  MenuOpenIcon
 } from '@material-ui/icons';
-
+import ListIcon from '@material-ui/icons/List';
 // const storeMenus = {
 //   name: <IntlMessages id={'sidebar.store'} />,
 //   icon: <Store />,
@@ -117,20 +120,20 @@ export const sidebarNavs = [
         name: <IntlMessages id={'sidebar.dashboard'} />,
         icon: <Dashboard />,
         type: 'item',
-        link: '/dashboard'
+        link: '/dashboard',
       },
       {
         name: <IntlMessages id={'sidebar.products'} />,
-        icon: <Category />,
+        icon: <ListIcon />,
         type: 'item',
-        link: '/products'
+        link: '/products',
       },
       {
         name: <IntlMessages id={'sidebar.inventory'} />,
-        icon: <Category />,
+        icon: <LowPriority />,
         type: 'item',
         link: '/inventory',
-        isAdmin: true
+        isAdmin: true,
       },
       // {
       //   name: <IntlMessages id={'sidebar.inventory'} />,
@@ -140,10 +143,10 @@ export const sidebarNavs = [
       // },
       {
         name: <IntlMessages id={'sidebar.customers'} />,
-        icon: <ContactPhone />,
+        icon: <NaturePeople />,
         type: 'item',
         link: '/customers',
-        isAdmin: true
+        isAdmin: true,
       },
       {
         name: <IntlMessages id={'sidebar.report'} />,
@@ -156,7 +159,7 @@ export const sidebarNavs = [
         icon: <SupervisedUserCircle />,
         type: 'item',
         link: '/users',
-        isAdmin: true
+        isAdmin: true,
       },
       // {
       //   name: <IntlMessages id={'sidebar.settings'} />,
