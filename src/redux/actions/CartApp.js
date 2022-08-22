@@ -5,7 +5,6 @@ import { authHeader } from '../../services/auth-header';
 
 import commonData from '../../utils/commonData';
 import axios from 'axios';
-let store = configureStore();
 
 
 
@@ -13,6 +12,8 @@ let store = configureStore();
 
 //For expanding sidebar
 export const handleCartItem = (qty, item)  => dispatch => {
+let store = configureStore();
+
   let { stocks } = item.product;
   let cart = store.getState().cartApp;
 
@@ -74,6 +75,8 @@ export const handleCartItem = (qty, item)  => dispatch => {
 
 
 export const handleCart = (cartItem)  => dispatch => {
+
+
 
   let { cart_items, other_amounts } = cartItem;
   let gross_total = 0;
