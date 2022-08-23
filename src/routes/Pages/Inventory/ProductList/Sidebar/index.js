@@ -16,6 +16,7 @@ import { withWidth } from '@material-ui/core';
 import { getAppSidebarHeight } from '../../../../../@jumbo/constants/AppConstants';
 import MoreOptions from './MoreOptions';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import LabelCell from './LabelCell';
 
@@ -61,9 +62,9 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
     <Box className={classes.inBuildAppSidebar}>
       <Box className={classes.inBuildAppSidebarHeader}>
         <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateProduct}>
-          <PersonAddIcon />
+          <StorefrontIcon />
           <Box component="span" className="add-task-btn-text">
-            Create New
+            Create Products
           </Box>
         </Button>
       </Box>

@@ -7,6 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useDispatch } from 'react-redux';
 import { CurrentAuthMethod } from '../../../constants/AppConstants';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 import PersonIcon from '@material-ui/icons/Person';
 // import SettingsIcon from '@material-ui/icons/Settings';
 import SidebarThemeContext from '../../../../@coremat/CmtLayouts/SidebarThemeContext/SidebarThemeContext';
@@ -115,7 +116,7 @@ const SidebarHeader = () => {
                 </MenuItem>
               </NavLink>
               <MenuItem onClick={onLogoutClick}>
-                <ExitToAppIcon />
+                <MenuOpenIcon />
                 <div className="ml-2">Logout</div>
               </MenuItem>
             </MenuList>
