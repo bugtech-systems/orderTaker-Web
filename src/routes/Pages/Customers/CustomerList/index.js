@@ -10,11 +10,9 @@ import CreateCustomer from './CreateCustomer';
 import { setCurrentCustomer, deleteCustomer } from '../../../../redux/actions/Customer';
 import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
 
-
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_CREATE_CUSTOMER_DIALOG } from 'redux/actions/types';
-
 
 const Customer = () => {
   const classes = useStyles();
@@ -24,8 +22,6 @@ const Customer = () => {
   const [showCustomerDetail, setShowCustomerDetail] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [selected, setSelected] = useState(false);
-
-
 
   const dispatch = useDispatch();
 
@@ -46,43 +42,41 @@ const Customer = () => {
   const onClickCreateCustomer = () => {
     dispatch({
       type: SET_CREATE_CUSTOMER_DIALOG,
-      payload: true
-    })
+      payload: true,
+    });
   };
 
   const onClickEditCustomer = customer => {
     dispatch(setCurrentCustomer(customer));
     dispatch({
       type: SET_CREATE_CUSTOMER_DIALOG,
-      payload: true
-    })
+      payload: true,
+    });
   };
 
   const onCloseComposeDialog = () => {
     dispatch(setCurrentCustomer(null));
     dispatch({
       type: SET_CREATE_CUSTOMER_DIALOG,
-      payload: false
-    })
+      payload: false,
+    });
   };
 
-  const onDelete = (data) => {
+  const onDelete = data => {
     setSelected(data);
     setConfirmDelete(true);
+  };
 
-  }
-
-
-  const handleCancelDelete = (data) => {
+  const handleCancelDelete = data => {
     setSelected([]);
-    setConfirmDelete(false)
-  }
+    setConfirmDelete(false);
+  };
 
   const handleConfirmDelete = () => {
-    dispatch(deleteCustomer(selected))
+    dispatch(deleteCustomer(selected));
     setSelected([]);
-    setConfirmDelete(false)
-  }
+    setConfirmDelete(false);
+  };
 
   return (
     <Box className={classes.inBuildAppCard}>

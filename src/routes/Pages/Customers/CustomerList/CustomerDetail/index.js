@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
@@ -13,8 +14,12 @@ import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
-import EmailIcon from '@material-ui/icons/Email';
-import PhoneIcon from '@material-ui/icons/Phone';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import CallIcon from '@material-ui/icons/Call';
+import { intranet } from '../../../../../@fake-db';
+import HomeIcon from '@material-ui/icons/Home';
+import PaymentIcon from '@material-ui/icons/Payment';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import MoreOptions from '../CustomersList/ListTableView/CustomerCellOptions/MoreOptions';
 
 const useStyles = makeStyles(theme => ({
@@ -64,8 +69,10 @@ const useStyles = makeStyles(theme => ({
 }));
 const CustomerDetail = ({ open, handleDialog }) => {
   const classes = useStyles();
+  const { addresses, title, description } = intranet.ourOfficeData;
   const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
+  const [currentAddress] = useState(addresses[0]);
 
   const onClickStarredIcon = status => {
     dispatch(updateStarredStatus([currentCustomer.id], status));
@@ -113,29 +120,36 @@ const CustomerDetail = ({ open, handleDialog }) => {
         </Box>
       </Box>
       <Box px={6} py={5}>
-        <Box mb={5} component="p" color="common.dark">
-          Customer Detail
+        <Box mb={5}>
+          <Typography component="div" variant="h4" className={classes.addressTitle}>
+            Contact Details
+          </Typography>
         </Box>
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
-          <EmailIcon />
-          <Box ml={5} color="primary.main" component="p" className="pointer">
-            {email_address}
+
+        <Box className={classes.contactRoot} mb={6}>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <EmojiPeopleIcon />
+            <Box ml={3}>{currentCustomer.name}</Box>
           </Box>
-        </Box>
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
-          <PhoneIcon />
-          <Box ml={5}>
-            <CmtList
-              data={phones}
-              renderRow={(item, index) => (
-                <Box key={index} display="flex" alignItems="center">
-                  <Box color="text.secondary">{item.phone}</Box>
-                  <Box ml={2} className={classes.labelRoot}>
-                    {item.label}
-                  </Box>
-                </Box>
-              )}
-            />
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <MailOutlineIcon />
+            <Box ml={4}>{currentAddress.emailAddress}</Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <CallIcon />
+            <Box ml={3}>{currentAddress.phoneNumber1}</Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <PaymentIcon />
+            <Box ml={3}>{currentCustomer.balance} Balance </Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <HomeIcon />
+            <Box ml={3}>{currentCustomer.address}</Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <PaymentIcon />
+            <Box ml={4}>{currentCustomer.limit} Credit Limit</Box>
           </Box>
         </Box>
       </Box>

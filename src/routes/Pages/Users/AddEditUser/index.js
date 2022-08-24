@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { DialogTitle, TextField, InputAdornment}  from '@material-ui/core';
+import { DialogTitle, TextField, InputAdornment } from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -66,11 +66,8 @@ const labels = [
 const roles = [
   { id: 3, name: 'sales' },
   { id: 2, name: 'admin' },
-  { id: 1, name: 'super' }
+  { id: 1, name: 'super' },
 ];
-
-
-
 
 const AddEditUser = ({ open, onCloseDialog }) => {
   const classes = useStyles();
@@ -81,38 +78,34 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   const [phones, setPhones] = useState([{ phone: '', label: 'home' }]);
 
   const [phoneError, setPhoneError] = useState('');
-  
-  
+
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
 
-
   const handleChange = prop => e => {
-    setValues({...values, [prop]: e.target.value});
-    setErrors({...errors, [prop]: ''});
-  }
+    setValues({ ...values, [prop]: e.target.value });
+    setErrors({ ...errors, [prop]: '' });
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-
       const formData = new FormData();
-      formData.append("file", acceptedFiles[0]);
+      formData.append('file', acceptedFiles[0]);
 
-      dispatch(uploadFile(formData)).then(a => {
-        setDpUrl(a.url)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-
+      dispatch(uploadFile(formData))
+        .then(a => {
+          setDpUrl(a.url);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
   });
 
-
   useEffect(() => {
     if (currentUser) {
-      setValues({ ...currentUser, roles: currentUser.roles[0].name})
+      setValues({ ...currentUser, roles: currentUser.roles[0].name });
       setDpUrl(currentUser.dpUrl);
       setPhones(currentUser.phones);
     }
@@ -144,11 +137,11 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   const onSubmitClick = () => {
     const phoneNumbers = phones.filter(item => item.phone.trim());
     if (!values.name) {
-      setErrors({...errors, name: requiredMessage })
+      setErrors({ ...errors, name: requiredMessage });
     } else if (!values.email) {
-      setErrors({...errors, email: requiredMessage })
+      setErrors({ ...errors, email: requiredMessage });
     } else if (!isValidEmail(values.email)) {
-      setErrors({...errors, email: 'Invalid Email Address' })
+      setErrors({ ...errors, email: 'Invalid Email Address' });
     } else if (phoneNumbers.length === 0) {
       setPhoneError(requiredMessage);
     } else {
@@ -160,18 +153,18 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     const userDetail = {
       ...values,
       dpUrl,
-      phones: phoneNumbers
+      phones: phoneNumbers,
     };
 
     if (currentUser) {
       dispatch(
-        updateUser({ ...currentUser, ...userDetail }, (a) => {
+        updateUser({ ...currentUser, ...userDetail }, a => {
           onCloseDialog();
         }),
       );
     } else {
       dispatch(
-        addNewUser(userDetail, (a) => {
+        addNewUser(userDetail, a => {
           onCloseDialog();
         }),
       );
@@ -266,32 +259,30 @@ const AddEditUser = ({ open, onCloseDialog }) => {
             />
           </Grid>
           <Grid item xs={12} sm={4}>
-              <TextField
-            fullWidth
-          id="role"
-          select
-          label="Role"
-          disabled={values.roles === 'super'}
-          value={values.roles}
-          onChange={e => {
-            setValues({...values, roles: e.target.value});
-          }}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-          size="small"
-          >
-             {/* <option value="">
+            <TextField
+              fullWidth
+              id="role"
+              select
+              label="Role"
+              disabled={values.roles === 'super'}
+              value={values.roles}
+              onChange={e => {
+                setValues({ ...values, roles: e.target.value });
+              }}
+              SelectProps={{
+                native: true,
+              }}
+              variant="outlined"
+              size="small">
+              {/* <option value="">
               
             </option> */}
-          {roles.map((option, index) => (
-            <option key={index} value={option.name} disabled={option.name === 'super'}>
-             {String(option.name).toUpperCase()}
-            </option>
-          ))}
-        </TextField>
-
+              {roles.map((option, index) => (
+                <option key={index} value={option.name} disabled={option.name === 'super'}>
+                  {String(option.name).toUpperCase()}
+                </option>
+              ))}
+            </TextField>
           </Grid>
           <Grid item xs={12} sm={12}>
             <AppTextInput
@@ -305,20 +296,19 @@ const AddEditUser = ({ open, onCloseDialog }) => {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={() => setVisible(!visible)}>
-                   {visible ?<VisibilityOffIcon/> : < VisibilityIcon/>}
-                   </IconButton>
+                      {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
-            
           </Grid>
         </GridContainer>
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Button onClick={onCloseDialog}>Cancel</Button>
           <Box ml={2}>
             <Button variant="contained" color="primary" onClick={onSubmitClick}>
-            {currentUser ? 'Update' : 'Save'}  
+              {currentUser ? 'Update' : 'Save'}
             </Button>
           </Box>
         </Box>

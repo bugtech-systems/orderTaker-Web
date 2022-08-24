@@ -86,13 +86,13 @@ const useStyles = makeStyles(theme => ({
 //   { title: 'linkedin', url: '', icon: <LinkedInIcon /> },
 // ];
 
-const OurStore = ({business}) => {
+const OurStore = ({ business }) => {
   const { addresses, title, description } = intranet.ourOfficeData;
   const { name, address } = business ? business : {};
-  const [currentAddress ] = useState(addresses[0]);
+  const [currentAddress] = useState(addresses[0]);
   const classes = useStyles();
   // const GoogleMapBox = withGoogleMap(() => (
-    // <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
+  // <GoogleMap defaultZoom={4} defaultCenter={{ lat: 20.75056525, lng: 73.730039 }} />
   // ));
 
   // const handleAddressChange = event => {
@@ -115,7 +115,7 @@ const OurStore = ({business}) => {
         </Box> */}
         <Box mb={5}>
           <Typography component="div" variant="h4" className={classes.addressTitle}>
-            Contact Details{' '}
+            Contact Details
           </Typography>
         </Box>
 
