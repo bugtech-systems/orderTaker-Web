@@ -74,7 +74,7 @@ const ProductDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentProduct({ ...currentProduct, starred: status }));
   };
 
-  const { name, email_address, phones, description, limit, balance, dpUrl, starred } = currentProduct;
+  const { name, description, limit, price, dpUrl, rate, discount, charges, starred } = currentProduct;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
@@ -95,10 +95,10 @@ const ProductDetail = ({ open, handleDialog }) => {
                 />
               </Box>
             </Box>
-            {(limit || balance) && (
+            {(price || charges) && (
               <Box mt={-1}>
-                {limit && <Typography className={classes.subTitleRoot}> Limit: ₱{limit}.00 </Typography>}
-                {balance && <Typography className={classes.subTitleRoot}> Balance: ₱{balance}.00 </Typography>}
+                {price && <Typography className={classes.subTitleRoot}> Price: ₱{price}.00 </Typography>}
+                {charges && <Typography className={classes.subTitleRoot}> Taxes: ₱{charges}.00 </Typography>}
               </Box>
             )}
           </Box>
@@ -120,16 +120,13 @@ const ProductDetail = ({ open, handleDialog }) => {
         </Box>
         <Box className={classes.contactRoot} mb={6}>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <EventNoteIcon />
-            <Box ml={3}>{currentProduct.description}</Box>
+            <Box ml={3}> Description: {currentProduct.description}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <PaymentIcon />
-            <Box ml={3}>₱{currentProduct.price} Price </Box>
+            <Box ml={3}> Stock Limit: {currentProduct.limit}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <EventAvailableIcon />
-            <Box ml={3}>{currentProduct.stocks} Available Stocks</Box>
+            <Box ml={3}> Available Stocks: {currentProduct.stocks}</Box>
           </Box>
         </Box>
       </Box>
