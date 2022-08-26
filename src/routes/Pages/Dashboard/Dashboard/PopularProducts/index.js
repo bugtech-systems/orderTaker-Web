@@ -8,11 +8,10 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Box, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-
-const PopularProducts = ({productsList}) => {
+const PopularProducts = ({ productsList }) => {
   return (
     <CmtCard>
-           <CmtCardHeader
+      <CmtCardHeader
         className="pt-4"
         title="Popular Products"
         titleProps={{
@@ -20,10 +19,7 @@ const PopularProducts = ({productsList}) => {
           component: 'div',
         }}>
         <Box clone>
-          <Button
-          component={Link}
-          to="/products"
-          color="primary">
+          <Button component={Link} to="/products" color="primary">
             <span className="ml-2">Go to Products list</span>
           </Button>
         </Box>

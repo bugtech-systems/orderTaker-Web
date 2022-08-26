@@ -140,12 +140,12 @@ const CustomerDetail = ({ open, handleDialog }) => {
             <Box ml={3}>{currentAddress.phoneNumber1}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <PaymentIcon />
-            <Box ml={3}>{currentCustomer.balance} Balance </Box>
-          </Box>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <HomeIcon />
             <Box ml={3}>{currentCustomer.address}</Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <PaymentIcon />
+            <Box ml={3}>{currentCustomer.balance} Balance </Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <PaymentIcon />

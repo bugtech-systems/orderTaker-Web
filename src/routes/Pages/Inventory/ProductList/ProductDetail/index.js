@@ -14,7 +14,9 @@ import PropTypes from 'prop-types';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
-import PhoneIcon from '@material-ui/icons/Phone';
+import PaymentIcon from '@material-ui/icons/Payment';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import MoreOptions from '../ProductsList/ListTableView/ProductCellOptions/MoreOptions';
 
 const useStyles = makeStyles(theme => ({
@@ -72,7 +74,7 @@ const ProductDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentProduct({ ...currentProduct, starred: status }));
   };
 
-  const { name, email_address, phones, limit, balance, dpUrl, starred } = currentProduct;
+  const { name, email_address, phones, description, limit, balance, dpUrl, starred } = currentProduct;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
@@ -101,7 +103,7 @@ const ProductDetail = ({ open, handleDialog }) => {
             )}
           </Box>
         </Box>
-        <Box ml="auto" mt={-2} display="flex" alignItems="center">
+        <Box ml="auto" mtq={-2} display="flex" alignItems="center">
           <Box ml={1}>
             <MoreOptions product={currentProduct} isFromDetailPage={true} isDetailView={true} />
           </Box>
@@ -116,26 +118,18 @@ const ProductDetail = ({ open, handleDialog }) => {
         <Box mb={5} component="p" color="common.dark">
           Product Detail
         </Box>
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
-          <EmailIcon />
-          <Box ml={5} color="primary.main" component="p" className="pointer">
-            {email_address}
+        <Box className={classes.contactRoot} mb={6}>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <EventNoteIcon />
+            <Box ml={3}>{currentProduct.description}</Box>
           </Box>
-        </Box>
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
-          <PhoneIcon />
-          <Box ml={5}>
-            <CmtList
-              data={phones}
-              renderRow={(item, index) => (
-                <Box key={index} display="flex" alignItems="center">
-                  <Box color="text.secondary">{item.phone}</Box>
-                  <Box ml={2} className={classes.labelRoot}>
-                    {item.label}
-                  </Box>
-                </Box>
-              )}
-            />
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <PaymentIcon />
+            <Box ml={3}>₱{currentProduct.price} Price </Box>
+          </Box>
+          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+            <EventAvailableIcon />
+            <Box ml={3}>{currentProduct.stocks} Available Stocks</Box>
           </Box>
         </Box>
       </Box>
