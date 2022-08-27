@@ -32,7 +32,7 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART } from '../../../../../../redux/actions/types';
+import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN } from '../../../../../../redux/actions/types';
 import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
 import { logout } from '../../../../../../redux/actions/Auth';
 import { createOrder } from '../../../../../../redux/actions/CartApp';
@@ -82,74 +82,26 @@ const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
-  const { notifications } = useSelector(({uiReducer}) => uiReducer)
-  const [isDrawerOpen, setDrawerStatus] = useState(false);
-  const [activeOption, setActiveOption] = useState(null);
-  const [action, setAction] = useState('cartItems');
+  const { notifications, isDrawerOpen, activeOption, action } = useSelector(({uiReducer}) => uiReducer)
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
-
-  const handleClearCart = () => {
-    dispatch({ 
-      type: CLEAR_CART
-    })
-    dispatch(setCurrentCustomer(null))
-  }
-
-  const handleClick = (type, data) => {
-
-    if(type === 'back' && action === 'cartItems'){
-      handleClearCart(); 
-      onDrawerClose();
-    }
-
-    if(type === 'submit' && action === 'cartItems'){
-      setAction('summary');
-    }
-
-        
-    if(type === 'back' && action === 'summary'){
-      setAction('cartItems');
-    }
-
-    if(type === 'submit' && action === 'summary'){
-          dispatch(createOrder(cart))
-          
-      .then(data => {
-        dispatch(fetchSuccess('Order Created Successfully!'));
-        dispatch({type: CLEAR_CART})
-        setAction('cartItems');
-        onDrawerClose();
-        return ;
-      })
-      .catch(error => {
-        console.log(error)
-        let msg = error.response && error.response.data
-        dispatch(fetchError(msg.message ? msg.message : 'Something went wrong!  '));
-        return error
-      });
-    }
-  }
-
-
-
   const onIconClick = option => {
-    console.log(option)
-    setSidebarOpen(false)
-    setActiveOption(option);
+    setSidebarOpen(false);
+    dispatch({type: SET_ACTIVE_OPTION, payload: option})
+    dispatch({type: SET_DRAWER_OPEN, payload: true})
     if(option === 'cart'){
-      setAction('cartItems');
+      // setAction('cartItems');
+      dispatch({type: SET_ACTION, payload: 'cart'})
     }
   };
 
   const onDrawerClose = () => {
-    setDrawerStatus(false);
-    setActiveOption(null);
+    dispatch({type: SET_DRAWER_OPEN, payload: false})
+    dispatch({type: SET_ACTIVE_OPTION, payload: null})
   };
 
   const handleLogout = () => {
         dispatch(logout());
-    // dispatch(logout());
   };
 
   const onItemClick = item => {
@@ -157,7 +109,8 @@ const ActionSideBar = ({ width }) => {
       dispatch(AuhMethods[CurrentAuthMethod].onLogout());
     }
     if (item.label === 'Account') {
-      setActiveOption('profile');
+      // setActiveOption('profile');
+      dispatch({type: SET_ACTIVE_OPTION, payload: 'profile'})
     }
   };
 
@@ -180,12 +133,16 @@ const ActionSideBar = ({ width }) => {
   useEffect(() => {
     if (activeOption && !isDrawerOpen) {
       setSidebarOpen(false)
-      setDrawerStatus(true);
+      dispatch({type: SET_DRAWER_OPEN, payload: false})
 
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
+
+  console.log(isDrawerOpen)
+  console.log(activeOption)
+  console.log(action)
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
@@ -210,7 +167,7 @@ const ActionSideBar = ({ width }) => {
         </IconButton> */}
         <Tooltip title="Cart">
           <IconButton className={classes.iconBtn} onClick={() => onIconClick('cart')}>
-            <Badge badgeContent={cart.cart_items_count} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+            <Badge badgeContent={cart.cart_items.length} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <LocalGroceryStore />
             </Badge>
           </IconButton>
@@ -255,12 +212,10 @@ const ActionSideBar = ({ width }) => {
         </Hidden>
       </Box>
       <ActionBarDrawer
-        activeOption={activeOption}
         open={isDrawerOpen}
         onDrawerClose={onDrawerClose}
         onIconClick={onIconClick}
-        handleClick={handleClick}
-        action={action}
+        activeOption={activeOption}
       />
     </div>
   );

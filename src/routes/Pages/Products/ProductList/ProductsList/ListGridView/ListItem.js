@@ -125,7 +125,7 @@ const ListItem = ({item}) => {
             component: "div",
             className: classes.titleRoot
           }}
-          subTitle={item.description}
+          subTitle={item.description ? item.description : 'No Description'}
           subTitleProps={{
             variant: "subtitle2",
             component: "p",

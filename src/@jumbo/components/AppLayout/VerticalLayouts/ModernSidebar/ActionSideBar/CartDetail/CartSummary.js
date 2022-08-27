@@ -27,12 +27,14 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 const useStyles = makeStyles(theme => ({
   rootWrap: {
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    maxHeight: '90vh',
-    paddingBottom: '100px',
-    padding: '10px',
-    paddingRight: '20px'
+    width: '100%',
+    flexGrow: 1
+    // overflowY: 'scroll',
+    // overflowX: 'hidden',
+    // maxHeight: '90vh',
+    // paddingBottom: '100px',
+    // padding: '10px',
+    // paddingRight: '20px'
   },
   cardRoot: {
     position: 'relative',
@@ -436,58 +438,6 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
   return (
     <Box className={classes.rootWrap}>
       <Divider/>
-       <Box mb={1} className={classes.sectionCustomer}>
-       <Box sx={{pr: 10, pt: 2 }} mb={1} display="flex" flexDirection="column" flexGrow={1}>
-        <Box display="flex">
-        <Typography variant="h3" style={{fontWeight: 'bolder', flexGrow: 1}}>
-        Customer Details
-        </Typography>
-        {currentCustomer && <IconButton style={{marginTop: 5}} size='small'
-                 onClick={() => {
-                  dispatch({type: UPDATE_CART, payload: { customerId: null }})
-                  dispatch(setCurrentCustomer(null));
-                 }
-                }
-                  >
-              <HighlightOffIcon fontSize="small"/>  
-            </IconButton>}
-            </Box>
-        {/* <Box  flexGrow={1} > */}
-        {!currentCustomer &&
-            <CustomerAutoComplete
-                placeholder="Select"
-                margin="dense"
-                fullWidth={true}
-                variant="outlined"
-                listOption={customersList}
-                handleSelect={handleSelect}
-            />
-        }
-        {/* </Box> */}
-        </Box>
-       {currentCustomer && 
-        <Box sx={{pr: 10, p: 2 }} display="flex" flexDirection="column" flexGrow={1}>
-        <Box mt={-2}>
-            {currentCustomer && currentCustomer.id &&
-            <Box display="flex" alignItems="flex-start" justifyContent="" flexDirection="row">
-            <Box display="flex" alignItems="flex-start" justifyContent="center" flexDirection="column" >
-            <Typography  className={classes.label}>Name:</Typography>
-            <Typography  className={classes.label}>Address:</Typography>
-            <Typography  className={classes.label}>Email:</Typography>
-            <Typography  className={classes.label}>Phone:</Typography>
-            </Box>
-            <Box display="flex" alignItems="flex-start" justifyContent="center" flexDirection="column" >
-            <Typography className={classes.titleRoot}>{currentCustomer && currentCustomer.name}</Typography>
-            <Typography className={classes.titleRoot}>{currentCustomer && currentCustomer.address}</Typography>
-            <Typography  className={classes.titleRoot}>{currentCustomer && currentCustomer.email}</Typography>
-            <Typography className={classes.titleRoot}>{currentCustomer && currentCustomer.phones.length !== 0 ? currentCustomer.phones.map(a => {return a.phone}).join() : 'No Contact #'}</Typography>
-            </Box>
-            </Box>
-            }
-        </Box>
-        </Box>}
-      </Box>
-      <Divider/>
       <Box mt={3} className={classes.sectionTotal}>
         {/* <Box sx={{pr: 10 }} display="flex" flexDirection="column" flexGrow={1}>
         </Box> */}
@@ -759,7 +709,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
 
             </Box>
       </Box>
-      <br/>
+      {/* <br/>
       <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-around"
       // style={{paddingLeft: '10px', paddingRight: '20px'}}
       >
@@ -792,7 +742,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                       />
                       </Box>
       </Box>
-      {create_customer && <CreateCustomer open={create_customer} handleDialog={onCloseDialog} />}
+      {create_customer && <CreateCustomer open={create_customer} handleDialog={onCloseDialog} />} */}
    </Box>
   );
 };
