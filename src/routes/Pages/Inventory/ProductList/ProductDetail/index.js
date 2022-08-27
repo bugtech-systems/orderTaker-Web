@@ -74,7 +74,22 @@ const ProductDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentProduct({ ...currentProduct, starred: status }));
   };
 
-  const { name, description, limit, price, dpUrl, rate, discount, charges, starred } = currentProduct;
+  const { name, description, limit, price, dpUrl, uom, other_amounts, starred } = currentProduct;
+  console.log(currentProduct);
+  console.log(other_amounts);
+
+  const otherAmounts = other_amounts.map(a => {
+    let oaType = a.type.charAt(0).toUpperCase() + a.type.slice(1);
+    let oaName = `${a.name} - ${a.amount_type === 'rate' ? `${a.value}%` : `₱${Number(a.value).toFixed(2)}`}`;
+
+    return (
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" mb={1}>
+        <Typography color="primary">{oaName}</Typography>
+        <Typography variant="caption">{oaType}</Typography>
+      </Box>
+    );
+  });
+
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
@@ -95,11 +110,8 @@ const ProductDetail = ({ open, handleDialog }) => {
                 />
               </Box>
             </Box>
-            {(price || charges) && (
-              <Box mt={-1}>
-                {price && <Typography className={classes.subTitleRoot}> Price: ₱{price}.00 </Typography>}
-                {charges && <Typography className={classes.subTitleRoot}> Taxes: ₱{charges}.00 </Typography>}
-              </Box>
+            {price && (
+              <Box mt={-1}>{price && <Typography color="primary"> Price: `₱{Number(price).toFixed(2)}`</Typography>}</Box>
             )}
           </Box>
         </Box>
@@ -118,18 +130,29 @@ const ProductDetail = ({ open, handleDialog }) => {
         <Box mb={5} component="p" color="common.dark">
           Product Detail
         </Box>
-        <Box className={classes.contactRoot} mb={6}>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <Box ml={3}> Description: {currentProduct.description}</Box>
+          <Box display="flex" alignItems="center" mb={3} color="primary" pl={5}>
+            <Typography color="primary"> Description: {currentProduct.description}</Typography>
           </Box>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <Box ml={3}> Stock Limit: {currentProduct.limit}</Box>
+          <Box display="flex" alignItems="center" mb={3} color="primary" pl={5}>
+            <Typography color="primary"> Stock Limit: {currentProduct.limit}</Typography>
+             <Typography variant="caption"> {currentProduct.uom}</Typography>
           </Box>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <Box ml={3}> Available Stocks: {currentProduct.stocks}</Box>
+          <Box display="flex" alignItems="center" color="primary" pl={5}>
+            <Typography color="primary"> Available Stocks: {currentProduct.stocks}</Typography>
+              <Typography variant="caption"> {currentProduct.uom}</Typography>
           </Box>
         </Box>
-      </Box>
+      {other_amounts.length !== 0 && (
+        <Box px={6} py={5}>
+          <Box component="p" color="common.dark">
+            Other Charges and Discounts
+          </Box>
+          <br />
+          <Box pl={5} className={classes.contactRoot}>
+            {otherAmounts}
+          </Box>
+        </Box>
+      )}
     </Dialog>
   );
 };

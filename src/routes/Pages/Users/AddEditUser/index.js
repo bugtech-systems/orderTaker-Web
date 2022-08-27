@@ -172,6 +172,8 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   };
 
   const isPhonesMultiple = phones.length > 1;
+
+  console.log(onSubmitClick);
   return (
     <Dialog open={open} onClose={onCloseDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>

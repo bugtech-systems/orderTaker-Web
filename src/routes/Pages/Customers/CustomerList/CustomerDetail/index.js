@@ -79,7 +79,7 @@ const CustomerDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentCustomer({ ...currentCustomer, starred: status }));
   };
 
-  const { name, email_address, phones, dpUrl, starred } = currentCustomer;
+  const { name, email, phones, dpUrl, starred } = currentCustomer;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>
@@ -128,16 +128,8 @@ const CustomerDetail = ({ open, handleDialog }) => {
 
         <Box className={classes.contactRoot} mb={6}>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <EmojiPeopleIcon />
-            <Box ml={3}>{currentCustomer.name}</Box>
-          </Box>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <MailOutlineIcon />
-            <Box ml={4}>{currentAddress.emailAddress}</Box>
-          </Box>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
-            <CallIcon />
-            <Box ml={3}>{currentAddress.phoneNumber1}</Box>
+            <Box ml={4}>{currentCustomer.email}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <HomeIcon />
@@ -145,11 +137,11 @@ const CustomerDetail = ({ open, handleDialog }) => {
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <PaymentIcon />
-            <Box ml={3}>{currentCustomer.balance} Balance </Box>
+            <Box ml={3}> Balance: ₱{currentCustomer.balance}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <PaymentIcon />
-            <Box ml={4}>{currentCustomer.limit} Credit Limit</Box>
+            <Box ml={4}>Credit Limit: ₱{currentCustomer.limit} </Box>
           </Box>
         </Box>
       </Box>
