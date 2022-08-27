@@ -98,12 +98,11 @@ const Comments = () => {
 
   const handleItem = (val, action) => {
   
-    let qty = action === 'add' ? Number(val.qty) + 1 : action === 'less' ? Number(val.qty) - 1 : 0; 
+    let qty = action === 'add' ? Number(val.qty) + 1 : action === 'less' ? Number(val.qty) - 1 : -1; 
     let obj = {
       ...val,
       qty: Number(qty)
     }
-
       dispatch(handleCartItem(qty, obj))
   }
 

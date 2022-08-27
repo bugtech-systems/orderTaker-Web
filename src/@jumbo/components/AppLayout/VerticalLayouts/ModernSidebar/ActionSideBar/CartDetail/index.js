@@ -17,20 +17,17 @@ import CartItemList from './CartItemList';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { UPDATE_CART, SET_CART_ITEMS_COUNT } from '../../../../../../../redux/actions/types';
-import {
-  handleCartItem
- } from "../../../../../../../redux/actions/CartApp";
-
-//mockdb
-import { cart } from '../../../../../../../@fake-db/modules/cart';
-
-
 import "./styles.css";
+
+//Components
+import AccordionList from './AccordionList';
+import CartFooter from './CartFooter';
+import SuccessPage from './SuccessPage';
+import ProceedPayment from './ProceedPayment';
 
 const useStyles = makeStyles(theme => ({
   rootWrap: {
-    overflowY: 'hidden'
+    overflowY: 'hidden',
   },
   cardRoot: {
     position: 'relative',
@@ -104,7 +101,7 @@ const Comments = ({cartAction}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { productsList, filterType }  = useSelector(({productApp}) => productApp);
-
+  const [active, setActive] = useState('success'); 
 
   // useEffect(() => {
   //   console.log(productsList)
@@ -124,8 +121,10 @@ const Comments = ({cartAction}) => {
   return (
     <>
       <Box className={classes.rootWrap}>
-      {cartAction === 'cartItems' && <CartItemList/>}
-      {cartAction === 'summary' && <CartSummary/>}
+
+      {active === 'cart' && <CartItemList/>}
+      {active === 'payment' && <ProceedPayment/>}
+      {active === 'success' && <SuccessPage/>}
     </Box>
     </>
   );

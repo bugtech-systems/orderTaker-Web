@@ -30,7 +30,9 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'scroll',
     overflowX: 'hidden',
     maxHeight: '90vh',
-    paddingBottom: '100px'
+    paddingBottom: '100px',
+    padding: '10px',
+    paddingRight: '20px'
   },
   cardRoot: {
     position: 'relative',
@@ -348,7 +350,7 @@ const Comments = () => {
 
 const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
     return (
-      <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  key={index} >
+      <GridContainer style={{ paddingLeft: 5}}  key={index} >
       <Grid item xs={8} lg={8}>
       <Box display="flex" alignItems="center" justifContent="flex-start">
       {a.isCart && <IconButton size="small" 
@@ -364,16 +366,16 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
           </Box>
       </Grid>
       <Grid item xs={2} lg={2} >
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
-        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        <Box display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="h5" style={{fontWeight: 'bolder'}}>
         {/* {a.total} */}
         Add:
           </Typography>
         </Box>
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
-        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
+        <Typography variant="h5" style={{fontWeight: 'bolder'}}>
           {Number(a.total).toFixed(2)}
           </Typography>
         </Box>
@@ -384,11 +386,11 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
 
 const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) => {
   return (
-    <GridContainer style={{paddingRight: 5, paddingLeft: 5}} key={index} >
+    <GridContainer key={index} >
       <Grid item xs={8} lg={8}>
         <Box display="flex" alignItems="center" justifContent="flex-start">
         {a.isCart && <IconButton size="small" 
-                                   style={{marginRight: 3}}
+                                  //  style={{marginRight: 3}}
                               className={classes.closeButton1}
                               onClick={() => handleOaRemove(a.id)}
                                 >
@@ -401,15 +403,15 @@ const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) 
     
       </Grid>
       <Grid item xs={2} lg={2} >
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
-        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        {/* <Box display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}> */}
         {/* {a.total} */}
         Less:
-          </Typography>
-        </Box>
+          {/* </Typography>
+        </Box> */}
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
             ({Number(a.total).toFixed(2)})
           </Typography>
@@ -487,10 +489,10 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
       </Box>
       <Divider/>
       <Box mt={3} className={classes.sectionTotal}>
-        <Box sx={{pr: 10 }} display="flex" flexDirection="column" flexGrow={1}>
-        </Box>
+        {/* <Box sx={{pr: 10 }} display="flex" flexDirection="column" flexGrow={1}>
+        </Box> */}
         <Box style={{marginTop: 5}}>
-        <GridContainer style={{padding: 5}}>
+        <GridContainer >
               <Grid item xs={8} lg={8}>
               <Typography variant="h3" style={{fontWeight: 'bolder'}}>
                   Gross total
@@ -532,7 +534,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
         <Box className={classes.btnWrap}>
     
         <Divider style={{margin: 5}}/>
-        <GridContainer style={{padding: 5}} >
+        <GridContainer >
               <Grid item xs={8} lg={8}>
               <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
                 <Typography variant="h5" style={{fontWeight: 'bolder'}}>

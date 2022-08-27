@@ -116,7 +116,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
         <Box fontSize={20} fontWeight={700}>
            {activeOption === 'notifications' && 'Notifications'}
             {activeOption === 'profile' && 'My Pofile'}
-            {activeOption === 'cart' && 'SHOPPING CART'}
+            {activeOption === 'cart' && 'Order Details'}
         </Box>
         <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
@@ -128,10 +128,6 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
             {activeOption === 'cart' && <Cart cartAction={action}/>}
           </PerfectScrollbar>
         </Box>
-        {activeOption === 'cart' && <CartFooter
-          handleClick={handleClick}
-          cartAction={action}
-        />}
       </Box>
     </CmtDrawer>
   );
