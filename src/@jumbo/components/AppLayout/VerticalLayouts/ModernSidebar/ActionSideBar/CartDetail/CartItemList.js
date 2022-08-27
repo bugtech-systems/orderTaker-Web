@@ -1,99 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import { Box, makeStyles } from '@material-ui/core';
-
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { alpha } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import MuiAccordion from '@material-ui/core/Accordion';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
+import { Box, Divider, Typography, Button } from '@material-ui/core';
 import CmtList from '../../../../../../../@coremat/CmtList';
-import CartItem from './CartItem';
-
-
 import EmptyResult from '../EmptyResult';
-// import SearchBox from '../Search/SearchBox';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+
 
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { UPDATE_CART, SET_CART_ITEMS_COUNT } from '../../../../../../../redux/actions/types';
+import { UPDATE_CART, CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../../../../../../../redux/actions/types';
 import { handleCartItem } from '../../../../../../../redux/actions/CartApp';
+import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
 import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
+
+//Components
+import SearchProduct from './SearchProduct';
+import CartItem from './CartItem';
+import CartSummary from './CartSummary';
 
 
 const useStyles = makeStyles(theme => ({
-  cardRoot: {
-    position: 'relative',
-    '& .Cmt-card-content': {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-  },
-  scrollbarRoot: {
-    marginRight: 10,
-    maxHeight: '75vh',
-    overflow: 'hidden',
-    paddingBottom: 50,
-    // paddingBottom: 50,
-    // marginBottom: 100,
-    [theme.breakpoints.up('sm')]: {
-      maxHeight: '75vh',
-      overflow: 'hidden',
-      // paddingBottom: 50
-    },
-  },
-  chipRoot: {
-    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-    color: theme.palette.primary.main,
-    letterSpacing: 0.25,
-    fontSize: 14,
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    // alignItems: 'center',
-    marginBottom: 10,
-  },
-  sectionHeading: {
-    fontSize: 10,
-    color: theme.palette.text.secondary,
-    marginBottom: 10,
-    textTransform: 'uppercase',
-    paddingRight: 5,
-    paddingLeft: 5,
-  },
-  sectionTotalHeading: {
-    paddingRight: 5,
-    paddingLeft: 5,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    fontSize: 14,
-    color: theme.palette.text.secondary,
-    marginBottom: 10,
-    textTransform: 'uppercase',
-  },
-
-  cartButton: {
-    position: 'absolute',
+  rootWrap: {
+    height: "100%",
     width: '100%',
-    bottom: 50,
-    // marginBottom: 50,
-    zIndex: 1000,
-    color: theme.palette.text.secondary,
-    textTransform: 'uppercase',
-    display: "flex",
-    alignItems: 'center',
-    justifyContent: 'center',
-    [theme.breakpoints.up('sm')]: {
-      bottom: 80,
+    flexGrow: 1
+    // display: 'flex',
+    // flexDirection: 'column',
+      // alignItems: 'center',
+    // justifyContent: 'flex-start'
+  },
+  accordionContent: {
+    height: '70vh',
+    width: '100%',
+    flexGrow: 1
+  }
+}));
+
+const Accordion = withStyles({
+  root: {
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
     },
   },
-}));
+  expanded: {},
+})(MuiAccordion);
+
+const AccordionSummary = withStyles({
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiAccordionSummary);
+
+const AccordionDetails = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(1),
+  },
+}))(MuiAccordionDetails);
 
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { cart_items, cart_items_count, grand_total, gross_total }  = useSelector(({cartApp}) => cartApp);
+  const { cart_items, cart_items_count, grand_total, gross_total, amount_due }  = useSelector(({cartApp}) => cartApp);
   const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  const [expanded, setExpanded] = React.useState('cartItems');
 
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
 
   const handleItem = (val, action) => {
@@ -106,10 +103,55 @@ const Comments = () => {
       dispatch(handleCartItem(qty, obj))
   }
 
+  const handleSelect = (val) => {
+    console.log(val)
+  }
+
+  const handleProceedPayment = () => {
+      dispatch({type: SET_ACTION, payload: 'success'})
+  }
+
+  const handleClearCart = () => {
+    dispatch({ 
+      type: CLEAR_CART
+    })
+    dispatch(setCurrentCustomer(null));
+    dispatch({ 
+      type: SET_ACTIVE_OPTION,
+      payload: null
+    });
+
+    dispatch({ 
+      type: SET_DRAWER_OPEN,
+      payload: false
+    });
+  }
+
+
+
+
+  useEffect(() => {
+    dispatch(getInventoryList(filterType));
+  }, [filterType, dispatch]);
+
+  console.log(cart_items)
+  console.log(expanded)
+  useEffect(() => {
+    if(!expanded){
+      setExpanded('cartItems')
+    }
+  }, [expanded])
+
 
   return (
-    <>
-      {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
+    <Box className={classes.rootWrap}>
+     <SearchProduct
+      options={productsList}
+      handleSelect={handleSelect}
+      />
+      <Divider/>
+     
+      {/* {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
         <Box>
         Gross total
         </Box>
@@ -124,8 +166,50 @@ const Comments = () => {
         </PerfectScrollbar>
         ) : (
         <EmptyResult content="No record found" />
-      )}
-        </>
+      )} */}
+      <br/>
+      <Box className={classes.accordionContent}>
+        <Accordion expanded={expanded === 'cartItems'} onChange={() => {cart_items.length > 0 && handleChange('cartItems')}}>
+        <AccordionSummary aria-controls="cartItems-content" id="cartItems-header">
+          <Typography> <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box></Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Box flexGrow={1} width="100%" style={{ height: '50vh', overflowX: 'hidden', overflowY: 'auto'}}>
+        {cart_items.length !== 0 ? (
+        <PerfectScrollbar className={classes.scrollbarRoot}>
+          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem}/>} />
+        </PerfectScrollbar>
+        ) : (
+        <Box flexGrow={1} width="100%" height="100%" display="flex" justifyContent="center" alignItems="center">
+        <EmptyResult content="No record found" />
+      </Box>
+      )} 
+      </Box>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'summary'} onChange={() => amount_due <= 0 && handleChange('summary')}>
+        <AccordionSummary aria-controls="summary-content" id="summary-header">
+          <Box width="100%" display="flex" justifyContent="space-between">
+        <Box>
+        Amount Due
+        </Box>
+        <Box pr={5} fontSize={18} fontWeight={700}>
+        ₱{amount_due}
+        </Box>
+        </Box>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Box flexGrow={1} width="100%" style={{ height: '50vh', overflowX: 'hidden', overflowY: 'auto'}}>
+          <CartSummary/>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+      </Box>
+      <br/>
+       <Box mt="auto" width="100%" display="flex" alignItems="center" justifyContent="space-around">
+        <Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment()} disabled={cart_items.length === 0} >Proceed Payment</Button>
+       </Box>
+        </Box>
   );
 };
 

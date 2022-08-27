@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
   scrollbarRoot: {
     // height: '100%',
-    margin: 15,
+    margin: 10,
     overflowY: 'hidden'
   },
   iconBtn: {
@@ -104,7 +104,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
 
 
 
-
+console.log(activeOption)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
@@ -125,7 +125,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
           <PerfectScrollbar className={classes.scrollbarRoot}>
             {activeOption === 'notifications' && <Notifications />}
             {activeOption === 'profile' && <Profile/>}
-            {activeOption === 'cart' && <Cart cartAction={action}/>}
+            {activeOption === 'cart' && <Cart />}
           </PerfectScrollbar>
         </Box>
       </Box>

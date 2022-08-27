@@ -6,7 +6,36 @@ import {
   } from '../actions/types';
 
   const INIT_STATE = {
-        cart_items: [],
+        cart_items: [
+          {
+              "product": {
+                  "id": 3,
+                  "name": "Concrete Nail",
+                  "description": "Concrete nail",
+                  "uom": "kilo",
+                  "price": 150,
+                  "limit": 30,
+                  "purchase_price": 0,
+                  "stocks": 176,
+                  "cover": "noproduct.jpg",
+                  "starred": false,
+                  "deletedAt": null,
+                  "updatedAt": "2022-08-26T09:39:15.000Z",
+                  "createdAt": "2022-08-20T04:58:10.000Z",
+                  "businessId": 1,
+                  "labels": [],
+                  "other_amounts": [],
+                  "folder": "products"
+              },
+              "productId": 3,
+              "name": "Concrete Nail",
+              "stocks": 170,
+              "price": 150,
+              "total": 900,
+              "other_amounts": [],
+              "qty": "6"
+          }
+      ],
         other_amounts: [],
         tax_disc: [], 
         sub_total: 0,

@@ -57,17 +57,17 @@ const useStyles = makeStyles(theme => ({
       padding: '5px 15px'
       },
       cartButton: {
-        position: 'absolute',
+        // position: 'absolute',
         width: '100%',
-        bottom: 30,
-        zIndex: 1000,
+        // bottom: 30,
+        // zIndex: 1000,
         color: theme.palette.text.secondary,
         textTransform: 'uppercase',
         display: "flex",
         alignItems: 'center',
         justifyContent: 'space-around',
         [theme.breakpoints.up('sm')]: {
-          bottom: 20,
+          // bottom: 20,
         },
       },
   }));
@@ -79,7 +79,6 @@ export default function CartFooter({cartAction, handleClick}) {
     const classes = useStyles();
     const { cart_items } = useSelector(({cartApp}) => cartApp);
   return (
-    <>
     <Box className={classes.cartButton}>
     <Button variant="contained" color="default" onClick={() => handleClick('back')}>
         {cartAction === 'cartItems' ? 'Clear Cart' : cartAction === 'summary' && 'Back'}
@@ -88,6 +87,5 @@ export default function CartFooter({cartAction, handleClick}) {
     {cartAction === 'cartItems' ? 'Next' : cartAction === 'summary' && 'Checkout'}
     </Button>
     </Box>
-    </>
   )
 }
