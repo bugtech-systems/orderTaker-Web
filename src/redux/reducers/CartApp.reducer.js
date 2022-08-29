@@ -8,7 +8,8 @@ import {
 import { cart } from '../../@fake-db'
 
   const INIT_STATE = {
-        cart_items: cart.cartItems,
+        // cart_items: cart.cartItems,
+        cart_items: [],
         other_amounts: [],
         tax_disc: [], 
         sub_total: 0,
