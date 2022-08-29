@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
@@ -9,11 +9,10 @@ import EmptyResult from '../EmptyResult';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 
-
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { UPDATE_CART, CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../../../../../../../redux/actions/types';
-import { handleCartItem } from '../../../../../../../redux/actions/CartApp';
+import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../../../../../../../redux/actions/types';
+import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
 import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
 
@@ -26,15 +25,15 @@ import CartSummary from './CartSummary';
 const useStyles = makeStyles(theme => ({
   rootWrap: {
     height: "100%",
+    overflowY: 'auto',
     width: '100%',
-    flexGrow: 1
     // display: 'flex',
     // flexDirection: 'column',
-      // alignItems: 'center',
+    // alignItems: 'center',
     // justifyContent: 'flex-start'
   },
   accordionContent: {
-    height: '70vh',
+    height: '100%',
     width: '100%',
     flexGrow: 1
   }
@@ -84,49 +83,89 @@ const AccordionDetails = withStyles((theme) => ({
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { cart_items, cart_items_count, grand_total, gross_total, amount_due }  = useSelector(({cartApp}) => cartApp);
+  const cart = useSelector(({cartApp}) => cartApp);
+  const { cart_items, cart_items_count, grand_total, gross_total, amount_due } = cart;
   const { productsList, filterType }  = useSelector(({productApp}) => productApp);
   const [expanded, setExpanded] = React.useState('cartItems');
+  const [selected, setSelected] = useState(null);
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
+
+  // const refs = cart_items.reduce((acc, value) => {
+  //   acc[value.productId] = createRef();
+  //   return acc;
+  // }, {});
+
+
+
+  const handleChange = (panel) => {
+    console.log(panel)
+    setExpanded(expanded === panel ? false : panel);
   };
 
 
-  const handleItem = (val, action) => {
-  
-    let qty = action === 'add' ? Number(val.qty) + 1 : action === 'less' ? Number(val.qty) - 1 : -1; 
+  const handleItem = (val, qty) => {
+    console.log(qty)
     let obj = {
       ...val,
-      qty: Number(qty)
+      qty: qty
     }
-      dispatch(handleCartItem(qty, obj))
+
+      handleCartItem(cart_items, obj).then(a => {
+        console.log(a)
+        dispatch(handleCart({...cart, cart_items: a}))
+      })
   }
 
   const handleSelect = (val) => {
+    
     console.log(val)
-  }
+if(val){
 
-  const handleProceedPayment = () => {
-      dispatch({type: SET_ACTION, payload: 'success'})
-  }
+    let obj = {
+      product: val,
+      productId: val.id,
+      name: val.name,
+      price: val.price,
+      other_amounts: val.other_amounts ? val.other_amounts : []
+    }
 
-  const handleClearCart = () => {
-    dispatch({ 
-      type: CLEAR_CART
+    handleCartItem(cart_items, obj).then(a => {
+      dispatch(handleCart({...cart, cart_items: a}))
     })
-    dispatch(setCurrentCustomer(null));
-    dispatch({ 
-      type: SET_ACTIVE_OPTION,
-      payload: null
-    });
+}
+setSelected(val);
 
-    dispatch({ 
-      type: SET_DRAWER_OPEN,
-      payload: false
-    });
-  }
+}
 
+  // const handleProceedPayment = () => {
+  //     dispatch({type: SET_ACTION, payload: 'payment'})
+  // }
+
+  // const handleClearCart = () => {
+  //   dispatch({ 
+  //     type: CLEAR_CART
+  //   })
+  //   dispatch(setCurrentCustomer(null));
+  //   // dispatch({ 
+  //   //   type: SET_ACTIVE_OPTION,
+  //   //   payload: null
+  //   // });
+
+  //   // dispatch({ 
+  //   //   type: SET_DRAWER_OPEN,
+  //   //   payload: false
+  //   // });
+  // }
+
+ 
+
+
+
+  // const scrollList = id =>
+  //   refs[id].current.scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'start',
+  //   });
 
 
 
@@ -134,8 +173,6 @@ const Comments = () => {
     dispatch(getInventoryList(filterType));
   }, [filterType, dispatch]);
 
-  console.log(cart_items)
-  console.log(expanded)
   useEffect(() => {
     if(!expanded){
       setExpanded('cartItems')
@@ -143,41 +180,38 @@ const Comments = () => {
   }, [expanded])
 
 
+
   return (
-    <Box className={classes.rootWrap}>
+    <Box flexGrow={1} className={classes.rootWrap}>
      <SearchProduct
+      value={selected}
       options={productsList}
       handleSelect={handleSelect}
       />
       <Divider/>
-     
-      {/* {cart_items_count !== 0 && <Box className={classes.sectionTotalHeading}>
-        <Box>
-        Gross total
-        </Box>
-        <Box pr={5} fontSize={18} fontWeight={700}>
-        ₱{gross_total}
-        </Box>
-      </Box>} 
-      <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box>
-      {cart_items_count !== 0 ? (
-        <PerfectScrollbar className={classes.scrollbarRoot}>
-          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem}/>} />
-        </PerfectScrollbar>
-        ) : (
-        <EmptyResult content="No record found" />
-      )} */}
-      <br/>
-      <Box className={classes.accordionContent}>
+      <Box flexGrow={1}>
+      <Box  className={classes.accordionContent} >
         <Accordion expanded={expanded === 'cartItems'} onChange={() => {cart_items.length > 0 && handleChange('cartItems')}}>
         <AccordionSummary aria-controls="cartItems-content" id="cartItems-header">
-          <Typography> <Box className={classes.sectionHeading}>Cart Items ({cart_items_count})</Box></Typography>
+         <Box className={classes.sectionHeading}> <Typography> Cart Items ({cart_items.length})</Typography></Box>
         </AccordionSummary>
         <AccordionDetails>
-        <Box flexGrow={1} width="100%" style={{ height: '50vh', overflowX: 'hidden', overflowY: 'auto'}}>
+
+        <Box flexGrow={1} width="100%" style={{ 
+          minHeight: '30vh',
+          maxHeight: '50vh', 
+          overflowY: 'auto'
+          }} 
+          >
+
         {cart_items.length !== 0 ? (
         <PerfectScrollbar className={classes.scrollbarRoot}>
-          <CmtList data={cart_items} renderRow={(item, index) => <CartItem key={index} item={item} handleItem={handleItem}/>} />
+          <CmtList data={cart_items} renderRow={(item, index) => {
+            return (
+          <CartItem 
+          key={index}
+          // ref={refs[item.productId]}        
+          item={item} handleItem={handleItem}/>)}}/>
         </PerfectScrollbar>
         ) : (
         <Box flexGrow={1} width="100%" height="100%" display="flex" justifyContent="center" alignItems="center">
@@ -187,28 +221,31 @@ const Comments = () => {
       </Box>
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'summary'} onChange={() => amount_due <= 0 && handleChange('summary')}>
+      <Accordion expanded={expanded === 'summary'} onChange={() => cart_items.length > 0 && handleChange('summary')}>
         <AccordionSummary aria-controls="summary-content" id="summary-header">
           <Box width="100%" display="flex" justifyContent="space-between">
         <Box>
         Amount Due
         </Box>
         <Box pr={5} fontSize={18} fontWeight={700}>
-        ₱{amount_due}
+        ₱{Number(amount_due).toFixed(2)}
         </Box>
         </Box>
         </AccordionSummary>
         <AccordionDetails>
-        <Box flexGrow={1} width="100%" style={{ height: '50vh', overflowX: 'hidden', overflowY: 'auto'}}>
+        <Box flexGrow={1} width="100%" style={{ 
+          
+          height: '40vh',
+          overflowX: 'hidden', 
+          overflowY: 'auto'
+          }}>
           <CartSummary/>
           </Box>
         </AccordionDetails>
       </Accordion>
       </Box>
-      <br/>
-       <Box mt="auto" width="100%" display="flex" alignItems="center" justifyContent="space-around">
-        <Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment()} disabled={cart_items.length === 0} >Proceed Payment</Button>
-       </Box>
+      </Box>
+     
         </Box>
   );
 };

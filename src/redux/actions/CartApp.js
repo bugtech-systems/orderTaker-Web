@@ -1,5 +1,4 @@
 import { UPDATE_CART, UPDATE_CART_ITEMS, SET_CART_ITEMS_COUNT } from './types';
-import configureStore, { history } from '../store';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import { authHeader } from '../../services/auth-header';
 
@@ -11,14 +10,10 @@ import axios from 'axios';
 
 
 //For expanding sidebar
-export const handleCartItem = (qty, item)  => dispatch => {
-let store = configureStore();
+export const handleCartItem = (cart_items, item) => {
 
-  let { stocks } = item.product;
-  let cart = store.getState().cartApp;
-
-  let { cart_items } = cart;
-
+  let { stocks } = item.product ? item.product : {};
+  let qty = item.qty || item.qty >= 0 ? item.qty : 1;
   let cartItems = cart_items;
   let inds = cart_items.map(a => { return a.productId}).indexOf(item.productId);
 
@@ -46,7 +41,7 @@ let store = configureStore();
     });
 
   } else {
-    cartItems.push({
+    cartItems.unshift({
       ...item,
       price: item.price,
       qty: qty,
@@ -63,13 +58,7 @@ let store = configureStore();
 }
 
 
-  const newCart = { 
-    ...cart,
-    cart_items: cartItems
-  }
-
-
-  dispatch(handleCart(newCart));
+  return Promise.resolve(cartItems);
  
 };
 
@@ -168,9 +157,7 @@ export const handleCart = (cartItem)  => dispatch => {
 
 
   for(let val of other_amounts){
-    console.log(val.type);
     let total = val.amount_type === 'rate' ? gross_total * (val.value / 100) : val.value;
-    console.log(total)
     if(val.type === 'discounts'){
       total_discounts += Number(total)
     }
@@ -191,11 +178,8 @@ export const handleCart = (cartItem)  => dispatch => {
 
 
 
-  console.log('total discounts');
-  console.log(total_discounts)
 
   let disc_gross = Number(gross_total) - Number(total_discounts)
-  console.log(disc_gross)
   amount_due = disc_gross + Number(total_charges);
 
   dispatch({

@@ -9,3 +9,7 @@ export * from './widgets/classic';
 export * from './extra-pages/index';
 export * from './calendar/index';
 export * from './modules/users';
+export * from './modules/cart';
+export * from './modules/customers';
+export * from './modules/products';
+

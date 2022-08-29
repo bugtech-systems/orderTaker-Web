@@ -139,11 +139,6 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
-
-  console.log(isDrawerOpen)
-  console.log(activeOption)
-  console.log(action)
-
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
       <Hidden smDown>

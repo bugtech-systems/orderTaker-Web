@@ -104,7 +104,6 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, han
 
 
 
-console.log(activeOption)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>

@@ -10,10 +10,8 @@ const INIT_STATE = {
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case UPDATE_AUTH_USER: {
-      console.log(action.payload)
       let { roles } = action.payload ? action.payload : {};
       let adm = roles && roles.find(a => String(a.name).includes('super') || String(a.name).includes('admin'));
-      console.log(adm)
       return {
         ...state,
         authUser: action.payload,

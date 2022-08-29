@@ -26,20 +26,7 @@ export default function FreeSoloCreateOptionDialog({
     const dispatch = useDispatch();
     const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
 
-  const handleClose = () => {
-    handleDialogValue({
-      name: '',
-    });
 
-    toggleOpen(false);
-  };
-
-  
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    handleClose();
-  };
 
   const handleValue = (data) => {
     handleSelect(data)
@@ -59,6 +46,8 @@ export default function FreeSoloCreateOptionDialog({
         payload: val
       })
   }
+
+  console.log(customersList)
 
 
   return (

@@ -9,7 +9,7 @@ const breadcrumbs = [
   { label: 'Customers', link: '/customers' },
 ];
 
-const Sales = () => {
+const CustomerPage = () => {
   return (
     <PageContainer heading="Customer List" breadcrumbs={breadcrumbs}>
       <CustomerList />
@@ -17,4 +17,4 @@ const Sales = () => {
   );
 };
 
-export default Sales;
+export default CustomerPage;

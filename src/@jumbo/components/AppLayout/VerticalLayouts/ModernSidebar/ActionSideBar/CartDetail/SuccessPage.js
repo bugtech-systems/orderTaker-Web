@@ -64,7 +64,7 @@ export default function SuccessPage() {
       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#36ce59', color: 'white'}}>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '18px'}}>
           <CheckCircleIcon style={{ height: '30px', padding: '5px 5px 5px 0' }} />
-            Payment Successful!
+            Order Successful!
         </div>
       </div>
       <Grid container item xs={12}>
@@ -88,7 +88,7 @@ export default function SuccessPage() {
       </Grid>
         <div class='linebreak'> 
           <br/>
-            <p style={{ textAlign: 'center', fontSize: '10px' }}>You will receive a copy of your reciept in your <br/> registered e-mail address.</p>
+            {/* <p style={{ textAlign: 'center', fontSize: '10px' }}>You will receive a copy of your reciept in your <br/> registered e-mail address.</p> */}
         </div>
     </>
   );

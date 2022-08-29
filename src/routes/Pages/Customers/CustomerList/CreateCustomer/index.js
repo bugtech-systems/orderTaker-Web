@@ -141,12 +141,12 @@ const CreateCustomer = ({ open, handleDialog }) => {
       limit: limit ? limit : 0,
       balance: balance ? balance : 0,
     };
-    if (currentCustomer) {
+    if (currentCustomer.id) {
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}));
     }
-    handleDialog();
+    handleDialog(false);
   };
 
 

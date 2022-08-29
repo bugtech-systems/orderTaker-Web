@@ -1,11 +1,11 @@
 import {SET_CREATE_CUSTOMER_DIALOG, SET_NOTIFICATIONS, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
 
 const INIT_STATE = {
-    create_customer: false,
+    createCustomerDialog: false,
     notifications: [],
-    action: 'cart',
+    action: 'payment',
     activeOption: 'cart',
-    isDrawerOpen: false
+    isDrawerOpen: true
 };
 
 export default (state = INIT_STATE, action) => {
@@ -15,7 +15,7 @@ export default (state = INIT_STATE, action) => {
     case SET_CREATE_CUSTOMER_DIALOG: {
       return {
         ...state,
-        create_customer: payload ? payload : !state.create_customer
+        createCustomerDialog: payload ? true : false
       };
     }
 

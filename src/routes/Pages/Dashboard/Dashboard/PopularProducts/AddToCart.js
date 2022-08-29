@@ -7,7 +7,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 //Redux
 import {useDispatch, useSelector} from "react-redux";
 import {
-  handleCartItem
+  handleCartItem,
+  handleCart
  } from "../../../../../redux/actions/CartApp";
 import { fetchError } from "redux/actions";
 
@@ -37,6 +38,8 @@ const useStyles = makeStyles(theme => ({
 
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
+  const cart = useSelector(({cartApp}) => cartApp);
+  const { cart_items } = cart;
   const [ quantity, setQuantity ] = useState(0);
   const [ stocks, setStocks ] = useState(0);
   const [ addedToCart] = useState(false);
@@ -68,7 +71,11 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
       total: item.price * quantity,
       other_amounts: item.other_amounts ? item.other_amounts : []
     }
-    dispatch(handleCartItem(quantity, obj))
+
+    handleCartItem(cart_items, obj).then(a => {
+      dispatch(handleCart({...cart, cart_items: a}))
+    })
+
     setRevealed(false);
   }
   };

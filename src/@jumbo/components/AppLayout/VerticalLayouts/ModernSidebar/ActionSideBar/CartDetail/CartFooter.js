@@ -4,6 +4,8 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
+import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../../../../../../../redux/actions/types';
+import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
 
 
 const useStyles = makeStyles(theme => ({
@@ -75,17 +77,48 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function CartFooter({cartAction, handleClick}) {
+export default function CartFooter() {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const { cart_items } = useSelector(({cartApp}) => cartApp);
+    const { action } = useSelector(({uiReducer}) => uiReducer);
+
+
+    const handleProceedPayment = () => {
+      dispatch({type: SET_ACTION, payload: 'payment'})
+  }
+
+  const handleClearCart = () => {
+    dispatch({ 
+      type: CLEAR_CART
+    })
+    dispatch(setCurrentCustomer(null));
+    // dispatch({ 
+    //   type: SET_ACTIVE_OPTION,
+    //   payload: null
+    // });
+
+    // dispatch({ 
+    //   type: SET_DRAWER_OPEN,
+    //   payload: false
+    // });
+  }
+
+  const handleBack = () => {
+    dispatch({type: SET_ACTION, payload: 'cart'})
+  }
+
+  const handleCheckout = () => {
+    dispatch({type: SET_ACTION, payload: 'success'})
+  }
+
+ 
+  console.log(action)
+
   return (
-    <Box className={classes.cartButton}>
-    <Button variant="contained" color="default" onClick={() => handleClick('back')}>
-        {cartAction === 'cartItems' ? 'Clear Cart' : cartAction === 'summary' && 'Back'}
-        </Button>
-    <Button variant="contained" color="primary" onClick={() => handleClick('submit')}  disabled={cartAction === 'cartItems' && cart_items.length === 0}>
-    {cartAction === 'cartItems' ? 'Next' : cartAction === 'summary' && 'Checkout'}
-    </Button>
-    </Box>
+    <Box height="100%"  p={5} display="flex" alignItems="center" justifyContent="space-around">
+      {action === 'cart' && <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment()} disabled={cart_items.length === 0} >Proceed Payment</Button></>}
+      {action === 'payment' && <><Button variant="outlined" onClick={() => handleBack()} >Back</Button> <Button variant="contained" color="primary" onClick={() => handleCheckout()} disabled={cart_items.length === 0} >Checkout</Button></>}
+   </Box>
   )
 }

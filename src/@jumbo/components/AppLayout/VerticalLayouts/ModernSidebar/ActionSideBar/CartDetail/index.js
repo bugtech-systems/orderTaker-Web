@@ -17,6 +17,8 @@ import CartItemList from './CartItemList';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
+import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
+
 import "./styles.css";
 
 //Components
@@ -27,22 +29,29 @@ import ProceedPayment from './ProceedPayment';
 
 const useStyles = makeStyles(theme => ({
   rootWrap: {
-    overflowY: 'hidden',
+    // overflowY: 'hidden',
     height: '100%'
   },
 }));
 
 const Comments = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { action } = useSelector(({uiReducer}) => uiReducer); 
+  const cart = useSelector(({cartApp}) => cartApp); 
 
 
-console.log(action)
+
+  useEffect(() => {
+    dispatch(handleCart(cart))
+  }, [])
+
   return (
-      <Box className={classes.rootWrap}>
+      <Box height="100%" className={classes.rootWrap}>
       {action === 'cart' && <CartItemList/>}
       {action === 'payment' && <ProceedPayment/>}
       {action === 'success' && <SuccessPage/>}
+      <CartFooter/>
     </Box>
   );
 };

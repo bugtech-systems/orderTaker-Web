@@ -12,9 +12,6 @@ import { getCustomers, setCurrentCustomer } from '../../../../../../../redux/act
 import { handleCart } from '../../../../../../../redux/actions/CartApp';
 import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from '../../../../../../../redux/actions/types';
 
-//Components
-import CustomerAutoComplete from './AutoComplete';
-import CreateCustomer from '../../../../../../../routes/Pages/Customers/CustomerList/CreateCustomer';
 
 //Icons
 import SearchIcon from '@material-ui/icons/Search';
@@ -327,7 +324,7 @@ const Comments = () => {
     }
   }, [productsList]);
 
-  console.log(other_amounts)
+  // console.log(other_amounts)
 
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
       return (
@@ -366,6 +363,18 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
         {a.description}
           </Typography>
           </Box>
+          <Box display="flex" alignItems="center" justifContent="flex-start">
+      {a.isCart && <IconButton size="small" 
+                                   style={{marginRight: 3}}
+                              className={classes.closeButton1}
+                              onClick={() => handleOaRemove(a.id)}
+                                >
+                              <CancelIcon fontSize="small"/>
+                            </IconButton>}
+      <Typography variant="h4" style={{fontWeight: 'bolder'}}>
+        {a.description}
+          </Typography>
+          </Box>
       </Grid>
       <Grid item xs={2} lg={2} >
         <Box display="flex" alignItems="center" justifyContent="center">
@@ -390,7 +399,7 @@ const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) 
   return (
     <GridContainer key={index} >
       <Grid item xs={8} lg={8}>
-        <Box display="flex" alignItems="center" justifContent="flex-start">
+        <Box display="flex" alignItems="center" justifyContent="flex-start">
         {a.isCart && <IconButton size="small" 
                                   //  style={{marginRight: 3}}
                               className={classes.closeButton1}

@@ -43,6 +43,9 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         opacity: 1,
       },
+      '& $qty': {
+        display: 'none'
+      },
     },
 
     '& .Cmt-media-image': {
@@ -91,6 +94,9 @@ const useStyles = makeStyles(theme => ({
   clearButton: {
      display: 'none'   
   },
+  qty: {
+    display: 'flex'
+  },
   htext: {
     display: 'none'
   }
@@ -98,15 +104,18 @@ const useStyles = makeStyles(theme => ({
 
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    qty: 0
+  });
 
+
+  
 
 
 
   useEffect(() => {
     setValues(item);
   }, [item]);
-  console.log(item)
 
   const getTitle = () => {
     return (
@@ -161,6 +170,7 @@ const CommentItem = ({ item, handleItem }) => {
           <Box display="flex" flexDirection="column" alignItems="center">
           <Box fontSize={14} alignItems="center" style={{marginBottom: 5}} color="text.disabled">
          <Typography>₱{values.total}</Typography> 
+         <Typography className={classes.qty}>x{values.qty}</Typography> 
          <IconButton className={classes.clearButton}
           size="small"
             onClick={() => handleItem(values, 'remove')}
@@ -171,18 +181,25 @@ const CommentItem = ({ item, handleItem }) => {
           <Box display="flex" alignItems="center" className={classes.actionCounter}>
           <IconButton className="btn-white"
           size="small"
-            onClick={() => handleItem(values, 'less')}
+          disabled={values.qty < 0}
+            onClick={() => handleItem(values, Number(values.qty) - 1)}
           >
             <RemoveCircleOutlineIcon 
             />
           </IconButton>
           <Box ml={3} mr={3} display="flex" justifyContent="center" alignItems="center" style={{ fontSize: 18, textAlign: 'center'}}>
-            <TextField value={values.qty} style={{width: '25px', textAlign: 'center'}}/> 
+            <TextField value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={(e) => {
+                let av = values.stocks - Number(e.target.value);
+              console.log(av)
+              console.log(Number(e.target.value))
+              console.log(Number(e.target.value) && av >= 0)
+           Number(e.target.value) >= 0 && av >= 0 ? handleItem(values, e.target.value) : e.target.value === '' && handleItem(values, 0);
+              }}/> 
             </Box>
           <IconButton className="btn-white"
           size="small"
           disabled={values.stocks <= 0}
-          onClick={() => handleItem(values, 'add')}
+          onClick={() => handleItem(values, Number(values.qty) + 1)}
           >
             <AddCircleIcon
             />

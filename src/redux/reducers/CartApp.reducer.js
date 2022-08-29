@@ -5,37 +5,10 @@ import {
     SET_CART_ITEMS_COUNT
   } from '../actions/types';
 
+import { cart } from '../../@fake-db'
+
   const INIT_STATE = {
-        cart_items: [
-          {
-              "product": {
-                  "id": 3,
-                  "name": "Concrete Nail",
-                  "description": "Concrete nail",
-                  "uom": "kilo",
-                  "price": 150,
-                  "limit": 30,
-                  "purchase_price": 0,
-                  "stocks": 176,
-                  "cover": "noproduct.jpg",
-                  "starred": false,
-                  "deletedAt": null,
-                  "updatedAt": "2022-08-26T09:39:15.000Z",
-                  "createdAt": "2022-08-20T04:58:10.000Z",
-                  "businessId": 1,
-                  "labels": [],
-                  "other_amounts": [],
-                  "folder": "products"
-              },
-              "productId": 3,
-              "name": "Concrete Nail",
-              "stocks": 170,
-              "price": 150,
-              "total": 900,
-              "other_amounts": [],
-              "qty": "6"
-          }
-      ],
+        cart_items: cart.cartItems,
         other_amounts: [],
         tax_disc: [], 
         sub_total: 0,
@@ -81,7 +54,6 @@ import {
         gross_total: 0,
         grand_total: 0,
         amount_due: 0,
-        cart_items_count: 0,
         payment: 0,
         change: 0,
         total_vatable: 0,
