@@ -3,9 +3,9 @@ import {SET_CREATE_CUSTOMER_DIALOG, SET_NOTIFICATIONS, SET_DRAWER_OPEN, SET_ACTI
 const INIT_STATE = {
     createCustomerDialog: false,
     notifications: [],
-    action: 'payment',
+    action: 'cart',
     activeOption: 'cart',
-    isDrawerOpen: true
+    isDrawerOpen: false
 };
 
 export default (state = INIT_STATE, action) => {
