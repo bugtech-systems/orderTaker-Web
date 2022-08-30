@@ -5,7 +5,7 @@ const INIT_STATE = {
     notifications: [],
     action: 'cart',
     activeOption: 'cart',
-    isDrawerOpen: true,
+    isDrawerOpen: false,
     cartSuccess: null
 };
 
