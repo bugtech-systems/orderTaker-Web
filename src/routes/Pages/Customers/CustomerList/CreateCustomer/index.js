@@ -53,7 +53,8 @@ function NumberFormatCustom({ onChange, value, ...other }) {
     onChange(number.formattedValue);
   };
 
-  return <NumberFormat {...other}  onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####" />;
+  return <NumberFormat {...other} 
+  onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####"  />;
 }
 
 const labels = [
@@ -212,14 +213,13 @@ const CreateCustomer = ({ open, handleDialog }) => {
                   fullWidth
                   variant="outlined"
                   label="Phones"
-
                   value={item.phone}
                   onChange={number => onAddPhoneNo(number, index)}
                   helperText={errors.phones}
                   InputProps={{
-                  
                     inputComponent: NumberFormatCustom,
                   }}
+                  
                 />
               </Grid>
               <Grid item xs={isPhonesMultiple ? 9 : 12} sm={4}>

@@ -4,8 +4,10 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../../../../../../../redux/actions/types';
+import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION, SET_CART_SUCCESS } from '../../../../../../../redux/actions/types';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
+import { createOrder } from 'redux/actions/CartApp';
+import { fetchError, fetchSuccess } from 'redux/actions';
 
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +82,8 @@ const useStyles = makeStyles(theme => ({
 export default function CartFooter() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const { cart_items } = useSelector(({cartApp}) => cartApp);
+    const cart = useSelector(({cartApp}) => cartApp);
+    const { cart_items } = cart;
     const { action } = useSelector(({uiReducer}) => uiReducer);
 
 
@@ -109,8 +112,19 @@ export default function CartFooter() {
   }
 
   const handleCheckout = () => {
+    dispatch(createOrder(cart))
+    .then(res => {
+      let { message, data } = res.data;
+      console.log(res)
+      dispatch(fetchSuccess(message));
+      dispatch({type: SET_CART_SUCCESS, payload: data});
     dispatch({type: SET_ACTION, payload: 'success'})
+    }).catch(err => {
+      console.log(err)
+      dispatch(fetchError(err.response.data.message))
+    })
   }
+
 
  
   console.log(action)

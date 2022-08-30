@@ -32,7 +32,7 @@ export default function ProceedPayment() {
   const { currentCustomer }  = useSelector(({customerApp}) => customerApp);
   const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { amount_due, change, payment } = cart
+  const { amount_due, change, payment, notes } = cart
   const { createCustomerDialog } = useSelector(({uiReducer}) => uiReducer);
 
   const { name, address, limit, balance } = currentCustomer ? currentCustomer : {};
@@ -59,10 +59,6 @@ export default function ProceedPayment() {
       dispatch({type: SET_CREATE_CUSTOMER_DIALOG, payload: val ? val : false})
   }
 
-
-
-  console.log(cart)
-  console.log(createCustomerDialog)
   return (
     <Box className={classes.rootWrap}>
       <CreateCustomer
@@ -142,7 +138,8 @@ export default function ProceedPayment() {
           </>
           }
           <br/>
-          <TextField fullWidth label="Note"/>
+          <TextField fullWidth label="Notes" value={notes}
+              onChange={handleChanges('notes')}/>
           </Box>
         </Box>
   )

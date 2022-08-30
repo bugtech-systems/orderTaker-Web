@@ -79,7 +79,7 @@ const CodeViewerCard = ({ code, language, children, ...rest }) => {
         <HighlightedCode code={code} language={language} />
       </Collapse>
 
-      <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose} message={snackbarMessage} />
+      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleSnackbarClose} message={snackbarMessage} />
     </CmtCard>
   );
 };

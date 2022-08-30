@@ -17,7 +17,8 @@ import { SET_CREATE_CUSTOMER_DIALOG } from 'redux/actions/types';
 const Customer = () => {
   const classes = useStyles();
   const { isSideBarCollapsed } = useSelector(({ customerApp }) => customerApp);
-  const { create_customer } = useSelector(({ uiReducer }) => uiReducer);
+  const { createCustomerDialog } = useSelector(({uiReducer}) => uiReducer);
+
   const [viewMode, setViewMode] = useState('table');
   const [showCustomerDetail, setShowCustomerDetail] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -40,6 +41,7 @@ const Customer = () => {
   };
 
   const onClickCreateCustomer = () => {
+    dispatch(setCurrentCustomer(null));
     dispatch({
       type: SET_CREATE_CUSTOMER_DIALOG,
       payload: true,
@@ -91,7 +93,7 @@ const Customer = () => {
         />
       </Box>
       {showCustomerDetail && <CustomerDetail open={showCustomerDetail} handleDialog={onHideCustomerDetail} />}
-      {create_customer && <CreateCustomer open={create_customer} handleDialog={onCloseComposeDialog} />}
+      {createCustomerDialog && <CreateCustomer open={createCustomerDialog} handleDialog={onCloseComposeDialog} />}
       <ConfirmDialog
         open={confirmDelete}
         title={`Confirm delete`}

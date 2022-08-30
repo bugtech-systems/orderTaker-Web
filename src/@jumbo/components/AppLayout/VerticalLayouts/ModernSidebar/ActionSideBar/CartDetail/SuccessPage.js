@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { Paper, Box, Button} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { CLEAR_CART, SET_DRAWER_OPEN } from 'redux/actions/types';
+import moment from 'moment-timezone';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     // textAlign: 'center',
-    color: theme.palette.text.secondary,
+    // color: theme.palette.text.secondary,
     justifyContent: 'space-around',
     display: 'flex',
     flexDirection: 'column-reverse',
@@ -30,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
 },
   data: {
     color: 'black',
+  },
+  title: {
+    color: theme.palette.text,
+  },
+  value: {
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -47,17 +50,32 @@ function createRow(desc, qty, unit) {
   return { desc, price };
 }
 
-const rows = [
-  createRow('Paperclips (Box)'),
-  createRow('Paper (Case)'),
-  createRow('Waste Basket'),
-];
-
 
 
 export default function SuccessPage() {
   const classes = useStyles();
+  const { cartSuccess } = useSelector(({uiReducer}) => uiReducer);
+  const { amount_due, amount_paid, amount_payable, order_no, ref_no, customers, isPaid, createdAt, notes, order_status } = cartSuccess;
+  const customerName = customers.length !== 0 ? customers[0].name : 'No Customer';
+  const dispatch = useDispatch();
+  console.log(cartSuccess);
+  
+  const handleNewOrder = () => {
+    dispatch({type: CLEAR_CART});
+  }
 
+  const handleClose = () => {
+    dispatch({type: CLEAR_CART});
+    dispatch({type: SET_DRAWER_OPEN, payload: false});
+  }
+
+
+
+  useEffect(() => {
+    return () => {
+      dispatch({type: CLEAR_CART});
+    }
+  }, [])
 
   return (
     <>
@@ -71,25 +89,24 @@ export default function SuccessPage() {
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <table class="tablesdata">
-              <tr><td >Payment Transaction No. </td><td><b style={{ color: 'black'}}> ALBY0000000001</b></td></tr>
-              <tr><td>Transaction Date & Time </td><td><b style={{ color: 'black'}}>July 1, 2022</b></td></tr>
-              <tr><td>Invoice No. </td><td ><b style={{ color: 'black'}}> POSTED</b></td></tr>
-              <tr><td>Payment Type </td><td ><b style={{ color: 'black'}}> ₱420.230</b></td></tr>
-              <tr><td>Payment Method </td><td><b style={{ color: 'black'}}>Cash</b></td></tr>
-              <tr><td>Amount Paid </td><td ><b style={{ color: 'black'}}>123123</b></td></tr>
-              <tr><td>Notes </td><td ><b>- </b ></td></tr>
-              <tr><td>Customer Name </td><td ><b style={{ color: 'black'}}>Lorem epsum sit amit</b></td></tr>
-              <tr><td>Customer ID </td><td ><b style={{ color: 'black'}}> 1233131</b></td></tr>
-              <tr><td>Reference No. </td><td ><b style={{ color: 'black'}}> Lorem epsum sit amit</b></td></tr>
-              <tr><td>Receipt No.</td><td ><b style={{ color: 'black'}}> N010624</b></td></tr>
+              <tr><td>Reference No. </td><td ><b className={classes.value}>{ref_no ? ref_no : '-'}</b></td></tr>
+              <tr><td>Customer Name </td><td ><b className={classes.value}>{customerName}</b></td></tr>
+              <tr><td>Order No.</td><td ><b className={classes.value}>{order_no}</b></td></tr>
+              <tr><td>Order Status </td><td><b className={classes.value}>{isPaid ? 'Paid' : order_status}</b></td></tr>
+              <tr><td>Amount Due </td><td ><b className={classes.value}>{amount_due}</b></td></tr>
+              <tr><td>Amount Paid </td><td ><b className={classes.value}>{amount_paid}</b></td></tr>
+              <tr><td>Amount Payable </td><td ><b className={classes.value}>{amount_payable}</b></td></tr>
+              <tr><td>Order Date</td><td className={classes.value}><b >{moment(createdAt).tz('Asia/Manila').format('LLLL')}</b></td></tr>
+              <tr><td>Notes </td><td ><b className={classes.value}>{notes ? notes : '-'}</b ></td></tr>
             </table>
           </Paper>
         </Grid>
       </Grid>
-        <div class='linebreak'> 
-          <br/>
-            {/* <p style={{ textAlign: 'center', fontSize: '10px' }}>You will receive a copy of your reciept in your <br/> registered e-mail address.</p> */}
-        </div>
+      <br/>
+        <Box display="flex" alignItems="center" justifyContent="space-around">
+          <Button variant="outlined" color="primary" onClick={() => handleNewOrder()} >New Order</Button>
+          <Button variant="contained" onClick={() => handleClose()}>Close</Button>
+        </Box>
     </>
   );
 };

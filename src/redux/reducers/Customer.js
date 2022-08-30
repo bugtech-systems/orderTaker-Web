@@ -13,6 +13,7 @@ import {
   UPDATE_CUSTOMER_LABEL,
   UPDATE_LABEL_ITEM,
   UPDATE_STARRED_STATUS,
+  CLEAR_CART
 } from '../actions/types';
 
 const INIT_STATE = {
@@ -82,6 +83,13 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         currentCustomer: action.payload,
+      };
+    }
+
+    case CLEAR_CART: {
+      return {
+        ...state,
+        currentCustomer: null,
       };
     }
 

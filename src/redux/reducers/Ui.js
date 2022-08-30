@@ -1,11 +1,12 @@
-import {SET_CREATE_CUSTOMER_DIALOG, SET_NOTIFICATIONS, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
+import {SET_CREATE_CUSTOMER_DIALOG, CLEAR_CART, SET_CART_SUCCESS, SET_NOTIFICATIONS, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
 
 const INIT_STATE = {
     createCustomerDialog: false,
     notifications: [],
     action: 'cart',
     activeOption: 'cart',
-    isDrawerOpen: false
+    isDrawerOpen: true,
+    cartSuccess: null
 };
 
 export default (state = INIT_STATE, action) => {
@@ -30,6 +31,22 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         isDrawerOpen: payload
+      };
+    }
+
+    case CLEAR_CART: {
+      return {
+        ...state,
+        action: 'cart',
+        activeOption: 'cart',
+        cartSuccess: null
+      };
+    }
+
+    case SET_CART_SUCCESS: {
+      return {
+        ...state,
+        cartSuccess: payload
       };
     }
 

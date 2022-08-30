@@ -349,7 +349,7 @@ const Comments = () => {
 
 const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
     return (
-      <GridContainer style={{ paddingLeft: 5}}  key={index} >
+      <GridContainer key={index} >
       <Grid item xs={8} lg={8}>
       <Box display="flex" alignItems="center" justifContent="flex-start">
       {a.isCart && <IconButton size="small" 
@@ -363,30 +363,19 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
         {a.description}
           </Typography>
           </Box>
-          <Box display="flex" alignItems="center" justifContent="flex-start">
-      {a.isCart && <IconButton size="small" 
-                                   style={{marginRight: 3}}
-                              className={classes.closeButton1}
-                              onClick={() => handleOaRemove(a.id)}
-                                >
-                              <CancelIcon fontSize="small"/>
-                            </IconButton>}
-      <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-        {a.description}
-          </Typography>
-          </Box>
+       
       </Grid>
       <Grid item xs={2} lg={2} >
-        <Box display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+        {/* <Box display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="h5" style={{fontWeight: 'bolder'}}> */}
         {/* {a.total} */}
         Add:
-          </Typography>
-        </Box>
+          {/* </Typography> */}
+        {/* </Box> */}
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
-        <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
           {Number(a.total).toFixed(2)}
           </Typography>
         </Box>
@@ -444,10 +433,14 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
 
 
 
+console.log(getCharges)
+console.log(getDiscounts)
+console.log(tax_disc)
+
   return (
-    <Box className={classes.rootWrap}>
+    <Box pr={5} pl={3} className={classes.rootWrap}>
       <Divider/>
-      <Box mt={3} className={classes.sectionTotal}>
+      <Box mt={3} mr={2} className={classes.sectionTotal}>
         {/* <Box sx={{pr: 10 }} display="flex" flexDirection="column" flexGrow={1}>
         </Box> */}
         <Box style={{marginTop: 5}}>
@@ -718,40 +711,6 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
 
             </Box>
       </Box>
-      {/* <br/>
-      <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-around"
-      // style={{paddingLeft: '10px', paddingRight: '20px'}}
-      >
-            <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
-      <Typography style={{marginBottom: 5}}>
-        Amount Paid
-      </Typography>
-      <AppTextInput
-                        fullWidth
-                        variant="outlined"
-                        type="number"
-                        label="Amount"
-                        value={payment}
-                        onChange={(e) => handlePayment(e.target.value, 'payment')}
-                        style={{maxWidth: '300px'}}
-                      />
-                      </Box>
-                      <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
-      <Typography style={{marginBottom: 5}}>
-        Change
-      </Typography>
-      <AppTextInput
-                        fullWidth
-                        variant="outlined"
-                        type="number"
-                        label="Amount"
-                        value={change}
-                        onChange={(e) => handlePayment(e.target.value, 'change')}
-                        style={{maxWidth: '300px'}}
-                      />
-                      </Box>
-      </Box>
-      {create_customer && <CreateCustomer open={create_customer} handleDialog={onCloseDialog} />} */}
    </Box>
   );
 };
