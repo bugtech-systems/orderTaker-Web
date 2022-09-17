@@ -2,24 +2,22 @@ import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
 import './vid.css';
 
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
+import { staticUrl } from '../../../utils/commonData';
 
-import Sample from './sample.mp4';
-import Sample1 from './sample1.mp4';
-import Sample2 from './sample2.mp4';
 
 let vidList = [
   {
     title: 'Sample 1',
-    video: Sample1
+    video: 'sample1.mp4'
   },
   {
     title: 'Sample 2',
-    video: Sample2
+    video: 'sample2.mp4'
   },
   {
     title: 'Sample La',
-    video: Sample
+    video: 'sample.mp4'
   }
 ]
 
@@ -33,8 +31,9 @@ function ResponsivePlayer () {
 
 let vids = vidList.map(a => {
   return (
-    <Box >
-      <Button onClick={() => setVid(a.video)} >{a.title}</Button>
+    <Box>
+      <Typography variant='body1'>{a.title}</Typography>
+      <Button variant='outlined' size='small' color='primary' onClick={() => setVid(`${staticUrl}${a.video}`)} >PLAY</Button>
     </Box>
   )
 })
