@@ -130,6 +130,8 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   };
 
   const onSubmitClick = () => {
+    setFirstNameError('');
+
     const phoneNumbers = phones.filter(item => item.phone.trim());
     if (!firstName) {
       setFirstNameError(requiredMessage);
@@ -189,7 +191,6 @@ const AddEditUser = ({ open, onCloseDialog }) => {
                 value={firstName}
                 onChange={e => {
                   setFirstName(e.target.value);
-                  setFirstNameError('');
                 }}
                 helperText={firstNameError}
               />

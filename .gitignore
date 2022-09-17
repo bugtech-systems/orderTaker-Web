@@ -4,8 +4,7 @@ src/utils/commonData.js
 .env
 
 # dependencies
-node_modules/commit 
-/node_modules
+node_modules
 /.pnp
 .pnp.js
 package.json
