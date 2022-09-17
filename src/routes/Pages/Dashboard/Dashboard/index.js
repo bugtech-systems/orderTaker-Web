@@ -27,6 +27,7 @@ import { getUsers} from '../../../../redux/actions/Users';
 import { getAdminDashboard } from 'redux/actions/Dashboard';
 import { getInventoryList } from 'redux/actions/ProductApp';
 
+import VideoPlayer from '../Video';
 
 
 const useStyles = makeStyles(() => ({
@@ -176,6 +177,9 @@ const Dashboard = () => {
           <RecentPayments 
             unpaidOrders={unpaidOrders}
           />
+        </Grid>
+        <Grid item xs={12} xl={5}>
+         <VideoPlayer/> 
         </Grid>
       </GridContainer>
     </PageContainer>
