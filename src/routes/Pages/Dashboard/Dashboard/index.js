@@ -173,12 +173,12 @@ const Dashboard = () => {
             />
           </Box>
         </Grid>
-        <Grid item xs={12} xl={5}>
+        <Grid item xs={12} lg={12}>
           <RecentPayments 
             unpaidOrders={unpaidOrders}
           />
         </Grid>
-        <Grid item xs={12} xl={5}>
+        <Grid item xs={12} lg={12}>
          <VideoPlayer/> 
         </Grid>
       </GridContainer>

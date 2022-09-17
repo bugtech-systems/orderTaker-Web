@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 import './vid.css';
 
 import { Box, Button, Typography } from '@material-ui/core';
-import { staticUrl } from '../../../utils/commonData';
+import commonData from '../../../utils/commonData';
 
 
 let vidList = [
@@ -24,21 +24,23 @@ let vidList = [
 
 
 function ResponsivePlayer () {
-  const [isPlay, setPlay] = useState(false);
-  const [vid, setVid] = useState(null);
+  const [isPlay, setPlay] = useState(true);
+  const [vid, setVid] = useState(`${commonData.staticUrl}${vidList[2].video}`);
+  const isShowing = localStorage.getItem('extra');
 
 
-
-let vids = vidList.map(a => {
+let vids = vidList.map((a, index) => {
   return (
-    <Box>
+    <Box key={index}>
       <Typography variant='body1'>{a.title}</Typography>
-      <Button variant='outlined' size='small' color='primary' onClick={() => setVid(`${staticUrl}${a.video}`)} >PLAY</Button>
+      <Button variant='outlined' size='small' color='primary' onClick={() => setVid(`${commonData.staticUrl}${a.video}`)} >PLAY</Button>
     </Box>
   )
 })
 
     return (<>
+    {isShowing &&
+    <>
       {vid &&  <Button onClick={() => setPlay(!isPlay)} >{ isPlay ? 'PAUSE' : 'PLAY' }</Button>}
 
       {vid &&  <div className='player-wrapper'>
@@ -54,6 +56,8 @@ let vids = vidList.map(a => {
 
       </div>}
         {vids}
+        </>
+      }
       </>
     )
 }
