@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
   },
   scrollbarRoot: {
+    flex: 1,
     height: '100%',
     marginRight: -24,
     marginLeft: -24,

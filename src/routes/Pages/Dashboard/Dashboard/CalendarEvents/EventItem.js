@@ -10,26 +10,25 @@ import useStyles from './index.style';
 
 const EventItem = ({ item }) => {
   const classes = useStyles();
-
+  console.log(item)
   const getSubTitle = () => (
     <Typography className={classes.subTitleRoot}>
-      <Box component="span">{getTime(item.date)}</Box>
+      <Box component="span">₱{item.amount_paid}</Box>
       <Box component="span" mx={2}>
         |
       </Box>
-      Scheduled with:
+      Customer:
       <Box component="span" color="primary.main" ml={1}>
-        {item.scheduled_with.name}
+        {item.customers[0] ? item.customers[0].name : ''}
       </Box>
     </Typography>
   );
 
   return (
-    <Box className={clsx(classes.eventItemRoot, { checked: item.isAttended })}>
-      <CmtMediaObject
+    <Box className={clsx(classes.eventItemRoot, { checked: item.isPaid })}>
+     <CmtMediaObject
         avatarPos="center"
-        avatar={<LabelIcon style={{ color: item.color }} />}
-        title={item.event_name}
+        title={item.order_no}
         titleProps={{
           variant: 'h4',
           component: 'div',
@@ -37,13 +36,13 @@ const EventItem = ({ item }) => {
         }}
         subTitle={getSubTitle()}
         actionsComponent={
-          item.isAttended && (
+          item.isPaid && (
             <Box color="success.main">
               <CheckIcon />
             </Box>
           )
         }
-      />
+      /> 
     </Box>
   );
 };

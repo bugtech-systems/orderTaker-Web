@@ -96,15 +96,7 @@ export default function CartFooter() {
       type: CLEAR_CART
     })
     dispatch(setCurrentCustomer(null));
-    // dispatch({ 
-    //   type: SET_ACTIVE_OPTION,
-    //   payload: null
-    // });
 
-    // dispatch({ 
-    //   type: SET_DRAWER_OPEN,
-    //   payload: false
-    // });
   }
 
   const handleBack = () => {
@@ -114,11 +106,13 @@ export default function CartFooter() {
   const handleCheckout = () => {
     dispatch(createOrder(cart))
     .then(res => {
-      let { message, data } = res.data;
+      let { message, data } = res;
       console.log(res)
-      dispatch(fetchSuccess(message));
-      dispatch({type: SET_CART_SUCCESS, payload: data});
-    dispatch({type: SET_ACTION, payload: 'success'})
+      if(res){
+        dispatch(fetchSuccess(message));
+        dispatch({type: SET_CART_SUCCESS, payload: data});
+      dispatch({type: SET_ACTION, payload: 'success'})
+      }
     }).catch(err => {
       console.log(err)
       dispatch(fetchError(err.response.data.message))

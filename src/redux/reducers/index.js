@@ -10,6 +10,8 @@ import Data from './Data';
 import ProductApp from './ProductApp';
 import Customer from './Customer';
 import Cart from './CartApp.reducer';
+import Order from './OrderApp.reducer';
+
 import Dashboard from './Dashboard';
 import uiReducer from './Ui';
 
@@ -28,6 +30,7 @@ export default history =>
     productApp: ProductApp,
     customerApp: Customer,
     cartApp: Cart,
+    orderApp: Order,
     dashboard: Dashboard,
     uiReducer: uiReducer
   });

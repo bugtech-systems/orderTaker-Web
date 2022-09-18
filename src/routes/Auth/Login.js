@@ -24,6 +24,9 @@ import {isValidEmail} from "../../@jumbo/utils/commonHelper";
 //Redux
 import {loginUser} from "../../redux/actions/Auth";
 
+import commonData from '../../utils/commonData';
+
+
 const useStyles = makeStyles(theme => ({
   authThumb: {
     backgroundColor: alpha(theme.palette.primary.main, 0.12),
@@ -127,7 +130,7 @@ const SignIn = ({
     <AuthWrapper variant={wrapperVariant}>
       {variant === "default" ? (
         <Box className={classes.authThumb}>
-          <CmtImage src={"/images/auth/login-img.png"} />
+          <CmtImage src={`${commonData.staticUrl}/images/auth/login-img.png`} />
         </Box>
       ) : null}
       <Box className={classes.authContent}>
@@ -140,7 +143,7 @@ const SignIn = ({
               height: 170,
               width: 170
             }}
-            src={"/images/AjA18.png"}
+            src={`${commonData.staticUrl}images/AjA18.png`}
           />
         </Box>
         <Typography component="div" variant="h1" className={classes.titleRoot}>

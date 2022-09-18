@@ -15,8 +15,14 @@ import Button from '@material-ui/core/Button';
 import useStyles from './index.style';
 import Typography from '@material-ui/core/Typography';
 
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+
+
 const CalendarEvents = () => {
   const { calendarEvents } = intranet;
+  const {orders} = useSelector(({orderApp}) => orderApp);
+
   const [dateCounter, setDateCounter] = useState(0);
   const [date, setDate] = useState(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
   const classes = useStyles();
@@ -54,12 +60,16 @@ const CalendarEvents = () => {
   };
 
   const getEvents = () => {
-    return calendarEvents.filter(item => isDatesSame(item.date, date));
+    return orders.filter(item => isDatesSame(item.createdAt, date));
   };
 
   const showDate = () => {
     return isToday(date) ? 'Today' : getDateElements(date).date.dateString;
   };
+
+
+console.log(getEvents())
+
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader

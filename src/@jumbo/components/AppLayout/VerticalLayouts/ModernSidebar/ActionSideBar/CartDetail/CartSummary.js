@@ -351,7 +351,7 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
     return (
       <GridContainer key={index} >
       <Grid item xs={8} lg={8}>
-      <Box display="flex" alignItems="center" justifContent="flex-start">
+      <Box display="flex" alignItems="center" justifyContent="flex-start">
       {a.isCart && <IconButton size="small" 
                                    style={{marginRight: 3}}
                               className={classes.closeButton1}

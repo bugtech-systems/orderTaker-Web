@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 
-import { TableRow, TableCell, Box, Button, Collapse } from '@material-ui/core';
+import { TableRow, TableCell, Box, Button, Collapse, Typography } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import { ArrowUpward } from '@material-ui/icons';
@@ -9,6 +9,7 @@ import { ArrowUpward } from '@material-ui/icons';
 import CmtObjectSummary from '../../../../../@coremat/CmtObjectSummary';
 import { timeFromNow } from '../../../../../@jumbo/utils/dateHelper';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
+import { isNull } from 'lodash';
 
 const useStyles = makeStyles(theme => ({
   tableRowRoot: {
@@ -125,14 +126,15 @@ const useStyles = makeStyles(theme => ({
 const TableItem = ({ row }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
+  const customer = row.customers[0] ? row.customers[0] : null
+  console.log(row)
   return (
     <React.Fragment>
       <TableRow className={clsx(classes.tableRowRoot, open ? 'active' : '')}>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellFirst)}>
-          <CmtObjectSummary
+          {/* <CmtObjectSummary
             avatar={<CmtAvatar src={row.user.avatar} alt={row.user.name} />}
-            title={row.user.name}
+            title={row.invoice_no}
             titleProps={{ className: classes.titleRoot }}
             showItemBadge={false}
             anchorOrigin={{
@@ -140,14 +142,15 @@ const TableItem = ({ row }) => {
               horizontal: 'right',
             }}
             align={'horizontal'}
-          />
+          /> */}
+          <Typography>{row.order_no}</Typography>
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
-          {timeFromNow(row.lastPaymentDate)}
+          {timeFromNow(row.createdAt)}
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>
-            <div className={classes.showContent}>₱{row.pendingAmount}</div>
+            <div className={classes.showContent}>₱{row.amount_due}</div>
             <Box
               className={clsx(classes.hideContent, classes.hideShowLink)}
               color="primary.main"
@@ -167,26 +170,26 @@ const TableItem = ({ row }) => {
         <TableCell className={classes.tableCellRoot} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <div className={classes.openDataRot}>
-              <div>{row.user.position}</div>
+              <div>{row.order_status}</div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div className={'mr-3'}>
                   Total{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    Hours: {row.rate}
+                    Hours: {row.amount_paid}
                   </Box>
                 </div>
 
                 <div className={'mr-3'}>
                   Rate:{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    {row.rate}
+                    {row.gross_total}
                   </Box>
                 </div>
 
                 <div>
                   Pending{' '}
                   <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    ₱{row.pendingAmount}
+                    ₱{row.amount_payable}
                   </Box>
                 </div>
                 <div style={{ marginLeft: 'auto' }}>

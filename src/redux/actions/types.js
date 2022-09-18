@@ -51,6 +51,14 @@ export const CLEAR_CART = 'clear_cart';
 export const UPDATE_CART_ITEMS = 'update_cart_items';
 export const SET_CART_ITEMS_COUNT = 'set_cart_items_count';
 
+
+
+//ORDER
+export const SET_ORDERS = 'set_orders';
+export const SET_UNPAID_ORDERS = 'set_unpaid_orders';
+export const CLEAR_ORDERS = 'clear_orders';
+
+
 //PRODUCT
 export const GET_PRODUCTS_LIST = 'get_products_list';
 export const SET_CURRENT_PRODUCT = 'set_current_product';

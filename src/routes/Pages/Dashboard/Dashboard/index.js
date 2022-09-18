@@ -12,7 +12,7 @@ import WeeklySales from './WeeklySales';
 import PopularAgents from './PopularAgents';
 import RecentPayments from './RecentPayments';
 import PopularProducts from './PopularProducts';
-
+import CalendarEvents from './CalendarEvents';
 
 
 //Icons
@@ -24,6 +24,8 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers} from '../../../../redux/actions/Users';
+import { getOrders} from '../../../../redux/actions/OrderApp';
+
 import { getAdminDashboard } from 'redux/actions/Dashboard';
 import { getInventoryList } from 'redux/actions/ProductApp';
 
@@ -82,6 +84,7 @@ const Dashboard = () => {
     if(loadUser){
     dispatch(getAdminDashboard())
     dispatch(getInventoryList(filterType));
+    dispatch(getOrders());
     }
   }, [loadUser, authUser])
 
@@ -149,7 +152,7 @@ const Dashboard = () => {
         </Grid>
         {/* Business CalendarEvents - Top right side */}
         <Grid item xs={12} sm={12} lg={6}>
-          <WeeklySales
+          <CalendarEvents
           // backgroundColor="#6200EE"
           // icon={<StarIcon style={{ color: '#ffffff' }} />}
           // title={20}

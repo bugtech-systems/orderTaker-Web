@@ -10,6 +10,11 @@ import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
 import RecentPaymentsTable from './RecentPaymentsTable';
 
+
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+
+
 const useStyles = makeStyles(theme => ({
   cardRoot: {
     [theme.breakpoints.down('xs')]: {
@@ -32,6 +37,24 @@ const useStyles = makeStyles(theme => ({
 
 const RecentPayments = () => {
   const classes = useStyles();
+  const {unpaid_orders} = useSelector(({orderApp}) => orderApp);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  console.log(unpaid_orders);
+
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader
@@ -50,7 +73,7 @@ const RecentPayments = () => {
       </CmtCardHeader>
       <CmtCardContent className={classes.cardContentRoot}>
         <PerfectScrollbar className={classes.scrollbarRoot}>
-          <RecentPaymentsTable />
+          <RecentPaymentsTable data={unpaid_orders} />
         </PerfectScrollbar>
       </CmtCardContent>
     </CmtCard>

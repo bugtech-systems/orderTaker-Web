@@ -9,7 +9,7 @@ export const getYesterdayDate = () => {
     .subtract(1, 'day')
     .format('DD.MM.YYYY');
 };
-
+ 
 export const timeFromNow = date => {
   const timestamp = moment(date).format('X');
   const newDate = moment.unix(timestamp);

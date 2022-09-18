@@ -83,7 +83,7 @@ const Routes = () => {
         <RestrictedRoute path="/products" component={Products} />
         <RestrictedRoute path="/inventory" component={Inventory} />
         <RestrictedRoute path="/customers" component={Customers} />
-        <RestrictedRoute path="/reports" component={SalesReport} />
+        {/* <RestrictedRoute path="/reports" component={SalesReport} /> */}
         <RestrictedRoute path="/settings" component={Settings} />
 
         {/* Other Pages */}

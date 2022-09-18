@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IntlMessages from '../../../@jumbo/utils/IntlMessages';
 import Box from '@material-ui/core/Box';
 import { Button, IconButton, InputBase } from '@material-ui/core';
@@ -72,7 +73,7 @@ const Error404 = () => {
         </IconButton>
       </Box>
       <Box mt={8}>
-        <Button variant="contained" color="primary">
+        <Button component={Link} to="/dashboard" variant="contained" color="primary"  >
           <IntlMessages id="extraPages.goHome" />
         </Button>
       </Box>

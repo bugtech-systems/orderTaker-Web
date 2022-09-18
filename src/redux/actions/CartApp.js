@@ -4,6 +4,7 @@ import { authHeader } from '../../services/auth-header';
 
 import commonData from '../../utils/commonData';
 import axios from 'axios';
+import { getOrders } from './OrderApp';
 
 
 
@@ -201,5 +202,14 @@ export const createOrder = (cart) => dispatch => {
   console.log(cart)
     dispatch(fetchStart());
     return axios
-      .post(`${commonData.apiUrl}/orders`, cart, { headers: authHeader() });
+      .post(`${commonData.apiUrl}/orders`, cart, { headers: authHeader() })
+      .then(({data}) => {
+        console.log(data)
+        dispatch(getOrders());
+        return data
+      })
+      .catch(err => {
+        console.log(err)
+        throw err;
+      });
 };

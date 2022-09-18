@@ -8,7 +8,8 @@ import { crypto } from '../../../../../@fake-db';
 import TableHeading from './TableHeading';
 import TableItem from './TableItem';
 
-const RecentPaymentsTable = () => {
+const RecentPaymentsTable = ({data}) => {
+  console.log(data)
   return (
     <div className="Cmt-table-responsive">
       <Table>
@@ -16,9 +17,9 @@ const RecentPaymentsTable = () => {
           <TableHeading />
         </TableHead>
         <TableBody>
-          {crypto.payments.map(row => (
-            <TableItem row={row} key={row.id} />
-          ))}
+          {data.length !== 0 && data.map(row => {
+           return( <TableItem row={row} key={row.id} />)
+          })}
         </TableBody>
       </Table>
     </div>
