@@ -17,7 +17,7 @@ import CartItemList from './CartItemList';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
+import { handleCart } from '../../../../../../../redux/actions/CartApp';
 
 import "./styles.css";
 
@@ -48,9 +48,9 @@ const Comments = () => {
 
   return (
       <Box height="100%" className={classes.rootWrap}>
-      {action === 'cart' && <CartItemList/>}
+      {(action === 'cart' || action === 'paidCart' || action === 'viewCart') && <CartItemList/>}
       {action === 'payment' && <ProceedPayment/>}
-      {action === 'success' && <SuccessPage/>}
+      {(action === 'success' || action === 'paidSuccess') && <SuccessPage/>}
       <CartFooter/>
     </Box>
   );

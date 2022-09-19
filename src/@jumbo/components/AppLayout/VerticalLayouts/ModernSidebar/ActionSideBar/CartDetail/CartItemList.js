@@ -15,6 +15,9 @@ import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../.
 import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
 import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
+import { fetchError, fetchStart, fetchSuccess } from '../../../../../../../redux/actions/Common';
+
+
 
 //Components
 import SearchProduct from './SearchProduct';
@@ -84,7 +87,8 @@ const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
-  const { cart_items, cart_items_count, grand_total, gross_total, amount_due } = cart;
+  const { action } = useSelector(({uiReducer}) => uiReducer); 
+  const { order_no, cart_items, cart_items_count, grand_total, gross_total, amount_due } = cart;
   const { productsList, filterType }  = useSelector(({productApp}) => productApp);
   const [expanded, setExpanded] = React.useState('cartItems');
   const [selected, setSelected] = useState(null);
@@ -105,9 +109,13 @@ const Comments = () => {
 
   const handleItem = (val, qty) => {
     console.log(qty)
+    console.log('HANDOL ITEM')
+    console.log(val)
+    let prd = productsList.find(a => a.id === val.productId)
     let obj = {
       ...val,
-      qty: qty
+      qty: qty,
+      product: prd
     }
 
       handleCartItem(cart_items, obj).then(a => {
@@ -117,12 +125,22 @@ const Comments = () => {
   }
 
   const handleSelect = (val) => {
-    
+    console.log('HANDOL SELECT')  
     console.log(val)
 if(val){
+  
+  
+  
+  let prd = productsList.find(a => a.id === val.id)
+  if(!prd){
+    return dispatch(fetchError("Unable to Find Product!"));
+  }
 
-    let obj = {
-      product: val,
+  if(prd.stocks <= 0){
+    return dispatch(fetchError("No Stocks Available!"));
+  } else {
+  let obj = {
+      product: prd,
       productId: val.id,
       name: val.name,
       price: val.price,
@@ -132,8 +150,9 @@ if(val){
     handleCartItem(cart_items, obj).then(a => {
       dispatch(handleCart({...cart, cart_items: a}))
     })
+  }
 }
-setSelected(val);
+setSelected(null);
 
 }
 
@@ -183,11 +202,11 @@ setSelected(val);
 
   return (
     <Box flexGrow={1} className={classes.rootWrap}>
-     <SearchProduct
+   {action === 'cart' ? <SearchProduct
       value={selected}
       options={productsList}
       handleSelect={handleSelect}
-      />
+      /> : <Typography variant="body1">{order_no}</Typography>}
       <Divider/>
       <Box flexGrow={1}>
       <Box  className={classes.accordionContent} >

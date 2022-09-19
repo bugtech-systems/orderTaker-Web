@@ -22,6 +22,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { uploadFile } from '../../../../../redux/actions/Users';
+import { UPDATE_CART } from 'redux/actions/types';
 
 
 
@@ -64,7 +65,9 @@ const labels = [
 ];
 
 const CreateCustomer = ({ open, handleDialog }) => {
-  const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
+  const { currentCustomer, customersList } = useSelector(({ customerApp }) => customerApp);
+  const cart = useSelector(({cartApp}) => cartApp);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const [values, setValues] = useState({ 
@@ -135,6 +138,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
   };
 
   const handleSubmit = phoneNumbers => {
+    console.log('SUBMIITTTEEDD!!!')
     let { limit, balance } = values;
     const customer = {
       ...values,
@@ -144,10 +148,21 @@ const CreateCustomer = ({ open, handleDialog }) => {
     };
     if (currentCustomer.id) {
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
+      handleDialog(false);
     } else {
-      dispatch(createCustomer({...currentCustomer, ...customer}));
+      dispatch(createCustomer({...currentCustomer, ...customer}))
+      .then(res => {
+        console.log("SUBMIT CUSTOMER RESP")
+        console.log(res)
+        dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
+        handleDialog(false);
+      })
+      .catch(err => {
+        console.log('SUBMIT ERROR!!!')
+        console.log(err)
+      })
+      ;
     }
-    handleDialog(false);
   };
 
 
@@ -158,7 +173,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
   }, [currentCustomer])
 
   return (
-    <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
+    <Dialog open={open} onClose={() => handleDialog(false)} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>
         {currentCustomer ? 'Edit Customer Details' : 'Create New Customer'}
       </DialogTitle>
@@ -271,7 +286,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
         </GridContainer>
 
         <Box display="flex" justifyContent="flex-end" mb={4}>
-          <Button onClick={handleDialog}>Cancel</Button>
+          <Button onClick={() => handleDialog(false)}>Cancel</Button>
           <Box ml={2}>
             <Button variant="contained" color="primary" onClick={checkValidations}>
               Save

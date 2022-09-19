@@ -15,6 +15,9 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import ClearIcon from '@material-ui/icons/Clear';
 
+//Redux
+import {useDispatch, useSelector} from "react-redux";
+
 const useStyles = makeStyles(theme => ({
   itemRoot: {
     padding: '16px 24px',
@@ -104,9 +107,15 @@ const useStyles = makeStyles(theme => ({
 
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
+  const { productsList }  = useSelector(({productApp}) => productApp);
+  const { action } = useSelector(({uiReducer}) => uiReducer); 
+
+
   const [values, setValues] = useState({
     qty: 0
   });
+
+  const [prd, setPrd] = useState({});
 
 
   
@@ -114,6 +123,8 @@ const CommentItem = ({ item, handleItem }) => {
 
 
   useEffect(() => {
+    let prdt = productsList.find(a => a.id === item.productId || a.id === item.id);
+    setPrd(prdt);
     setValues(item);
   }, [item]);
 
@@ -137,9 +148,11 @@ const CommentItem = ({ item, handleItem }) => {
 <Box fontSize={14} color="text.disabled" mr={6}>
         Price: 
       </Box>
-  <Box fontSize={14} color="text.disabled" className={classes.htext}>
+  {isCart && 
+      <Box fontSize={14} color="text.disabled" className={classes.htext}>
         Stocks: 
       </Box>
+  }
 </Box>
 <Box display="relative">
     <Box fontSize={14} color="text.disabled">
@@ -154,6 +167,10 @@ const CommentItem = ({ item, handleItem }) => {
     </Box>
   );
 
+
+  let isCart = action === 'cart';
+
+
   return (
     <Box className={classes.itemRoot}>
       <CmtMediaObject
@@ -167,18 +184,21 @@ const CommentItem = ({ item, handleItem }) => {
           gutterBottom: false,
         }}
         footerComponent={ <Box>
+        
+          <>
           <Box display="flex" flexDirection="column" alignItems="center">
           <Box fontSize={14} alignItems="center" style={{marginBottom: 5}} color="text.disabled">
          <Typography>₱{values.total}</Typography> 
-         <Typography className={classes.qty}>x{values.qty}</Typography> 
-         <IconButton className={classes.clearButton}
+         <Typography className={isCart ? classes.qty : ''}>x{values.qty}</Typography> 
+         {isCart && <IconButton className={classes.clearButton}
           size="small"
             onClick={() => handleItem(values, 'remove')}
           >
             <ClearIcon fontSize="small" />
-          </IconButton>
+          </IconButton>}
         </Box> 
-          <Box display="flex" alignItems="center" className={classes.actionCounter}>
+        {isCart &&
+            <Box display="flex" alignItems="center" className={classes.actionCounter}>
           <IconButton className="btn-white"
           size="small"
           disabled={values.qty < 0}
@@ -188,25 +208,24 @@ const CommentItem = ({ item, handleItem }) => {
             />
           </IconButton>
           <Box ml={3} mr={3} display="flex" justifyContent="center" alignItems="center" style={{ fontSize: 18, textAlign: 'center'}}>
-            <TextField value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={(e) => {
-                let av = values.stocks - Number(e.target.value);
-              console.log(av)
-              console.log(Number(e.target.value))
-              console.log(Number(e.target.value) && av >= 0)
+            <TextField type="number" value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={(e) => {
+                let av = prd.stocks - Number(e.target.value);
            Number(e.target.value) >= 0 && av >= 0 ? handleItem(values, e.target.value) : e.target.value === '' && handleItem(values, 0);
               }}/> 
             </Box>
           <IconButton className="btn-white"
           size="small"
-          disabled={values.stocks <= 0}
+          disabled={prd.stocks <= 0}
           onClick={() => handleItem(values, Number(values.qty) + 1)}
           >
             <AddCircleIcon
             />
           </IconButton>
-        </Box>
-        </Box>
-      </Box>}
+        </Box>}
+        </Box> 
+        </>
+      </Box>
+      }
       />
     </Box>
   );

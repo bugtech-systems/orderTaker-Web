@@ -23,3 +23,15 @@ export const getOrders = () => {
           });
     };
   };
+
+
+  export const generateNumber = () => {
+        return axios
+          .get(`${commonData.apiUrl}/generateNumber`, { headers: authHeader() })
+          .then(({data}) => {
+            return data
+          }).catch(err => {
+            console.log(err)
+            return null;
+          });
+    };

@@ -30,9 +30,13 @@ import { cart } from '../../@fake-db'
 
 
       case UPDATE_CART: {
+        let { tax_disc } = action.payload;
+        let tdc = tax_disc && typeof tax_disc === 'string' ? JSON.parse(tax_disc) : tax_disc ? tax_disc : []; 
+        console.log(tdc)
         return {
           ...state,
-          ...action.payload
+          ...action.payload,
+          tax_disc: tdc
         };
       }
 

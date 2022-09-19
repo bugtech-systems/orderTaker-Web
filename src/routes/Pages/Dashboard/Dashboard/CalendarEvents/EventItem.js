@@ -8,24 +8,53 @@ import CmtMediaObject from '../../../../../@coremat/CmtMediaObject';
 import { getTime } from '../../../../../@jumbo/utils/dateHelper';
 import useStyles from './index.style';
 
+
+//Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { handleCart } from '../../../../../redux/actions/CartApp';
+import { SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, UPDATE_CART } from '../../../../../redux/actions/types';
+
 const EventItem = ({ item }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  console.log(item)
+  // console.log(item)
+
+
+
+
+
+  const handleClick = (val) => {
+      dispatch({type: UPDATE_CART, payload: {...val, cart_items: val.order_items}}); 
+      dispatch({type: SET_ACTIVE_OPTION, payload: 'cart'});
+      dispatch({type: SET_ACTION, payload: val.isPaid ? 'paidCart' : 'viewCart'});
+      dispatch({type: SET_DRAWER_OPEN, payload: true});
+    }
+
+
+
+
+
+
+
+
+
+
+
   const getSubTitle = () => (
     <Typography className={classes.subTitleRoot}>
-      <Box component="span">₱{item.amount_paid}</Box>
+      <Box component="span">₱{item.amount_due}</Box>
       <Box component="span" mx={2}>
         |
       </Box>
       Customer:
       <Box component="span" color="primary.main" ml={1}>
-        {item.customers[0] ? item.customers[0].name : ''}
+        {item.customers[0] ? item.customers[0].name : 'No Customer'}
       </Box>
     </Typography>
   );
 
   return (
-    <Box className={clsx(classes.eventItemRoot, { checked: item.isPaid })}>
+    <Box className={clsx(classes.eventItemRoot, { checked: item.isPaid })} onClick={() => handleClick(item)}>
      <CmtMediaObject
         avatarPos="center"
         title={item.order_no}

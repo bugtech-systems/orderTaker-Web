@@ -94,14 +94,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, action, handleClick, ...rest }) => {
+const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
-
-
-
-
-
-
 
 
   return (

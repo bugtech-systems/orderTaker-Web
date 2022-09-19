@@ -39,6 +39,8 @@ const useStyles = makeStyles(theme => ({
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+
   const { cart_items } = cart;
   const [ quantity, setQuantity ] = useState(0);
   const [ stocks, setStocks ] = useState(0);
@@ -62,15 +64,21 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
 
 
 
+    let prd = productsList.find(a => a.id === item.id);
+
+
     let obj = {
-      product: item,
+      product: prd,
       productId: item.id,
       name: item.name,
-      stocks: item.stocks - quantity,
+      stocks: prd.stocks - quantity,
       price: item.price,
       total: item.price * quantity,
+      qty: quantity,
       other_amounts: item.other_amounts ? item.other_amounts : []
     }
+
+
 
     handleCartItem(cart_items, obj).then(a => {
       dispatch(handleCart({...cart, cart_items: a}))

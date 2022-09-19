@@ -91,6 +91,14 @@ export default function CartFooter() {
       dispatch({type: SET_ACTION, payload: 'payment'})
   }
 
+  const handleSuccess = () => {
+      dispatch({type: SET_ACTION, payload: 'paidSuccess'})
+}
+
+const handleCartList = () => {
+    dispatch({type: SET_ACTION, payload: 'paidCart'})
+}
+
   const handleClearCart = () => {
     dispatch({ 
       type: CLEAR_CART
@@ -121,11 +129,15 @@ export default function CartFooter() {
 
 
  
-  console.log(action)
-
   return (
     <Box height="100%"  p={5} display="flex" alignItems="center" justifyContent="space-around">
-      {action === 'cart' && <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment()} disabled={cart_items.length === 0} >Proceed Payment</Button></>}
+      {action === 'paidCart' && <><Button variant="outlined" onClick={() => handleCartList()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleSuccess()} disabled={cart_items.length === 0} >Next</Button></>} 
+      
+      {(action === 'cart' || action === 'viewCart') &&  <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment()} disabled={cart_items.length === 0} >Proceed Payment</Button></>}
+      
+      
+      
+      
       {action === 'payment' && <><Button variant="outlined" onClick={() => handleBack()} >Back</Button> <Button variant="contained" color="primary" onClick={() => handleCheckout()} disabled={cart_items.length === 0} >Checkout</Button></>}
    </Box>
   )

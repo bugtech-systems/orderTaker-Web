@@ -9,7 +9,6 @@ import TableHeading from './TableHeading';
 import TableItem from './TableItem';
 
 const RecentPaymentsTable = ({data}) => {
-  console.log(data)
   return (
     <div className="Cmt-table-responsive">
       <Table>

@@ -49,12 +49,6 @@ const RecentPayments = () => {
 
 
 
-
-
-
-
-  console.log(unpaid_orders);
-
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader
@@ -64,12 +58,12 @@ const RecentPayments = () => {
           variant: 'h4',
           component: 'div',
         }}>
-        <Box clone>
+        {/* <Box clone>
           <Button color="primary">
             <AddIcon />
             <span className="ml-2">Add New</span>
           </Button>
-        </Box>
+        </Box> */}
       </CmtCardHeader>
       <CmtCardContent className={classes.cardContentRoot}>
         <PerfectScrollbar className={classes.scrollbarRoot}>

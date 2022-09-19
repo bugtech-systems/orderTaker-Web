@@ -24,7 +24,7 @@ export default function FreeSoloCreateOptionDialog({
     handleSelect
 }) {
     const dispatch = useDispatch();
-    const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
+    const {currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
 
 
 
@@ -47,7 +47,6 @@ export default function FreeSoloCreateOptionDialog({
       })
   }
 
-  console.log(customersList)
 
 
   return (

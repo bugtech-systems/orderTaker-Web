@@ -38,6 +38,8 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
   const [ quantity, setQuantity ] = useState(0);
   const cart = useSelector(({cartApp}) => cartApp);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  
   const { cart_items } = cart;
   const [ stocks, setStocks ] = useState(0);
   const [ addedToCart] = useState(false);
@@ -57,15 +59,17 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
       return dispatch(fetchError('Cant add 0 quantity!'))
     } else {
   
+      let prd = productsList.find(a => a.id === item.id);
 
 
     let obj = {
-      product: item,
+      product: prd,
       productId: item.id,
       name: item.name,
       stocks: item.stocks - quantity,
       price: item.price,
       total: item.price * quantity,
+      qty: quantity,
       other_amounts: item.other_amounts ? item.other_amounts : []
     }
 

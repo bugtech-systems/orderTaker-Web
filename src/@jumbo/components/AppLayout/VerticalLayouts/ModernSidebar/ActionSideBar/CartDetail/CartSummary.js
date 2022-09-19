@@ -204,6 +204,8 @@ const Comments = () => {
   const dispatch = useDispatch();
   const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
   const { productsList }  = useSelector(({productApp}) => productApp);
+  const { action } = useSelector(({uiReducer}) => uiReducer); 
+
   const { gross_total, amount_due, tax_disc, payment, change, total_vatable, other_amounts }  = useSelector(({cartApp}) => cartApp);
   const cart  = useSelector(({cartApp}) => cartApp);
 
@@ -324,7 +326,7 @@ const Comments = () => {
     }
   }, [productsList]);
 
-  // console.log(other_amounts)
+  console.log(tax_disc)
 
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
       return (
@@ -433,10 +435,6 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
 
 
 
-console.log(getCharges)
-console.log(getDiscounts)
-console.log(tax_disc)
-
   return (
     <Box pr={5} pl={3} className={classes.rootWrap}>
       <Divider/>
@@ -507,7 +505,7 @@ console.log(tax_disc)
      {getDiscounts}
      {getCharges}
         <Box className={classes.btnWrap}>
-            {addOA === 'discounts' ? (
+            { addOA === 'discounts' ? (
                   <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
                   <Box style={{flexGrow: 1}}>
                                <IconButton size="small" 
@@ -573,7 +571,7 @@ console.log(tax_disc)
                </IconButton>
                   </Box>
                   
-            ) : 
+            ) : action === 'cart' &&
             <Box m={1} display="flex" alignItems="flex-start" >
               <Box
             display="flex"
@@ -584,6 +582,7 @@ console.log(tax_disc)
             <RemoveCircleOutlineIcon />
               <Box ml={2}>Less Discounts</Box>
           </Box>
+
               </Box>}
               {addOA === 'charges' ? (
                       <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
@@ -651,7 +650,7 @@ console.log(tax_disc)
                    </IconButton>
                       </Box>
                   
-            ) : 
+            ) : action === 'cart' &&
             <Box m={1} display="flex" alignItems="flex-start" >
               <Box
             display="flex"

@@ -126,8 +126,6 @@ const useStyles = makeStyles(theme => ({
 const TableItem = ({ row }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const customer = row.customers[0] ? row.customers[0] : null
-  console.log(row)
   return (
     <React.Fragment>
       <TableRow className={clsx(classes.tableRowRoot, open ? 'active' : '')}>

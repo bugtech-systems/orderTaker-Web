@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Divider, Typography, Button, TextField, IconButton } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -29,21 +29,21 @@ const useStyles = makeStyles(theme => ({
 export default function ProceedPayment() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { currentCustomer }  = useSelector(({customerApp}) => customerApp);
+  const { currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
   const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { amount_due, change, payment, notes } = cart
+  const { amount_due, change, payment, notes, order_no } = cart
   const { createCustomerDialog } = useSelector(({uiReducer}) => uiReducer);
 
   const { name, address, limit, balance } = currentCustomer ? currentCustomer : {};
   const handleSelect = (val) => {
-    console.log(val)
     if(!val){
       dispatch(setCurrentCustomer(null))
+      dispatch({type: UPDATE_CART, payload: { ...cart, customerId: null }})
+
     } else {
       if( val.id){
         dispatch({type: UPDATE_CART, payload: { ...cart, customerId: val.id }})
-        dispatch(setCurrentCustomer(val))
       }
     }
     // dispatch(setCurrentCustomer(val))
@@ -58,6 +58,30 @@ export default function ProceedPayment() {
   const handleDialog = (val) =>{
       dispatch({type: SET_CREATE_CUSTOMER_DIALOG, payload: val ? val : false})
   }
+
+  console.log(customersList)
+
+  useEffect(() => {
+    let { customerId, customers } = cart ? cart : {};
+    let customer = null
+console.log('CUSTOMER THIS....')
+console.log(customerId)
+console.log(customers)
+      if(customerId){
+       customer = customersList.find(a => a.id === customerId)
+      }
+
+      if(customers && customers.length !== 0){
+        customer = customers[0];
+       }
+
+      dispatch(setCurrentCustomer(customer ? customer : null))
+
+      
+
+  }, [cart.customerId, customersList])
+
+  console.log(currentCustomer)
 
   return (
     <Box className={classes.rootWrap}>
@@ -74,7 +98,7 @@ export default function ProceedPayment() {
             handleSelect={handleSelect}
         />
         <Box maxHeight="100px" p={5} display="flex" alignItems="flex-start" justifyContent="center">
-        {currentCustomer && 
+        {currentCustomer && currentCustomer.id &&
         <Box width="100%" display="flex">
            <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
             <Box mb={1} display="flex">
@@ -100,6 +124,9 @@ export default function ProceedPayment() {
         </Box>
 
         <Divider/>
+        <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={1}>ORDER #</Typography><Typography variant="h2">{order_no}</Typography>
+          </Box>
         <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
               <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{Number(amount_due).toFixed(2)}</Typography>
           </Box>

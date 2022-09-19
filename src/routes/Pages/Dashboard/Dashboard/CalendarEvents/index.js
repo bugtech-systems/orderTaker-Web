@@ -68,7 +68,6 @@ const CalendarEvents = () => {
   };
 
 
-console.log(getEvents())
 
   return (
     <CmtCard className={classes.cardRoot}>

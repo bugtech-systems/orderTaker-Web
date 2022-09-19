@@ -140,20 +140,31 @@ export const setCurrentCustomer = customer => {
 };
 
 //for creating new customer
-export const createCustomer = customer => {
-  return dispatch => {
-    dispatch(fetchStart());
-    axios
+export const createCustomer = customer => dispatch =>
+{
+   dispatch(fetchStart());
+   return axios
       .post(`${commonData.apiUrl}/customers`, customer)
       .then(({ data }) => {
         dispatch(fetchSuccess(data.message));
         dispatch(getCustomers());
+        return data
+      })
+      .then(res =>{
+         console.log('CREATE RESP')
+         console.log(res)
+        return res.customer
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
       });
   };
-};
+
+
+
+
+
+
 
 //for updating customer through detail page
 export const onUpdateCustomer = customer => {
