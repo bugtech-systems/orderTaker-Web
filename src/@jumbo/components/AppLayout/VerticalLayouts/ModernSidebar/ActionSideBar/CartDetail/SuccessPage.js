@@ -8,6 +8,9 @@ import { CLEAR_CART, SET_DRAWER_OPEN } from 'redux/actions/types';
 import moment from 'moment-timezone';
 
 
+//Components
+import CartFooter from './CartFooter';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -58,16 +61,7 @@ export default function SuccessPage() {
   const { amount_due, amount_paid, amount_payable, order_no, ref_no, customers, isPaid, createdAt, notes, order_status } = cartSuccess;
   const customerName = customers.length !== 0 ? customers[0].name : 'No Customer';
   const dispatch = useDispatch();
-  console.log(cartSuccess);
   
-  const handleNewOrder = () => {
-    dispatch({type: CLEAR_CART});
-  }
-
-  const handleClose = () => {
-    dispatch({type: CLEAR_CART});
-    dispatch({type: SET_DRAWER_OPEN, payload: false});
-  }
 
 
 
@@ -103,10 +97,7 @@ export default function SuccessPage() {
         </Grid>
       </Grid>
       <br/>
-        <Box display="flex" alignItems="center" justifyContent="space-around">
-          <Button variant="outlined" color="primary" onClick={() => handleNewOrder()} >New Order</Button>
-          <Button variant="contained" onClick={() => handleClose()}>Close</Button>
-        </Box>
+      {/* <CartFooter/> */}
     </>
   );
 };

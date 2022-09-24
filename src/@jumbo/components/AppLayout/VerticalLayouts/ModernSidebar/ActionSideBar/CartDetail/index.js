@@ -49,7 +49,7 @@ const Comments = () => {
   return (
       <Box height="100%" className={classes.rootWrap}>
       {(action === 'cart' || action === 'paidCart' || action === 'viewCart') && <CartItemList/>}
-      {action === 'payment' && <ProceedPayment/>}
+      {(action === 'payment' || action === 'unpaid') && <ProceedPayment/>}
       {(action === 'success' || action === 'paidSuccess') && <SuccessPage/>}
       <CartFooter/>
     </Box>

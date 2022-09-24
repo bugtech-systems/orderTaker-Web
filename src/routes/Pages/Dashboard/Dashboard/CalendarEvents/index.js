@@ -48,7 +48,7 @@ const CalendarEvents = () => {
             {dateObj.date.date}
           </Box>
           <Box component="span" fontSize={16}>
-            {dateObj.time}
+            {dateObj.time} 
           </Box>
         </Box>
         <Box display="flex" mt={1} color="common.white">
@@ -87,13 +87,13 @@ const CalendarEvents = () => {
           </IconButton>
         </Box>
       </CmtCardHeader>
-      <CmtCardContent>
+      <CmtCardContent className={classes.listContainer}>
         <Typography className={classes.eventTitle}>{showDate()}</Typography>
         <PerfectScrollbar className={classes.scrollbarRoot}>
           <CmtList data={getEvents()} renderRow={(item, index) => <EventItem item={item} key={index} />} />
         </PerfectScrollbar>
-        <Box display="flex" alignItems="center" mt={1}>
-          <Button color="primary" className={classes.btnRoot}>
+        <Box display="flex" alignItems="center" mb={-2} pt={2}>
+          <Button color="primary" size="small" className={classes.btnRoot}>
             View All
           </Button>
         </Box>

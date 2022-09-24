@@ -25,6 +25,24 @@ export const getOrders = () => {
   };
 
 
+
+  export const payOrder = (data) => dispatch => {
+    console.log(data)
+      dispatch(fetchStart());
+      return axios
+        .post(`${commonData.apiUrl}/payments`, data, { headers: authHeader() })
+        .then(({data}) => {
+          console.log(data)
+          dispatch(getOrders());
+          return data
+        })
+        .catch(err => {
+          console.log(err)
+          throw err;
+        });
+  };
+
+
   export const generateNumber = () => {
         return axios
           .get(`${commonData.apiUrl}/generateNumber`, { headers: authHeader() })

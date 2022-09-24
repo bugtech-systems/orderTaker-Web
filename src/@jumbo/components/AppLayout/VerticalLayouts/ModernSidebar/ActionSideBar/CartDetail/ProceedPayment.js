@@ -33,7 +33,7 @@ export default function ProceedPayment() {
   const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
   const { amount_due, change, payment, notes, order_no } = cart
-  const { createCustomerDialog } = useSelector(({uiReducer}) => uiReducer);
+  const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
 
   const { name, address, limit, balance } = currentCustomer ? currentCustomer : {};
   const handleSelect = (val) => {
@@ -64,39 +64,38 @@ export default function ProceedPayment() {
   useEffect(() => {
     let { customerId, customers } = cart ? cart : {};
     let customer = null
-console.log('CUSTOMER THIS....')
-console.log(customerId)
-console.log(customers)
       if(customerId){
        customer = customersList.find(a => a.id === customerId)
       }
 
       if(customers && customers.length !== 0){
         customer = customers[0];
+
        }
 
       dispatch(setCurrentCustomer(customer ? customer : null))
-
+      dispatch({type: UPDATE_CART, payload: {  ...cart, customerId: customer ? customer.id : null}})
       
 
   }, [cart.customerId, customersList])
 
-  console.log(currentCustomer)
 
+
+  console.log(cart)
   return (
     <Box className={classes.rootWrap}>
       <CreateCustomer
         open={createCustomerDialog}
         handleDialog={handleDialog}
       />
-        <SearchCustomer
+       {action === 'payment' && <SearchCustomer
             variant="outlined"
             size="small"
             label="Customer"
             fullWidth
             margin="dense"
             handleSelect={handleSelect}
-        />
+        />}
         <Box maxHeight="100px" p={5} display="flex" alignItems="flex-start" justifyContent="center">
         {currentCustomer && currentCustomer.id &&
         <Box width="100%" display="flex">
@@ -124,9 +123,7 @@ console.log(customers)
         </Box>
 
         <Divider/>
-        <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-              <Typography m={1}>ORDER #</Typography><Typography variant="h2">{order_no}</Typography>
-          </Box>
+        
         <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
               <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{Number(amount_due).toFixed(2)}</Typography>
           </Box>

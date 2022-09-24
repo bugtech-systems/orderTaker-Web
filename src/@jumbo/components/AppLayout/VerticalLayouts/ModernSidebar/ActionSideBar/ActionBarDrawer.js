@@ -18,7 +18,7 @@ import CartFooter from './CartDetail/CartFooter';
 
 
 //Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_CART } from '../../../../../../redux/actions/types';
 
 
@@ -96,8 +96,10 @@ const useStyles = makeStyles(theme => ({
 
 const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
+  const cart = useSelector(({cartApp}) => cartApp);
 
 
+  let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY'
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
@@ -109,7 +111,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick
         <Box fontSize={20} fontWeight={700}>
            {activeOption === 'notifications' && 'Notifications'}
             {activeOption === 'profile' && 'My Pofile'}
-            {activeOption === 'cart' && 'Order Details'}
+            {activeOption === 'cart' && order_no}
         </Box>
         <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />

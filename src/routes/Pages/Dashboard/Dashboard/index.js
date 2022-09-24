@@ -108,6 +108,8 @@ const Dashboard = () => {
               />
             </Grid>
             {/* Easy Access Widget Portion */}
+           
+
             <Grid item xs={12} sm={isAdmin ? 6 : 12} lg={isAdmin ? 6 : 12}>
               <CardWidget
                 backgroundColor="#6200EE"
@@ -117,16 +119,25 @@ const Dashboard = () => {
                 Link={isAdmin ? "/inventory" : "/products"}
               />
             </Grid>
-            <Grid item xs={12} sm={isAdmin ? 6 : 12} lg={isAdmin ? 6 : 12}>
+            <Grid item xs={12} sm={6} lg={6}>
               <CardWidget
-                backgroundColor="#6200EE"
-                icon={<AssessmentIcon style={{ color: '#ffffff' }} />}
-                title={counts.orders}
-                subTitle="Orders"
-                Link="/reports"
+                icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
+                backgroundColor="#8DCD03"
+                title={counts.users}
+                subTitle="USERS"
+                Link="/users"
               />
             </Grid>
-          {isAdmin &&
+            <Grid item xs={12} sm={12} lg={12}>
+              <CardWidget
+                backgroundColor="#6200EE"
+                icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
+                title={counts.products}
+                subTitle="Products"
+                Link={isAdmin ? "/inventory" : "/products"}
+              />
+            </Grid>
+          {/* {isAdmin &&
           <>
             <Grid item xs={12} sm={6} lg={6}>
               <CardWidget
@@ -147,7 +158,7 @@ const Dashboard = () => {
               />
             </Grid>
             </>
-            }
+            } */}
           </GridContainer>
         </Grid>
         {/* Business CalendarEvents - Top right side */}

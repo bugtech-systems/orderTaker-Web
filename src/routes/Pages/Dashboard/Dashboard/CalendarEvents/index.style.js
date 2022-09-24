@@ -15,13 +15,19 @@ const useStyles = makeStyles(theme => ({
   iconBtn: {
     color: theme.palette.common.white,
   },
+  listContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '430px'
+  },
   scrollbarRoot: {
     flex: 1,
+    flexGrow: 1,
     height: '100%',
     marginRight: -24,
     marginLeft: -24,
     marginTop: -10,
-    paddingTop: 10,
+    paddingTop: 10
   },
   eventItemRoot: {
     position: 'relative',
