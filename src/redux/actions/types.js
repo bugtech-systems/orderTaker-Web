@@ -69,6 +69,8 @@ export const UPDATE_PRODUCT_LABEL = 'update_product_label';
 export const UPDATE_PRODUCT = 'update_product';
 export const GET_PRODUCT_COUNTS = 'get_product_counts';
 export const SET_OTHER_AMOUNTS = 'set_other_amounts';
+export const SET_ALL_PRODUCTS = 'set_all_products';
+export const CLEAR_ALL_PRODUCTS = 'clear_all_products';
 
 
 
@@ -92,4 +94,6 @@ export const UPDATE_POST = 'update_post';
 
 //DASHBOARD
 export const SET_DASHBOARD_DATA = 'SET_DASHBOARD_DATA';
+export const CLEAR_DASHBOARD_DATA = 'CLEAR_DASHBOARD_DATA';
 export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
+export const SET_TODAY_SALES = 'SET_TODAY_SALES';

@@ -42,7 +42,7 @@ const EventItem = ({ item }) => {
 
   const getSubTitle = () => (
     <Typography className={classes.subTitleRoot}>
-      <Box component="span">₱{item.amount_due}</Box>
+      <Box component="span">TOTAL: </Box>&nbsp;<strong>₱{item.amount_due}</strong>
       <Box component="span" mx={2}>
         |
       </Box>

@@ -13,7 +13,7 @@ import PopularAgents from './PopularAgents';
 import RecentPayments from './RecentPayments';
 import PopularProducts from './PopularProducts';
 import CalendarEvents from './CalendarEvents';
-
+import ToggleAnalyticsCard from './ToggleAnalyticsCard/VisitedToggleAnalyticsCard';
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -30,6 +30,7 @@ import { getAdminDashboard } from 'redux/actions/Dashboard';
 import { getInventoryList } from 'redux/actions/ProductApp';
 
 import VideoPlayer from '../Video';
+import { intranet } from '../../../../@fake-db';
 
 
 const useStyles = makeStyles(() => ({
@@ -89,12 +90,24 @@ const Dashboard = () => {
   }, [loadUser, authUser])
 
 
-  // console.log(productsList)
+  console.log(isAdmin)
 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
         {/* Business Profile Component - Top left side   */}
+     
+        {/* Business CalendarEvents - Top right side */}
+        <Grid item xs={12} sm={12} lg={6}>
+        {isAdmin &&  <ToggleAnalyticsCard data={intranet.visitedChart}/>}
+          <CalendarEvents
+          // backgroundColor="#6200EE"
+          // icon={<StarIcon style={{ color: '#ffffff' }} />}
+          // title={20}
+          // subTitle="PRODUCTS"
+          // Link="/products"
+          />
+        </Grid>
         <Grid item xs={12} sm={12} lg={6}>
           <GridContainer>
             <Grid item xs={12} sm={12} lg={12}>
@@ -110,7 +123,7 @@ const Dashboard = () => {
             {/* Easy Access Widget Portion */}
            
 
-            <Grid item xs={12} sm={isAdmin ? 6 : 12} lg={isAdmin ? 6 : 12}>
+            <Grid item xs={12} sm={12} lg={isAdmin ? 12 : 6}>
               <CardWidget
                 backgroundColor="#6200EE"
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
@@ -119,24 +132,18 @@ const Dashboard = () => {
                 Link={isAdmin ? "/inventory" : "/products"}
               />
             </Grid>
-            <Grid item xs={12} sm={6} lg={6}>
-              <CardWidget
-                icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
-                backgroundColor="#8DCD03"
-                title={counts.users}
-                subTitle="USERS"
-                Link="/users"
+            <Grid item xs={12} sm={12} lg={isAdmin ? 12 : 6}>
+            <CardWidget
+                icon={<ContactPhone style={{ color: '#ffffff' }} />}
+                backgroundColor="#0795F4"
+                title={counts.customers}
+                subTitle="CUSTOMERS"
+                Link="/customers"
               />
             </Grid>
-            <Grid item xs={12} sm={12} lg={12}>
-              <CardWidget
-                backgroundColor="#6200EE"
-                icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
-                title={counts.products}
-                subTitle="Products"
-                Link={isAdmin ? "/inventory" : "/products"}
-              />
-            </Grid>
+            {/* {isAdmin && <Grid item xs={12} sm={12} lg={12}>
+              <ToggleAnalyticsCard data={intranet.visitedChart}/>
+            </Grid>} */}
           {/* {isAdmin &&
           <>
             <Grid item xs={12} sm={6} lg={6}>
@@ -160,16 +167,6 @@ const Dashboard = () => {
             </>
             } */}
           </GridContainer>
-        </Grid>
-        {/* Business CalendarEvents - Top right side */}
-        <Grid item xs={12} sm={12} lg={6}>
-          <CalendarEvents
-          // backgroundColor="#6200EE"
-          // icon={<StarIcon style={{ color: '#ffffff' }} />}
-          // title={20}
-          // subTitle="PRODUCTS"
-          // Link="/products"
-          />
         </Grid>
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6} className={classes.popularProductRoot}>

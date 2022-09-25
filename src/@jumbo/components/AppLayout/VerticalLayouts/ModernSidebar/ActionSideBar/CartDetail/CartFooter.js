@@ -96,7 +96,7 @@ export default function CartFooter() {
         console.log(res)
         if(res){
           dispatch(fetchSuccess(message));
-          dispatch({type: SET_CART_SUCCESS, payload: data});
+          dispatch({type: SET_CART_SUCCESS, payload: data.id});
         dispatch({type: SET_ACTION, payload: 'success'})
         }
       }).catch(err => {
@@ -123,6 +123,9 @@ export default function CartFooter() {
 
   const handleSuccess = () => {
       dispatch({type: SET_ACTION, payload: 'paidSuccess'})
+      if(cart.id){
+        dispatch({type: SET_CART_SUCCESS, payload: cart.id})
+      }
 }
 
 const handleCartList = () => {
@@ -152,7 +155,7 @@ const handleCartList = () => {
       console.log(res)
       if(res){
         dispatch(fetchSuccess(message));
-        dispatch({type: SET_CART_SUCCESS, payload: data});
+        dispatch({type: SET_CART_SUCCESS, payload: data.id});
       dispatch({type: SET_ACTION, payload: 'success'})
       }
     }).catch(err => {
@@ -161,7 +164,8 @@ const handleCartList = () => {
     })
   }
 
-console.log(action)
+  console.log(action)
+  console.log(cart)
   return (
     <Box height="100%"  p={5} display="flex" alignItems="center" justifyContent="space-around">
       {action === 'paidCart' && <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleSuccess()} disabled={cart_items.length === 0} >Next</Button></>} 
@@ -171,7 +175,7 @@ console.log(action)
       {action === 'viewCart' &&  <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment('unpaid')} disabled={cart_items.length === 0} >Proceed Payment</Button></>}
 
       
-      {action === 'paidSuccess' && <><Button variant="outlined" onClick={() => handleBack('viewCart')} >Back</Button> <Button variant="contained" color="primary" onClick={() => handleClearCart()} disabled={cart_items.length === 0} >New Order</Button></>}
+      {action === 'paidSuccess' && <><Button variant="outlined" onClick={() => handleBack('paidCart')} >Back</Button> <Button variant="contained" color="primary" onClick={() => handleClearCart()} disabled={cart_items.length === 0} >New Order</Button></>}
       
       {action === 'payment' && <><Button variant="outlined" onClick={() => handleBack('cart')} >Back</Button> <Button variant="contained" color="primary" onClick={() => handleCheckout()} disabled={cart_items.length === 0} >Checkout</Button></>}
 

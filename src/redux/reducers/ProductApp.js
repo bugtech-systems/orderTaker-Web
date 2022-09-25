@@ -13,7 +13,9 @@ import {
   UPDATE_PRODUCT_LABEL,
   UPDATE_LABEL_ITEM,
   UPDATE_STARRED_STATUS,
-  SET_OTHER_AMOUNTS
+  SET_OTHER_AMOUNTS,
+  SET_ALL_PRODUCTS,
+  CLEAR_ALL_PRODUCTS
 } from '../actions/types';
 
 const INIT_STATE = {
@@ -25,6 +27,7 @@ const INIT_STATE = {
     searchText: '',
   },
   productsList: [],
+  allProducts: [],
   tax_disc: [],
   currentProduct: null,
   totalProducts: null,
@@ -84,6 +87,20 @@ export default (state = INIT_STATE, action) => {
         ...state,
         productsList: action.payload,
         totalProducts: action.payload.length,
+      };
+    }
+
+    case SET_ALL_PRODUCTS: {
+      return {
+        ...state,
+        allProducts: action.payload
+      };
+    }
+
+    case CLEAR_ALL_PRODUCTS: {
+      return {
+        ...state,
+        allProducts: []
       };
     }
 

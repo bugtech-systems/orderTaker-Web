@@ -10,7 +10,7 @@ import CustomizerBody from '../../partials/customizer/CustomizerBody';
 const Customizer = () => {
   return (
     <CustomizerBody>
-      <Theme />
+      <Theme  />
       <ThemeColor />
       {/* <NavigationLayout /> */}
       <DisplayLayout />

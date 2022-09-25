@@ -21,6 +21,7 @@ import LabelCell from './LabelCell';
 
 const Sidebar = ({ onClickCreateCustomer, width }) => {
   const { isSideBarCollapsed, labelsList, filterType, customersList } = useSelector(({ customerApp }) => customerApp);
+  const { isAdmin } = useSelector(({auth}) => auth);
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
 
@@ -59,14 +60,16 @@ const Sidebar = ({ onClickCreateCustomer, width }) => {
 
   return (
     <Box className={classes.inBuildAppSidebar}>
-      <Box className={classes.inBuildAppSidebarHeader}>
-        <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateCustomer}>
+    <Box className={classes.inBuildAppSidebarHeader}>
+    {isAdmin && <Button className={classes.addTaskBtn} variant="contained" color="primary" onClick={onClickCreateCustomer}>
           <PersonAddIcon />
           <Box component="span" className="add-task-btn-text">
             Create New
           </Box>
         </Button>
+    }
       </Box>
+
 
       <PerfectScrollbar className={classes.perfectScrollbarCustomerSidebar}>
         <List component="nav" className={classes.appNav}>

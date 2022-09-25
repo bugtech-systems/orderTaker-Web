@@ -16,8 +16,11 @@ import { cart } from '../../@fake-db'
         gross_total: 0,
         grand_total: 0,
         amount_due: 0,
+        amount_payable: 0,
         cart_items_count: 0,
         payment: 0,
+        payments: [],
+        amount_paid: 0,
         change: 0,
         notes: ''
   };
@@ -30,13 +33,14 @@ import { cart } from '../../@fake-db'
 
 
       case UPDATE_CART: {
-        let { tax_disc } = action.payload;
+        let { tax_disc, amount_payable, amount_paid, amount_due } = action.payload;
         let tdc = tax_disc && typeof tax_disc === 'string' ? JSON.parse(tax_disc) : tax_disc ? tax_disc : []; 
-        console.log(tdc)
+        let payable = amount_payable > 0 ? amount_payable : amount_due - amount_paid;
         return {
           ...state,
           ...action.payload,
-          tax_disc: tdc
+          tax_disc: tdc,
+          amount_payable: payable
         };
       }
 
@@ -62,6 +66,8 @@ import { cart } from '../../@fake-db'
         payment: 0,
         change: 0,
         total_vatable: 0,
+        amount_paid: 0,
+        amount_payable: 0,
         notes: ''
         };
       }

@@ -13,6 +13,9 @@ import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
 import { THEME_TYPES } from '../../../../constants/ThemeOptions';
 import { THEME_TYPE_OPTIONS } from '../../../../constants/CustomizerOptions';
 
+import commonData from '../../../../../utils/commonData';
+
+
 const useStyles = makeStyles(theme => ({
   cardRoot: {
     '& .Cmt-header-root': {
@@ -39,7 +42,7 @@ const Theme = () => {
   };
 
 
-
+console.log(THEME_TYPE_OPTIONS)
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader title="Theme">
@@ -52,7 +55,8 @@ const Theme = () => {
           renderRow={(item, index) => (
             <div className="pointer" onClick={() => setThemeType(item.type)}>
               <div style={{ position: 'relative' }}>
-                <CmtImage key={index} src={item.image} alt={item.title} />
+                {console.log(item)}
+                <CmtImage key={index} src={commonData.staticUrl + item.image} alt={item.title} />
                 {themeType === item.type && (
                   // <h1>{themeType} | {item.type}</h1>
                   <CheckCircleIcon className={classes.checkIcon} />

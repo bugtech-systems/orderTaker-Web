@@ -15,6 +15,8 @@ import ExportCustomers from '../../../ExportCustomers';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+//Redux
+
 const useStyles = makeStyles(theme => ({
   menuItemsRoot: {
     width: 200,
@@ -46,7 +48,8 @@ const useStyles = makeStyles(theme => ({
 const MoreOptions = ({ customer, isDetailView, onDelete }) => {
   const classes = useStyles();
   const { labelsList } = useSelector(({ customerApp }) => customerApp);
-  const [showMoreOptions, setShowMoreOptions] = useState(null);
+   const { isAdmin } = useSelector(({auth}) => auth);
+   const [showMoreOptions, setShowMoreOptions] = useState(null);
   const dispatch = useDispatch();
   const { tags } = customer;
   const onShowMoreOptions = event => {
@@ -102,12 +105,13 @@ const MoreOptions = ({ customer, isDetailView, onDelete }) => {
             </Box>
           </ExportCustomers>
         </MenuItem>
-        <MenuItem onClick={onClickDeleteOption} className={classes.menuItemsRoot}>
+     {isAdmin &&   <MenuItem onClick={onClickDeleteOption} className={classes.menuItemsRoot}>
           <DeleteIcon />
           <Box component="span" ml={4}>
             Delete
           </Box>
         </MenuItem>
+        }
         <Box className={classes.titleLabelsRoot}>Labels</Box>
         <CmtList
           data={labelsList}

@@ -11,6 +11,9 @@ import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
 import { CONTAINER_OPTIONS } from '../../../../constants/CustomizerOptions';
 import LayoutContext from '../../../../../@coremat/CmtLayouts/LayoutContext';
 
+import commonData from '../../../../../utils/commonData';
+
+
 const useStyles = makeStyles(theme => ({
   cardRoot: {
     '& .Cmt-header-root': {
@@ -43,7 +46,7 @@ const DisplayLayout = () => {
           renderRow={(item, index) => (
             <div key={index} className="pointer" onClick={() => setLayoutStyle(item.id)}>
               <div style={{ position: 'relative' }}>
-                <CmtImage src={item.image} alt={item.layoutName} />
+                <CmtImage src={commonData.staticUrl + item.image} alt={item.layoutName} />
                 {item.id === layoutStyle && <CheckCircleIcon className={classes.checkIcon} />}
               </div>
               <div className="mt-2">{item.layoutName}</div>

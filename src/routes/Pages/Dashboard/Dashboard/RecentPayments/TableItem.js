@@ -10,6 +10,7 @@ import CmtObjectSummary from '../../../../../@coremat/CmtObjectSummary';
 import { timeFromNow } from '../../../../../@jumbo/utils/dateHelper';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import { isNull } from 'lodash';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
   tableRowRoot: {
@@ -125,7 +126,30 @@ const useStyles = makeStyles(theme => ({
 
 const TableItem = ({ row }) => {
   const classes = useStyles();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const [open, setOpen] = useState(false);
+  const [payments, setPayments] = useState([]);
+
+  console.log(row)
+
+
+  useEffect(() => {
+
+    if(row && row.payments){
+      const sortedDesc =  row.payments.sort(
+        (objA, objB) => Number(objB.id) - Number(objA.id),
+      );
+
+        setPayments(sortedDesc)
+
+    }
+
+
+  }, [row])
+
+  console.log(payments)
+
+
   return (
     <React.Fragment>
       <TableRow className={clsx(classes.tableRowRoot, open ? 'active' : '')}>
@@ -144,7 +168,7 @@ const TableItem = ({ row }) => {
           <Typography>{row.order_no}</Typography>
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
-          {timeFromNow(row.createdAt)}
+         {payments.length !== 0 ? timeFromNow(row.createdAt) : 'No Payments'}
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>
@@ -168,34 +192,42 @@ const TableItem = ({ row }) => {
         <TableCell className={classes.tableCellRoot} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <div className={classes.openDataRot}>
-              <div>{row.order_status}</div>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div className={'mr-3'}>
-                  Total{' '}
-                  <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    Hours: {row.amount_paid}
-                  </Box>
-                </div>
-
-                <div className={'mr-3'}>
-                  Rate:{' '}
-                  <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    {row.gross_total}
-                  </Box>
-                </div>
-
-                <div>
-                  Pending{' '}
-                  <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
-                    ₱{row.amount_payable}
-                  </Box>
-                </div>
-                <div style={{ marginLeft: 'auto' }}>
-                  <Button size="small" variant="contained" color="primary">
-                    Pay Now
-                  </Button>
-                </div>
-              </div>
+              <br/>
+            {payments.length !== 0 ? <>
+              <h4 style={{marginBottom: '5px'}}>Payment History</h4>
+              {payments.map((a, index) => {
+                  return (
+                    <div key={a.id + index} style={{ display: 'flex', alignItems: 'center', margin: '5px' }}>
+                    <div className={'mr-3'}>
+                     Date: 
+                      <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
+                      {new Date(a.createdAt).toLocaleDateString("en-US", options)}
+                      </Box>
+                    </div>
+    
+                    <div className={'mr-3'}>
+                    
+                    </div>
+    
+                    <div>
+                      Amount{' '}
+                      <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
+                      {new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(a.amount)}
+                      </Box>
+                    </div>
+                    {/* <div style={{ marginLeft: 'auto' }}>
+                      <Button size="small" variant="contained" color="primary">
+                        Pay Now
+                      </Button>
+                    </div> */}
+                  </div>
+                  )
+              })}
+         
+              </>
+              :
+              <h3 style={{textAlign: 'center', margin: '5px'}}>No Recent Payments</h3> 
+            }
             </div>
           </Collapse>
         </TableCell>

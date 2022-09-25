@@ -17,22 +17,26 @@ import Typography from '@material-ui/core/Typography';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
+import { SET_TODAY_SALES } from 'redux/actions/types';
 
 
 const CalendarEvents = () => {
   const { calendarEvents } = intranet;
   const {orders} = useSelector(({orderApp}) => orderApp);
+  const { isAdmin } = useSelector(({auth}) => auth);
 
+  const dispatch = useDispatch();
   const [dateCounter, setDateCounter] = useState(0);
   const [date, setDate] = useState(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
   const classes = useStyles();
 
-  useEffect(() => {
-    setDate(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
-  }, [dateCounter]);
+
 
   const getHeader = () => {
     const dateObj = getDateElements(date);
+    console.log(dateObj)
+    console.log(date)
+    let isToday = isDatesSame(new Date, date)
     return (
       <Box display="flex" flexDirection="column">
         {/* <Box display="flex" color="common.white" alignItems="baseline">
@@ -47,9 +51,10 @@ const CalendarEvents = () => {
           <Box component="span" mr={2} fontSize={{ xs: 26, md: 36, xl: 48 }} lineHeight={1} fontWeight="fontWeightBold">
             {dateObj.date.date}
           </Box>
-          <Box component="span" fontSize={16}>
+        {isToday &&  <Box component="span" fontSize={16}>
             {dateObj.time} 
           </Box>
+          }
         </Box>
         <Box display="flex" mt={1} color="common.white">
           <Box mr={1}>{dateObj.day},</Box>
@@ -66,6 +71,37 @@ const CalendarEvents = () => {
   const showDate = () => {
     return isToday(date) ? 'Today' : getDateElements(date).date.dateString;
   };
+
+  const handleSales = () => {
+    let todayOrders = getEvents();
+    let total = 0;
+
+     let today = todayOrders.map((a, index) => {
+      const dObj = getDateElements(a.createdAt);
+
+      console.log(a)
+      total += a.amount_due;
+
+      console.log(dObj)
+
+      return { label: dObj.time, value: total }
+     })
+
+    dispatch({type: SET_TODAY_SALES, payload: {
+      total, today
+    }})
+    
+
+
+  }
+
+
+  
+  useEffect(() => {
+    setDate(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
+    handleSales()
+
+  }, [dateCounter, orders]);
 
 
 
@@ -87,16 +123,16 @@ const CalendarEvents = () => {
           </IconButton>
         </Box>
       </CmtCardHeader>
-      <CmtCardContent className={classes.listContainer}>
+      <CmtCardContent className={isAdmin ? classes.listContainerA : classes.listContainer}>
         <Typography className={classes.eventTitle}>{showDate()}</Typography>
         <PerfectScrollbar className={classes.scrollbarRoot}>
           <CmtList data={getEvents()} renderRow={(item, index) => <EventItem item={item} key={index} />} />
         </PerfectScrollbar>
-        <Box display="flex" alignItems="center" mb={-2} pt={2}>
+        {/* <Box display="flex" alignItems="center" mb={-2} pt={2}>
           <Button color="primary" size="small" className={classes.btnRoot}>
             View All
           </Button>
-        </Box>
+        </Box> */}
         <Box className={classes.productView} />
       </CmtCardContent>
     </CmtCard>

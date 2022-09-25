@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,7 +7,10 @@ import { Typography, Box } from '@material-ui/core';
 
 // ISO 3166-1 alpha-2
 // ⚠️ No support for IE 11
-
+// Reduxt
+import { useDispatch, useSelector } from 'react-redux';
+import { CLEAR_ALL_PRODUCTS } from 'redux/actions/types';
+import {  getAllProducts } from 'redux/actions/ProductApp';
 
 const useStyles = makeStyles({
   option: {
@@ -19,13 +22,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CountrySelect({value, options, handleSelect}) {
+export default function CountrySelect({value, handleSelect}) {
   const classes = useStyles();
+  const { allProducts }  = useSelector(({productApp}) => productApp);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+    return () => {
+      dispatch({type: CLEAR_ALL_PRODUCTS})
+    }
+  }, [])
 
   return (
     <Autocomplete
       id="option-select-demo"
-      options={options}
+      options={allProducts}
       value={value}
       classes={{
         option: classes.option,

@@ -21,6 +21,9 @@ import SidebarThemeContext from '../../../../../@coremat/CmtLayouts/SidebarTheme
 import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
 import themeSidebarColor from '../../../../../@coremat/CmtLayouts/SidebarThemeContext/sidebarThemeColors';
 
+import commonData from '../../../../../utils/commonData';
+
+
 const useStyles = makeStyles(theme => ({
   cardRoot: {
     '& .Cmt-header-root': {
@@ -168,7 +171,7 @@ const SidebarOption = () => {
             data={SIDEBAR_BG_IMAGE_OPTIONS}
             renderRow={(item, index) => (
               <div key={index} style={{ position: 'relative' }} className="pointer" onClick={() => changeSidebarImage(item)}>
-                <CmtImage src={item.image} alt={item.name} />
+                <CmtImage src={commonData.staticUrl + item.image} alt={item.name} />
                 {sidebarTheme.backgroundImage === item.fullImage && <CheckCircleIcon className={classes.checkIcon} />}
               </div>
             )}

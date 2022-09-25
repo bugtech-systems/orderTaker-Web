@@ -87,12 +87,21 @@ const ActionSideBar = ({ width }) => {
 
   const onIconClick = option => {
     setSidebarOpen(false);
-    dispatch({type: SET_ACTIVE_OPTION, payload: option})
-    dispatch({type: SET_DRAWER_OPEN, payload: true})
+   
     if(option === 'cart'){
       // setAction('cartItems');
       dispatch({type: SET_ACTION, payload: 'cart'})
     }
+
+    if(action !== 'cart' || action !== 'payment' || action !== 'success'){
+      dispatch({type: SET_ACTION, payload: action})
+      dispatch({type: SET_ACTIVE_OPTION, payload: (action === 'notification' || action === 'profile') ? action : 'cart'})
+    } else{
+      dispatch({type: SET_ACTION, payload: 'cart'})
+      dispatch({type: SET_ACTIVE_OPTION, payload: option})
+    }
+    dispatch({type: SET_DRAWER_OPEN, payload: true})
+
   };
 
   const onDrawerClose = () => {

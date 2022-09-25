@@ -10,6 +10,7 @@ import {
   SET_FILTER_TYPE,
   TOGGLE_SIDEBAR_COLLAPSED,
   SET_OTHER_AMOUNTS,
+  SET_ALL_PRODUCTS,
   // UPDATE_PRODUCT,
   // UPDATE_PRODUCT_LABEL,
   // UPDATE_LABEL_ITEM,
@@ -109,6 +110,7 @@ export const getProductsList = params => {
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(data => {
+        console.log(data)
         dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
       })
       .catch(error => {
@@ -116,6 +118,21 @@ export const getProductsList = params => {
       });
   };
 };
+
+export const getAllProducts = params => {
+  return dispatch => {
+    // dispatch(fetchStart());
+    axios
+      .get(`${commonData.apiUrl}/products`, { params })
+      .then(({data}) => {
+        dispatch({ type: SET_ALL_PRODUCTS, payload: data });
+      })
+      .catch(error => {
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
 
 export const getInventoryList = params => {
   return dispatch => {

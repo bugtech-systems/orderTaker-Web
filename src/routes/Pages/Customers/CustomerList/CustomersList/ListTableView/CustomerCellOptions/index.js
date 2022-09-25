@@ -5,7 +5,7 @@ import StarIcon from '@material-ui/icons/Star';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateStarredStatus } from '../../../../../../../redux/actions/Customer';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 const CustomerCellOptions = ({ customer, onClickEditCustomer, onDelete }) => {
   const dispatch = useDispatch();
+  const { isAdmin } = useSelector(({auth}) => auth);
 
   const classes = useStyles();
 
@@ -63,13 +64,14 @@ const CustomerCellOptions = ({ customer, onClickEditCustomer, onDelete }) => {
       </Box>
 
       <Box className={clsx(classes.actionOptionRoot, 'action-option')}>
-        <Box ml={1}>
+      {isAdmin &&  <Box ml={1}>
           <Tooltip title="Edit">
             <IconButton size="small" onClick={() => onClickEditCustomer({ ...customer })}>
               <EditIcon />
             </IconButton>
           </Tooltip>
         </Box>
+        }
 
         <MoreOptions customer={customer} onDelete={onDelete} />
       </Box>

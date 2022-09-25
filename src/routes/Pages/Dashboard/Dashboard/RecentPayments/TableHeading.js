@@ -29,9 +29,9 @@ const TableHeading = () => {
   const classes = useStyles();
   return (
     <TableRow>
-      <TableCell className={classes.tableCellRoot}>Account Holder</TableCell>
-      <TableCell className={classes.tableCellRoot}>Last Transfer</TableCell>
-      <TableCell className={classes.tableCellRoot}>Payment</TableCell>
+      <TableCell className={classes.tableCellRoot}>Order ID</TableCell>
+      <TableCell className={classes.tableCellRoot}>Last Payment</TableCell>
+      <TableCell className={classes.tableCellRoot}>Amount Payable</TableCell>
     </TableRow>
   );
 };

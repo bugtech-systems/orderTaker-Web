@@ -11,7 +11,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION } from '../../../../../../../redux/actions/types';
+import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION, CLEAR_ALL_PRODUCTS } from '../../../../../../../redux/actions/types';
 import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
 import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
@@ -88,7 +88,7 @@ const Comments = () => {
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
   const { action } = useSelector(({uiReducer}) => uiReducer); 
-  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  const { filterType, allProducts }  = useSelector(({productApp}) => productApp);
   const [expanded, setExpanded] = React.useState('cartItems');
   const [selected, setSelected] = useState(null);
   const [cartList, setCartList] = useState([]);
@@ -112,7 +112,7 @@ const Comments = () => {
     console.log(qty)
     console.log('HANDOL ITEM')
     console.log(val)
-    let prd = productsList.find(a => a.id === val.productId)
+    let prd = allProducts.find(a => a.id === val.productId)
     let obj = {
       ...val,
       qty: qty,
@@ -132,7 +132,7 @@ if(val){
   
   
   
-  let prd = productsList.find(a => a.id === val.id)
+  let prd = allProducts.find(a => a.id === val.id)
   if(!prd){
     return dispatch(fetchError("Unable to Find Product!"));
   }
@@ -207,13 +207,16 @@ setSelected(null);
     setAmountDue(amount_due)
   }, [cart])
 
+
+  
+
     console.log(cartList)
 
   return (
     <Box flexGrow={1} className={classes.rootWrap}>
    {action === 'cart' && <SearchProduct
       value={selected}
-      options={productsList}
+      options={allProducts}
       handleSelect={handleSelect}
       />}
       <Divider/>

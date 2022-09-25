@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Paper, Box, Button} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_CART, SET_DRAWER_OPEN } from 'redux/actions/types';
+import { CLEAR_CART, SET_CART_SUCCESS, SET_DRAWER_OPEN } from 'redux/actions/types';
 import moment from 'moment-timezone';
 
 
 //Components
 import CartFooter from './CartFooter';
+import { getOrderById } from 'redux/actions/OrderApp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,19 +59,39 @@ function createRow(desc, qty, unit) {
 export default function SuccessPage() {
   const classes = useStyles();
   const { cartSuccess } = useSelector(({uiReducer}) => uiReducer);
-  const { amount_due, amount_paid, amount_payable, order_no, ref_no, customers, isPaid, createdAt, notes, order_status } = cartSuccess;
-  const customerName = customers.length !== 0 ? customers[0].name : 'No Customer';
   const dispatch = useDispatch();
+  const [values, setValues] = useState({
+    customers: []
+  });
   
-
+  const handleGetOrder = (id) => {
+        dispatch(getOrderById(id))
+        .then(({data}) => {
+          console.log(data)
+          setValues({...values, ...data})
+        })
+        .catch(err => {
+          setValues({
+                customers: []
+          })
+          console.log(err)
+        })
+  }
 
 
   useEffect(() => {
-    return () => {
-      dispatch({type: CLEAR_CART});
+    if(cartSuccess){
+      handleGetOrder(cartSuccess);
+    } else {
+      setValues({
+        customers: []
+  })
     }
-  }, [])
+  }, [cartSuccess])
 
+
+  let customerName = values.customers.length !== 0 ? values.customers[0].name : 'No Customer';
+  console.log(cartSuccess)
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#36ce59', color: 'white'}}>
@@ -82,16 +103,18 @@ export default function SuccessPage() {
       <Grid container item xs={12}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <table class="tablesdata">
-              <tr><td>Reference No. </td><td ><b className={classes.value}>{ref_no ? ref_no : '-'}</b></td></tr>
+            <table className="tablesdata">
+              <tbody>
+              {/* <tr><td>Reference No. </td><td ><b className={classes.value}>{values.ref_no ? values.ref_no : '-'}</b></td></tr> */}
               <tr><td>Customer Name </td><td ><b className={classes.value}>{customerName}</b></td></tr>
-              <tr><td>Order No.</td><td ><b className={classes.value}>{order_no}</b></td></tr>
-              <tr><td>Order Status </td><td><b className={classes.value}>{isPaid ? 'Paid' : order_status}</b></td></tr>
-              <tr><td>Amount Due </td><td ><b className={classes.value}>{amount_due}</b></td></tr>
-              <tr><td>Amount Paid </td><td ><b className={classes.value}>{amount_paid}</b></td></tr>
-              <tr><td>Amount Payable </td><td ><b className={classes.value}>{amount_payable}</b></td></tr>
-              <tr><td>Order Date</td><td className={classes.value}><b >{moment(createdAt).tz('Asia/Manila').format('LLLL')}</b></td></tr>
-              <tr><td>Notes </td><td ><b className={classes.value}>{notes ? notes : '-'}</b ></td></tr>
+              <tr><td>Order No.</td><td ><b className={classes.value}>{values.order_no}</b></td></tr>
+              <tr><td>Order Status </td><td><b className={classes.value}>{values.isPaid ? 'Paid' : values.order_status}</b></td></tr>
+              <tr><td>Amount Due </td><td ><b className={classes.value}>{values.amount_due}</b></td></tr>
+              <tr><td>Amount Paid </td><td ><b className={classes.value}>{values.amount_paid}</b></td></tr>
+              <tr><td>Amount Payable </td><td ><b className={classes.value}>{values.amount_payable}</b></td></tr>
+              <tr><td>Order Date</td><td className={classes.value}><b >{moment(values.createdAt).tz('Asia/Manila').format('LLLL')}</b></td></tr>
+              <tr><td>Notes </td><td ><b className={classes.value}>{values.notes ? values.notes : '-'}</b ></td></tr>
+              </tbody>
             </table>
           </Paper>
         </Grid>

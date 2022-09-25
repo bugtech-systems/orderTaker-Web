@@ -2,7 +2,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
-    height: '100%',
+    height: 'auto',
     '& .Cmt-card-content': {
       paddingTop: 16,
     },
@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   cardHeader: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
-    paddingTop: 36,
+    paddingTop: 16,
   },
   iconBtn: {
     color: theme.palette.common.white,
@@ -18,12 +18,17 @@ const useStyles = makeStyles(theme => ({
   listContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '430px'
+    height: '310px'
+  },
+
+  listContainerA: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '280px'
   },
   scrollbarRoot: {
     flex: 1,
     flexGrow: 1,
-    height: '100%',
     marginRight: -24,
     marginLeft: -24,
     marginTop: -10,

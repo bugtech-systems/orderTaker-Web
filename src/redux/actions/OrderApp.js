@@ -5,6 +5,8 @@ import { authHeader } from '../../services/auth-header';
 import commonData from '../../utils/commonData';
 import axios from 'axios';
 
+import { getAdminDashboard } from './Dashboard';
+import { getProductsList } from './ProductApp';
 
 export const getOrders = () => {
     return dispatch => {
@@ -24,6 +26,17 @@ export const getOrders = () => {
     };
   };
 
+  export const getOrderById = (id) => dispatch => {
+        // dispatch(fetchStart());
+        // dispatch({type: CLEAR_ORDERS});
+        return axios
+          .get(`${commonData.apiUrl}/orders/${id}`, { headers: authHeader() })
+          .catch(err => {
+            console.log(err)
+            throw err;
+          });
+    };
+
 
 
   export const payOrder = (data) => dispatch => {
@@ -34,6 +47,8 @@ export const getOrders = () => {
         .then(({data}) => {
           console.log(data)
           dispatch(getOrders());
+          dispatch(getAdminDashboard())
+          dispatch(getProductsList());
           return data
         })
         .catch(err => {

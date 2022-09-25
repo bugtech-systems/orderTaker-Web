@@ -121,19 +121,21 @@ export const sidebarNavs = [
         icon: <Dashboard />,
         type: 'item',
         link: '/dashboard',
+        role: ['admin', 'super', 'sales']
       },
       {
         name: <IntlMessages id={'sidebar.products'} />,
         icon: <ListIcon />,
         type: 'item',
         link: '/products',
+        role: ['admin', 'super', 'sales']
       },
       {
         name: <IntlMessages id={'sidebar.inventory'} />,
         icon: <LowPriority />,
         type: 'item',
         link: '/inventory',
-        isAdmin: true,
+        role: ['admin', 'super'],
       },
       // {
       //   name: <IntlMessages id={'sidebar.inventory'} />,
@@ -146,20 +148,22 @@ export const sidebarNavs = [
         icon: <NaturePeople />,
         type: 'item',
         link: '/customers',
-        isAdmin: true,
+        role: ['admin', 'super', 'sales'],
       },
       {
         name: <IntlMessages id={'sidebar.report'} />,
         icon: <Assessment />,
         type: 'item',
         link: '/reports',
+        disabled: true,
+        role: ['admin', 'super', 'sales'],
       },
       {
         name: <IntlMessages id={'sidebar.user'} />,
         icon: <SupervisedUserCircle />,
         type: 'item',
         link: '/users',
-        isAdmin: true,
+        role: ['admin', 'super'],
       },
       // {
       //   name: <IntlMessages id={'sidebar.settings'} />,

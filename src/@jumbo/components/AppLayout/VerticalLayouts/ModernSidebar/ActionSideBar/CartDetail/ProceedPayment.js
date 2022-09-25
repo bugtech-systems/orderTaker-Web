@@ -32,7 +32,7 @@ export default function ProceedPayment() {
   const { currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
   const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { amount_due, change, payment, notes, order_no } = cart
+  const { amount_due, change, payment, notes, order_no, amount_payable } = cart
   const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
 
   const { name, address, limit, balance } = currentCustomer ? currentCustomer : {};
@@ -82,6 +82,7 @@ export default function ProceedPayment() {
 
 
   console.log(cart)
+  console.log(action)
   return (
     <Box className={classes.rootWrap}>
       <CreateCustomer
@@ -124,17 +125,20 @@ export default function ProceedPayment() {
 
         <Divider/>
         
-        <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-              <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{Number(amount_due).toFixed(2)}</Typography>
+        <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={1} variant="subtitle1">Total Amount Due</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_due).toFixed(2)}</Typography>
           </Box>
+        {action === 'unpaid' && <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={1} variant="subtitle1">Amount Payable</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_payable).toFixed(2)}</Typography>
+          </Box>}
           <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
               {/* <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{Number(amount_due).toFixed(2)}</Typography> */}
-              <Typography m={1}>Payment</Typography>
+              {/* <Typography m={1}>Payment</Typography> */}
             <TextField 
               variant='outlined'
               size='small'
               margin='dense'
-              label="amount"
+              label="Amount Paid"
               value={payment}
               type="number"
               onChange={handleChanges('payment')}
