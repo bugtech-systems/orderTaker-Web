@@ -49,6 +49,11 @@ const SidebarOption = () => {
   const { themeType } = useContext(AppContext);
   const [imageOptionsVisibility, setImageOptionsVisibility] = useState(!!sidebarTheme.backgroundImage);
 
+  let sidebarOptions = SIDEBAR_BG_IMAGE_OPTIONS.map(a => {
+    console.log(a)
+    return {...a, image: commonData.staticUrl + a.image, fullImage: commonData.staticUrl + a.fullImage }
+  })
+
   const resetOption = () => {
     setSidebarTheme({
       ...sidebarTheme,
@@ -86,10 +91,12 @@ const SidebarOption = () => {
     } else {
       setSidebarTheme(sidebarTheme => ({
         ...sidebarTheme,
-        backgroundImage: SIDEBAR_BG_IMAGE_OPTIONS[0].fullImage,
+        backgroundImage: sidebarOptions[0].fullImage,
       }));
     }
   }, [imageOptionsVisibility, setSidebarTheme]);
+    // console.log(sidebarOptions[0].fullImage)
+
 
   return (
     <CmtCard className={classes.cardRoot}>
@@ -168,10 +175,10 @@ const SidebarOption = () => {
           <CmtGridView
             itemPadding={14}
             column={6}
-            data={SIDEBAR_BG_IMAGE_OPTIONS}
+            data={sidebarOptions}
             renderRow={(item, index) => (
               <div key={index} style={{ position: 'relative' }} className="pointer" onClick={() => changeSidebarImage(item)}>
-                <CmtImage src={commonData.staticUrl + item.image} alt={item.name} />
+                <CmtImage src={item.image} alt={item.name} />
                 {sidebarTheme.backgroundImage === item.fullImage && <CheckCircleIcon className={classes.checkIcon} />}
               </div>
             )}
