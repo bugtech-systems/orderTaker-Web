@@ -124,7 +124,7 @@ const CommentItem = ({ item, handleItem }) => {
 
   useEffect(() => {
     let prdt = allProducts.find(a => a.id === item.productId || a.id === item.id);
-    setPrd(prdt);
+    setPrd(prdt ? prdt : {});
     setValues(item);
   }, [item]);
 
