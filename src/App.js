@@ -29,7 +29,9 @@ if (token) {
 
 const App = () => (
   <Provider store={store}>
-    <BrowserRouter basename="/dev" history={history}>
+    <BrowserRouter 
+    // basename="/dev"
+     history={history}>
       <AppContextProvider>
         <AppWrapper>
           <Switch>
