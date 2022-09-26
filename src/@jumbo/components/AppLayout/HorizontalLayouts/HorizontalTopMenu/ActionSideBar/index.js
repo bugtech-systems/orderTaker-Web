@@ -118,13 +118,13 @@ const ActionSideBar = ({ width }) => {
         </Hidden>
       </div>
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} ml={{ xs: 'auto', lg: 'unset' }}>
-        {/* <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
+        <IconButton className={classes.iconBtn} onClick={() => onIconClick('search')}>
           <SearchIcon />
         </IconButton>
 
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('messages')}>
           <MessageIcon />
-        </IconButton> */}
+        </IconButton>
 
         <IconButton className={classes.iconBtn} onClick={() => onIconClick('notifications')}>
           <Badge badgeContent={4} classes={{ badge: classes.counterRoot }}>

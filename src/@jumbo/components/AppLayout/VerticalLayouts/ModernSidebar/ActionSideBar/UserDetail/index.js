@@ -1,12 +1,12 @@
 import React from 'react';
 import CmtAdvCard from '../../../../../../../@coremat/CmtAdvCard';
-// import CmtAdvCardContent from '../../../../../../../@coremat/CmtAdvCard/CmtAdvCardContent';
+import CmtAdvCardContent from '../../../../../../../@coremat/CmtAdvCard/CmtAdvCardContent';
 import CmtCardMedia from '../../../../../../../@coremat/CmtCard/CmtCardMedia';
 import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
 import { intranet } from '../../../../../../../@fake-db';
 import CmtImage from '../../../../../../../@coremat/CmtImage';
-// import UserInfo from './UserInfo';
+import UserInfo from './UserInfo';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -97,7 +97,7 @@ const UserDetail = () => {
   return (
     <CmtAdvCard
       actionsPos="top-corner"
-      // actions={actions}
+      actions={actions}
       actionHandleIcon={<MoreVertIcon />}
       actionMenuClassName={classes.actionMenu}>
       <CmtCardMedia className={classes.cardMediaRoot} image={'https://via.placeholder.com/350x200'}>
@@ -116,14 +116,14 @@ const UserDetail = () => {
               horizontal: 'right',
             }}
             avatarProps={{ variant: 'circle' }}
-            // badge={<CmtImage src={authUser.badge} alt="Badge" />}
+            badge={<CmtImage src={authUser.badge} alt="Badge" />}
             align="vertical"
           />
         </Box>
       </CmtCardMedia>
-      {/* <CmtAdvCardContent>
+      <CmtAdvCardContent>
         <UserInfo authUser={authUser} />
-      </CmtAdvCardContent> */}
+      </CmtAdvCardContent>
     </CmtAdvCard>
   );
 };
