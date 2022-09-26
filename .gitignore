@@ -35,4 +35,4 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
-src/utils/commonData.js
+# src/utils/commonData.js
