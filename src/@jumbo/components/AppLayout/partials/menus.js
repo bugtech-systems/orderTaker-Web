@@ -11,7 +11,7 @@ import {
   Assessment,
   // LocalAtm,
   SupervisedUserCircle,
-  // Settings,
+  Settings,
   ContactPhone,
   LowPriority,
   NaturePeople,
@@ -165,12 +165,12 @@ export const sidebarNavs = [
         link: '/users',
         role: ['admin', 'super'],
       },
-      // {
-      //   name: <IntlMessages id={'sidebar.settings'} />,
-      //   icon: <Settings />,
-      //   type: 'item',
-      //   link: '/settings',
-      // }
+      {
+        name: <IntlMessages id={'sidebar.settings'} />,
+        icon: <Settings />,
+        type: 'item',
+        link: '/settings',
+      }
     ],
   },
 ];
