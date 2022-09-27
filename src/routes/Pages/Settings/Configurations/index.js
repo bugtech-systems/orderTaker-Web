@@ -3,9 +3,8 @@ import GridContainer from '../../../../@jumbo/components/GridContainer';
 import PageContainer from '../../../../@jumbo/components/PageComponents/layouts/PageContainer';
 import TextDisplay from '../../../../@jumbo/utils/TextDisplay';
 import Grid from '@material-ui/core/Grid';
-// import SidebarButtons from '../../../../@jumbo/components/AppLayout/partials/SideBar/SIdebarButtons';
-import UserInformation from '../../../../@jumbo/components/AppLayout/partials/SideBar/UserInformation';
 import Divider from '@material-ui/core/Divider';
+import Profile from '../Profile';
 
 
 
@@ -19,14 +18,10 @@ const Dashboard = () => {
     <PageContainer heading={"Configurations"} breadcrumbs={breadcrumbs}>
       <GridContainer>
         <Grid item xs={12}>
-          <div style={{ marginBottom: 10 }}>
-            <TextDisplay name="User Information" />
-          </div>
           <Divider />
           <div style={{ marginTop: 24 }}>
-            {/* <h3>Knowledge Base and Support</h3>
-            <SidebarButtons /> */}
-            <UserInformation />
+            {/* <h3>Knowledge Base and Support</h3> */}
+            <Profile />
           </div>
         </Grid>
       </GridContainer>
