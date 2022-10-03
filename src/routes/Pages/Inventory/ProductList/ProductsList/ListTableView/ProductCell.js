@@ -4,17 +4,24 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableRow from '@material-ui/core/TableRow';
 import Box from '@material-ui/core/Box';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
+import CmtImage from '../../../../../../@coremat/CmtImage';
+
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../ProductCell.style';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ProductCellOptions from './ProductCellOptions';
 
+import commonData from "../../../../../../utils/commonData";
+
+
+
 const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct, onClickAddStocks }) => {
   const classes = useStyles();
   const { id, name, description, stocks, price, cover } = product;
 
 
+  console.log(cover)
 
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowProductDetail(product)}>
@@ -28,9 +35,14 @@ const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, o
             />
           </Box>
           <Box display="flex" alignItems="center">
-            <Box mr={{ xs: 4, md: 5 }}>
-              <CmtAvatar size={40} src={cover} alt={name} />
-            </Box>
+            {/* <Box mr={{ xs: 4, md: 5 }}> */}
+            <CmtImage  src={`${commonData.staticUrl}${cover}`} height={40} width={40} alt={name} />
+
+              {/* <CmtAvatar size={40} src={cover} alt={name} /> */}
+            {/* </Box> */}
+            &nbsp;
+            &nbsp;
+            &nbsp;
             <Box>
               <Typography className={classes.titleRoot} component="div" variant="h4">
                 {name}

@@ -20,18 +20,22 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import { getDateElements, getNewDate, isDatesSame, isToday } from '../../../../@jumbo/utils/dateHelper';
+
+
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers} from '../../../../redux/actions/Users';
 import { getOrders} from '../../../../redux/actions/OrderApp';
+import { SET_TODAY_SALES } from '../../../../redux/actions/types';
+
 
 import { getAdminDashboard } from 'redux/actions/Dashboard';
 import { getInventoryList } from 'redux/actions/ProductApp';
 
 import VideoPlayer from '../Video';
-import { intranet } from '../../../../@fake-db';
-
+import moment from 'moment';
 
 const useStyles = makeStyles(() => ({
   pageFull: {
@@ -63,23 +67,48 @@ const breadcrumbs = [
 const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [tabValue, setTabValue] = useState('about');
+  const {orders} = useSelector(({orderApp}) => orderApp);
   const { users } = useSelector((state) => state.usersReducer);
-  const { filterType, productsList } = useSelector(({ productApp }) => productApp);
+  const { filterType } = useSelector(({ productApp }) => productApp);
   const { loadUser, authUser, isAdmin } = useSelector(({auth}) => auth);
   const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
+  const [dateCounter, setDateCounter] = useState(0);
+  const [todaySales, setTodaySales] = useState({
+    total: 0, today:[], xrate: null
+  });
 
 
 
 
 
+  const handleDateCounter = (val) => {
+    setDateCounter(val)
+  }
+
+  const handleSales = () => {
+    let todayOrders = orders.filter(item => isDatesSame(item.createdAt, getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'))).sort((a, b) => a.id - b.id);
 
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
+    let total = 0;
+      let today = todayOrders.map((a, index) => {
+      let dt = new moment(a.createdAt)
+      let dObj = getDateElements(dt);
 
-  
+      total += a.amount_due;
+
+      return { label: dObj.time, value: total }
+     })
+
+    // dispatch({type: SET_TODAY_SALES, payload: {
+    //   total, today
+    // }})
+    setTodaySales({...todaySales, total, today})
+    
+
+
+  }
+
+
 
   useEffect(() => {
     if(loadUser){
@@ -87,10 +116,12 @@ const Dashboard = () => {
     dispatch(getInventoryList(filterType));
     dispatch(getOrders());
     }
-  }, [loadUser, authUser])
+  }, [loadUser, authUser]);
 
+  useEffect(() => {
+        handleSales();
+  }, [orders, dateCounter])
 
-  console.log(isAdmin)
 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
@@ -99,8 +130,10 @@ const Dashboard = () => {
      
         {/* Business CalendarEvents - Top right side */}
         <Grid item xs={12} sm={12} lg={6}>
-        {isAdmin &&  <ToggleAnalyticsCard data={intranet.visitedChart}/>}
+        {isAdmin &&  <ToggleAnalyticsCard data={todaySales} />}
           <CalendarEvents
+          dateCounter={dateCounter}
+          setDateCounter={handleDateCounter}
           // backgroundColor="#6200EE"
           // icon={<StarIcon style={{ color: '#ffffff' }} />}
           // title={20}
@@ -189,9 +222,9 @@ const Dashboard = () => {
             unpaidOrders={unpaidOrders}
           />
         </Grid>
-        <Grid item xs={12} lg={12}>
+        {/* <Grid item xs={12} lg={12}>
          <VideoPlayer/> 
-        </Grid>
+        </Grid> */}
       </GridContainer>
     </PageContainer>
   );

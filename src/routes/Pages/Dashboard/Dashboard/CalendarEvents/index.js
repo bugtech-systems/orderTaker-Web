@@ -17,16 +17,13 @@ import Typography from '@material-ui/core/Typography';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_TODAY_SALES } from 'redux/actions/types';
 
 
-const CalendarEvents = () => {
-  const { calendarEvents } = intranet;
+const CalendarEvents = ({setDateCounter, dateCounter}) => {
   const {orders} = useSelector(({orderApp}) => orderApp);
   const { isAdmin } = useSelector(({auth}) => auth);
 
   const dispatch = useDispatch();
-  const [dateCounter, setDateCounter] = useState(0);
   const [date, setDate] = useState(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
   const classes = useStyles();
 
@@ -34,8 +31,6 @@ const CalendarEvents = () => {
 
   const getHeader = () => {
     const dateObj = getDateElements(date);
-    console.log(dateObj)
-    console.log(date)
     let isToday = isDatesSame(new Date, date)
     return (
       <Box display="flex" flexDirection="column">
@@ -72,36 +67,13 @@ const CalendarEvents = () => {
     return isToday(date) ? 'Today' : getDateElements(date).date.dateString;
   };
 
-  const handleSales = () => {
-    let todayOrders = getEvents();
-    let total = 0;
 
-     let today = todayOrders.map((a, index) => {
-      const dObj = getDateElements(a.createdAt);
-
-      console.log(a)
-      total += a.amount_due;
-
-      console.log(dObj)
-
-      return { label: dObj.time, value: total }
-     })
-
-    dispatch({type: SET_TODAY_SALES, payload: {
-      total, today
-    }})
-    
-
-
-  }
 
 
   
   useEffect(() => {
     setDate(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
-    handleSales()
-
-  }, [dateCounter, orders]);
+  }, [dateCounter]);
 
 
 

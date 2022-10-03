@@ -68,7 +68,6 @@ const ToggleAnalyticsCard = ({ data }) => {
   const [toggled, setToggled] = useState(false);
   const classes = useStyles();
 
-  console.log()
   return (
     <ToggleHoverCard
       className={clsx(classes.toggleCardRoot, toggled ? 'chart-active' : '')}

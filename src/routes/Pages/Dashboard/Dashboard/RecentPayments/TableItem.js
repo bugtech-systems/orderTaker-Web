@@ -130,8 +130,6 @@ const TableItem = ({ row }) => {
   const [open, setOpen] = useState(false);
   const [payments, setPayments] = useState([]);
 
-  console.log(row)
-
 
   useEffect(() => {
 
@@ -146,8 +144,6 @@ const TableItem = ({ row }) => {
 
 
   }, [row])
-
-  console.log(payments)
 
 
   return (

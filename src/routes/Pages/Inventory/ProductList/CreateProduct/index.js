@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import GridContainer from '../../../../../@jumbo/components/GridContainer';
 import Grid from '@material-ui/core/Grid';
 import AppTextInput from '../../../../../@jumbo/components/Common/formElements/AppTextInput';
-import CmtAvatar from '../../../../../@coremat/CmtAvatar';
+import CmtImage from '../../../../../@coremat/CmtImage';
 import { useDropzone } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
 import CmtList from '../../../../../@coremat/CmtList';
@@ -19,6 +19,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { Typography, Menu, Tooltip, MenuItem, DialogActions } from '@material-ui/core';
+
+
 
 
 //Components
@@ -38,6 +40,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductOtherAmount, createProduct, onUpdateProduct, updateProductOtherAmount, getAllProductOtherAmount } from '../../../../../redux/actions/ProductApp';
 import { uploadFile } from '../../../../../redux/actions/Users';
+
+
+import commonData from "../../../../../utils/commonData";
 
 
 
@@ -101,7 +106,7 @@ const CreateProduct = ({ handleDialog }) => {
     description: '',
     price: 0,
     purchase_price: 0,
-    cover: '',
+    cover: 'noproduct.jpg',
     labels: [],
     other_amounts: []
   });
@@ -310,7 +315,7 @@ const handleEditOtherAmounts = (val, index) => {
 
 
 
-
+console.log(values)
 
   return (
     <Dialog maxWidth="sm" fullWidth 
@@ -323,7 +328,7 @@ const handleEditOtherAmounts = (val, index) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={values.cover} />
+            <CmtImage src={`${commonData.staticUrl}${values.cover ? values.cover : 'noproduct.jpg'}`} height={80} width={80} alt={values.name} />
           </Box>
           <GridContainer>
             <Grid item xs={10} sm={10}>
@@ -350,19 +355,19 @@ const handleEditOtherAmounts = (val, index) => {
           </GridContainer>
         </Box>
         <GridContainer >
-         <Grid item xs={12} sm={4} lg={4}>
+         <Grid item xs={12} sm={8} lg={8}>
          <Typography variant="h4">Selling Price</Typography>
               <br/>
                 <AppTextInput
                   fullWidth
                   type="number"
                   variant="outlined"
-                  label="amount"
+                  label="Amount"
                   value={values.price}
                   onChange={handleChange('price')}
                 />
               </Grid>
-         <Grid item xs={12} sm={4} lg={4}>
+         {/* <Grid item xs={12} sm={4} lg={4}>
          <Typography variant="h4">Purchase Price</Typography>
               <br/>
                 <AppTextInput
@@ -373,9 +378,9 @@ const handleEditOtherAmounts = (val, index) => {
                   value={values.purchase_price}
                   onChange={handleChange('purchase_price')}
                 />
-           </Grid>
+           </Grid> */}
          <Grid item xs={12} sm={4} lg={4}>
-         <Typography variant="h4">Qty Limit</Typography>
+         <Typography variant="h4">Stock Limit</Typography>
               <br/>
               <AppTextInput
                 fullWidth

@@ -39,7 +39,7 @@ let vids = vidList.map((a, index) => {
 })
 
     return (<>
-    {isShowing &&
+    {/* {isShowing && */}
     <>
       {vid &&  <Button onClick={() => setPlay(!isPlay)} >{ isPlay ? 'PAUSE' : 'PLAY' }</Button>}
 
@@ -57,7 +57,7 @@ let vids = vidList.map((a, index) => {
       </div>}
         {vids}
         </>
-      }
+      {/* } */}
       </>
     )
 }

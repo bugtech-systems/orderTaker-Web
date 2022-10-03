@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 
 
 
-const AnalyticContent = ({ hovered, sales }) => {
+const AnalyticContent = ({ hovered, sales = {total: 0, xrate: ''} }) => {
   const { total, xrate } = sales;
   const classes = useStyles();
 
@@ -85,10 +85,7 @@ return <Box className={classes.toggleAnalyticsContent}>
   // );
 };
 
-const VisitedToggleAnalyticsCard = () => {
-  const { todaySales } = useSelector(({dashboard}) => dashboard);
-  const { total, today } = todaySales;
-  const dispatch = useDispatch();
+const VisitedToggleAnalyticsCard = ({data}) => {
   const [hovered, setHovered] = useState(false);
   const [toggled, setToggled] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -126,12 +123,12 @@ const VisitedToggleAnalyticsCard = () => {
         // </Box>
       }
       toggleAction={<ShowChartIcon color={toggled ? 'primary' : 'action'} />}>
-      <AnalyticContent hovered={(hovered || visible)} sales={todaySales}/>
+      <AnalyticContent hovered={(hovered || visible)} sales={data}/>
 
-      {toggled && (
+      {(toggled && data.today.length !== 0) && (
         <Box className={classes.dataChartRoot}>
           <VisitedChart
-            data={today}
+            data={data.today}
             color={hovered ? '#6200EE' : '#ADDC4C'}
             bgColor={hovered ? '#F2E7FE' : '#D7F5B1'}
           />

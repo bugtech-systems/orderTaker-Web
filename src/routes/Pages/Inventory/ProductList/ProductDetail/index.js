@@ -13,11 +13,12 @@ import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
-import EmailIcon from '@material-ui/icons/Email';
-import PaymentIcon from '@material-ui/icons/Payment';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import EventNoteIcon from '@material-ui/icons/EventNote';
 import MoreOptions from '../ProductsList/ListTableView/ProductCellOptions/MoreOptions';
+import CmtImage from '../../../../../@coremat/CmtImage';
+
+
+import commonData from "../../../../../utils/commonData";
+
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -74,7 +75,7 @@ const ProductDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentProduct({ ...currentProduct, starred: status }));
   };
 
-  const { name, description, limit, price, dpUrl, uom, other_amounts, starred } = currentProduct;
+  const { name, description, limit, price, cover, uom, other_amounts, starred } = currentProduct;
   console.log(currentProduct);
   console.log(other_amounts);
 
@@ -95,7 +96,8 @@ const ProductDetail = ({ open, handleDialog }) => {
       <Box className={classes.userInfoRoot}>
         <Box mr={3} display="flex" alignItems="center">
           <Box className={classes.avatarView} mr={{ xs: 4, md: 6 }}>
-            <CmtAvatar size={70} src={dpUrl} alt={name} />
+            {/* <CmtAvatar size={70} src={dpUrl} alt={name} /> */}
+            <CmtImage  src={`${commonData.staticUrl}${cover}`} height={70} width={70} alt={name} />
           </Box>
 
           <Box mt={-2}>

@@ -15,7 +15,7 @@ import {
   SET_CART_ITEMS_COUNT,
   UPDATE_CART_ITEMS
 } from "../../../../../../redux/actions/types";
-import commonData from "utils/commonData";
+import commonData from "../../../../../../utils/commonData";
 
 const ListItem = ({item}) => {
   const classes = useStyles();
