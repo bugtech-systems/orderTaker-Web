@@ -99,7 +99,8 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick
   const cart = useSelector(({cartApp}) => cartApp);
 
 
-  let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY'
+  let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
+  console.log(activeOption)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>

@@ -1,7 +1,12 @@
 import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, CLEAR_USER } from '../actions/types';
 
+const INIT_USER = {
+  phones: [],
+  password: null
+}
+
 const INIT_STATE = {
-  authUser: null,
+  authUser: INIT_USER,
   loadUser: false,
   isAdmin: false,
   send_forget_password_email: false
@@ -14,7 +19,7 @@ export default (state = INIT_STATE, action) => {
       let adm = roles && roles.find(a => String(a.name).includes('super') || String(a.name).includes('admin'));
       return {
         ...state,
-        authUser: action.payload,
+        authUser: {...INIT_USER, ...action.payload},
         loadUser: true,
         isAdmin: adm ? true : false
       };
@@ -34,7 +39,7 @@ export default (state = INIT_STATE, action) => {
     case CLEAR_USER: {
       return {
         ...state,
-        authUser: null,
+        authUser: INIT_USER,
         loadUser: false,
         isAdmin: false
       };

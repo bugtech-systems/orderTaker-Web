@@ -37,6 +37,7 @@ import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
 import { logout } from '../../../../../../redux/actions/Auth';
 import { createOrder } from '../../../../../../redux/actions/CartApp';
 import { fetchError, fetchSuccess } from '../../../../../../redux/actions/Common';
+import commonData from 'utils/commonData';
 
 
 const useStyles = makeStyles(theme => ({
@@ -82,26 +83,33 @@ const ActionSideBar = ({ width }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
+  const { authUser } = useSelector(({auth}) => auth);
+
   const { notifications, isDrawerOpen, activeOption, action } = useSelector(({uiReducer}) => uiReducer)
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
   const onIconClick = option => {
     setSidebarOpen(false);
-   
-    if(option === 'cart'){
-      // setAction('cartItems');
-      dispatch({type: SET_ACTION, payload: 'cart'})
-    }
 
-    if(action !== 'cart' || action !== 'payment' || action !== 'success'){
-      dispatch({type: SET_ACTION, payload: action})
-      dispatch({type: SET_ACTIVE_OPTION, payload: (action === 'notification' || action === 'profile') ? action : 'cart'})
-    } else{
-      dispatch({type: SET_ACTION, payload: 'cart'})
-      dispatch({type: SET_ACTIVE_OPTION, payload: option})
-    }
+
+
+          dispatch({type: SET_ACTIVE_OPTION, payload: option})
+
+    // if(option === 'cart'){
+    //   // setAction('cartItems');
+    //   dispatch({type: SET_ACTION, payload: 'cart'})
+    // }
+
+    // if(action !== 'cart' &&  action !== 'payment' && action !== 'success'){
+    //   dispatch({type: SET_ACTION, payload: action})
+    //   dispatch({type: SET_ACTIVE_OPTION, payload: (option === 'notification' || option === 'profile') ? action : 'cart'})
+    // } else{
+    //   console.log('SULOD HA')
+    //   dispatch({type: SET_ACTION, payload: 'cart'})
+    //   dispatch({type: SET_ACTIVE_OPTION, payload: option})
+    // }
+
     dispatch({type: SET_DRAWER_OPEN, payload: true})
-
   };
 
   const onDrawerClose = () => {
@@ -148,13 +156,15 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
+  console.log(activeOption)
+
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
       <Hidden smDown>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title="Profile">
             <IconButton className={classes.iconBtn} onClick={() => onIconClick('profile')}>
-              <CmtAvatar src={'https://via.placeholder.com/150'} />
+              <CmtAvatar src={`${commonData.staticUrl}/${authUser.dpUrl}`} />
             </IconButton>
           </Tooltip>
         </div>
@@ -206,7 +216,6 @@ const ActionSideBar = ({ width }) => {
             </IconButton>
           </Tooltip>
         </Hidden>
-
         <Hidden lgUp>
           <CmtDropdownMenu
             onItemClick={onItemClick}

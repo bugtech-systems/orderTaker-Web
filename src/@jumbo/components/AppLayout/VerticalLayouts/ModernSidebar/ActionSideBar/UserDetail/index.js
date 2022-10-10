@@ -5,23 +5,29 @@ import CmtCardMedia from '../../../../../../../@coremat/CmtCard/CmtCardMedia';
 import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
 import { intranet } from '../../../../../../../@fake-db';
-import CmtImage from '../../../../../../../@coremat/CmtImage';
+import CmtList from '../../../../../../../@coremat/CmtImage';
+
 // import UserInfo from './UserInfo';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EmailIcon from '@material-ui/icons/Email';
+import PhoneIcon from '@material-ui/icons/Phone';
+import RoomIcon from '@material-ui/icons/Room';
+import EditIcon from '@material-ui/icons/Edit';
+
 import { useSelector } from 'react-redux';
+import CmtCardHeader from '@coremat/CmtCard/CmtCardHeader';
+import { IconButton } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { SET_USER_DIALOG } from 'redux/actions/types';
+import { setCurrentUser } from 'redux/actions/Users';
+import commonData from 'utils/commonData';
 
 const actions = [
   {
     label: 'View Profile',
-  },
-  {
-    label: 'Send Message',
-  },
-  {
-    label: 'Add to Favorite',
-  },
+  }
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -87,24 +93,40 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserDetail = () => {
-  const { userDetails } = intranet;
   const { authUser } = useSelector(({auth}) => auth);
+  const dispatch = useDispatch();
   const classes = useStyles();
 
 
   let role = authUser.roles ? String(authUser.roles[0].name).toUpperCase() : ''
+  const { email, phones, address } = authUser;
+
+  const handleEdit = () => {
+    dispatch(setCurrentUser(authUser));
+    dispatch({type: SET_USER_DIALOG, payload: true});
+    
+  }
+
+  console.log(authUser)
+
 
   return (
-    <CmtAdvCard
+    <Box>
+ <CmtAdvCard
       actionsPos="top-corner"
       // actions={actions}
-      actionHandleIcon={<MoreVertIcon />}
+      // actionHandleIcon={<EditIcon  />}
+      // actionHandler={(e) => console.log(e)}
       actionMenuClassName={classes.actionMenu}>
-      <CmtCardMedia className={classes.cardMediaRoot} image={'https://via.placeholder.com/350x200'}>
+        <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
+      <CmtCardMedia className={classes.cardMediaRoot} 
+      // image={'https://via.placeholder.com/350x200'}
+      >
+        
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={authUser.profile_pic} alt={authUser.name} />
+              <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}/${authUser.dpUrl}`} alt={authUser.name} />
             }
             title={authUser.name}
             titleProps={{ style: { color: '#fff' } }}
@@ -125,6 +147,42 @@ const UserDetail = () => {
         <UserInfo authUser={authUser} />
       </CmtAdvCardContent> */}
     </CmtAdvCard>
+<Box px={6} py={5}>
+        <Box mb={5} component="p" color="common.dark">
+         Personal Details
+        </Box>
+        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <EmailIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {email}
+          </Box>
+        </Box>
+     {phones.length !== 0 && <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
+          <PhoneIcon />
+          <Box ml={5}>
+            <CmtList
+              data={phones}
+              renderRow={(item, index) => (
+                <Box key={index} display="flex" alignItems="center">
+                  <Box color="text.secondary">{item.phone}</Box>
+                  <Box ml={2} className={classes.labelRoot}>
+                    {item.label}
+                  </Box>
+                </Box>
+              )}
+            />
+          </Box>
+        </Box>
+        }
+         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <RoomIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {address}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+   
   );
 };
 

@@ -65,8 +65,8 @@ export const getUserData = () => {
 
   axios.get(`${commonData.apiUrl}/auth`, { headers: authHeader() }).then(
     (res) => {
-      let { email, id, roles, name, address } = res.data;
-      localStorage.setItem('user', JSON.stringify({email, id, roles, name, address}));
+      let { email, id, roles, name, address, dpUrl } = res.data;
+      localStorage.setItem('user', JSON.stringify({email, id, roles, name, address, dpUrl}));
 
       dispatch(setAuthUser(res.data))
       dispatch(fetchSuccess());

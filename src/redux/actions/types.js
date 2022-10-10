@@ -25,6 +25,7 @@ export const SET_ACTIVE_OPTION = 'SET_ACTIVE_OPTION';
 export const SET_DRAWER_OPEN = 'SET_DRAWER_OPEN';
 export const SET_CART_SUCCESS = 'SET_CART_SUCCESS';
 export const SET_UI = 'SET_UI';
+export const SET_USER_DIALOG = 'SET_USER_DIALOG';
 
 
 

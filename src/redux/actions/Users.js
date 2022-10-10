@@ -12,6 +12,7 @@ import { SET_SELECTED_USER } from './types';
 // import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
 import { authHeader } from '../../services/auth-header';
+import { getUserData } from './Auth';
 
 
 
@@ -75,17 +76,21 @@ export const updateUser = (user, callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
     axios
-      .put('/users', user)
+      .put(`${commonData.apiUrl}/users/${user.id}`, user)
       .then(data => {
+        console.log(data.data)
+        dispatch(fetchSuccess('Selected user was updated successfully.'));
+
         if (data.status === 200) {
-          dispatch(fetchSuccess('Selected user was updated successfully.'));
-          dispatch({ type: EDIT_USER, payload: data.data });
+          dispatch(getUserData())
+          dispatch(getUsers());
           if (callbackFun) callbackFun(data.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));
         }
       })
       .catch(error => {
+        console.log(error)
         dispatch(fetchError('There was something issue in responding server'));
       });
   };

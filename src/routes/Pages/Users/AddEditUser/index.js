@@ -25,6 +25,7 @@ import { addNewUser, updateUser, uploadFile } from '../../../../redux/actions/Us
 //Icons
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import commonData from 'utils/commonData';
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -95,7 +96,9 @@ const AddEditUser = ({ open, onCloseDialog }) => {
 
       dispatch(uploadFile(formData))
         .then(a => {
+          console.log(a)
           setDpUrl(a.url);
+          setValues({...values, dpUrl: a.url})
         })
         .catch(err => {
           console.log(err);
@@ -107,32 +110,10 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     if (currentUser) {
       setValues({ ...currentUser, roles: currentUser.roles[0].name });
       setDpUrl(currentUser.dpUrl);
-      setPhones(currentUser.phones);
+      // setPhones(currentUser.phones);
     }
   }, [currentUser]);
 
-  const onPhoneNoAdd = (number, index) => {
-    const updatedList = [...phones];
-    updatedList[index].phone = number;
-    setPhones(updatedList);
-    setPhoneError('');
-  };
-
-  const onPhoneRowRemove = index => {
-    const updatedList = [...phones];
-    updatedList.splice(index, 1);
-    setPhones(updatedList);
-  };
-
-  const onPhoneRowAdd = () => {
-    setPhones(phones.concat({ phone: '', label: 'home' }));
-  };
-
-  const onLabelChange = (value, index) => {
-    const updatedList = [...phones];
-    updatedList[index].label = value;
-    setPhones(updatedList);
-  };
 
   const onSubmitClick = () => {
     const phoneNumbers = phones.filter(item => item.phone.trim());
@@ -142,9 +123,11 @@ const AddEditUser = ({ open, onCloseDialog }) => {
       setErrors({ ...errors, email: requiredMessage });
     } else if (!isValidEmail(values.email)) {
       setErrors({ ...errors, email: 'Invalid Email Address' });
-    } else if (phoneNumbers.length === 0) {
-      setPhoneError(requiredMessage);
-    } else {
+    } 
+    // else if (phoneNumbers.length === 0) {
+    //   setPhoneError(requiredMessage);
+    // } 
+    else {
       onUserSave(phoneNumbers);
     }
   };
@@ -152,11 +135,12 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   const onUserSave = phoneNumbers => {
     const userDetail = {
       ...values,
-      dpUrl,
-      phones: phoneNumbers,
+      dpUrl
+      // phones: phoneNumbers,
     };
 
-    if (currentUser) {
+    if (currentUser.id) {
+      console.log({ ...currentUser, ...userDetail })
       dispatch(
         updateUser({ ...currentUser, ...userDetail }, a => {
           onCloseDialog();
@@ -171,9 +155,8 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     }
   };
 
-  const isPhonesMultiple = phones.length > 1;
+  // const isPhonesMultiple = phones.length > 1;
 
-  console.log(onSubmitClick);
   return (
     <Dialog open={open} onClose={onCloseDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>
@@ -181,7 +164,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={dpUrl} />
+            <CmtAvatar size={70} src={`${commonData.staticUrl}/${dpUrl}`} />
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>
@@ -206,7 +189,9 @@ const AddEditUser = ({ open, onCloseDialog }) => {
             helperText={errors.address}
           />
         </Box>
-        <CmtList
+
+        {/* //PHONES INPUT */}
+        {/* <CmtList
           data={phones}
           renderRow={(item, index) => (
             <GridContainer style={{ marginBottom: 2 }} key={index}>
@@ -249,7 +234,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
           <Button color="primary" onClick={onPhoneRowAdd} startIcon={<AddCircleOutlineIcon />}>
             Add More
           </Button>
-        </Box>
+        </Box> */}
         <GridContainer style={{ marginBottom: 12 }}>
           <Grid item xs={12} sm={8}>
             <AppTextInput
