@@ -156,7 +156,6 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
-  console.log(activeOption)
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
@@ -164,7 +163,7 @@ const ActionSideBar = ({ width }) => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title="Profile">
             <IconButton className={classes.iconBtn} onClick={() => onIconClick('profile')}>
-              <CmtAvatar src={`${commonData.staticUrl}/${authUser.dpUrl}`} />
+              <CmtAvatar src={`${commonData.staticUrl}${authUser.dpUrl}`} />
             </IconButton>
           </Tooltip>
         </div>

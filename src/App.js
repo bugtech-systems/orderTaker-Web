@@ -27,6 +27,7 @@ if (token) {
   }
 }
 
+
 const App = () => (
   <Provider store={store}>
     <BrowserRouter 

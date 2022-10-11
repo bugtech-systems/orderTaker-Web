@@ -126,7 +126,7 @@ const UserDetail = () => {
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}/${authUser.dpUrl}`} alt={authUser.name} />
+              <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}${authUser.dpUrl}`} alt={authUser.name} />
             }
             title={authUser.name}
             titleProps={{ style: { color: '#fff' } }}

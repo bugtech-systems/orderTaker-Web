@@ -21,7 +21,6 @@ import DefaultForgotPassword from './Pages/forgot-password/Default';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import {getAllProductOtherAmount} from '../redux/actions/ProductApp';
 
 
 
@@ -48,34 +47,23 @@ const RestrictedRoute = ({ component: Component, ...rest }) => {
 };
 
 const Routes = () => {
-  const dispatch = useDispatch()
   const { authUser } = useSelector(({ auth }) => auth);
   const location = useLocation();
+  const token = localStorage.idToken;
+
+
+  
 
 
 
-
-
-
-
-  if (location.pathname === '' || location.pathname === '/') {
-    return <Redirect to={'/dashboard'} />;
-  } else if (authUser && location.pathname === '/signin') {
+   if (token && authUser && (location.pathname === '/signin' || location.pathname === '' || location.pathname === '/')) {
     return <Redirect to={'/dashboard'} />;
   }
 
 
-
-
-
-
-
-
-
-
-
   return (
     <React.Fragment>
+      {!token && <Redirect to={'/signin'} />}
       <Switch>
         {/* Main Pages */}
         <RestrictedRoute path="/dashboard" component={Dashboard} />
