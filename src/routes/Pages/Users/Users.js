@@ -8,7 +8,6 @@ import UserTableToolbar from './UserTableToolbar';
 import { getComparator, stableSort } from '../../../@jumbo/utils/tableHelper';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getUsers, setCurrentUser } from '../../../redux/actions/Users';
-import AddEditUser from './AddEditUser';
 import ConfirmDialog from '../../../@jumbo/components/Common/ConfirmDialog';
 import { useDebounce } from '../../../@jumbo/utils/commonHelper';
 import useStyles from './index.style';
@@ -127,6 +126,7 @@ const UsersModule = () => {
 
 
 
+  console.log(userDialog)
 
 
   return (
@@ -194,7 +194,6 @@ const UsersModule = () => {
         />
       </Paper>
 
-      {userDialog && <AddEditUser open={userDialog} onCloseDialog={handleCloseUserDialog} />}
       {openViewDialog && <UserDetailView currentUser={currentUser} open={openViewDialog} onCloseDialog={handleCloseViewDialog} />}
 
       <ConfirmDialog

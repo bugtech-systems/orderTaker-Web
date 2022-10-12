@@ -23,6 +23,10 @@ import DefaultForgotPassword from './Pages/forgot-password/Default';
 import { useSelector, useDispatch } from 'react-redux';
 
 
+//Components
+import AddEditUser from './Pages/Users/AddEditUser';
+
+
 
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
@@ -80,6 +84,12 @@ const Routes = () => {
 
         <Route component={Error404} />
       </Switch>
+
+
+      <AddEditUser  />
+
+
+
     </React.Fragment>
   );
 };

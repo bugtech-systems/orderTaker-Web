@@ -72,7 +72,6 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
   const isItemSelected = isSelected(row.id);
   const userActions = getUserActions(row);
 
-  console.log(row)
   return (
     <TableRow
       hover

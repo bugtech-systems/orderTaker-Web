@@ -11,7 +11,6 @@ import CmtList from '../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
 import AppSelectBox from '../../../../@jumbo/components/Common/formElements/AppSelectBox';
 import { requiredMessage } from '../../../../@jumbo/constants/ErrorMessages';
-import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -20,12 +19,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../@jumbo/utils/commonHelper';
-import { addNewUser, updateUser, uploadFile } from '../../../../redux/actions/Users';
 
 //Icons
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import commonData from 'utils/commonData';
+
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewUser, setCurrentUser, updateUser, uploadFile } from '../../../../redux/actions/Users';
+import { SET_USER_DIALOG } from 'redux/actions/types';
+
+
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -70,8 +75,9 @@ const roles = [
   { id: 1, name: 'super' },
 ];
 
-const AddEditUser = ({ open, onCloseDialog }) => {
+const AddEditUser = () => {
   const classes = useStyles();
+  const { userDialog } = useSelector((state) => state.uiReducer);
   const dispatch = useDispatch();
   const currentUser = useSelector(({ usersReducer }) => usersReducer.currentUser);
   const [visible, setVisible] = useState(false);
@@ -106,6 +112,12 @@ const AddEditUser = ({ open, onCloseDialog }) => {
     },
   });
 
+
+  const onCloseDialog = () => {
+    dispatch({type: SET_USER_DIALOG, payload: false});
+    dispatch(setCurrentUser(null));
+  };
+
   useEffect(() => {
     if (currentUser) {
       setValues({ ...currentUser, roles: currentUser.roles[0].name });
@@ -139,7 +151,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
       // phones: phoneNumbers,
     };
 
-    if (currentUser.id) {
+    if (currentUser && currentUser.id) {
       console.log({ ...currentUser, ...userDetail })
       dispatch(
         updateUser({ ...currentUser, ...userDetail }, a => {
@@ -158,7 +170,7 @@ const AddEditUser = ({ open, onCloseDialog }) => {
   // const isPhonesMultiple = phones.length > 1;
 
   return (
-    <Dialog open={open} onClose={onCloseDialog} className={classes.dialogRoot}>
+    <Dialog open={userDialog ? true : false} onClose={onCloseDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>
       <DialogContent dividers>
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
@@ -306,7 +318,3 @@ const AddEditUser = ({ open, onCloseDialog }) => {
 
 export default AddEditUser;
 
-AddEditUser.prototype = {
-  open: PropTypes.bool.isRequired,
-  onCloseDialog: PropTypes.func,
-};

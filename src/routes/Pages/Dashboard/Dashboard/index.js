@@ -95,10 +95,11 @@ const Dashboard = () => {
       let dObj = getDateElements(dt);
 
       total += a.amount_due;
-
+          console.log(dObj.time)
       return { label: dObj.time, value: total }
      })
 
+     today.unshift({label: "00:00 AM", value: 0 });
     // dispatch({type: SET_TODAY_SALES, payload: {
     //   total, today
     // }})
@@ -201,6 +202,7 @@ const Dashboard = () => {
             } */}
           </GridContainer>
         </Grid>
+        {popularProducts && popularProducts.length !== 0 &&
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6} className={classes.popularProductRoot}>
             <PopularProducts
@@ -209,6 +211,8 @@ const Dashboard = () => {
             />
           </Box>
         </Grid>
+        }
+        {unpaidCustomers && unpaidCustomers.length !== 0 &&
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6}>
             <PopularAgents 
@@ -216,12 +220,14 @@ const Dashboard = () => {
               count={unpaidCustomers.length}
             />
           </Box>
-        </Grid>
+        </Grid>}
+        {unpaidOrders && unpaidOrders.length !== 0 &&
         <Grid item xs={12} lg={12}>
           <RecentPayments 
             unpaidOrders={unpaidOrders}
           />
         </Grid>
+         }
         {/* <Grid item xs={12} lg={12}>
          <VideoPlayer/> 
         </Grid> */}
