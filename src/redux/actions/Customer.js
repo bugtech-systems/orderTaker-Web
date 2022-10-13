@@ -151,8 +151,6 @@ export const createCustomer = customer => dispatch =>
         return data
       })
       .then(res =>{
-         console.log('CREATE RESP')
-         console.log(res)
         return res.customer
       })
       .catch(error => {

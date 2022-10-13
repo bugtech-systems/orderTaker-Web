@@ -13,7 +13,6 @@ export const uploadFile = (file, type) => async dispatch => {
       return Promise.resolve(data);
     },
     error => {
-      console.log("GET ERROR");
       console.log(error.response);
       const message =
         (error.response &&

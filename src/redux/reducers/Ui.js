@@ -1,8 +1,9 @@
-import {SET_CREATE_CUSTOMER_DIALOG, SET_USER_DIALOG, SET_UI, CLEAR_CART, SET_CART_SUCCESS, SET_NOTIFICATIONS, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
+import {SET_CREATE_CUSTOMER_DIALOG, SET_USER_DIALOG, SET_UI, CLEAR_CART, SET_CART_SUCCESS, SET_NOTIFICATIONS, SET_NOTIF_COUNT, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
 
 const INIT_STATE = {
     createCustomerDialog: false,
     notifications: [],
+    notifCount: 0,
     action: 'cart',
     activeOption: 'profile',
     viewMode: 'order',
@@ -29,6 +30,8 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
+
+
     case SET_CREATE_CUSTOMER_DIALOG: {
       return {
         ...state,
@@ -36,12 +39,21 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
+    case SET_NOTIF_COUNT: {
+      console.log(payload !== 0);
+      console.log(state.notifCount++)
+      return {
+        ...state,
+        notifCount: payload !== 0 ? state.notifCount++ : 0
+      };
+    }
   
 
     case SET_NOTIFICATIONS: {
+      console.log(payload)
       return {
         ...state,
-        notifications: payload
+       ...payload
       };
     }
 

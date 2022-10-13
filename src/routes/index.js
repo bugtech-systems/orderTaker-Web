@@ -25,6 +25,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 //Components
 import AddEditUser from './Pages/Users/AddEditUser';
+import Socket from '../components/Socket';
 
 
 
@@ -85,6 +86,7 @@ const Routes = () => {
         <Route component={Error404} />
       </Switch>
 
+      <Socket/>
 
       <AddEditUser  />
 

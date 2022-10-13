@@ -88,12 +88,10 @@ export default function CartFooter() {
     const { action} = useSelector(({uiReducer}) => uiReducer);
 
     const handlePayment = () => {
-      console.log(cart);
       const { id, customerId, payment, notes } = cart;
       dispatch(payOrder({orderId: id, customerId, amount: Number(payment), description: notes}))
       .then(res => {
         let { message, data } = res;
-        console.log(res)
         if(res){
           dispatch(fetchSuccess(message));
           dispatch({type: SET_CART_SUCCESS, payload: data.id});
@@ -152,7 +150,6 @@ const handleCartList = () => {
     dispatch(createOrder(cart))
     .then(res => {
       let { message, data } = res;
-      console.log(res)
       if(res){
         dispatch(fetchSuccess(message));
         dispatch({type: SET_CART_SUCCESS, payload: data.id});
@@ -164,8 +161,6 @@ const handleCartList = () => {
     })
   }
 
-  console.log(action)
-  console.log(cart)
   return (
     <Box height="100%"  p={5} display="flex" alignItems="center" justifyContent="space-around">
       {action === 'paidCart' && <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleSuccess()} disabled={cart_items.length === 0} >Next</Button></>} 

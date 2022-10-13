@@ -25,7 +25,6 @@ const AnalyticContent = ({ hovered, sales = {total: 0, xrate: ''} }) => {
 
 
 
-console.log(xrate)
 
 return <Box className={classes.toggleAnalyticsContent}>
 <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>

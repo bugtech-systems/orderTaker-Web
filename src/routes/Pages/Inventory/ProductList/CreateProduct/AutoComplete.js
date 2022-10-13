@@ -25,7 +25,6 @@ export default function FreeSoloCreateOptionDialog({value, setDialogValue, optio
       <Autocomplete
         value={value}
         onChange={(event, newValue) => {
-          console.log(newValue)
 
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
@@ -39,7 +38,6 @@ export default function FreeSoloCreateOptionDialog({value, setDialogValue, optio
               name: newValue.inputValue
             });
           } else {
-            console.log(newValue)
             if(newValue){
               handleChange(newValue);
             }
@@ -68,7 +66,6 @@ export default function FreeSoloCreateOptionDialog({value, setDialogValue, optio
           if (option.inputValue) {
             return option.inputValue;
           }
-          console.log(option)
           return option.name;
         }}
         selectOnFocus

@@ -138,7 +138,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
   };
 
   const handleSubmit = phoneNumbers => {
-    console.log('SUBMIITTTEEDD!!!')
     let { limit, balance } = values;
     const customer = {
       ...values,
@@ -152,8 +151,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}))
       .then(res => {
-        console.log("SUBMIT CUSTOMER RESP")
-        console.log(res)
         dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
         handleDialog(false);
       })

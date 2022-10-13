@@ -102,7 +102,6 @@ const AddEditUser = () => {
 
       dispatch(uploadFile(formData))
         .then(a => {
-          console.log(a)
           setDpUrl(a.url);
           setValues({...values, dpUrl: a.url})
         })
@@ -152,7 +151,6 @@ const AddEditUser = () => {
     };
 
     if (currentUser && currentUser.id) {
-      console.log({ ...currentUser, ...userDetail })
       dispatch(
         updateUser({ ...currentUser, ...userDetail }, a => {
           onCloseDialog();

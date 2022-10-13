@@ -51,9 +51,6 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
     height: getProductContainerHeight(width, showFooter),
   });
 
-
-  console.log(productsList)
-
   return productsList.length > 0 ? (
     <Box className={classes.inBuildAppMainContent}>
       <PerfectScrollbar className={classes.perfectScrollbarProductCon}>

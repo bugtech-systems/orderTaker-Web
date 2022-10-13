@@ -126,9 +126,6 @@ const UsersModule = () => {
 
 
 
-  console.log(userDialog)
-
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>

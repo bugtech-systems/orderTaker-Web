@@ -55,11 +55,9 @@ export const addNewUser = (user, callbackFun) => {
           if (callbackFun) callbackFun(data.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));
-          console.log(data)
         }
       })
       .catch(({response}) => {
-        console.log(response)
         let { data } = response ? response : {};
         dispatch(fetchError(data.message));
       });
@@ -78,7 +76,6 @@ export const updateUser = (user, callbackFun) => {
     axios
       .put(`${commonData.apiUrl}/users/${user.id}`, user)
       .then(data => {
-        console.log(data.data)
         dispatch(fetchSuccess('Selected user was updated successfully.'));
 
         if (data.status === 200) {

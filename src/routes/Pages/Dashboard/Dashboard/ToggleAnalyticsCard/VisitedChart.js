@@ -1,6 +1,7 @@
 import React from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
 import Box from '@material-ui/core/Box';
+import { Typography } from '@material-ui/core';
 
 const VisitedChart = ({ data, color, bgColor }) => {
   return (
@@ -11,9 +12,9 @@ const VisitedChart = ({ data, color, bgColor }) => {
           content={data => {
             return data.payload[0] ? (
               <Box p={2}>
-                <Box color="common.dark" component="p">
+                <Typography component="p" color="secondary">
                   {data.payload[0].payload.label}
-                </Box>
+                </Typography>
                 <Box>
                   <Box component="span" color={color}>
                     Total Sales: ₱{data.payload[0].payload.value}

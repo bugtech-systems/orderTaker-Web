@@ -50,7 +50,6 @@ const SidebarOption = () => {
   const [imageOptionsVisibility, setImageOptionsVisibility] = useState(!!sidebarTheme.backgroundImage);
 
   let sidebarOptions = SIDEBAR_BG_IMAGE_OPTIONS.map(a => {
-    console.log(a)
     return {...a, image: commonData.staticUrl + a.image, fullImage: commonData.staticUrl + a.fullImage }
   })
 

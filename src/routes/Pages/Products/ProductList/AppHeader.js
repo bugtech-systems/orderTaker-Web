@@ -32,7 +32,6 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
   };
 
   // const handleScanner = e => {
-  //   console.log(e);
   //   dispatch(
   //     setFilterType({
   //       selectedFolder: e ? '' : 'products',

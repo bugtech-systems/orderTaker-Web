@@ -149,17 +149,14 @@ const CreateProduct = ({ handleDialog }) => {
   }
 
   const handleSelectOAType = (val) => {
-    console.log(val)
     setOtherAmounts({...other_amounts, type: val})
     setIsAddVD(val)
   }
 
   const handleAddOtherAmounts = (val) => {
-    console.log(other_amounts)
 
     dispatch(!val.id ? addProductOtherAmount(val) : updateProductOtherAmount(val))
     .then(a => {
-      console.log(a)
           let oa = values.other_amounts;
            oa.push(a);
       setValues({...values, other_amounts: oa})
@@ -269,15 +266,11 @@ const CreateProduct = ({ handleDialog }) => {
 
 
   useEffect(() => {
-    console.log(isAddVD)
     if(isAddVD){
       let newArr = tax_disc.filter(a => isAddVD === 'tax' ? (a.type === 'tax' || a.type === 'vat') : a.type === isAddVD);
-      console.log(newArr)
       setOaOptions(newArr);
     } else {
       let newArr = tax_disc.filter(a => a.id);
-      console.log(newArr)
-
       setOaOptions(newArr);
     }
   }, [tax_disc, isAddVD])
@@ -313,9 +306,6 @@ const handleEditOtherAmounts = (val, index) => {
   setOtherAmounts({...val, isNew: true});
 }
 
-
-
-console.log(values)
 
   return (
     <Dialog maxWidth="sm" fullWidth 

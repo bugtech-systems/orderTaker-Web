@@ -76,8 +76,6 @@ const ProductDetail = ({ open, handleDialog }) => {
   };
 
   const { name, description, limit, price, cover, uom, other_amounts, starred } = currentProduct;
-  console.log(currentProduct);
-  console.log(other_amounts);
 
   const otherAmounts = other_amounts.map(a => {
     let oaType = a.type.charAt(0).toUpperCase() + a.type.slice(1);

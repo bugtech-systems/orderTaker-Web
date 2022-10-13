@@ -199,12 +199,10 @@ export const handleCart = (cartItem)  => dispatch => {
 };
 
 export const createOrder = (cart) => dispatch => {
-  console.log(cart)
     dispatch(fetchStart());
     return axios
       .post(`${commonData.apiUrl}/orders`, cart, { headers: authHeader() })
       .then(({data}) => {
-        console.log(data)
         dispatch(getOrders());
         return data
       })

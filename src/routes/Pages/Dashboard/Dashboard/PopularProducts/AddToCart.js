@@ -55,9 +55,6 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   };
 
   const addToCart = () => {
-    // onCheckout(quantity);
-    console.log('Quants')
-    console.log(quantity)
   if(Number(quantity) === 0) {
     return dispatch(fetchError('Cant add 0 quantity!'))
   } else {

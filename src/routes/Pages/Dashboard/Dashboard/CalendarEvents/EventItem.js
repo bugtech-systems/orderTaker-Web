@@ -17,7 +17,6 @@ import { SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, UPDATE_CART } from '../
 const EventItem = ({ item }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  // console.log(item)
 
 
 

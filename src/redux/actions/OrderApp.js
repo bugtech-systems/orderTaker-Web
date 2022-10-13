@@ -15,7 +15,6 @@ export const getOrders = () => {
         return axios
           .get(`${commonData.apiUrl}/orders`, { headers: authHeader() })
           .then(({data}) => {
-            console.log(data)
             dispatch({type: SET_ORDERS, payload: data.orders})
             dispatch({type: SET_UNPAID_ORDERS, payload: data.unpaid_orders})
             // return data
@@ -40,12 +39,10 @@ export const getOrders = () => {
 
 
   export const payOrder = (data) => dispatch => {
-    console.log(data)
       dispatch(fetchStart());
       return axios
         .post(`${commonData.apiUrl}/payments`, data, { headers: authHeader() })
         .then(({data}) => {
-          console.log(data)
           dispatch(getOrders());
           dispatch(getAdminDashboard())
           dispatch(getProductsList());

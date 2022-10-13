@@ -107,11 +107,8 @@ const UserDetail = () => {
     
   }
 
-  console.log(authUser)
-
-
   return (
-    <Box>
+    <Box style={{margin: '10px'}}>
  <CmtAdvCard
       actionsPos="top-corner"
       // actions={actions}

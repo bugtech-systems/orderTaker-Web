@@ -67,7 +67,6 @@ export default function SuccessPage() {
   const handleGetOrder = (id) => {
         dispatch(getOrderById(id))
         .then(({data}) => {
-          console.log(data)
           setValues({...values, ...data})
         })
         .catch(err => {
@@ -91,7 +90,6 @@ export default function SuccessPage() {
 
 
   let customerName = values.customers.length !== 0 ? values.customers[0].name : 'No Customer';
-  console.log(cartSuccess)
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#36ce59', color: 'white'}}>

@@ -26,6 +26,9 @@ export const SET_DRAWER_OPEN = 'SET_DRAWER_OPEN';
 export const SET_CART_SUCCESS = 'SET_CART_SUCCESS';
 export const SET_UI = 'SET_UI';
 export const SET_USER_DIALOG = 'SET_USER_DIALOG';
+export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
+export const SET_NOTIF_COUNT = 'SET_NOTIF_COUNT';
+
 
 
 
@@ -96,5 +99,4 @@ export const UPDATE_POST = 'update_post';
 //DASHBOARD
 export const SET_DASHBOARD_DATA = 'SET_DASHBOARD_DATA';
 export const CLEAR_DASHBOARD_DATA = 'CLEAR_DASHBOARD_DATA';
-export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 export const SET_TODAY_SALES = 'SET_TODAY_SALES';

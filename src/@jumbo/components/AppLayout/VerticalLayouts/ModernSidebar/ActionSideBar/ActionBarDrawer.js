@@ -11,7 +11,7 @@ import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 
 
 //Components
-import Notifications from './Notifications';
+import Notifications from './LatestNotifications';
 import Profile from './UserDetail';
 import Cart from './CartDetail/index';
 import CartFooter from './CartDetail/CartFooter';
@@ -24,8 +24,6 @@ import { CLEAR_CART } from '../../../../../../redux/actions/types';
 
 
 
-//Icons
-import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
   scrollbarRoot: {
     // height: '100%',
-    margin: 10,
+    // margin: 10,
     overflowY: 'hidden'
   },
   iconBtn: {
@@ -76,7 +74,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '5px 15px'
+    padding: '5px 15px',
+    marginTop: '10px'
     },
     cartButton: {
       position: 'absolute',
@@ -100,7 +99,6 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick
 
 
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
-  console.log(activeOption)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
@@ -108,18 +106,19 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick
         {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton> */}
+          {activeOption === 'profile' || activeOption === 'cart' && 
             <Box className={classes.header}>
         <Box fontSize={20} fontWeight={700}>
-           {activeOption === 'notifications' && 'Notifications'}
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
         </Box>
-        <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
+        <IconButton size="small" className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
       </Box>
+      }
           <PerfectScrollbar className={classes.scrollbarRoot}>
-            {activeOption === 'notifications' && <Notifications />}
+            {activeOption === 'notifications' && <Notifications onClose={onDrawerClose}  />}
             {activeOption === 'profile' && <Profile/>}
             {activeOption === 'cart' && <Cart />}
           </PerfectScrollbar>

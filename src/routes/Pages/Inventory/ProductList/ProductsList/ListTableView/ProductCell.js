@@ -20,9 +20,6 @@ const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, o
   const classes = useStyles();
   const { id, name, description, stocks, price, cover } = product;
 
-
-  console.log(cover)
-
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowProductDetail(product)}>
       <TableCell className={classes.tableCellRootWrap} >

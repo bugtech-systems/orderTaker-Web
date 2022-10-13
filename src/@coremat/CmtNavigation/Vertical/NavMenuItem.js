@@ -160,7 +160,6 @@ const NavMenuItem = props => {
     return null;
   };
 
-  console.log(props)
 
   return (
     <List component="div" className={clsx(classes.navMenuItem, 'Cmt-nav-menu-item')}>

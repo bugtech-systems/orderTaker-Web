@@ -41,8 +41,6 @@ const Theme = () => {
     setThemeType(THEME_TYPES.LIGHT);
   };
 
-
-console.log(THEME_TYPE_OPTIONS)
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader title="Theme">
@@ -55,7 +53,6 @@ console.log(THEME_TYPE_OPTIONS)
           renderRow={(item, index) => (
             <div className="pointer" onClick={() => setThemeType(item.type)}>
               <div style={{ position: 'relative' }}>
-                {console.log(item)}
                 <CmtImage key={index} src={commonData.staticUrl + item.image} alt={item.title} />
                 {themeType === item.type && (
                   // <h1>{themeType} | {item.type}</h1>

@@ -231,7 +231,6 @@ const Comments = () => {
     }
 
     const handleSelect = (data) => {
-        console.log(data)
     dispatch(setCurrentCustomer(data));
     dispatch({type: UPDATE_CART, payload: { customerId: data.id }})
     }
@@ -325,8 +324,6 @@ const Comments = () => {
         setIsSearch(false);
     }
   }, [productsList]);
-
-  console.log(tax_disc)
 
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
       return (

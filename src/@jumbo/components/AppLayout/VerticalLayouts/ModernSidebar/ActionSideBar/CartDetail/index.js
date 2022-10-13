@@ -30,6 +30,7 @@ import ProceedPayment from './ProceedPayment';
 const useStyles = makeStyles(theme => ({
   rootWrap: {
     // overflowY: 'hidden',
+    margin: '10px',
     height: '100%'
   },
 }));

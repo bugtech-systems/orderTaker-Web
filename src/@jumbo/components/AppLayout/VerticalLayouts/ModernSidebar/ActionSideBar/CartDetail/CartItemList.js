@@ -103,15 +103,11 @@ const Comments = () => {
 
 
   const handleChange = (panel) => {
-    console.log(panel)
     setExpanded(expanded === panel ? false : panel);
   };
 
 
   const handleItem = (val, qty) => {
-    console.log(qty)
-    console.log('HANDOL ITEM')
-    console.log(val)
     let prd = allProducts.find(a => a.id === val.productId)
     let obj = {
       ...val,
@@ -120,14 +116,11 @@ const Comments = () => {
     }
 
       handleCartItem(cartList, obj).then(a => {
-        console.log(a)
         dispatch(handleCart({...cart, cart_items: a}))
       })
   }
 
   const handleSelect = (val) => {
-    console.log('HANDOL SELECT')  
-    console.log(val)
 if(val){
   
   
@@ -206,11 +199,6 @@ setSelected(null);
     setCartList(cart_items);
     setAmountDue(amount_due)
   }, [cart])
-
-
-  
-
-    console.log(cartList)
 
   return (
     <Box flexGrow={1} className={classes.rootWrap}>

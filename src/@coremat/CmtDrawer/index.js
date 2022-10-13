@@ -34,8 +34,6 @@ const CmtDrawer = ({ backgroundColor, backgroundImage, gradientDirection, childr
   const classes = useStyles();
 
 
-  console.log(backgroundStyles)
-  console.log(overlayStyles)
   return (
     <Drawer {...rest}>
       <div className={clsx(classes.drawerContainer, 'Cmt-Drawer-container')} style={backgroundStyles}>

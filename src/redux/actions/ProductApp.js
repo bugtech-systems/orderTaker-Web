@@ -110,7 +110,6 @@ export const getProductsList = params => {
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(data => {
-        console.log(data)
         dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
       })
       .catch(error => {
@@ -333,12 +332,10 @@ export const deleteProductOtherAmount = val => {
 };
 
 export const getAllProductOtherAmount = () => {
-  console.log('GET ALL OTHER AMOUNTS');
   return dispatch => {
     axios
       .get(`${commonData.apiUrl}/products/other_amount`)
       .then(({ data }) => {
-        console.log(data);
         dispatch({ type: SET_OTHER_AMOUNTS, payload: data });
         // dispatch(getProductsList());
         // dispatch(fetchSuccess(data.message));

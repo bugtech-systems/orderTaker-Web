@@ -34,8 +34,8 @@ import { SET_TODAY_SALES } from '../../../../redux/actions/types';
 import { getAdminDashboard } from 'redux/actions/Dashboard';
 import { getInventoryList } from 'redux/actions/ProductApp';
 
-import VideoPlayer from '../Video';
 import moment from 'moment';
+import { getAllNotifications } from 'redux/actions/Notification';
 
 const useStyles = makeStyles(() => ({
   pageFull: {
@@ -95,7 +95,6 @@ const Dashboard = () => {
       let dObj = getDateElements(dt);
 
       total += a.amount_due;
-          console.log(dObj.time)
       return { label: dObj.time, value: total }
      })
 
@@ -116,6 +115,8 @@ const Dashboard = () => {
     dispatch(getAdminDashboard())
     dispatch(getInventoryList(filterType));
     dispatch(getOrders());
+    dispatch(getAllNotifications());
+
     }
   }, [loadUser, authUser]);
 

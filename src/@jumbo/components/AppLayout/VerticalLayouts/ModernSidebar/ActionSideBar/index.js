@@ -32,7 +32,7 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN } from '../../../../../../redux/actions/types';
+import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT } from '../../../../../../redux/actions/types';
 import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
 import { logout } from '../../../../../../redux/actions/Auth';
 import { createOrder } from '../../../../../../redux/actions/CartApp';
@@ -85,12 +85,15 @@ const ActionSideBar = ({ width }) => {
   const cart = useSelector(({cartApp}) => cartApp);
   const { authUser } = useSelector(({auth}) => auth);
 
-  const { notifications, isDrawerOpen, activeOption, action } = useSelector(({uiReducer}) => uiReducer)
+  const { notifications, isDrawerOpen, activeOption, notifCount } = useSelector(({uiReducer}) => uiReducer)
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
   const onIconClick = option => {
     setSidebarOpen(false);
-
+        if(option === 'notifications'){
+          console.log('THIS IS NOTIF')
+          dispatch({type: SET_NOTIF_COUNT, payload: 0})
+        }
 
 
           dispatch({type: SET_ACTIVE_OPTION, payload: option})
@@ -104,7 +107,6 @@ const ActionSideBar = ({ width }) => {
     //   dispatch({type: SET_ACTION, payload: action})
     //   dispatch({type: SET_ACTIVE_OPTION, payload: (option === 'notification' || option === 'profile') ? action : 'cart'})
     // } else{
-    //   console.log('SULOD HA')
     //   dispatch({type: SET_ACTION, payload: 'cart'})
     //   dispatch({type: SET_ACTIVE_OPTION, payload: option})
     // }
@@ -122,12 +124,16 @@ const ActionSideBar = ({ width }) => {
   };
 
   const onItemClick = item => {
+    setSidebarOpen(false);
+
     if (item.label === 'Logout') {
-      dispatch(AuhMethods[CurrentAuthMethod].onLogout());
+      dispatch(logout());
     }
     if (item.label === 'Account') {
       // setActiveOption('profile');
       dispatch({type: SET_ACTIVE_OPTION, payload: 'profile'})
+      dispatch({type: SET_DRAWER_OPEN, payload: true})
+
     }
   };
 
@@ -156,6 +162,8 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
+
+  console.log(notifCount)
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
@@ -187,7 +195,7 @@ const ActionSideBar = ({ width }) => {
         </Tooltip>
         <Tooltip title="Notifications">
           <IconButton className={classes.iconBtn} onClick={() => onIconClick('notifications')}>
-            <Badge badgeContent={notifications.length} classes={{ badge: classes.counterRoot }} overlap="rectangular">
+            <Badge badgeContent={notifCount} classes={{ badge: classes.counterRoot }} overlap="rectangular">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -218,7 +226,9 @@ const ActionSideBar = ({ width }) => {
         <Hidden lgUp>
           <CmtDropdownMenu
             onItemClick={onItemClick}
-            TriggerComponent={<CmtAvatar src={'https://via.placeholder.com/150'} />}
+            TriggerComponent={
+              <CmtAvatar src={`${commonData.staticUrl}${authUser.dpUrl}`} />
+          }
             items={actionsList}
           />
         </Hidden>

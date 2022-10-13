@@ -59,8 +59,6 @@ export default function ProceedPayment() {
       dispatch({type: SET_CREATE_CUSTOMER_DIALOG, payload: val ? val : false})
   }
 
-  console.log(customersList)
-
   useEffect(() => {
     let { customerId, customers } = cart ? cart : {};
     let customer = null
@@ -81,8 +79,6 @@ export default function ProceedPayment() {
 
 
 
-  console.log(cart)
-  console.log(action)
   return (
     <Box className={classes.rootWrap}>
       <CreateCustomer

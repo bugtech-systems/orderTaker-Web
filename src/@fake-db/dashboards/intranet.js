@@ -961,6 +961,289 @@ export const intranet = {
       timeRange: '05:30 pm - 21.07.20',
       createdAt: getCustomDateTime(-10, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
     },
+    {
+      id: 10,
+      user: {
+        id: 100,
+        name: 'Atul Midha',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'PROJECT_INVITATION',
+      metaData: {
+        sender: {
+          id: 123,
+          name: 'Murli Swami',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        project: { id: 12, name: 'Mouldify' },
+      },
+      likes: 123,
+      shares: 25,
+      timeRange: '10:30 am - 22.07.20', //  timeFromNow(),
+      createdAt: getCustomDateTime(-5, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 11,
+      user: {
+        id: 101,
+        name: 'Dinesh Suthar',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'PHOTOS_UPLOADED',
+      metaData: {
+        user: {
+          id: 1234,
+          name: 'Tanmay Goswami',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        group: 'Art Lovers',
+        count: 6,
+        photos: [
+          {
+            id: 1,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Beauty with Beast',
+          },
+          {
+            id: 2,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Nature Love',
+          },
+          {
+            id: 3,
+            photo_url: 'https://via.placeholder.com/400x400',
+            caption: 'Forest',
+          },
+          {
+            id: 4,
+            photo_url: 'https://via.placeholder.com/400x400',
+            caption: 'Nature at its best',
+          },
+          {
+            id: 5,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Sea House',
+          },
+          {
+            id: 6,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Minimal',
+          },
+        ],
+      },
+      likes: 129,
+      shares: 25,
+      timeRange: '09:30 am - 22.07.20',
+      createdAt: getCustomDateTime(-7, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 12,
+      user: {
+        id: 102,
+        name: 'John Doe',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'SHARED_POST',
+      metaData: {
+        user: {
+          id: 124,
+          name: 'Jacky Roy',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        post: { title: 'This is Beginning' },
+      },
+      likes: 5677,
+      shares: 345,
+      timeRange: '06:30 am - 22.07.20',
+      createdAt: getCustomDateTime(-8, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 13,
+      user: {
+        id: 105,
+        name: 'North Taylor',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'PROJECT_INVITATION',
+      metaData: {
+        sender: {
+          id: 130,
+          name: 'Joe Root',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        project: { id: 13, name: 'Jumbo' },
+      },
+      likes: 234,
+      shares: 86,
+      timeRange: '03:30 am - 22.07.20',
+      createdAt: getCustomDateTime(-10, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 14,
+      user: {
+        id: 756,
+        name: 'Peter Broad',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'PHOTOS_UPLOADED',
+      metaData: {
+        user: {
+          id: 1234,
+          name: 'James Anderson',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        count: 8,
+        group: 'Javascript Experts',
+        photos: [
+          {
+            id: 1,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Beauty with Beast',
+          },
+          {
+            id: 2,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Nature Love',
+          },
+          {
+            id: 3,
+            photo_url: 'https://via.placeholder.com/400x400',
+            caption: 'Forest',
+          },
+          {
+            id: 4,
+            photo_url: 'https://via.placeholder.com/400x400',
+            caption: 'Nature at its best',
+          },
+          {
+            id: 5,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Sea House',
+          },
+          {
+            id: 6,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Minimal',
+          },
+          {
+            id: 7,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Beauty with Beast',
+          },
+          {
+            id: 8,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Nature Love',
+          },
+        ],
+      },
+      likes: 457,
+      shares: 54,
+      timeRange: '12:30 am - 22.07.20',
+      createdAt: getCustomDateTime(-15, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 15,
+      user: {
+        id: 455,
+        name: 'Rose Taylor',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'SHARED_POST',
+      metaData: {
+        user: {
+          id: 765,
+          name: 'Robert Twose',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        post: { title: 'Introduction to Javascript' },
+      },
+      likes: 768,
+      shares: 567,
+      timeRange: '11:30 pm - 21.07.20',
+      createdAt: getCustomDateTime(-1, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 16,
+      user: {
+        id: 676,
+        name: 'Williams Blake',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'PROJECT_INVITATION',
+      metaData: {
+        sender: {
+          id: 544,
+          name: 'Janifer decibel',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        project: { id: 16, name: 'Wieldy' },
+      },
+      likes: 856,
+      shares: 45,
+      timeRange: '10:30 pm - 21.07.20',
+      createdAt: getCustomDateTime(-3, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 17,
+      user: {
+        id: 906,
+        name: 'Steve Law',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'PHOTOS_UPLOADED',
+      metaData: {
+        user: {
+          id: 786,
+          name: 'Dhruva Sharma',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        count: 3,
+        group: 'React Lovers',
+        photos: [
+          {
+            id: 1,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Beauty with Beast',
+          },
+          {
+            id: 2,
+            photo_url: 'https://via.placeholder.com/600x400',
+            caption: 'Nature Love',
+          },
+          {
+            id: 3,
+            photo_url: 'https://via.placeholder.com/400x400',
+            caption: 'Forest',
+          },
+        ],
+      },
+      likes: 768,
+      shares: 43,
+      timeRange: '09:30 pm - 21.07.20',
+      createdAt: getCustomDateTime(-6, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
+    {
+      id: 18,
+      user: {
+        id: 678,
+        name: 'Brett Heavy',
+        profile_pic: 'https://via.placeholder.com/150x150',
+      },
+      type: 'SHARED_POST',
+      metaData: {
+        user: {
+          id: 657,
+          name: 'Ian hughes',
+          profile_pic: 'https://via.placeholder.com/150x150',
+        },
+        post: { title: 'A road to good development' },
+      },
+      likes: 76656,
+      shares: 4566,
+      timeRange: '05:30 pm - 21.07.20',
+      createdAt: getCustomDateTime(-10, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
+    },
   ],
   latestNotifications: [
     {
@@ -988,6 +1271,82 @@ export const intranet = {
         },
         {
           id: 2,
+          user: {
+            id: 676,
+            name: 'Williams Blake',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+          type: 'PROJECT_INVITATION',
+          metaData: {
+            sender: {
+              id: 544,
+              name: 'Janifer decibel',
+              profile_pic: 'https://via.placeholder.com/150x150',
+            },
+            project: { id: 16, name: 'Wieldy' },
+          },
+          timeRange: '10:30 pm - 21.07.20',
+          createdAt: getCustomDateTime(-3, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
+        },
+        {
+          id: 3,
+          user: {
+            id: 100,
+            name: 'Atul Midha',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+          type: 'PROJECT_INVITATION',
+          metaData: {
+            sender: {
+              id: 123,
+              name: 'Murli Swami',
+              profile_pic: 'https://via.placeholder.com/150x150',
+            },
+            project: { id: 12, name: 'Mouldify' },
+          },
+          timeRange: '10:30 am - 22.07.20', //  timeFromNow(),
+          createdAt: getCustomDateTime(-5, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+        },
+        {
+          id: 4,
+          user: {
+            id: 676,
+            name: 'Williams Blake',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+          type: 'PROJECT_INVITATION',
+          metaData: {
+            sender: {
+              id: 544,
+              name: 'Janifer decibel',
+              profile_pic: 'https://via.placeholder.com/150x150',
+            },
+            project: { id: 16, name: 'Wieldy' },
+          },
+          timeRange: '10:30 pm - 21.07.20',
+          createdAt: getCustomDateTime(-3, 'hours', 'MMMM DD, YYYY, h:mm:ss a'),
+        },
+        {
+          id: 5,
+          user: {
+            id: 100,
+            name: 'Atul Midha',
+            profile_pic: 'https://via.placeholder.com/150x150',
+          },
+          type: 'PROJECT_INVITATION',
+          metaData: {
+            sender: {
+              id: 123,
+              name: 'Murli Swami',
+              profile_pic: 'https://via.placeholder.com/150x150',
+            },
+            project: { id: 12, name: 'Mouldify' },
+          },
+          timeRange: '10:30 am - 22.07.20', //  timeFromNow(),
+          createdAt: getCustomDateTime(-5, 'minutes', 'MMMM DD, YYYY, h:mm:ss a'),
+        },
+        {
+          id: 6,
           user: {
             id: 676,
             name: 'Williams Blake',
