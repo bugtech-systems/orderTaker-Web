@@ -74,11 +74,11 @@ useEffect(() => {
 
 
   if(authUser && authUser.id) {
-  socket = socketIOClient(`${commonData.hostUrl}`, {
+  socket = socketIOClient(`https://www.allinpaking.online`, {
       extraHeaders: {
         Authorization: `Bearer ${authUser.id}`
       },
-      path: "/app"
+      // path: "/app"
       // transports: ["websocket"]
     });
 
