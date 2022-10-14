@@ -130,7 +130,7 @@ const SignIn = ({
     <AuthWrapper variant={wrapperVariant}>
       {variant === "default" ? (
         <Box className={classes.authThumb}>
-          <CmtImage src={`${commonData.staticUrl}/images/auth/login-img.png`} />
+          <CmtImage src={`${commonData.staticUrl}images/auth/login-img.png`} />
         </Box>
       ) : null}
       <Box className={classes.authContent}>

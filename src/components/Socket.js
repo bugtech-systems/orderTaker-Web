@@ -65,7 +65,7 @@ const playVibrate = (url) => {
 
 const playSound = (url) => {
   console.log(`${commonData.staticUrl} `)
-const audio = new Audio(`${commonData.staticUrl}/assets/moans.mp3`);
+const audio = new Audio(`${commonData.staticUrl}assets/moans.mp3`);
 audio.play();
 }
 
