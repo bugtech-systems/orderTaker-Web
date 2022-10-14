@@ -1738,9 +1738,9 @@ export const intranet = {
         // city: 'NJ',
         // state: 'California',
         // zipCode: 455473,
-        phoneNumber1: '09777142354',
-        phoneNumber2: '09612402623',
-        emailAddress: 'ajahardware@icloud.com',
+        phoneNumber1: '(532)-4202-230',
+        phoneNumber2: '+639261905502',
+        emailAddress: 'jezedev21kiel@pm.me',
         mapDirectionLink:
           'https://www.google.com/maps/dir/11.2291284,125.0057587/11.2120496,124.3917388/@11.1825919,124.4264297,10z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0',
       },
