@@ -1,6 +1,7 @@
 {
   "name": "aja-pos",
   "version": "0.1.0",
+  "homepage": "https://www.allinpaking.online",
   "private": true,
   "dependencies": {
     "@amcharts/amcharts4": "^4.9.34",
