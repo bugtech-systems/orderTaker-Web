@@ -78,6 +78,7 @@ useEffect(() => {
       extraHeaders: {
         Authorization: `Bearer ${authUser.id}`
       },
+      path: "/app"
       // transports: ["websocket"]
     });
 
