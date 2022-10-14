@@ -16,9 +16,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const filterList = [
-  { title: 'Invitations', slug: 'INVITATION' },
-  { title: 'Messages', slug: 'MESSAGES' },
-  { title: 'Feeds', slug: 'FEEDS' },
+  { title: 'Sales', slug: 'SALES' },
+  { title: 'Limits', slug: 'LIMITS' },
+  { title: 'Activities', slug: 'ACTIVITIES' },
 ];
 
 const FilterForm = ({ setListsToShow, listsToShow }) => {

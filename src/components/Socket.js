@@ -49,8 +49,9 @@ const handleClick = (url) => {
   console.log(`${commonData.staticUrl} `)
 // const audio = new Audio(`${commonData.staticUrl}/assets/notif1.mp3`);
 // audio.play();
-playVibrate();
 playSound();
+playVibrate();
+
 }
 
 const playVibrate = (url) => {
@@ -64,7 +65,7 @@ const playVibrate = (url) => {
 
 const playSound = (url) => {
   console.log(`${commonData.staticUrl} `)
-const audio = new Audio(`${commonData.staticUrl}/assets/notif1.mp3`);
+const audio = new Audio(`${commonData.staticUrl}/assets/moans.mp3`);
 audio.play();
 }
 

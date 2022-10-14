@@ -2,27 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import { Box, Hidden, IconButton, withWidth, Tooltip } from '@material-ui/core';
-// import SearchIcon from '@material-ui/icons/Search';
-// import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
-// import SettingsIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CloseIcon from '@material-ui/icons/Close';
 
 import CmtDropdownMenu from '../../../../../../@coremat/CmtDropdownMenu';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 import SidebarToggleHandler from '../../../../../../@coremat/CmtLayouts/Vertical/SidebarToggleHandler';
 import LayoutContext from '../../../../../../@coremat/CmtLayouts/LayoutContext';
-
-import { AuhMethods } from '../../../../../../services/auth';
-import { CurrentAuthMethod } from '../../../../../constants/AppConstants';
-// import Logo from '../../../partials/Logo';
 import ActionBarDrawer from './ActionBarDrawer';
-
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 //Icons
@@ -33,10 +24,7 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT } from '../../../../../../redux/actions/types';
-import { setCurrentCustomer} from '../../../../../../redux/actions/Customer';
 import { logout } from '../../../../../../redux/actions/Auth';
-import { createOrder } from '../../../../../../redux/actions/CartApp';
-import { fetchError, fetchSuccess } from '../../../../../../redux/actions/Common';
 import commonData from 'utils/commonData';
 
 
@@ -90,6 +78,8 @@ const ActionSideBar = ({ width }) => {
 
   const onIconClick = option => {
     setSidebarOpen(false);
+      
+    
         if(option === 'notifications'){
           console.log('THIS IS NOTIF')
           dispatch({type: SET_NOTIF_COUNT, payload: 0})
@@ -183,9 +173,6 @@ const ActionSideBar = ({ width }) => {
       </div>
 
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} ml={{ xs: 'auto', lg: 'unset' }}>
-        {/* <IconButton className={classes.iconBtn} onClick={() => onIconClick('messages')}>
-          <MessageIcon />
-        </IconButton> */}
         <Tooltip title="Cart">
           <IconButton className={classes.iconBtn} onClick={() => onIconClick('cart')}>
             <Badge badgeContent={cart.cart_items.length} classes={{ badge: classes.counterRoot }} overlap="rectangular">
@@ -200,22 +187,8 @@ const ActionSideBar = ({ width }) => {
             </Badge>
           </IconButton>
         </Tooltip>
-
-        {/* {isSidebarOpen && (width === 'lg' || width === 'xl') && (
-          <IconButton className={classes.iconBtn} onClick={() => setSidebarOpen(!isSidebarOpen)}>
-            <MoreVertIcon />
-          </IconButton>
-        )} */}
       </Box>
-
       <Box display="flex" flexDirection={{ xs: 'row', lg: 'column' }} mt={{ xs: 'unset', lg: 'auto' }}>
-        {/* <Hidden smDown>
-          <Tooltip title="Settings">
-            <IconButton className={classes.iconBtn} onClick={() => onIconClick('settings')}>
-              <SettingsIcon />
-            </IconButton>
-          </Tooltip>
-        </Hidden> */}
         <Hidden smDown>
           <Tooltip title="Logout">
             <IconButton className={classes.iconBtn} onClick={handleLogout}>

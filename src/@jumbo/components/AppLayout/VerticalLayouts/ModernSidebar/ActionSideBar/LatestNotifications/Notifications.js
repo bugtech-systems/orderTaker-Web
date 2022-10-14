@@ -44,9 +44,9 @@ const NotificationSnackBar = props => {
 };
 
 const feedTypes = {
-  PROJECT_INVITATION: ProjectInvitation,
-  PHOTOS_UPLOADED: PhotosUploaded,
-  SHARED_POST: SharedPost,
+  SALES: ProjectInvitation,
+  LIMITS: PhotosUploaded,
+  ACTIVITIES: SharedPost,
 };
 
 const RenderFeedItem = ({ item, updateFeed }) => {
@@ -56,12 +56,14 @@ const RenderFeedItem = ({ item, updateFeed }) => {
 };
 
 const contentTypes = {
-  INVITATION: ProjectInvitation,
-  FEEDS: RenderFeedItem,
-  MESSAGES: NotificationItem,
+  SALES: ProjectInvitation,
+  LIMITS: RenderFeedItem,
+  ACTIVITES: NotificationItem,
 };
 
 const RenderRow = ({ type, item, updateNotificationItem }) => {
+    console.log(type)
+    console.log(item)
   const RenderItemRow = contentTypes[type];
 
   const onReadUnread = (notification, type) => {

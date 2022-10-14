@@ -6,6 +6,7 @@ import BaseItem from './BaseItem';
 import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import Snackbar from '@material-ui/core/Snackbar';
+import commonData from 'utils/commonData';
 
 const NotificationSnackBar = props => {
   return (
@@ -43,14 +44,14 @@ const ProjectInvitation = ({ item }) => {
     return (
       <Typography component="div" variant="h5" className={classes.titleRoot}>
         <Box component="span" color="primary.main">
-          {item.metaData.sender.name}
+          {item.title}
         </Box>
         <Box component="span" ml={1}>
-          has sent you an invitation to join project
+          {item.description}
         </Box>
-        <Box component="span" color="primary.main" ml={1}>
+        {/* <Box component="span" color="primary.main" ml={1}>
           {item.metaData.project.name}
-        </Box>
+        </Box> */}
       </Typography>
     );
   };
@@ -60,9 +61,9 @@ const ProjectInvitation = ({ item }) => {
       <BaseItem
         item={item}
         title={getTitle()}
-        avatar={item.metaData.sender.profile_pic}
-        username={item.metaData.sender.name}>
-        <Box mr={2} my={1}>
+        avatar={`${commonData.staticUrl}${item.sender.dpUrl}`}
+        username={item.sender.name}>
+        {/* <Box mr={2} my={1}>
           <Button
             className={clsx(classes.btnRoot)}
             size="small"
@@ -71,9 +72,9 @@ const ProjectInvitation = ({ item }) => {
             onClick={onInvitationAccept}>
             Accept
           </Button>
-        </Box>
+        </Box> */}
 
-        <Box mr={2} my={1}>
+        {/* <Box mr={2} my={1}>
           <Button
             className={clsx(classes.btnRoot)}
             size="small"
@@ -82,7 +83,7 @@ const ProjectInvitation = ({ item }) => {
             onClick={onInvitationReject}>
             Reject
           </Button>
-        </Box>
+        </Box> */}
       </BaseItem>
       <NotificationSnackBar message={snackBarMessage} open={openSnackBar} onClose={onSnackBarClose} />
     </React.Fragment>
