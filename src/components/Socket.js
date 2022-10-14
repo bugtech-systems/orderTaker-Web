@@ -74,7 +74,7 @@ useEffect(() => {
 
 
   if(authUser && authUser.id) {
-  socket = socketIOClient(`https://www.allinpaking.online`, {
+  socket = socketIOClient(`${commonData.hostUrl}`, {
       extraHeaders: {
         Authorization: `Bearer ${authUser.id}`
       },
