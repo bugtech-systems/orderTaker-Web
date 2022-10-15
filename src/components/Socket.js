@@ -44,7 +44,6 @@ const handleNotification = (val) => {
 
 
 const handleClick = (url) => {
-  console.log(`${commonData.staticUrl} `)
 // const audio = new Audio(`${commonData.staticUrl}/assets/notif1.mp3`);
 // audio.play();
 playSound();
@@ -77,10 +76,6 @@ useEffect(() => {
       // transports: ["websocket"]
     });
 
-    console.log('SOCKET INIT')
-
-
-
       socket.on("notification", val => {
         handleNotification(val);
         });
@@ -96,14 +91,10 @@ return () => {
 
 }, [authUser]);
 
-console.log(authUser)
-
 useEffect(() => {
 console.log(uiState.notifCount)
   setNtfCount(uiState.notifCount);
 }, [uiState])
-
-console.log(ntfCount);
 
   return (
     <div 
