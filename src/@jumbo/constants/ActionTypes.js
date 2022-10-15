@@ -82,3 +82,8 @@ export const SET_USER_DETAILS = 'SET_USER_DETAILS';
 export const EDIT_USER = 'EDIT_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const DELETE_BULK_USERS = 'DELETE_BULK_USERS';
+
+
+// Stores Module
+export const SET_STORE_DETAILS = 'SET_STORE_DETAILS';
+export const EDIT_STORE = 'EDIT_STORE';

@@ -117,7 +117,7 @@ const UserDetail = () => {
       actionMenuClassName={classes.actionMenu}>
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardMedia className={classes.cardMediaRoot} 
-      // image={'https://via.placeholder.com/350x200'}
+      image={'https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX9896883.jpg'}
       >
         
         <Box className={classes.cardMediaContent}>

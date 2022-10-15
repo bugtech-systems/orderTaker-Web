@@ -5,6 +5,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_USER = 'SET_USER';
 export const SET_BUSINESS = 'SET_BUSINESS';
+export const SET_STORE = 'SET_STORE';
 export const UPDATE_AUTH_USER = 'UPDATE_AUTH_USER';
 export const UPDATE_LOAD_USER = 'UPDATE_LOAD_USER';
 export const CLEAR_USER = 'CLEAR_USER';
@@ -30,13 +31,16 @@ export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 export const SET_NOTIF_COUNT = 'SET_NOTIF_COUNT';
 
 
-
+// STORE
+export const SET_SELECTED_STORE = 'SET_SELECTED_STORE';
+export const SET_STORE_DETAILS = 'SET_STORE_DETAILS';
 
 //DATA
 export const SET_DATA = 'SET_DATA';
 export const SET_INIT_OBJ = 'SET_INIT_OBJ';
 export const CLEAR_DATA = 'CLEAR_DATA';
 export const SET_SELECTED_USER = 'SET_SELECTED_USER';
+export const SET_USER_DETAILS = 'SET_USER_DETAILS';
 
 //LABELS
 
@@ -100,3 +104,4 @@ export const UPDATE_POST = 'update_post';
 export const SET_DASHBOARD_DATA = 'SET_DASHBOARD_DATA';
 export const CLEAR_DASHBOARD_DATA = 'CLEAR_DASHBOARD_DATA';
 export const SET_TODAY_SALES = 'SET_TODAY_SALES';
+export const SET_STORE_DIALOG = 'SET_STORE_DIALOG';

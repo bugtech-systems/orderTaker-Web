@@ -4,16 +4,20 @@ import {
   DELETE_BULK_USERS,
   DELETE_USER,
   EDIT_USER,
+  EDIT_STORE,
   GET_USERS,
+  GET_STORE,
   SET_USER_DETAILS,
+  SET_STORE_DETAILS,
 } from '../../@jumbo/constants/ActionTypes';
 import { SET_SELECTED_USER } from './types';
+import { SET_SELECTED_STORE } from './types';
+
 
 // import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
 import { authHeader } from '../../services/auth-header';
 import { getUserData } from './Auth';
-
 
 
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
@@ -40,6 +44,13 @@ export const setCurrentUser = user => {
   return dispatch => {
     dispatch({ type: SET_USER_DETAILS, payload: user });
     dispatch({ type: SET_SELECTED_USER, payload: user });
+  };
+};
+
+export const setCurrentStore = store => {
+  return dispatch => {
+    dispatch({ type: SET_STORE_DETAILS, payload: store });
+    dispatch({ type: SET_SELECTED_STORE, payload: store });
   };
 };
 
@@ -173,5 +184,3 @@ export const uploadFile = (data, callbackFun) => dispatch =>  {
         return Promise.reject(error);
       });
   };
-
-
