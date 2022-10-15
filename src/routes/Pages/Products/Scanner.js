@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch} from 'react-redux';
 import { setFilterType} from '../../../redux/actions/ProductApp';
 
-import BarcodeScannerComponent from "react-qr-barcode-scanner";
+// import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 // import DialogTitle from '@material-ui/core/DialogTitle';
 // import DialogContent from '@material-ui/core/DialogContent';
@@ -91,11 +91,11 @@ const ProductScanner = ({onChangeViewMode}) => {
       <br/>
       {/* {scan && ( */}
     {open &&   ( <div className="w-10 h-10">
-          <BarcodeScannerComponent
+          {/* <BarcodeScannerComponent
             width={150}
             height={150}
             onUpdate={barcodeScannerComponentHandleUpdate}
-          />
+          /> */}
         </div>
       )
      } 

@@ -22,7 +22,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { uploadFile } from '../../../../../redux/actions/Users';
-import { UPDATE_CART } from 'redux/actions/types';
+import { SET_USER } from 'redux/actions/types';
 
 
 
@@ -67,8 +67,19 @@ const labels = [
 const CreateCustomer = ({ open, handleDialog }) => {
   const { currentCustomer, customersList } = useSelector(({ customerApp }) => customerApp);
   const cart = useSelector(({cartApp}) => cartApp);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
 
   const dispatch = useDispatch();
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const classes = useStyles();
   const [values, setValues] = useState({ 
     phones:[{phone: '', label: 'home'}],
@@ -145,17 +156,17 @@ const CreateCustomer = ({ open, handleDialog }) => {
       limit: limit ? limit : 0,
       balance: balance ? balance : 0,
     };
-    if (currentCustomer.id) {
+    if (currentCustomer) {
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
       handleDialog(false);
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}))
       .then(res => {
-        dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
+        dispatch({type: SET_USER, payload: { ...values, currentCustomer: createCustomer  }})
         handleDialog(false);
       })
       .catch(err => {
-        console.log('SUBMIT ERROR!!!')
+        // console.log('SUBMIT ERROR!!!')
         console.log(err)
       })
       ;
@@ -167,7 +178,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
     if(currentCustomer){
       setValues(currentCustomer)
     }
-  }, [currentCustomer])
+  }, [createCustomer])
 
   return (
     <Dialog open={open} onClose={() => handleDialog(false)} className={classes.dialogRoot}>
@@ -305,4 +316,5 @@ CreateCustomer.prototype = {
 
 CreateCustomer.defaultProps = {
   selectedCustomer: null,
+  createCustomer: PropTypes.object,
 };
