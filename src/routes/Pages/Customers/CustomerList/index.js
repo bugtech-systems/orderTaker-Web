@@ -17,7 +17,7 @@ import { SET_CREATE_CUSTOMER_DIALOG } from 'redux/actions/types';
 const Customer = () => {
   const classes = useStyles();
   const { isSideBarCollapsed } = useSelector(({ customerApp }) => customerApp);
-  const { createCustomerDialog } = useSelector(({uiReducer}) => uiReducer);
+  const { createCustomerDialog,  } = useSelector(({uiReducer}) => uiReducer);
 
   const [viewMode, setViewMode] = useState('table');
   const [showCustomerDetail, setShowCustomerDetail] = useState(false);
