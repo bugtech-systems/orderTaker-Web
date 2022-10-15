@@ -3,14 +3,12 @@ import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import CallIcon from '@material-ui/icons/Call';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-// import DeleteButton from '@material-ui/core/DeleteButton';
 
 import { intranet } from '../../../../../@fake-db';
 import { alpha, makeStyles } from '@material-ui/core/styles';
@@ -20,6 +18,10 @@ import { blue, pink } from '@material-ui/core/colors';
 import { SET_USER_DIALOG } from 'redux/actions/types';
 import { setCurrentUser } from 'redux/actions/Users';
 import commonData from 'utils/commonData';
+
+import { SET_STORE_DIALOG } from 'redux/actions/types';
+import { setCurrentStore } from 'redux/actions/Users';
+
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -87,23 +89,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OurStore = () => {
-  const { addresses, title, business, description } = intranet.ourOfficeData;
+  const { addresses, title, description, business } = intranet.ourOfficeData;
   const { name, address } = business ? business : {};
   const [currentAddress] = useState(addresses[0]);
-  const { authUser } = useSelector(({auth}) => auth);
+  // const { authUser } = useSelector(({auth}) => auth);
+  const { authStore } = useSelector(({auth}) => auth);
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // const handleEdit = () => {
+  //   dispatch(setCurrentUser(authUser));
+  //   dispatch({type: SET_USER_DIALOG, payload: true});
+  // }
 
   const handleEdit = () => {
-    dispatch(setCurrentUser(authUser));
-    dispatch({type: SET_USER_DIALOG, payload: true});
+    dispatch(setCurrentStore(authStore));
+    dispatch({type: SET_STORE_DIALOG, payload: true});
   }
 
   return (
     <CmtCard className={classes.cardRoot}>
-        <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardHeader title={name} subTitle={address} />
+        <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
 
       <CmtCardContent>
         <Box mb={5}>

@@ -104,7 +104,6 @@ const UserDetail = () => {
   const handleEdit = () => {
     dispatch(setCurrentUser(authUser));
     dispatch({type: SET_USER_DIALOG, payload: true});
-    
   }
 
   return (

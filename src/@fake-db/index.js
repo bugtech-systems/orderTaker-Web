@@ -12,4 +12,5 @@ export * from './modules/users';
 export * from './modules/cart';
 export * from './modules/customers';
 export * from './modules/products';
+export * from './modules/stores';
 

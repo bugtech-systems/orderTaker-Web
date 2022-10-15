@@ -85,5 +85,6 @@ export const DELETE_BULK_USERS = 'DELETE_BULK_USERS';
 
 
 // Stores Module
+export const GET_STORES = 'GET_STORES';
 export const SET_STORE_DETAILS = 'SET_STORE_DETAILS';
 export const EDIT_STORE = 'EDIT_STORE';

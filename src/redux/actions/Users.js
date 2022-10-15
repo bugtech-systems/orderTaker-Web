@@ -6,9 +6,11 @@ import {
   EDIT_USER,
   EDIT_STORE,
   GET_USERS,
-  GET_STORE,
+  GET_STORES,
   SET_USER_DETAILS,
   SET_STORE_DETAILS,
+  SET_STORE_DIALOGS,
+  SET_USER_DIALOGS,
 } from '../../@jumbo/constants/ActionTypes';
 import { SET_SELECTED_USER } from './types';
 import { SET_SELECTED_STORE } from './types';
@@ -17,7 +19,7 @@ import { SET_SELECTED_STORE } from './types';
 // import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
 import { authHeader } from '../../services/auth-header';
-import { getUserData } from './Auth';
+import { getUserData, getStoreData } from './Auth';
 
 
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
@@ -29,6 +31,26 @@ export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
           dispatch({ type: GET_USERS, payload: data.data });
+          if (callbackFun) callbackFun(data.data);
+        } else {
+          dispatch(fetchError('There was something issue in responding server.'));
+        }
+      })
+      .catch(error => {
+        dispatch(fetchError('There was something issue in responding server'));
+      });
+  };
+};
+
+export const getStores = (filterOptions = [], searchTerm = '', callbackFun) => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios
+      .get(`${commonData.apiUrl}/stores`, { params: { filterOptions, searchTerm } })
+      .then(data => {
+        if (data.status === 200) {
+          dispatch(fetchSuccess());
+          dispatch({ type: GET_STORES, payload: data.data });
           if (callbackFun) callbackFun(data.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));
@@ -103,6 +125,30 @@ export const updateUser = (user, callbackFun) => {
       });
   };
 };
+
+export const updateStore = (store, callbackFun) => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios
+      .put(`${commonData.apiUrl}/stores/${store.id}`, store)
+      .then(data => {
+        dispatch(fetchSuccess('Selected store was updated successfully.'));
+
+        if (data.status === 200) {
+          dispatch(getStoreData())
+          dispatch(getStores());
+          if (callbackFun) callbackFun(data.data);
+        } else {
+          dispatch(fetchError('There was something issue in responding server.'));
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(fetchError('There was something issue in responding server'));
+      });
+  };
+};
+
 
 export const updateUserStatus = (data, callbackFun) => {
   let { status, id } = data;
