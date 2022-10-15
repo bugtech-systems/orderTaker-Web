@@ -9,7 +9,7 @@ import commonData from "../utils/commonData";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { getAllNotifications } from "redux/actions/Notification";
-import { SET_NOTIFICATIONS, SET_NOTIF_COUNT } from "redux/actions/types";
+import { SET_NOTIF_COUNT } from "redux/actions/types";
 
 export default function Socket() {
   const dispatch = useDispatch();
@@ -28,7 +28,6 @@ export default function Socket() {
 
 
 const handleNotification = (val) => {
-  console.log('Notif Receive');
   let notifications = uiState.notifications;
   notifications.unshift(val);
       handleClick()
@@ -40,7 +39,6 @@ const handleNotification = (val) => {
         console.log(err)
       })
       // dispatch({type: SET_NOTIFICATIONS, payload: { notifications }})
-
   }
 
 
@@ -57,9 +55,6 @@ playVibrate();
 const playVibrate = (url) => {
   navigator.vibrate(20000); // vibrate for 200ms
 // navigator.vibrate([100,30,100,30,100,30,200,30,200,30,200,30,100,30,100,30,100])
-  // console.log(`${commonData.staticUrl} `)
-// const audio = new Audio(`${commonData.staticUrl}/assets/notif1.mp3`);
-// audio.play();
 }
 
 
@@ -71,12 +66,12 @@ audio.play();
 
 useEffect(() => {
   let socket  = null;
-
+  let token = localStorage.getItem('idToken')
 
   if(authUser && authUser.id) {
   socket = socketIOClient(`${commonData.hostUrl}`, {
       extraHeaders: {
-        Authorization: `Bearer ${authUser.id}`
+        Authorization: `Bearer ${token}`
       },
       // path: "/app"
       // transports: ["websocket"]
@@ -100,6 +95,8 @@ return () => {
   }
 
 }, [authUser]);
+
+console.log(authUser)
 
 useEffect(() => {
 console.log(uiState.notifCount)
