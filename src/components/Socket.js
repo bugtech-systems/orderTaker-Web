@@ -82,11 +82,11 @@ useEffect(() => {
 
 
         socket.on("pdf-webhook", val => {
-          // alert(val)
+          alert(val)
           let a = document.createElement('a');
           a.href = val.filePath;
           a.target = '_blank';
-          a.download = 'pdf';
+          a.download = val.filename;
           document.body.appendChild(a);
           a.click();
           a.parentNode.removeChild(a);
