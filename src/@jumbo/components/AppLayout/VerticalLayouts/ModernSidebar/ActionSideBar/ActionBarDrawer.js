@@ -23,6 +23,7 @@ import CartFooter from './CartDetail/CartFooter';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
+import { setOrderReceipt } from 'redux/actions/Report.action';
 
 
 
@@ -99,12 +100,17 @@ const useStyles = makeStyles(theme => ({
 const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
   const cart = useSelector(({cartApp}) => cartApp);
+  const dispatch = useDispatch();
 
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
 
+  const handlePrint = () => {
+    dispatch(setOrderReceipt(cart));
+  }
 
   console.log(action)
   console.log(activeOption)
+  console.log(cart)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
@@ -118,12 +124,17 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
         </Box>
-        {activeOption === 'cart' && <IconButton>
+        <Box>
+        {
+        activeOption === 'cart' &&
+        ['paidSuccess','paidCart','success', 'unpaid', 'viewCart'].includes(action) && 
+        <IconButton onClick={() => handlePrint()}>
                 <PrintIcon/>
           </IconButton>}
         <IconButton size="small" className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
+          </Box>
       </Box>
       }
           <PerfectScrollbar className={classes.scrollbarRoot}>
