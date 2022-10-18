@@ -11,9 +11,11 @@ const SalesReport = ({ match }) => {
       <Switch>
         <Redirect exact from={`${requestedUrl}/`} to={`${requestedUrl}/sales`} />
         <Route path={`${requestedUrl}/sales`} component={lazy(() => import('./Sales'))} />
-        <Route path={`${requestedUrl}/remittances`} component={lazy(() => import('./Remittances'))} />
+        <Route path={`${requestedUrl}/unpaid`} component={lazy(() => import('./Remittances'))} />
+        <Route path={`${requestedUrl}/purchases`} component={lazy(() => import('../Profile'))} />
+
+        <Route path={`${requestedUrl}/expenses`} component={lazy(() => import('../Settings'))} />
          {/* <Route path={`${requestedUrl}/crm`} component={lazy(() => import('./Crm'))} />
-        <Route path={`${requestedUrl}/intranet`} component={lazy(() => import('./Intranet'))} />
         <Route path={`${requestedUrl}/eCommerce`} component={lazy(() => import('./ECommerce'))} />
         <Route path={`${requestedUrl}/news`} component={lazy(() => import('./News'))} />
         <Route path={`${requestedUrl}/misc`} component={lazy(() => import('./Misc'))} /> */}

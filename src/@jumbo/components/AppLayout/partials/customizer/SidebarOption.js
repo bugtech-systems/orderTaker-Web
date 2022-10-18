@@ -93,7 +93,7 @@ const SidebarOption = () => {
         backgroundImage: sidebarOptions[0].fullImage,
       }));
     }
-  }, [imageOptionsVisibility, setSidebarTheme]);
+  }, [imageOptionsVisibility, setSidebarTheme, sidebarOptions]);
     // console.log(sidebarOptions[0].fullImage)
 
 

@@ -59,7 +59,7 @@ const playVibrate = (url) => {
 
 const playSound = (url) => {
   console.log(`${commonData.staticUrl} `)
-const audio = new Audio(`${commonData.staticUrl}assets/moans.mp3`);
+const audio = new Audio(`${commonData.staticUrl}assets/notif1.mp3`);
 audio.play();
 }
 
@@ -79,6 +79,18 @@ useEffect(() => {
       socket.on("notification", val => {
         handleNotification(val);
         });
+
+
+        socket.on("pdf-webhook", val => {
+          // alert(val)
+          let a = document.createElement('a');
+          a.href = val.filePath;
+          a.target = '_blank';
+          a.download = 'pdf';
+          document.body.appendChild(a);
+          a.click();
+          a.parentNode.removeChild(a);
+          });
 }
 
 
@@ -102,6 +114,7 @@ console.log(uiState.notifCount)
     >
     <div>Socket</div>
     <button onClick={() => handleClick()}>PLAY</button>
+    <a href="javascript: w=window.open('http://localhost:3001/api/files/pdf/PAYTXN_21000.pdf'); w.print();">​​​​​​​​​​​​​​​​​print pdf</a>
     </div>
   )
 }
