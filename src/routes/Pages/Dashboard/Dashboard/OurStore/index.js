@@ -19,8 +19,8 @@ import { SET_USER_DIALOG } from 'redux/actions/types';
 import { setCurrentUser } from 'redux/actions/Users';
 import commonData from 'utils/commonData';
 
-import { SET_STORE_DIALOG } from 'redux/actions/types';
-import { setCurrentStore } from 'redux/actions/Users';
+// import { SET_STORE_DIALOG } from 'redux/actions/types';
+// import { setCurrentStore } from 'redux/actions/Users';
 
 
 const useStyles = makeStyles(theme => ({
@@ -89,24 +89,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OurStore = () => {
-  const { addresses, title, description, business } = intranet.ourOfficeData;
-  const { name, address } = business ? business : {};
+  const { addresses, description, business } = intranet.ourOfficeData;
+  const { name, address, title, contact, currentAddress } = business ? business : {};
   const [currentAddress] = useState(addresses[0]);
-  // const { authUser } = useSelector(({auth}) => auth);
-  const { authStore } = useSelector(({auth}) => auth);
+  const { authUser } = useSelector(({auth}) => auth);
+  // const { authStore } = useSelector(({auth}) => auth);
 
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // const handleEdit = () => {
-  //   dispatch(setCurrentUser(authUser));
-  //   dispatch({type: SET_USER_DIALOG, payload: true});
-  // }
-
   const handleEdit = () => {
-    dispatch(setCurrentStore(authStore));
-    dispatch({type: SET_STORE_DIALOG, payload: true});
+    dispatch(setCurrentUser(authUser));
+    dispatch({type: SET_USER_DIALOG, payload: true});
   }
+
+  // const handleEdit = () => {
+  //   dispatch(setCurrentStore(authStore));
+  //   dispatch({type: SET_STORE_DIALOG, payload: true});
+  // }
 
   return (
     <CmtCard className={classes.cardRoot}>
