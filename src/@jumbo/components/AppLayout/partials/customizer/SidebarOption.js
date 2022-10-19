@@ -44,12 +44,13 @@ const useStyles = makeStyles(theme => ({
 
 const SidebarOption = () => {
   const classes = useStyles();
+  let bg = localStorage.getItem('backgroundImg')
 
   const { sidebarTheme, setSidebarTheme } = useContext(SidebarThemeContext);
   const { themeType } = useContext(AppContext);
-  const [imageOptionsVisibility, setImageOptionsVisibility] = useState(!!sidebarTheme.backgroundImage);
+  const [imageOptionsVisibility, setImageOptionsVisibility] = useState(!bg ? !!sidebarTheme.backgroundImage : bg);
 
-  let sidebarOptions = SIDEBAR_BG_IMAGE_OPTIONS.map(a => {
+  const sidebarOptions = SIDEBAR_BG_IMAGE_OPTIONS.map(a => {
     return {...a, image: commonData.staticUrl + a.image, fullImage: commonData.staticUrl + a.fullImage }
   })
 
@@ -60,18 +61,26 @@ const SidebarOption = () => {
       backgroundColor: '',
       backgroundImage: '',
     });
+
+    localStorage.setItem('backgroundImg', false);
     setImageOptionsVisibility(false);
   };
 
   const toggleImageOptionsVisibility = () => {
     setImageOptionsVisibility(!imageOptionsVisibility);
+    localStorage.setItem('backgroundImg', !imageOptionsVisibility);
+
   };
 
   const changeSidebarImage = option => {
+    let opt = localStorage.getItem('defaultTheme');
+    let current = opt ? JSON.parse(opt) : {};
     setSidebarTheme(sidebarTheme => ({
       ...sidebarTheme,
       backgroundImage: option.fullImage,
     }));
+    current.backgroundImage = option.fullImage;
+    localStorage.setItem('defaultTheme', JSON.stringify(current))
   };
 
   const applySidebarStyle = newSidebarTheme => {
@@ -82,21 +91,26 @@ const SidebarOption = () => {
   };
 
   useEffect(() => {
+    let sbopt = SIDEBAR_BG_IMAGE_OPTIONS.map(a => {
+      return {...a, image: commonData.staticUrl + a.image, fullImage: commonData.staticUrl + a.fullImage }
+    });
+    let opt = localStorage.getItem('defaultTheme');
+    let current = opt ? JSON.parse(opt) : {};
     if (!imageOptionsVisibility) {
       setSidebarTheme(sidebarTheme => ({
         ...sidebarTheme,
         backgroundImage: '',
       }));
+      current.backgroundImage = '';
+
     } else {
       setSidebarTheme(sidebarTheme => ({
         ...sidebarTheme,
-        backgroundImage: sidebarOptions[0].fullImage,
+        backgroundImage: current.backgroundImage ? current.backgroundImage : sbopt[0].fullImage
       }));
     }
-  }, [imageOptionsVisibility, setSidebarTheme, sidebarOptions]);
-    // console.log(sidebarOptions[0].fullImage)
 
-
+  }, [imageOptionsVisibility, setSidebarTheme]);
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader title="Sidebar Option">

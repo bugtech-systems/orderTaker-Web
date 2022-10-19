@@ -108,9 +108,6 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
     dispatch(setOrderReceipt(cart));
   }
 
-  console.log(action)
-  console.log(activeOption)
-  console.log(cart)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>

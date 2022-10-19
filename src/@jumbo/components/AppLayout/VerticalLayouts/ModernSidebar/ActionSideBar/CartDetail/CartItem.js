@@ -170,7 +170,6 @@ const CommentItem = ({ item, handleItem }) => {
 
   let isCart = action === 'cart';
 
-console.log(prd)
   return (
     <Box className={classes.itemRoot}>
       <CmtMediaObject

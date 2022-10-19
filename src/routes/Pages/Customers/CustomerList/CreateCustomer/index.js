@@ -86,7 +86,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
       formData.append("file", acceptedFiles[0]);
 
       dispatch(uploadFile(formData)).then(a => {
-        console.log(a)
         setValues({...values, cover: a.url})
       })
       .catch(err => {
@@ -154,7 +153,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}))
       .then(res => {
-        console.log(res)
         if(isDrawerOpen){
           dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
           dispatch(setCurrentCustomer(res));
@@ -167,7 +165,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
         }
       })
       .catch(err => {
-        console.log('SUBMIT ERROR!!!')
         console.log(err)
       })
       ;
@@ -187,8 +184,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
   }, [currentCustomer])
 
 
-  console.log(currentCustomer)
-  console.log(values)
 
   const isPhonesMultiple = values.phones.length > 1;
 

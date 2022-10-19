@@ -147,7 +147,6 @@ export default function CartFooter() {
     dispatch(createOrder(cart))
     .then(res => {
       let { message, data } = res;
-      console.log(data);
       if(res){
         dispatch(fetchSuccess(message));
         dispatch({type: UPDATE_CART, payload: {...cart, ...data}})

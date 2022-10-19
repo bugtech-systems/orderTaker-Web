@@ -14,7 +14,6 @@ import {
       axios
         .put(`${commonData.apiUrl}/notification/:id`, { headers: authHeader() })
         .then(({ data }) => {
-          console.log(data);
           dispatch(getAllNotifications());
           // dispatch(fetchSuccess(data.message));
         })
@@ -26,11 +25,9 @@ import {
   };
   
   export const getAllNotifications = () => dispatch => {
-    console.log('NOTIF s')
     return  axios
         .get(`${commonData.apiUrl}/notifications`, { headers: authHeader() })
         .then(({ data }) => {
-            console.log(data)
           dispatch({ type: SET_NOTIFICATIONS, payload: {notifications: data }});
           // dispatch(getProductsList());
           // dispatch(fetchSuccess(data.message));

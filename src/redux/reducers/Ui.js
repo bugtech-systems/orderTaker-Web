@@ -40,8 +40,6 @@ export default (state = INIT_STATE, action) => {
     }
 
     case SET_NOTIF_COUNT: {
-      console.log(payload !== 0);
-      console.log(state.notifCount++)
       return {
         ...state,
         notifCount: payload !== 0 ? state.notifCount++ : 0
@@ -50,7 +48,6 @@ export default (state = INIT_STATE, action) => {
   
 
     case SET_NOTIFICATIONS: {
-      console.log(payload)
       return {
         ...state,
        ...payload

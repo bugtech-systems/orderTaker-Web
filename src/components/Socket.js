@@ -58,7 +58,6 @@ const playVibrate = (url) => {
 
 
 const playSound = (url) => {
-  console.log(`${commonData.staticUrl} `)
 const audio = new Audio(`${commonData.staticUrl}assets/notif1.mp3`);
 audio.play();
 }
@@ -82,7 +81,6 @@ useEffect(() => {
 
 
         socket.on("pdf-webhook", val => {
-          console.log(val)
           let a = document.createElement('a');
           a.href = val.filePath;
           a.target = '_blank';
@@ -104,7 +102,6 @@ return () => {
 }, [authUser]);
 
 useEffect(() => {
-console.log(uiState.notifCount)
   setNtfCount(uiState.notifCount);
 }, [uiState])
 
@@ -114,7 +111,6 @@ console.log(uiState.notifCount)
     >
     <div>Socket</div>
     <button onClick={() => handleClick()}>PLAY</button>
-    <a href="javascript: w=window.open('http://localhost:3001/api/files/pdf/PAYTXN_21000.pdf'); w.print();">​​​​​​​​​​​​​​​​​print pdf</a>
     </div>
   )
 }

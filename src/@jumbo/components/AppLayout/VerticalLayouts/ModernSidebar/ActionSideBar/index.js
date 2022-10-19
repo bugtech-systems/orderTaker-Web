@@ -81,7 +81,6 @@ const ActionSideBar = ({ width }) => {
       
     
         if(option === 'notifications'){
-          console.log('THIS IS NOTIF')
           dispatch({type: SET_NOTIF_COUNT, payload: 0})
         }
 
@@ -152,8 +151,6 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
-
-  console.log(notifCount)
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
