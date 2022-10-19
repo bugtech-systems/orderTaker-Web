@@ -58,8 +58,7 @@ const playVibrate = (url) => {
 
 
 const playSound = (url) => {
-  console.log(`${commonData.staticUrl} `)
-const audio = new Audio(`${commonData.staticUrl}assets/moans.mp3`);
+const audio = new Audio(`${commonData.staticUrl}assets/notif1.mp3`);
 audio.play();
 }
 
@@ -79,6 +78,17 @@ useEffect(() => {
       socket.on("notification", val => {
         handleNotification(val);
         });
+
+
+        socket.on("pdf-webhook", val => {
+          let a = document.createElement('a');
+          a.href = val.filePath;
+          a.target = '_blank';
+          a.download = val.filename;
+          document.body.appendChild(a);
+          a.click();
+          a.parentNode.removeChild(a);
+          });
 }
 
 
@@ -92,7 +102,6 @@ return () => {
 },);
 
 useEffect(() => {
-console.log(uiState.notifCount)
   setNtfCount(uiState.notifCount);
 },)
 

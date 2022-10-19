@@ -11,7 +11,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { getProductContainerHeight } from '../../../../../@jumbo/constants/AppConstants';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import EmptyProductResult from './EmptyProductResult';
-// import Scanner from '../../Scanner';
 
 const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct }) => {
   const { showFooter } = useContext(AppContext);

@@ -170,7 +170,6 @@ const CommentItem = ({ item, handleItem }) => {
 
   let isCart = action === 'cart';
 
-
   return (
     <Box className={classes.itemRoot}>
       <CmtMediaObject
@@ -202,7 +201,7 @@ const CommentItem = ({ item, handleItem }) => {
           <IconButton className="btn-white"
           size="small"
           disabled={values.qty < 0}
-            onClick={() => handleItem(values, Number(values.qty) - 1)}
+            onClick={() => handleItem(values, Number(values.qty) - 1 )}
           >
             <RemoveCircleOutlineIcon 
             />
@@ -215,7 +214,7 @@ const CommentItem = ({ item, handleItem }) => {
             </Box>
           <IconButton className="btn-white"
           size="small"
-          disabled={prd.stocks <= 0}
+          disabled={prd.stocks <= 0 || prd.stocks <= values.qty}
           onClick={() => handleItem(values, Number(values.qty) + 1)}
           >
             <AddCircleIcon

@@ -2,11 +2,13 @@ import React from 'react';
 import { Box, IconButton} from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtDrawer from '../../../../../../@coremat/CmtDrawer';
-import CloseIcon from '@material-ui/icons/Close';
-
-
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+
+//Icons 
+import CloseIcon from '@material-ui/icons/Close';
+import PrintIcon from '@material-ui/icons/Print';
+
 
 //Components
 import Notifications from './LatestNotifications';
@@ -15,8 +17,8 @@ import Cart from './CartDetail/index';
 
 
 //Redux
-import {  useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrderReceipt } from 'redux/actions/Report.action';
 
 
 
@@ -90,28 +92,39 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick, ...rest }) => {
+const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
   const cart = useSelector(({cartApp}) => cartApp);
-
+  const dispatch = useDispatch();
 
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
+
+  const handlePrint = () => {
+    dispatch(setOrderReceipt(cart));
+  }
+
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
                <Box className={classes.contentArea}>
-        {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
-            <CloseIcon />
-          </IconButton> */}
-          {activeOption === 'profile' || activeOption === 'cart'||
+      
+          {(activeOption === 'profile' || activeOption === 'cart') && 
             <Box className={classes.header}>
         <Box fontSize={20} fontWeight={700}>
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
         </Box>
+        <Box>
+        {
+        activeOption === 'cart' &&
+        ['paidSuccess','paidCart','success', 'unpaid', 'viewCart'].includes(action) && 
+        <IconButton onClick={() => handlePrint()}>
+                <PrintIcon/>
+          </IconButton>}
         <IconButton size="small" className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
+          </Box>
       </Box>
       }
           <PerfectScrollbar className={classes.scrollbarRoot}>

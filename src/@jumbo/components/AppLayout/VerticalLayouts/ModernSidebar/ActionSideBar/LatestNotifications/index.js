@@ -34,10 +34,6 @@ const LatestNotifications = ({onClose}) => {
     setTitle(status ? 'Filter By' : defaultTitle);
   };
 
-console.log(listsToShow);
-console.log(title)
-console.log(notifications)
-
   return (
     <CmtBackDrop
       concealedIcon={<TuneIcon />}

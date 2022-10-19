@@ -4,7 +4,7 @@ import { Box,  Button } from '@material-ui/core';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_DRAWER_OPEN, SET_ACTION, SET_CART_SUCCESS } from '../../../../../../../redux/actions/types';
+import { CLEAR_CART, SET_DRAWER_OPEN, UPDATE_CART, SET_ACTION, SET_CART_SUCCESS } from '../../../../../../../redux/actions/types';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
 import { createOrder } from 'redux/actions/CartApp';
 import { fetchError, fetchSuccess } from 'redux/actions';
@@ -61,7 +61,6 @@ export default function CartFooter() {
 }
 
 
-
   const handleClearCart = () => {
     if(cart_items.length !== 0){
       dispatch({ 
@@ -84,6 +83,7 @@ export default function CartFooter() {
       let { message, data } = res;
       if(res){
         dispatch(fetchSuccess(message));
+        dispatch({type: UPDATE_CART, payload: {...cart, ...data}})
         dispatch({type: SET_CART_SUCCESS, payload: data.id});
       dispatch({type: SET_ACTION, payload: 'success'})
       }

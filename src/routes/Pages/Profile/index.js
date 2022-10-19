@@ -53,26 +53,26 @@ const Profile = () => {
           <Header classes={classes} userDetail={userDetail} 
           tabValue={tabValue} handleTabChange={handleTabChange} />
           <GridContainer>
-            <Grid item xs={12} lg={4} className={classes.profileSidebar}>
+            {/* <Grid item xs={12} lg={4} className={classes.profileSidebar}>
               <Box mb={6}>
                 <Contact userDetail={userDetail} />
               </Box>
-              {/* <Box mb={6}>
+              <Box mb={6}>
                 <Friends friends={userDetail.friends} />
               </Box>
               <Box mb={6}>
                 <UserPhotos />
-              </Box> */}
+              </Box>
             </Grid>
             <Grid item xs={12} lg={8} className={classes.profileMainContent}>
               <Box mb={6}>
                 <About userDetail={userDetail} />
               </Box>
-              {/* <Box mb={6}>
+              <Box mb={6}>
                 <Biography />
-              </Box> */}
-              {/* <Events events={userDetail.events} /> */}
-            </Grid>
+              </Box>
+              <Events events={userDetail.events} />
+            </Grid> */}
           </GridContainer>
         </Box>
       )}

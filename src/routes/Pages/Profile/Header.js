@@ -9,6 +9,11 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { alpha } from '@material-ui/core/styles';
 import CmtImage from '../../../@coremat/CmtImage';
 
+//Components
+import HeaderChartComponent from '../Reports/HeaderChartComponent';
+import { intranet } from '@fake-db';
+
+
 const tabs = [
   { id: 1, title: 'Timeline', slug: 'timeline' },
   { id: 2, title: 'About', slug: 'about' },
@@ -19,14 +24,17 @@ const tabs = [
 
 const useStyles = makeStyles(theme => ({
   headerRoot: {
+    overflow: 'hidden',
     position: 'relative',
     margin: '-30px -15px 0 -15px',
     paddingRight: 15,
     paddingLeft: 15,
+    // marginBottom: 30,
     paddingTop: 30,
-    paddingBottom: 20,
+    paddingBottom: 100,
     [theme.breakpoints.up('sm')]: {
       paddingTop: 56,
+      paddingBottom: 50,
     },
     [theme.breakpoints.up('md')]: {
       marginLeft: -50,
@@ -54,12 +62,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '100%',
     minHeight: 370,
-    zIndex: 0,
+    zIndex: 1,
     [theme.breakpoints.up('sm')]: {
-      minHeight: 270,
+      minHeight: 200,
     },
     '&:before': {
-      content: '""',
+      // content: '""',
       position: 'absolute',
       left: 0,
       top: 0,
@@ -74,7 +82,7 @@ const useStyles = makeStyles(theme => ({
   },
   headerContent: {
     position: 'relative',
-    zIndex: 3,
+    // zIndex: 1,
   },
   titleRoot: {
     color: theme.palette.common.white,
@@ -117,6 +125,7 @@ const useStyles = makeStyles(theme => ({
   tabsList: {
     position: 'relative',
     minHeight: 10,
+    zIndex: 3,
     '& .MuiTabs-indicator': {
       backgroundColor: alpha(theme.palette.common.white, 0.4),
     },
@@ -130,6 +139,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
     fontSize: 14,
     fontWeight: theme.typography.fontWeightRegular,
+    zIndex: 3
   },
 }));
 
@@ -140,11 +150,12 @@ const Header = ({ userDetail, tabValue, handleTabChange }) => {
   return (
     <Box className={classes.headerRoot}>
       <Box className={classes.headerBgImg}>
-        <CmtImage src={'/images/profile-bg-img.png'} />
+        <HeaderChartComponent data={intranet.headerChartData}/>
+        {/* <CmtImage src={'/images/profile-bg-img.png'} /> */}
       </Box>
       <Box className={classes.headerContent}>
-        <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" mb={4}>
-          <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center">
+        <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" mb={{ xs: 7, sm: 0, lg: 7 }}>
+          {/* <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" style={{zIndex: 3}}>
             <Box mr={{ sm: 4, md: 5, lg: 6 }} mb={{ xs: 3, sm: 0 }}>
               <CmtAvatar size={80} src={profile_pic} alt={name} />
             </Box>
@@ -154,8 +165,11 @@ const Header = ({ userDetail, tabValue, handleTabChange }) => {
               </Typography>
               <Typography className={classes.subTitleRoot}>{location}</Typography>
             </Box>
+          </Box> */}
+          <Box style={{flexGrow: 1, zIndex: -1}} mt={{ xs: 7, sm: 0 }} mb={{ xs: 7, sm: 0 }}>
+            {/* center */}
           </Box>
-          <Box ml={{ sm: 'auto' }} mt={{ xs: 3, sm: 0 }}>
+          <Box ml={{ sm: 'auto' }} mt={{ xs: 7, sm: 0 }} style={{zIndex: 3}}>
             <Box className={classes.followerList}>
               <Box className={classes.followerListItem}>
                 <Typography className={classes.followerListTitle} component="div" variant="h3">
@@ -179,7 +193,7 @@ const Header = ({ userDetail, tabValue, handleTabChange }) => {
           </Box>
         </Box>
 
-        <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }}>
+        <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }} style={{zIndex: 3}}>
           <Tabs className={classes.tabsList} value={tabValue} onChange={handleTabChange} aria-label="profile tabs">
             {tabs.map((item, index) => {
               return (

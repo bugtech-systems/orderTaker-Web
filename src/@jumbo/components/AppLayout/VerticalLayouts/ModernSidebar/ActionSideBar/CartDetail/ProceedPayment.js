@@ -68,9 +68,7 @@ export default function ProceedPayment() {
   }
 
   useEffect(() => {
-    console.log(currentCustomer);
     setCartCustomer(currentCustomer)
-
   }, [currentCustomer])
 
 
@@ -82,10 +80,6 @@ export default function ProceedPayment() {
 
   const { name, address, limit, balance } = cartCustomer ? cartCustomer : {};
 
-
-
-  console.log(cartCustomer)
-  console.log(currentCustomer)
 
   return (
     <Box className={classes.rootWrap}>

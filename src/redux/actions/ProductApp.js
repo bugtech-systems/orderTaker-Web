@@ -304,7 +304,6 @@ export const updateProductOtherAmount = val => {
     axios
       .put(`${commonData.apiUrl}/products/other_amount`, val)
       .then(({ data }) => {
-        console.log(data);
         // dispatch(getProductsList());
         // dispatch(fetchSuccess(data.message));
       })
@@ -320,7 +319,6 @@ export const deleteProductOtherAmount = val => {
     axios
       .delete(`${commonData.apiUrl}/products/other_amount/:id`)
       .then(({ data }) => {
-        console.log(data);
         dispatch(getAllProductOtherAmount());
         // dispatch(fetchSuccess(data.message));
       })

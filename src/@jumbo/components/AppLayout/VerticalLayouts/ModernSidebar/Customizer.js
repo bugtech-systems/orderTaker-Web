@@ -12,10 +12,8 @@ const Customizer = () => {
     <CustomizerBody>
       <Theme  />
       <ThemeColor />
-      {/* <NavigationLayout /> */}
       <DisplayLayout />
       <SidebarOption />
-      {/* <SidebarSize /> */}
       <OtherSettings showFooterOpt={false} />
     </CustomizerBody>
   );

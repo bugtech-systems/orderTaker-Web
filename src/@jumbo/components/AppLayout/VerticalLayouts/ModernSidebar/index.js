@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 
 // import { makeStyles } from '@material-ui/styles';
@@ -14,7 +14,7 @@ import ContentLoader from '../../../ContentLoader';
 import ActionSideBar from './ActionSideBar';
 // import Logo from '../../partials/Logo';
 // import { THEME_TYPES } from '../../../../constants/ThemeOptions';
-// import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
+import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
 import defaultContext from '../../../contextProvider/AppContextProvider/defaultContext';
 
 // const useStyles = makeStyles(theme => ({
@@ -38,17 +38,15 @@ const layoutOptions = {
 const ModernSideBar = ({ children, className }) => {
   // const classes = useStyles();
 
-  // const { themeType } = useContext(AppContext);
-
+  const { themeType } = useContext(AppContext);
+  console.log(layoutOptions)
+  console.log(themeType)
   return (
     <CmtVerticalLayout
       className={clsx('Cmt-modernLayout', className)}
       layoutOptions={layoutOptions}
       sidebar={
         <CmtSidebar actionBar={<ActionSideBar />}>
-          {/* <Hidden mdDown>
-            <Logo color={themeType !== THEME_TYPES.LIGHT ? 'white' : 'dark'} className={classes.sidebarHeader} />
-          </Hidden> */}
           <SideBar />
         </CmtSidebar>
       }>

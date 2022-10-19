@@ -108,7 +108,11 @@ const Comments = () => {
 
 
   const handleItem = (val, qty) => {
-    let prd = allProducts.find(a => a.id === val.productId)
+    let prd = allProducts.find(a => a.id === val.productId);
+
+
+    
+
     let obj = {
       ...val,
       qty: qty,
@@ -149,37 +153,6 @@ if(val){
 setSelected(null);
 
 }
-
-  // const handleProceedPayment = () => {
-  //     dispatch({type: SET_ACTION, payload: 'payment'})
-  // }
-
-  // const handleClearCart = () => {
-  //   dispatch({ 
-  //     type: CLEAR_CART
-  //   })
-  //   dispatch(setCurrentCustomer(null));
-  //   // dispatch({ 
-  //   //   type: SET_ACTIVE_OPTION,
-  //   //   payload: null
-  //   // });
-
-  //   // dispatch({ 
-  //   //   type: SET_DRAWER_OPEN,
-  //   //   payload: false
-  //   // });
-  // }
-
- 
-
-
-
-  // const scrollList = id =>
-  //   refs[id].current.scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'start',
-  //   });
-
 
 
   useEffect(() => {

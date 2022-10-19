@@ -12,8 +12,6 @@ import PropTypes from 'prop-types';
 import Hidden from '@material-ui/core/Hidden';
 // import CropFreeIcon from '@material-ui/icons/CropFree';
 
-//Components
-// import BarcodeScanner from '../Scanner';
 
 const AppHeader = ({ onChangeViewMode, viewMode }) => {
   const classes = useStyles();

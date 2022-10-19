@@ -73,7 +73,7 @@ const ActionSideBar = ({ width }) => {
   const cart = useSelector(({cartApp}) => cartApp);
   const { authUser } = useSelector(({auth}) => auth);
 
-  const { isDrawerOpen, activeOption, notifCount } = useSelector(({uiReducer}) => uiReducer)
+  const { isDrawerOpen, activeOption, notifCount, action } = useSelector(({uiReducer}) => uiReducer)
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
   const onIconClick = option => {
@@ -81,25 +81,12 @@ const ActionSideBar = ({ width }) => {
       
     
         if(option === 'notifications'){
-          console.log('THIS IS NOTIF')
           dispatch({type: SET_NOTIF_COUNT, payload: 0})
         }
 
 
           dispatch({type: SET_ACTIVE_OPTION, payload: option})
 
-    // if(option === 'cart'){
-    //   // setAction('cartItems');
-    //   dispatch({type: SET_ACTION, payload: 'cart'})
-    // }
-
-    // if(action !== 'cart' &&  action !== 'payment' && action !== 'success'){
-    //   dispatch({type: SET_ACTION, payload: action})
-    //   dispatch({type: SET_ACTIVE_OPTION, payload: (option === 'notification' || option === 'profile') ? action : 'cart'})
-    // } else{
-    //   dispatch({type: SET_ACTION, payload: 'cart'})
-    //   dispatch({type: SET_ACTIVE_OPTION, payload: option})
-    // }
 
     dispatch({type: SET_DRAWER_OPEN, payload: true})
   };
@@ -152,8 +139,6 @@ const ActionSideBar = ({ width }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
 
-
-  console.log(notifCount)
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
@@ -211,6 +196,7 @@ const ActionSideBar = ({ width }) => {
         onDrawerClose={onDrawerClose}
         onIconClick={onIconClick}
         activeOption={activeOption}
+        action={action}
       />
     </div>
   );
