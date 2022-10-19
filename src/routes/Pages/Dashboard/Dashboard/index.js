@@ -20,8 +20,6 @@ import ToggleAnalyticsCard from './ToggleAnalyticsCard/VisitedToggleAnalyticsCar
 import ContactPhone from '@material-ui/icons/ContactPhone';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import { getDateElements, getNewDate, isDatesSame } from '../../../../@jumbo/utils/dateHelper';
-
 
 
 //Redux
@@ -34,7 +32,7 @@ import { getOrders} from '../../../../redux/actions/OrderApp';
 import { getAdminDashboard } from 'redux/actions/Dashboard';
 import { getInventoryList } from 'redux/actions/ProductApp';
 
-import moment from 'moment';
+
 import { getAllNotifications } from 'redux/actions/Notification';
 
 const useStyles = makeStyles(() => ({
@@ -67,13 +65,13 @@ const breadcrumbs = [
 const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {orders} = useSelector(({orderApp}) => orderApp);
+
  
   const { filterType } = useSelector(({ productApp }) => productApp);
   const { loadUser, authUser, isAdmin } = useSelector(({auth}) => auth);
   const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
   const [dateCounter, setDateCounter] = useState(0);
-  const [todaySales, setTodaySales] = useState({
+  const [todaySales] = useState({
     total: 0, today:[], xrate: null
   });
 
@@ -85,28 +83,28 @@ const Dashboard = () => {
     setDateCounter(val)
   }
 
-  const handleSales = () => {
-    let todayOrders = orders.filter(item => isDatesSame(item.createdAt, getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'))).sort((a, b) => a.id - b.id);
+  // const handleSales = () => {
+  //   let todayOrders = orders.filter(item => isDatesSame(item.createdAt, getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'))).sort((a, b) => a.id - b.id);
 
 
-    let total = 0;
-      let today = todayOrders.map((a, index) => {
-      let dt = new moment(a.createdAt)
-      let dObj = getDateElements(dt);
+  //   let total = 0;
+  //     let today = todayOrders.map((a, index) => {
+  //     let dt = new moment(a.createdAt)
+  //     let dObj = getDateElements(dt);
 
-      total += a.amount_due;
-      return { label: dObj.time, value: total }
-     })
+  //     total += a.amount_due;
+  //     return { label: dObj.time, value: total }
+  //    })
 
-     today.unshift({label: "00:00 AM", value: 0 });
-    // dispatch({type: SET_TODAY_SALES, payload: {
-    //   total, today
-    // }})
-    setTodaySales({...todaySales, total, today})
+  //    today.unshift({label: "00:00 AM", value: 0 });
+  //   // dispatch({type: SET_TODAY_SALES, payload: {
+  //   //   total, today
+  //   // }})
+  //   setTodaySales({...todaySales, total, today})
     
 
 
-  }
+  // }
 
 
 
@@ -120,10 +118,7 @@ const Dashboard = () => {
     }
   }, [loadUser, authUser,dispatch, filterType]);
 
-  useEffect(() => {
-        handleSales();
-  }, [orders, dateCounter ,handleSales])
-
+ 
 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>

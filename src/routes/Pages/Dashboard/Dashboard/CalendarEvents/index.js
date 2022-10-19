@@ -7,23 +7,23 @@ import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
 import Box from '@material-ui/core/Box';
 import { getDateElements, getNewDate, isDatesSame, isToday } from '../../../../../@jumbo/utils/dateHelper';
 import IconButton from '@material-ui/core/IconButton';
-import { intranet } from '../../../../../@fake-db';
+
 import CmtList from '../../../../../@coremat/CmtList';
 import EventItem from './EventItem';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import Button from '@material-ui/core/Button';
+
 import useStyles from './index.style';
 import Typography from '@material-ui/core/Typography';
 
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 
 
 const CalendarEvents = ({setDateCounter, dateCounter}) => {
   const {orders} = useSelector(({orderApp}) => orderApp);
   const { isAdmin } = useSelector(({auth}) => auth);
 
-  const dispatch = useDispatch();
+  
   const [date, setDate] = useState(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
   const classes = useStyles();
 
@@ -31,7 +31,7 @@ const CalendarEvents = ({setDateCounter, dateCounter}) => {
 
   const getHeader = () => {
     const dateObj = getDateElements(date);
-    let isToday = isDatesSame(new Date, date)
+    const isToday = isDatesSame(new Date(), date);
     return (
       <Box display="flex" flexDirection="column">
         {/* <Box display="flex" color="common.white" alignItems="baseline">

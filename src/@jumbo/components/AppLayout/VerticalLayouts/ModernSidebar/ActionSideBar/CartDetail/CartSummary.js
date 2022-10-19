@@ -8,9 +8,9 @@ import { alpha } from '@material-ui/core/styles';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getCustomers, setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
+import { getCustomers } from '../../../../../../../redux/actions/Customer';
 import { handleCart } from '../../../../../../../redux/actions/CartApp';
-import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from '../../../../../../../redux/actions/types';
+
 
 
 //Icons
@@ -280,20 +280,20 @@ const Comments = () => {
 
   useEffect(() => {
     dispatch(getCustomers());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if(currentCustomer && isSearch){
         setIsSearch(false);
     }
-  }, [currentCustomer]);
+  }, [currentCustomer,isSearch]);
 
 
   useEffect(() => {
     if(currentCustomer && isSearch){
         setIsSearch(false);
     }
-  }, [productsList]);
+  }, [productsList,currentCustomer,isSearch]);
 
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
       return (

@@ -101,7 +101,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
       setQuantity(0)
     }
     },
-    [ item.stocks ]
+    [ item.stocks,quantity,setStocks]
   );
 
   return addedToCart ? (

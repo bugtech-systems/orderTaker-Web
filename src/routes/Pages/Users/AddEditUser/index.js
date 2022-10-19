@@ -7,17 +7,16 @@ import AppTextInput from '../../../../@jumbo/components/Common/formElements/AppT
 import CmtAvatar from '../../../../@coremat/CmtAvatar';
 import { useDropzone } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
-import CmtList from '../../../../@coremat/CmtList';
+
 import IconButton from '@material-ui/core/IconButton';
-import AppSelectBox from '../../../../@jumbo/components/Common/formElements/AppSelectBox';
+
 import { requiredMessage } from '../../../../@jumbo/constants/ErrorMessages';
-import NumberFormat from 'react-number-format';
-import PropTypes from 'prop-types';
+
+
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { DialogTitle, TextField, InputAdornment } from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CancelIcon from '@material-ui/icons/Cancel';
+
 import { isValidEmail } from '../../../../@jumbo/utils/commonHelper';
 
 //Icons
@@ -44,30 +43,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function PhoneNumberInput({ onChange, value, ...other }) {
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  useEffect(() => {
-    if (!phoneNumber && value) {
-      setTimeout(() => {
-        setPhoneNumber(value);
-      }, 300);
-    }
-  }, [phoneNumber, value]);
-
-  const onNumberChange = number => {
-    setPhoneNumber(number.formattedValue);
-    onChange(number.formattedValue);
-  };
-
-  return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNumber} format="(###) ###-####" />;
-}
-
-const labels = [
-  { title: 'Home', slug: 'home' },
-  { title: 'Office', slug: 'office' },
-  { title: 'Other', slug: 'other' },
-];
 
 const roles = [
   { id: 3, name: 'sales' },
@@ -82,9 +57,9 @@ const AddEditUser = () => {
   const currentUser = useSelector(({ usersReducer }) => usersReducer.currentUser);
   const [visible, setVisible] = useState(false);
   const [dpUrl, setDpUrl] = useState('');
-  const [phones, setPhones] = useState([{ phone: '', label: 'home' }]);
+  const [phones] = useState([{ phone: '', label: 'home' }]);
 
-  const [phoneError, setPhoneError] = useState('');
+  
 
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
