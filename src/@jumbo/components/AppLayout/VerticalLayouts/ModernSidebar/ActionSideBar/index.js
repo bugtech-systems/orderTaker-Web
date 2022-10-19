@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect} from 'react';
 import clsx from 'clsx';
 
 import { Box, Hidden, IconButton, withWidth, Tooltip } from '@material-ui/core';
@@ -23,7 +23,7 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT } from '../../../../../../redux/actions/types';
+import {  SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT } from '../../../../../../redux/actions/types';
 import { logout } from '../../../../../../redux/actions/Auth';
 import commonData from 'utils/commonData';
 
@@ -73,7 +73,7 @@ const ActionSideBar = ({ width }) => {
   const cart = useSelector(({cartApp}) => cartApp);
   const { authUser } = useSelector(({auth}) => auth);
 
-  const { notifications, isDrawerOpen, activeOption, notifCount } = useSelector(({uiReducer}) => uiReducer)
+  const { isDrawerOpen, activeOption, notifCount } = useSelector(({uiReducer}) => uiReducer)
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
   const onIconClick = option => {

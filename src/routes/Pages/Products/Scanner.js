@@ -5,7 +5,7 @@ import { useDispatch} from 'react-redux';
 import { setFilterType} from '../../../redux/actions/ProductApp';
 
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
-import makeStyles from '@material-ui/core/styles/makeStyles';
+
 // import DialogTitle from '@material-ui/core/DialogTitle';
 // import DialogContent from '@material-ui/core/DialogContent';
 // import CropFreeIcon from '@material-ui/icons/CropFree';

@@ -66,7 +66,7 @@ const labels = [
 ];
 
 const CreateCustomer = ({ open, handleDialog }) => {
-  const { currentCustomer, customersList } = useSelector(({ customerApp }) => customerApp);
+  const { currentCustomer} = useSelector(({ customerApp }) => customerApp);
   const { isDrawerOpen } = useSelector(({ uiReducer }) => uiReducer);
 
   const cart = useSelector(({cartApp}) => cartApp);
@@ -184,7 +184,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
         tags: []
       })
     }
-  }, [currentCustomer])
+  }, [currentCustomer,values])
 
 
   console.log(currentCustomer)

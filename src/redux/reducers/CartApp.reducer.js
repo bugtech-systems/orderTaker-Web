@@ -5,7 +5,7 @@ import {
     SET_CART_ITEMS_COUNT
   } from '../actions/types';
 
-import { cart } from '../../@fake-db'
+
 
   const INIT_STATE = {
         // cart_items: cart.cartItems,

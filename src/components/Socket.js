@@ -18,7 +18,7 @@ export default function Socket() {
       // isAdmin 
     } = useSelector(({auth}) => auth);
     let uiState = useSelector((state) => state.uiReducer);
-    const [ntfCount, setNtfCount] = useState(0);
+    const [setNtfCount] = useState(0);
 
 
 
@@ -89,12 +89,12 @@ return () => {
   }
   }
 
-}, [authUser]);
+},);
 
 useEffect(() => {
 console.log(uiState.notifCount)
   setNtfCount(uiState.notifCount);
-}, [uiState])
+},)
 
   return (
     <div 

@@ -1,6 +1,6 @@
 import React from 'react';
 import StarRateIcon from '@material-ui/icons/StarRate';
-import StarOutlineIcon from '@material-ui/icons/StarOutline';
+
 import { Box } from '@material-ui/core';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import makeStyles from '@material-ui/core/styles/makeStyles';

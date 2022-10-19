@@ -16,7 +16,7 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import ClearIcon from '@material-ui/icons/Clear';
 
 //Redux
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   itemRoot: {
@@ -126,7 +126,7 @@ const CommentItem = ({ item, handleItem }) => {
     let prdt = allProducts.find(a => a.id === item.productId || a.id === item.id);
     setPrd(prdt ? prdt : {});
     setValues(item);
-  }, [item]);
+  }, [item,allProducts]);
 
   const getTitle = () => {
     return (

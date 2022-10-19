@@ -1,5 +1,5 @@
 import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS } from './types';
-import { fetchError, fetchStart, fetchSuccess } from './Common';
+import { fetchStart } from './Common';
 import { authHeader } from '../../services/auth-header';
 
 import commonData from '../../utils/commonData';

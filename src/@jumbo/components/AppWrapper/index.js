@@ -15,7 +15,7 @@ import AppLocale from '../../../i18n';
 import AppLayout from '../AppLayout';
 
 //THeme
-import { THEME_TYPES } from '../../constants/ThemeOptions';
+
 
 
 // Configure JSS
@@ -83,7 +83,7 @@ const AppWrapper = ({ children }) => {
 
     }
 
-  }, [])
+  }, [dt,setThemeType,setTheme])
   
 
  

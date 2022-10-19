@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ import DefaultForgotPassword from './Pages/forgot-password/Default';
 // import ForgotPasswordPage from './Auth/ForgotPassword';
 
 //Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector,} from 'react-redux';
 
 
 //Components

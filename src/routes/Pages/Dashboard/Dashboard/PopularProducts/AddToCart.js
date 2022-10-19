@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
-  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  const { productsList}  = useSelector(({productApp}) => productApp);
 
   const { cart_items } = cart;
   const [ quantity, setQuantity ] = useState(0);

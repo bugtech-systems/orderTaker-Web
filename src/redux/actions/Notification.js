@@ -2,7 +2,7 @@
 import {
     SET_NOTIFICATIONS
 } from './types';
-  import { fetchError, fetchStart, fetchSuccess } from './Common';
+  import { fetchError} from './Common';
   import axios from 'axios';
   import commonData from 'utils/commonData';
   

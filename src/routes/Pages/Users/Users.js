@@ -18,7 +18,7 @@ import { SET_USER_DIALOG } from 'redux/actions/types';
 const UsersModule = () => {
   const classes = useStyles();
   const { users } = useSelector((state) => state.usersReducer);
-  const { userDialog } = useSelector((state) => state.uiReducer);
+ 
 
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -46,10 +46,7 @@ const UsersModule = () => {
     );
   }, [dispatch, filterOptions, debouncedSearchTerm]);
 
-  const handleCloseUserDialog = () => {
-    dispatch({type: SET_USER_DIALOG, payload: false});
-    dispatch(setCurrentUser(null));
-  };
+ 
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { Paper, Box, Button} from '@material-ui/core';
+import { Paper} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_CART, SET_CART_SUCCESS, SET_DRAWER_OPEN } from 'redux/actions/types';
+
+
 import moment from 'moment-timezone';
 
 
 //Components
-import CartFooter from './CartFooter';
-import { getOrderById } from 'redux/actions/OrderApp';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,52 +41,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function ccyFormat(num) {
-  return `${num.toFixed(2)}`;
-}
 
-function priceRow(qty, price) {
-  return qty * price;
-}
 
-function createRow(desc, qty, unit) {
-  const price = priceRow(qty, unit);
-  return { desc, price };
-}
+
+
+
 
 
 
 export default function SuccessPage() {
   const classes = useStyles();
-  const { cartSuccess } = useSelector(({uiReducer}) => uiReducer);
-  const dispatch = useDispatch();
-  const [values, setValues] = useState({
+  
+  
+  const [values, ] = useState({
     customers: []
   });
   
-  const handleGetOrder = (id) => {
-        dispatch(getOrderById(id))
-        .then(({data}) => {
-          setValues({...values, ...data})
-        })
-        .catch(err => {
-          setValues({
-                customers: []
-          })
-          console.log(err)
-        })
-  }
+  
 
 
-  useEffect(() => {
-    if(cartSuccess){
-      handleGetOrder(cartSuccess);
-    } else {
-      setValues({
-        customers: []
-  })
-    }
-  }, [cartSuccess])
+  
 
 
   let customerName = values.customers.length !== 0 ? values.customers[0].name : 'No Customer';

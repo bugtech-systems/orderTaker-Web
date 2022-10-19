@@ -4,7 +4,7 @@ import IntlMessages from '../../../utils/IntlMessages';
 import {
   PostAdd,
   ArrowForward,
-  Category,
+  
   // Store,
   Dashboard,
   // LocalMall,
@@ -12,10 +12,10 @@ import {
   // LocalAtm,
   SupervisedUserCircle,
   // Settings,
-  ContactPhone,
+  
   LowPriority,
   NaturePeople,
-  MenuOpenIcon
+
 } from '@material-ui/icons';
 import ListIcon from '@material-ui/icons/List';
 

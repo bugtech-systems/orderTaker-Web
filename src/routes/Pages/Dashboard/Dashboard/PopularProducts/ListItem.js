@@ -10,14 +10,14 @@ import ActionSnackBar from "./ActionSnackBar";
 import useStyles from "./ListItem.style";
 
 //Redux
-import {useDispatch, useSelector} from "react-redux";
+
 import commonData from "utils/commonData";
 
 
 const ListItem = ({item}) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const {cart_items} = useSelector(state => state.cartApp);
+  
+  
   const [ revealed, setRevealed ] = useState(false);
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");

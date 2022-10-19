@@ -4,31 +4,26 @@ import CmtAdvCard from '../../../../../../../@coremat/CmtAdvCard';
 import CmtCardMedia from '../../../../../../../@coremat/CmtCard/CmtCardMedia';
 import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
-import { intranet } from '../../../../../../../@fake-db';
+
 import CmtList from '../../../../../../../@coremat/CmtImage';
 
 // import UserInfo from './UserInfo';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { useSelector } from 'react-redux';
-import CmtCardHeader from '@coremat/CmtCard/CmtCardHeader';
+
 import { IconButton } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { SET_USER_DIALOG } from 'redux/actions/types';
 import { setCurrentUser } from 'redux/actions/Users';
 import commonData from 'utils/commonData';
 
-const actions = [
-  {
-    label: 'View Profile',
-  }
-];
 
 const useStyles = makeStyles(theme => ({
   actionMenu: {

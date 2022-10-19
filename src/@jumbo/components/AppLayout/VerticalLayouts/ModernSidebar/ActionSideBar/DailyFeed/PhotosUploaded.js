@@ -3,7 +3,7 @@ import useStyles from './BaseItem.style';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BaseItem from './BaseItem';
-import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
+
 
 import commonData from 'utils/commonData';
 

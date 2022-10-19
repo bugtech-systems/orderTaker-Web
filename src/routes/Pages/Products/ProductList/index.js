@@ -13,7 +13,7 @@ import { setCurrentProduct } from '../../../../redux/actions/ProductApp';
 
 
 //Components
-import Scanner from '../Scanner';
+
 
 const Product = () => {
   const classes = useStyles();

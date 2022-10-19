@@ -2,16 +2,16 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import LabelIcon from '@material-ui/icons/Label';
+
 import CheckIcon from '@material-ui/icons/Check';
 import CmtMediaObject from '../../../../../@coremat/CmtMediaObject';
-import { getTime } from '../../../../../@jumbo/utils/dateHelper';
+
 import useStyles from './index.style';
 
 
 //Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { handleCart } from '../../../../../redux/actions/CartApp';
+import { useDispatch } from 'react-redux';
+
 import { SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, UPDATE_CART } from '../../../../../redux/actions/types';
 
 const EventItem = ({ item }) => {

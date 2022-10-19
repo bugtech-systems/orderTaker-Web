@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   DELETE_BULK_USERS,
   DELETE_USER,
-  EDIT_USER,
+
   GET_USERS,
   SET_USER_DETAILS,
 } from '../../@jumbo/constants/ActionTypes';

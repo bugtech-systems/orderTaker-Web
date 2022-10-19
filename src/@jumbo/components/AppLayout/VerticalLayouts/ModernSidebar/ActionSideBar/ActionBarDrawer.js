@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
-import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
+import React from 'react';
+import { Box, IconButton} from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtDrawer from '../../../../../../@coremat/CmtDrawer';
 import CloseIcon from '@material-ui/icons/Close';
-import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+
+
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
-
 
 //Components
 import Notifications from './LatestNotifications';
 import Profile from './UserDetail';
 import Cart from './CartDetail/index';
-import CartFooter from './CartDetail/CartFooter';
 
 
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_CART } from '../../../../../../redux/actions/types';
+import {  useSelector } from 'react-redux';
+
 
 
 
@@ -106,7 +103,7 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick
         {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton> */}
-          {activeOption === 'profile' || activeOption === 'cart' && 
+          {activeOption === 'profile' || activeOption === 'cart'||
             <Box className={classes.header}>
         <Box fontSize={20} fontWeight={700}>
             {activeOption === 'profile' && 'My Pofile'}

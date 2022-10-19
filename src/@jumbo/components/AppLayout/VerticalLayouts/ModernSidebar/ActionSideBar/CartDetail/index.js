@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { alpha } from '@material-ui/core/styles';
-import CmtList from '../../../../../../../@coremat/CmtList';
-import CartItem from './CartItem';
 
 
-import EmptyResult from '../EmptyResult';
+
+
+
+
+
 // import SearchBox from '../Search/SearchBox';
 
-import CartSummary from './CartSummary';
+
 import CartItemList from './CartItemList';
 
 
@@ -22,7 +22,7 @@ import { handleCart } from '../../../../../../../redux/actions/CartApp';
 import "./styles.css";
 
 //Components
-import AccordionList from './AccordionList';
+
 import CartFooter from './CartFooter';
 import SuccessPage from './SuccessPage';
 import ProceedPayment from './ProceedPayment';
@@ -45,7 +45,7 @@ const Comments = () => {
 
   useEffect(() => {
     dispatch(handleCart(cart))
-  }, [])
+  }, [dispatch,cart])
 
   return (
       <Box height="100%" className={classes.rootWrap}>

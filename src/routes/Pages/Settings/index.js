@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router';
+import {  Route, Switch } from 'react-router';
 import PageLoader from '../../../@jumbo/components/PageComponents/PageLoader';
 
 

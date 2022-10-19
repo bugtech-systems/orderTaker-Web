@@ -10,7 +10,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LabelIcon from '@material-ui/icons/Label';
 import DoneIcon from '@material-ui/icons/Done';
-import { deleteCustomer, setCurrentCustomer, updateCustomersLabel } from '../../../../../../../redux/actions/Customer';
+import { setCurrentCustomer, updateCustomersLabel } from '../../../../../../../redux/actions/Customer';
 import ExportCustomers from '../../../ExportCustomers';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import makeStyles from '@material-ui/core/styles/makeStyles';

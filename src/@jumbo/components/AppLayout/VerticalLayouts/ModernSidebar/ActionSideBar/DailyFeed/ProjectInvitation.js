@@ -3,8 +3,8 @@ import useStyles from './BaseItem.style';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BaseItem from './BaseItem';
-import Button from '@material-ui/core/Button';
-import clsx from 'clsx';
+
+
 import Snackbar from '@material-ui/core/Snackbar';
 import commonData from 'utils/commonData';
 
@@ -31,14 +31,7 @@ const ProjectInvitation = ({ item }) => {
     setSnackBarMessage('');
   };
 
-  const onInvitationAccept = () => {
-    setSnackBarStatus(true);
-    setSnackBarMessage('Your Request has been accepted Successfully');
-  };
-  const onInvitationReject = () => {
-    setSnackBarStatus(true);
-    setSnackBarMessage('Your Request has been rejected Successfully');
-  };
+  
 
   const getTitle = () => {
     return (

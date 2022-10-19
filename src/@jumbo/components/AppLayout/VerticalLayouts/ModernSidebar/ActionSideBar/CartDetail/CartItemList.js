@@ -3,7 +3,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import { Box, Divider, Typography, Button } from '@material-ui/core';
+import { Box, Divider, Typography } from '@material-ui/core';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import EmptyResult from '../EmptyResult';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -11,11 +11,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION, CLEAR_ALL_PRODUCTS } from '../../../../../../../redux/actions/types';
+
 import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
-import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
+
 import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
-import { fetchError, fetchStart, fetchSuccess } from '../../../../../../../redux/actions/Common';
+import { fetchError } from '../../../../../../../redux/actions/Common';
 
 
 

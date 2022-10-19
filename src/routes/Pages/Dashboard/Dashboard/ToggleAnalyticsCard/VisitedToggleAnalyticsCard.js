@@ -3,7 +3,7 @@ import ToggleHoverCard from '../../../../../@jumbo/components/Common/ToggleHover
 import Box from '@material-ui/core/Box';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import TrendingDownIcon from '@material-ui/icons/TrendingDown';
+
 import VisitedChart from './VisitedChart';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
@@ -11,11 +11,11 @@ import useStyles from './index.style';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-import { intranet } from '../../../../../@fake-db';
+
 import { useEffect } from 'react';
 import { IconButton } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+
+
 
 
 

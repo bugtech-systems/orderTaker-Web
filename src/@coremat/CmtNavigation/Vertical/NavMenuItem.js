@@ -53,42 +53,9 @@ const useStyles = makeStyles(theme => ({
       marginLeft: 4,
       marginRight: 4,
     },
-  },
-  navMenuLink: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '9px 16px 9px 32px',
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
-    color: props => props.sidebarTheme.textColor,
-    '&:hover, &:focus': {
-      color: props => props.sidebarTheme.textDarkColor,
-      backgroundColor: props => props.sidebarTheme.navHoverBgColor,
-      '& .Cmt-icon-root, & .Cmt-nav-text': {
-        color: props => props.sidebarTheme.textDarkColor,
-      },
-    },
-    '&.active': {
-      color: props => props.sidebarTheme.textActiveColor,
-      backgroundColor: props => props.sidebarTheme.navActiveBgColor,
-      '& .Cmt-icon-root, & .Cmt-nav-text': {
-        color: props => props.sidebarTheme.textActiveColor,
-      },
-      '&:hover, &:focus': {
-        '& .Cmt-nav-text, & .Cmt-icon-root': {
-          color: props => props.sidebarTheme.textActiveColor,
-        },
-      },
-    },
-    '.Cmt-miniLayout .Cmt-sidebar-content:not(:hover) &': {
-      justifyContent: 'center',
-      padding: 0,
-      height: 40,
-      width: 40,
-      borderRadius: '50%',
-      marginLeft: 4,
-      marginRight: 4,
-    },
+  
+ 
+    
   }, 
   navMenuLinkDisabled: {
     cursor: 'pointer',

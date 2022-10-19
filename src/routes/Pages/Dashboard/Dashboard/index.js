@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 //DashBoard Components
 import CardWidget from './CardWidget';
 import OurStore from './OurStore';
-import WeeklySales from './WeeklySales';
+
 import PopularAgents from './PopularAgents';
 import RecentPayments from './RecentPayments';
 import PopularProducts from './PopularProducts';
@@ -16,19 +16,19 @@ import CalendarEvents from './CalendarEvents';
 import ToggleAnalyticsCard from './ToggleAnalyticsCard/VisitedToggleAnalyticsCard';
 
 //Icons
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+
 import ContactPhone from '@material-ui/icons/ContactPhone';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import { getDateElements, getNewDate, isDatesSame, isToday } from '../../../../@jumbo/utils/dateHelper';
+import { getDateElements, getNewDate, isDatesSame } from '../../../../@jumbo/utils/dateHelper';
 
 
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers} from '../../../../redux/actions/Users';
+
 import { getOrders} from '../../../../redux/actions/OrderApp';
-import { SET_TODAY_SALES } from '../../../../redux/actions/types';
+
 
 
 import { getAdminDashboard } from 'redux/actions/Dashboard';
@@ -68,7 +68,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {orders} = useSelector(({orderApp}) => orderApp);
-  const { users } = useSelector((state) => state.usersReducer);
+ 
   const { filterType } = useSelector(({ productApp }) => productApp);
   const { loadUser, authUser, isAdmin } = useSelector(({auth}) => auth);
   const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
@@ -118,11 +118,11 @@ const Dashboard = () => {
     dispatch(getAllNotifications());
 
     }
-  }, [loadUser, authUser]);
+  }, [loadUser, authUser,dispatch, filterType]);
 
   useEffect(() => {
         handleSales();
-  }, [orders, dateCounter])
+  }, [orders, dateCounter ,handleSales])
 
 
   return (

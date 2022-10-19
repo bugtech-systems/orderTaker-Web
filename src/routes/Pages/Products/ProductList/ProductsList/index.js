@@ -17,7 +17,7 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
   const { showFooter } = useContext(AppContext);
   const dispatch = useDispatch();
   const { filterType, productsList } = useSelector(({ productApp }) => productApp);
-  const [checkedProducts, setCheckedProducts] = useState([]);
+
   const [showDuplicateMsg, setShowDuplicateMsg] = useState(true);
 
   useEffect(() => {
@@ -45,9 +45,7 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
   //   }
   // };
 
-  const updateCheckedProducts = productIds => {
-    setCheckedProducts(productIds);
-  };
+ 
 
   const classes = useStyles({
     height: getProductContainerHeight(width, showFooter),

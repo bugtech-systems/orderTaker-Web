@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
@@ -9,17 +9,17 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { setCurrentCustomer, updateStarredStatus } from '../../../../../redux/actions/Customer';
 import { useDispatch, useSelector } from 'react-redux';
-import CmtList from '../../../../../@coremat/CmtList';
+
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import CallIcon from '@material-ui/icons/Call';
-import { intranet } from '../../../../../@fake-db';
+
+
 import HomeIcon from '@material-ui/icons/Home';
 import PaymentIcon from '@material-ui/icons/Payment';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+
 import MoreOptions from '../CustomersList/ListTableView/CustomerCellOptions/MoreOptions';
 
 const useStyles = makeStyles(theme => ({
@@ -69,17 +69,17 @@ const useStyles = makeStyles(theme => ({
 }));
 const CustomerDetail = ({ open, handleDialog }) => {
   const classes = useStyles();
-  const { addresses, title, description } = intranet.ourOfficeData;
+  
   const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
   const dispatch = useDispatch();
-  const [currentAddress] = useState(addresses[0]);
+
 
   const onClickStarredIcon = status => {
     dispatch(updateStarredStatus([currentCustomer.id], status));
     dispatch(setCurrentCustomer({ ...currentCustomer, starred: status }));
   };
 
-  const { name, email, phones, dpUrl, starred } = currentCustomer;
+  const { name, dpUrl, starred } = currentCustomer;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
       <Box className={classes.userInfoRoot}>

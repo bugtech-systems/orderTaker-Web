@@ -38,7 +38,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
   const [ quantity, setQuantity ] = useState(0);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  const { productsList }  = useSelector(({productApp}) => productApp);
   
   const { cart_items } = cart;
   const [ stocks, setStocks ] = useState(0);
@@ -96,7 +96,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
       setQuantity(0)
     }
     },
-    [ item.stocks ]
+    [ item.stocks, quantity ]
   );
 
   return addedToCart ? (

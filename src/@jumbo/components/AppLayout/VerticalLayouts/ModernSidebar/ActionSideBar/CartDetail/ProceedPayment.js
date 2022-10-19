@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Box, Divider, Typography, Button, TextField, IconButton } from '@material-ui/core';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Divider, Typography, Button, TextField } from '@material-ui/core';
+
 
 //Components
 import CreateCustomer from '../../../../../../../routes/Pages/Customers/CustomerList/CreateCustomer';
@@ -9,7 +9,7 @@ import SearchCustomer from './AutoComplete';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentCustomer, getCustomersList} from '../../../../../../../redux/actions/Customer';
+import { setCurrentCustomer} from '../../../../../../../redux/actions/Customer';
 import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from 'redux/actions/types';
 
 
@@ -32,7 +32,7 @@ export default function ProceedPayment() {
   const { currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
   const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { amount_due, change, payment, notes, order_no, amount_payable } = cart
+  const { amount_due, change, payment, notes,amount_payable } = cart
   const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
   const [cartCustomer, setCartCustomer] = useState({});
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
-import CmtAvatar from '../../../../../@coremat/CmtAvatar';
+
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { setCurrentProduct, updateStarredStatus } from '../../../../../redux/actions/ProductApp';
 import { useDispatch, useSelector } from 'react-redux';
-import CmtList from '../../../../../@coremat/CmtList';
+
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { alpha, makeStyles } from '@material-ui/core/styles';
@@ -75,7 +75,7 @@ const ProductDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentProduct({ ...currentProduct, starred: status }));
   };
 
-  const { name, description, limit, price, cover, uom, other_amounts, starred } = currentProduct;
+  const { name,  price, cover,  other_amounts, starred } = currentProduct;
 
   const otherAmounts = other_amounts.map(a => {
     let oaType = a.type.charAt(0).toUpperCase() + a.type.slice(1);

@@ -15,7 +15,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { withWidth } from '@material-ui/core';
 import { getAppSidebarHeight } from '../../../../../@jumbo/constants/AppConstants';
 import MoreOptions from './MoreOptions';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import AppContext from '../../../../../@jumbo/components/contextProvider/AppContextProvider/AppContext';
 import LabelCell from './LabelCell';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GridContainer from '../../../../../GridContainer';
-import { Box, Divider, IconButton, makeStyles, Typography, Checkbox, Menu, MenuItem, Grid } from '@material-ui/core';
+import { Box, Divider, IconButton, makeStyles, Typography, Menu, MenuItem, Grid } from '@material-ui/core';
 import AppTextInput from '../../../../../Common/formElements/AppTextInput';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -14,8 +14,8 @@ import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from '../../../../../../../re
 
 
 //Icons
-import SearchIcon from '@material-ui/icons/Search';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+
 import CancelIcon from '@material-ui/icons/Cancel';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -202,14 +202,14 @@ const useStyles = makeStyles(theme => ({
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
+  const {  currentCustomer }  = useSelector(({customerApp}) => customerApp);
   const { productsList }  = useSelector(({productApp}) => productApp);
   const { action } = useSelector(({uiReducer}) => uiReducer); 
 
-  const { gross_total, amount_due, tax_disc, payment, change, total_vatable, other_amounts }  = useSelector(({cartApp}) => cartApp);
+  const { gross_total, amount_due, tax_disc, total_vatable, other_amounts }  = useSelector(({cartApp}) => cartApp);
   const cart  = useSelector(({cartApp}) => cartApp);
 
-  const { create_customer } = useSelector(({ uiReducer }) => uiReducer);
+  
   const [anchorEl, setAnchorEl] = useState(null);
   const [isSearch, setIsSearch] = useState(false);
   const [addOA, setAddOa] = useState(null);
@@ -223,17 +223,7 @@ const Comments = () => {
 
   
 
-  const onCloseDialog = () => {
-    dispatch({
-        type: SET_CREATE_CUSTOMER_DIALOG,
-        payload: false
-      })
-    }
-
-    const handleSelect = (data) => {
-    dispatch(setCurrentCustomer(data));
-    dispatch({type: UPDATE_CART, payload: { customerId: data.id }})
-    }
+  
 
   const handleClickOA = (event) => {
     setAnchorEl(event.currentTarget);
@@ -243,27 +233,7 @@ const Comments = () => {
     setAnchorEl(null);
   }
 
-  const handlePayment = (val, type) => {
 
-    if(type === 'payment'){
-    if(val >= 0){
-      dispatch({type: UPDATE_CART, payload: { payment: val }})
-    }
-
-    if(Number(amount_due) < Number(val) ){
-      dispatch({type: UPDATE_CART, payload: { change: val - amount_due }})
-    }
-
-    if(Number(amount_due) >= Number(val) ){
-      dispatch({type: UPDATE_CART, payload: { change: 0 }})
-    }
-
-  } else{
-    dispatch({type: UPDATE_CART, payload: { change: val }})
-  }
-
-
-  }
 
   const handleOaValue = prop => event => {
     setOaValue({...oaValue, [prop]: event.target.value})

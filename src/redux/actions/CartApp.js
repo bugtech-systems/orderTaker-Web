@@ -1,5 +1,5 @@
-import { UPDATE_CART, UPDATE_CART_ITEMS, SET_CART_ITEMS_COUNT } from './types';
-import { fetchError, fetchStart, fetchSuccess } from './Common';
+import { UPDATE_CART } from './types';
+import { fetchStart} from './Common';
 import { authHeader } from '../../services/auth-header';
 
 import commonData from '../../utils/commonData';
@@ -27,7 +27,7 @@ export const handleCartItem = (cart_items, item) => {
   if (inds !== -1) {
 
     cartItems = cartItems.map(a => {
-      return a.productId == item.productId
+      return a.productId === item.productId
         ? {
            ...item, 
             price: item.price,

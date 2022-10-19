@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,7 +33,7 @@ export default function CountrySelect({value, handleSelect}) {
     return () => {
       dispatch({type: CLEAR_ALL_PRODUCTS})
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <Autocomplete

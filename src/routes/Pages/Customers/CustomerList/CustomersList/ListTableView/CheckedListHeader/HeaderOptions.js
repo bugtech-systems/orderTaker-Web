@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch } from 'react-redux';
-import { deleteCustomer, updateCustomersLabel, updateStarredStatus } from '../../../../../../../redux/actions/Customer';
+import {updateCustomersLabel, updateStarredStatus } from '../../../../../../../redux/actions/Customer';
 import PropTypes from 'prop-types';
 import ExportCustomers from '../../../ExportCustomers';
 import PrintIcon from '@material-ui/icons/Print';
