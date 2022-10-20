@@ -1,13 +1,13 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import CmtAvatar from '../../../@coremat/CmtAvatar';
+
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { alpha } from '@material-ui/core/styles';
-import CmtImage from '../../../@coremat/CmtImage';
+
 
 //Components
 import HeaderChartComponent from '../Reports/HeaderChartComponent';
@@ -144,7 +144,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = ({ userDetail, tabValue, handleTabChange }) => {
-  const { name, profile_pic, location, followers, following, friends } = userDetail;
+  const {  followers, following, friends } = userDetail;
   const classes = useStyles();
 
   return (

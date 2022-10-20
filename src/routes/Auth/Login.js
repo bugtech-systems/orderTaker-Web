@@ -4,7 +4,7 @@ import IntlMessages from "../../@jumbo/utils/IntlMessages";
 import {useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
 import {Box} from "@material-ui/core";
-// import {AuhMethods} from "../../services/auth";
+
 import ContentLoader from "../../@jumbo/components/ContentLoader";
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import CmtImage from "../../@coremat/CmtImage";
@@ -104,20 +104,7 @@ const SignIn = ({
     }
   };
 
-  //  const onSubmitClick = () => {
-  //     const phoneNumbers = phones.filter(item => item.phone.trim());
-  //     if (!firstName) {
-  //       setFirstNameError(requiredMessage);
-  //     } else if (!email) {
-  //       setEmailError(requiredMessage);
-  //     } else if (!isValidEmail(email)) {
-  //       setEmailError(emailNotValid);
-  //     } else if (phoneNumbers.length === 0) {
-  //       setPoneError(requiredMessage);
-  //     } else {
-  //       onUserSave(phoneNumbers);
-  //     }
-  //   };
+  
   const onSubmit = e => {
     e.preventDefault();
     const isError = handleErrors();
@@ -209,17 +196,10 @@ const SignIn = ({
             <Button type="submit" variant="contained" color="primary">
               <IntlMessages id="appModule.signIn" />
             </Button>
-            {/* 
-            <Box component="p" fontSize={{ xs: 12, sm: 16 }}>
-              <NavLink to="/signup">
-                <IntlMessages id="signIn.signUp" />
-              </NavLink>
-            </Box> */}
+           
           </Box>
         </Box>
-        {/* 
-        {dispatch(AuhMethods[method].getSocialMediaIcons())} */}
-
+        
         <ContentLoader />
       </Box>
     </AuthWrapper>

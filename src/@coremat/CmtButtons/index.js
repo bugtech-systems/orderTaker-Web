@@ -166,7 +166,7 @@ CmtButtons.prototype = {
 };
 
 CmtButtons.defaultProps = {
-  items: [], // format: [{icon: "text or node", label: "button name", onClick: functionHandler, tooltip, ...}]
+  items: [],
   type: 'default',
   variant: 'text',
   size: 'medium',
