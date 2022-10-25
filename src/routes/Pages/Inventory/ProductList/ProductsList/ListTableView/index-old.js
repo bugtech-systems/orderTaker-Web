@@ -113,6 +113,15 @@ const classes = useStyles();
 
                    />
           )}
+        <TableHead>
+          <TableRow>
+            {/* <TableCell>Name</TableCell>
+            <TableCell align="right">Stocks</TableCell>
+            <TableCell align="right">Price&nbsp;(₱)</TableCell>
+            <TableCell align="right">Icon&nbsp;</TableCell>
+            <TableCell align="right">Des&nbsp;</TableCell> */}
+          </TableRow>
+        </TableHead>
           <TableBody>
        {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -128,10 +137,16 @@ const classes = useStyles();
                     onDelete={onDelete}
                   />
             ))}
+                <TableRow style={{ height: 53 * 6 }}>
+                <TableCell colSpan={7} rowSpan={10}>
+                    <NoRecordFound>There are no records found with your filter.</NoRecordFound>
+                </TableCell>
+              </TableRow>
+              ) 
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 5, 10, 25, 50]}
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
