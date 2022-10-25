@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 
 import ProductTableHead from './ProductTableHead';
@@ -23,7 +23,7 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, ),
   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
   createData("Eclair", 262, 16.0, 24, 6.0),
   createData("Cupcake", 305, 3.7, 67, 4.3),
@@ -58,7 +58,18 @@ const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const { productsList } = useSelector(({ productApp }) => productApp);
   const [page, setPage] = React.useState(0);
+  const [products, setProducts] = useState([])
+  
+  const fetchData = async () => {
+  const response = await fetch("http://localhost:3001/api/products")
+  const data = await response.json()
+  setProducts(data)
+  }
 
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -72,7 +83,6 @@ const classes = useStyles();
     const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrderBy(property);
@@ -81,37 +91,44 @@ const classes = useStyles();
 
   return (
     <React.Fragment>
+          {checkedProducts.length > 0 && (
+        <CheckedListHeader
+          checkedProducts={checkedProducts}
+          handleHeaderCheckBox={handleHeaderCheckBox}
+          updateCheckedProducts={updateCheckedProducts}
+          onDelete={onDelete}
+        />
+      )}
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows
+                {checkedProducts.length === 0 && (
+                     <ProductTableHead
+                     classes={classes}
+                     numSelected={checkedProducts.length}
+                     order={order}
+                     orderBy={orderBy}
+                     onSelectAllClick={handleHeaderCheckBox}
+                     onRequestSort={handleRequestSort}
+                     rowCount={productsList.length}
+
+                   />
+          )}
+          <TableBody>
+       {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
+                    <ProductCell
+                    key={index}
+                    product={row}
+                    checkedProducts={checkedProducts}
+                    handleCellCheckBox={handleCellCheckBox}
+                    onShowProductDetail={onShowProductDetail}
+                    onClickEditProduct={onClickEditProduct}
+                    onClickAddStocks={onClickAddStocks}
+                    onDelete={onDelete}
+                  />
             ))}
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
+          </TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
