@@ -18,31 +18,6 @@ import NoRecordFound from './NoRecordFound';
 //Jumbo
 import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, ),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread2", 356, 16.0, 49, 3.9),
-  createData("Gingerbread3", 356, 16.0, 49, 3.9),
-  createData("Gingerbread4", 356, 16.0, 49, 3.9),
-  createData("Gingerbread5", 356, 16.0, 49, 3.9),
-  createData("Gingerbread6", 356, 16.0, 49, 3.9),
-  createData("Gingerbread7", 356, 16.0, 49, 3.9),
-  createData("Gingerbread8", 356, 16.0, 49, 3.9),
-  createData("Gingerbread9", 356, 16.0, 49, 3.9),
-  createData("Gingerbread10", 356, 16.0, 49, 3.9),
-  createData("Gingerbread11", 356, 16.0, 49, 3.9),
-  createData("Gingerbread12", 356, 16.0, 49, 3.9),
-  createData("Gingerbread13", 356, 16.0, 49, 3.9)
-];
-
-
 const ListTableView = ({
   checkedProducts,
   handleCellCheckBox,
@@ -63,9 +38,9 @@ const classes = useStyles();
   const fetchData = async () => {
   const response = await fetch("http://localhost:3001/api/products")
   const data = await response.json()
-  setProducts(data)
+   setProducts(data)
+  //  setProducts(newProducts)
   }
-
   useEffect(() => {
     fetchData()
   }, [])
@@ -75,13 +50,13 @@ const classes = useStyles();
     setPage(newPage);
   };
   
-    const handleChangeRowsPerPage = event => {
+  const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
   
-    const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    // const emptyRows =
+    // rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -116,24 +91,29 @@ const classes = useStyles();
           <TableBody>
        {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, index) => (
+            .map((data, index) => (
                     <ProductCell
                     key={index}
-                    product={row}
-                    checkedProducts={checkedProducts}
-                    handleCellCheckBox={handleCellCheckBox}
-                    onShowProductDetail={onShowProductDetail}
-                    onClickEditProduct={onClickEditProduct}
-                    onClickAddStocks={onClickAddStocks}
+                    product={data}
+                    // checkedProducts={checkedProducts}
+                    // handleCellCheckBox={handleCellCheckBox}
+                    // onShowProductDetail={onShowProductDetail}
+                    // onClickEditProduct={onClickEditProduct}
+                    // onClickAddStocks={onClickAddStocks}
                     onDelete={onDelete}
                   />
             ))}
+                      {/* {emptyRows > 0 && (
+            <TableRow style={{ height: 53 * emptyRows }}>
+              <TableCell colSpan={6} />
+            </TableRow>
+          )} */}
           </TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[1, 5, 10, 25, 50]}
         component="div"
-        count={rows.length}
+        count={products.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
