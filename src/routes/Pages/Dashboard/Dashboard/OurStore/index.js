@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
-import { useDispatch, useSelector } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import Box from '@material-ui/core/Box';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import CallIcon from '@material-ui/icons/Call';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
-
 import { intranet } from '../../../../../@fake-db';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -17,11 +16,6 @@ import { blue, pink } from '@material-ui/core/colors';
 
 import { SET_USER_DIALOG } from 'redux/actions/types';
 import { setCurrentUser } from 'redux/actions/Users';
-import commonData from 'utils/commonData';
-
-// import { SET_STORE_DIALOG } from 'redux/actions/types';
-// import { setCurrentStore } from 'redux/actions/Users';
-
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -82,37 +76,26 @@ const useStyles = makeStyles(theme => ({
       fontSize: 20,
     },
   },
-  editIcon: {
-    marginLeft: 790,
-    marginTop: 10
-  },
 }));
 
-const OurStore = () => {
-  const { addresses, description, business } = intranet.ourOfficeData;
-  const { name, address, title, contact, currentAddress } = business ? business : {};
+const OurStore = ({ business }) => {
+  const { addresses } = intranet.ourOfficeData;
+  const { name, address } = business ? business : {};
   const [currentAddress] = useState(addresses[0]);
-  const { authUser } = useSelector(({auth}) => auth);
-  // const { authStore } = useSelector(({auth}) => auth);
-
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { authUser } = useSelector(({auth}) => auth);
 
   const handleEdit = () => {
     dispatch(setCurrentUser(authUser));
     dispatch({type: SET_USER_DIALOG, payload: true});
   }
 
-  // const handleEdit = () => {
-  //   dispatch(setCurrentStore(authStore));
-  //   dispatch({type: SET_STORE_DIALOG, payload: true});
-  // }
-
   return (
     <CmtCard className={classes.cardRoot}>
-      <CmtCardHeader title={name} subTitle={address} />
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
-
+      <CmtCardHeader title={name} subTitle={address} />
+        
       <CmtCardContent>
         <Box mb={5}>
           <Typography component="div" variant="h4" className={classes.addressTitle}>
@@ -134,10 +117,10 @@ const OurStore = () => {
             <Box ml={4}>{currentAddress.emailAddress}</Box>
           </Box>
         </Box>
+
       </CmtCardContent>
     </CmtCard>
   );
-
 };
 
 export default OurStore;
