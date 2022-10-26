@@ -19,6 +19,7 @@ const ListTableView = ({
   updateCheckedCustomers,
   onShowCustomerDetail,
   onClickEditCustomer,
+  onClickAddStocks,
   onDelete
 }) => {
   const classes = useStyles();
@@ -128,6 +129,7 @@ const ListTableView = ({
                     handleCellCheckBox={handleCellCheckBox}
                     onShowCustomerDetail={onShowCustomerDetail}
                     onClickEditCustomer={onClickEditCustomer}
+                    onClickAddStocks={onClickAddStocks}
                     onDelete={onDelete}
                   />
             ))}
@@ -156,6 +158,7 @@ ListTableView.prototype = {
   updateCheckedCustomers: PropTypes.func,
   onShowCustomerDetail: PropTypes.func,
   onClickEditCustomer: PropTypes.func,
+  onClickAddStocks: PropTypes.func,
   onDelete: PropTypes.func
 };
 
