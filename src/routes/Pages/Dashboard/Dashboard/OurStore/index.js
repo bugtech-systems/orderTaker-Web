@@ -17,6 +17,9 @@ import { blue, pink } from '@material-ui/core/colors';
 import { SET_USER_DIALOG } from 'redux/actions/types';
 import { setCurrentUser } from 'redux/actions/Users';
 
+import { SET_STORE_DIALOG } from 'redux/actions/types';
+import { setCurrentStore } from 'redux/actions/Users';
+
 const useStyles = makeStyles(theme => ({
   cardRoot: {
     height: '100%',
@@ -84,11 +87,14 @@ const OurStore = ({ business }) => {
   const [currentAddress] = useState(addresses[0]);
   const classes = useStyles();
   const dispatch = useDispatch();
+  
   const { authUser } = useSelector(({auth}) => auth);
 
   const handleEdit = () => {
     dispatch(setCurrentUser(authUser));
     dispatch({type: SET_USER_DIALOG, payload: true});
+    // dispatch(setCurrentStore(authUser));
+    // dispatch({type: SET_STORE_DIALOG, payload: true});
   }
 
   return (
