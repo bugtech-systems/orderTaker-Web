@@ -108,7 +108,7 @@ export default function ProceedPayment() {
                  <Typography variant="subtitle2">{address}</Typography>
             </Box> 
          </Box> 
-         <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
+         {/* <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
             <Box mb={1} display="flex">
                 <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">Limit: </Typography>&nbsp;&nbsp;
                 <Typography variant="subtitle2">₱{Number(limit).toFixed(2)}</Typography>
@@ -117,7 +117,7 @@ export default function ProceedPayment() {
             <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">Balance:</Typography>&nbsp;&nbsp;
                  <Typography variant="subtitle2">₱{Number(balance).toFixed(2)}</Typography>
             </Box>
-         </Box>
+         </Box> */}
         </Box>}
         </Box>
 

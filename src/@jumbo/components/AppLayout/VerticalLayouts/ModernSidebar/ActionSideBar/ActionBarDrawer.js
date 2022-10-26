@@ -100,12 +100,14 @@ const useStyles = makeStyles(theme => ({
 const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
   const cart = useSelector(({cartApp}) => cartApp);
+  const {business} = useSelector(({dashboard}) => dashboard);
+
   const dispatch = useDispatch();
 
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
 
   const handlePrint = () => {
-    dispatch(setOrderReceipt(cart));
+    dispatch(setOrderReceipt({...cart, business}));
   }
 
   return (

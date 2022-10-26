@@ -18,10 +18,10 @@ import { cart } from '../../@fake-db'
         amount_due: 0,
         amount_payable: 0,
         cart_items_count: 0,
-        payment: 0,
+        payment: null,
         payments: [],
         amount_paid: 0,
-        change: 0,
+        change: null,
         notes: ''
   };
   
