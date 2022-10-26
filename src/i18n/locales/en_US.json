@@ -5,6 +5,7 @@
   "sidebar.inventory": "Inventory",
   "sidebar.stocks": "Stocks",
   "sidebar.purchases": "Purchases",
+  "sidebar.unpaid": "Unpaid Orders",
   "sidebar.user": "User Management",
   "sidebar.remittance": "Remittances",
   "sidebar.expense": "Expenses",

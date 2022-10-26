@@ -7,7 +7,7 @@ const MainContainer = ({ header, footer, sidebar, className, children }) => {
   const { drawerBreakPoint, showFooter, showHeader } = useContext(LayoutContext);
 
   const classes = useStyles({ drawerBreakPoint });
-
+ 
   return (
     <div className={clsx(classes.appRoot, className)}>
       <div className={classes.appInnerRoot}>

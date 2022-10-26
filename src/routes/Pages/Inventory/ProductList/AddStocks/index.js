@@ -91,7 +91,7 @@ const ProductDetail = ({ open, handleDialog, onSubmit }) => {
     handleDialog(false);
   }
 
-  const { id, name, description, stocks, price, cover  } = currentProduct;
+  const { name, description, stocks, price, cover  } = currentProduct;
   return (
     <Dialog open={open} onClose={handleDialog} className={classes.dialogRoot}>
        <DialogTitle >

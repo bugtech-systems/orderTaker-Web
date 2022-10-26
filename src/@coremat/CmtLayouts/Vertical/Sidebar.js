@@ -13,7 +13,9 @@ const CmtSidebarContent = ({ children, classes }) => {
 
   return (
     <div className={clsx(classes.appSidebar, 'Cmt-sidebar')}>
-      <div className={clsx(classes.appSidebarContent, 'Cmt-sidebar-content')} style={backgroundStyle}>
+      <div className={clsx(classes.appSidebarContent, 'Cmt-sidebar-content')} 
+      style={backgroundStyle}
+      >
         {children}
         {overlayStyle && <div className={clsx(classes.overlayRoot, 'Cmt-Drawer-overlay')} style={overlayStyle} />}
       </div>

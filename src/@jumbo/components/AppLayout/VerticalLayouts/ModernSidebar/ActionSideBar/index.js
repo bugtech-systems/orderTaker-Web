@@ -73,7 +73,7 @@ const ActionSideBar = ({ width }) => {
   const cart = useSelector(({cartApp}) => cartApp);
   const { authUser } = useSelector(({auth}) => auth);
 
-  const { notifications, isDrawerOpen, activeOption, notifCount } = useSelector(({uiReducer}) => uiReducer)
+  const { isDrawerOpen, activeOption, notifCount, action } = useSelector(({uiReducer}) => uiReducer)
   const { isSidebarOpen, sidebarWidth, setSidebarWidth, setSidebarOpen } = useContext(LayoutContext);
 
   const onIconClick = option => {
@@ -81,7 +81,6 @@ const ActionSideBar = ({ width }) => {
       
     
         if(option === 'notifications'){
-          console.log('THIS IS NOTIF')
           dispatch({type: SET_NOTIF_COUNT, payload: 0})
         }
 
@@ -153,8 +152,6 @@ const ActionSideBar = ({ width }) => {
   }, [activeOption]);
 
 
-  console.log(notifCount)
-
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
       <Hidden smDown>
@@ -211,6 +208,7 @@ const ActionSideBar = ({ width }) => {
         onDrawerClose={onDrawerClose}
         onIconClick={onIconClick}
         activeOption={activeOption}
+        action={action}
       />
     </div>
   );

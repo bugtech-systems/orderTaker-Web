@@ -34,8 +34,11 @@ export default function ProceedPayment() {
   const cart = useSelector(({cartApp}) => cartApp);
   const { amount_due, change, payment, notes, order_no, amount_payable } = cart
   const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
+  const [cartCustomer, setCartCustomer] = useState({});
 
-  const { name, address, limit, balance } = currentCustomer ? currentCustomer : {};
+
+
+
   const handleSelect = (val) => {
     if(!val){
       dispatch(setCurrentCustomer(null))
@@ -43,6 +46,11 @@ export default function ProceedPayment() {
 
     } else {
       if( val.id){
+
+    let  customer = customersList.find(a => a.id === val.id)
+
+
+        dispatch(setCurrentCustomer(customer ? customer : null))
         dispatch({type: UPDATE_CART, payload: { ...cart, customerId: val.id }})
       }
     }
@@ -60,23 +68,17 @@ export default function ProceedPayment() {
   }
 
   useEffect(() => {
-    let { customerId, customers } = cart ? cart : {};
-    let customer = null
-      if(customerId){
-       customer = customersList.find(a => a.id === customerId)
-      }
+    setCartCustomer(currentCustomer)
+  }, [currentCustomer])
 
-      if(customers && customers.length !== 0){
-        customer = customers[0];
 
-       }
 
-      dispatch(setCurrentCustomer(customer ? customer : null))
-      dispatch({type: UPDATE_CART, payload: {  ...cart, customerId: customer ? customer.id : null}})
-      
 
-  }, [cart.customerId, customersList])
 
+
+
+
+  const { name, address, limit, balance } = cartCustomer ? cartCustomer : {};
 
 
   return (

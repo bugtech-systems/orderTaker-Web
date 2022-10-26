@@ -13,7 +13,7 @@ import { getOrders } from './OrderApp';
 //For expanding sidebar
 export const handleCartItem = (cart_items, item) => {
 
-  let { stocks } = item.product ? item.product : {};
+  let { stocks  } = item.product ? item.product : {};
   let qty = item.qty || item.qty >= 0 ? item.qty : 1;
   let cartItems = cart_items;
   let inds = cart_items.map(a => { return a.productId}).indexOf(item.productId);

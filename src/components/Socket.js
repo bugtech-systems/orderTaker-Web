@@ -9,7 +9,7 @@ import commonData from "../utils/commonData";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { getAllNotifications } from "redux/actions/Notification";
-import { SET_NOTIFICATIONS, SET_NOTIF_COUNT } from "redux/actions/types";
+import { SET_NOTIF_COUNT } from "redux/actions/types";
 
 export default function Socket() {
   const dispatch = useDispatch();
@@ -28,7 +28,6 @@ export default function Socket() {
 
 
 const handleNotification = (val) => {
-  console.log('Notif Receive');
   let notifications = uiState.notifications;
   notifications.unshift(val);
       handleClick()
@@ -40,13 +39,11 @@ const handleNotification = (val) => {
         console.log(err)
       })
       // dispatch({type: SET_NOTIFICATIONS, payload: { notifications }})
-
   }
 
 
 
 const handleClick = (url) => {
-  console.log(`${commonData.staticUrl} `)
 // const audio = new Audio(`${commonData.staticUrl}/assets/notif1.mp3`);
 // audio.play();
 playSound();
@@ -57,38 +54,41 @@ playVibrate();
 const playVibrate = (url) => {
   navigator.vibrate(20000); // vibrate for 200ms
 // navigator.vibrate([100,30,100,30,100,30,200,30,200,30,200,30,100,30,100,30,100])
-  // console.log(`${commonData.staticUrl} `)
-// const audio = new Audio(`${commonData.staticUrl}/assets/notif1.mp3`);
-// audio.play();
 }
 
 
 const playSound = (url) => {
-  console.log(`${commonData.staticUrl} `)
-const audio = new Audio(`${commonData.staticUrl}assets/moans.mp3`);
+const audio = new Audio(`${commonData.staticUrl}assets/notif1.mp3`);
 audio.play();
 }
 
 useEffect(() => {
   let socket  = null;
-
+  let token = localStorage.getItem('idToken')
 
   if(authUser && authUser.id) {
   socket = socketIOClient(`${commonData.hostUrl}`, {
       extraHeaders: {
-        Authorization: `Bearer ${authUser.id}`
+        Authorization: `Bearer ${token}`
       },
       // path: "/app"
       // transports: ["websocket"]
     });
 
-    console.log('SOCKET INIT')
-
-
-
       socket.on("notification", val => {
         handleNotification(val);
         });
+
+
+        socket.on("pdf-webhook", val => {
+          let a = document.createElement('a');
+          a.href = val.filePath;
+          a.target = '_blank';
+          a.download = val.filename;
+          document.body.appendChild(a);
+          a.click();
+          a.parentNode.removeChild(a);
+          });
 }
 
 
@@ -102,11 +102,8 @@ return () => {
 }, [authUser]);
 
 useEffect(() => {
-console.log(uiState.notifCount)
   setNtfCount(uiState.notifCount);
 }, [uiState])
-
-console.log(ntfCount);
 
   return (
     <div 

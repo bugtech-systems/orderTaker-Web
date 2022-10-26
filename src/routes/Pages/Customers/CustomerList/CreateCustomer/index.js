@@ -11,7 +11,7 @@ import CmtList from '../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
 import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
 import { requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
-import { createCustomer, onUpdateCustomer } from '../../../../../redux/actions/Customer';
+import { createCustomer, onUpdateCustomer, setCurrentCustomer } from '../../../../../redux/actions/Customer';
 import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
@@ -22,7 +22,8 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { uploadFile } from '../../../../../redux/actions/Users';
-import { UPDATE_CART } from 'redux/actions/types';
+import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from 'redux/actions/types';
+import commonData from 'utils/commonData';
 
 
 
@@ -66,6 +67,8 @@ const labels = [
 
 const CreateCustomer = ({ open, handleDialog }) => {
   const { currentCustomer, customersList } = useSelector(({ customerApp }) => customerApp);
+  const { isDrawerOpen } = useSelector(({ uiReducer }) => uiReducer);
+
   const cart = useSelector(({cartApp}) => cartApp);
 
   const dispatch = useDispatch();
@@ -122,7 +125,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
     setErrors({ ...errors, [prop]: '' });
   };
 
-  const isPhonesMultiple = values.phones.length > 1;
 
   const checkValidations = () => {
     const phoneNumbers = values.phones.filter(item => item.phone.trim());
@@ -145,17 +147,24 @@ const CreateCustomer = ({ open, handleDialog }) => {
       limit: limit ? limit : 0,
       balance: balance ? balance : 0,
     };
-    if (currentCustomer.id) {
+    if (currentCustomer && currentCustomer.id) {
       dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
       handleDialog(false);
     } else {
       dispatch(createCustomer({...currentCustomer, ...customer}))
       .then(res => {
-        dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
-        handleDialog(false);
+        if(isDrawerOpen){
+          dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
+          dispatch(setCurrentCustomer(res));
+          dispatch({
+            type: SET_CREATE_CUSTOMER_DIALOG,
+            payload: false,
+          });
+        } else {
+          handleDialog(false);
+        }
       })
       .catch(err => {
-        console.log('SUBMIT ERROR!!!')
         console.log(err)
       })
       ;
@@ -165,9 +174,19 @@ const CreateCustomer = ({ open, handleDialog }) => {
 
   useEffect(() => {
     if(currentCustomer){
-      setValues(currentCustomer)
+      setValues({...values, ...currentCustomer})
+    } else {
+      setValues({
+        phones:[{phone: '', label: 'home'}],
+        tags: []
+      })
     }
   }, [currentCustomer])
+
+
+
+  const isPhonesMultiple = values.phones.length > 1;
+
 
   return (
     <Dialog open={open} onClose={() => handleDialog(false)} className={classes.dialogRoot}>
@@ -178,7 +197,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={values.cover} />
+            <CmtAvatar size={70} src={`${commonData.staticUrl}${values.cover}`} />
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>

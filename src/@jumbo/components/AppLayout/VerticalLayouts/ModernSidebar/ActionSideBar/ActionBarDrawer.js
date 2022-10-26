@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtDrawer from '../../../../../../@coremat/CmtDrawer';
-import CloseIcon from '@material-ui/icons/Close';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
+
+
+//Icons 
+import CloseIcon from '@material-ui/icons/Close';
+import PrintIcon from '@material-ui/icons/Print';
 
 
 //Components
@@ -19,7 +23,7 @@ import CartFooter from './CartDetail/CartFooter';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_CART } from '../../../../../../redux/actions/types';
+import { setOrderReceipt } from 'redux/actions/Report.action';
 
 
 
@@ -93,12 +97,17 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick, ...rest }) => {
+const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
   const cart = useSelector(({cartApp}) => cartApp);
-
+  const dispatch = useDispatch();
 
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
+
+  const handlePrint = () => {
+    dispatch(setOrderReceipt(cart));
+  }
+
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
@@ -106,15 +115,23 @@ const ActionBarDrawer = ({ activeOption, onIconClick, onDrawerClose, handleClick
         {/* <IconButton className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton> */}
-          {activeOption === 'profile' || activeOption === 'cart' && 
+          {(activeOption === 'profile' || activeOption === 'cart') && 
             <Box className={classes.header}>
         <Box fontSize={20} fontWeight={700}>
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
         </Box>
+        <Box>
+        {
+        activeOption === 'cart' &&
+        ['paidSuccess','paidCart','success', 'unpaid', 'viewCart'].includes(action) && 
+        <IconButton onClick={() => handlePrint()}>
+                <PrintIcon/>
+          </IconButton>}
         <IconButton size="small" className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
+          </Box>
       </Box>
       }
           <PerfectScrollbar className={classes.scrollbarRoot}>

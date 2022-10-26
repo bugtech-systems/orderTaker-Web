@@ -26,6 +26,7 @@ import { useSelector, useDispatch } from 'react-redux';
 //Components
 import AddEditUser from './Pages/Users/AddEditUser';
 import Socket from '../components/Socket';
+import Profile from './Pages/Profile';
 
 
 
@@ -69,6 +70,11 @@ const Routes = () => {
   return (
     <React.Fragment>
       {!token && <Redirect to={'/signin'} />}
+      
+      <Socket/>
+
+      <AddEditUser  />
+
       <Switch>
         {/* Main Pages */}
         <RestrictedRoute path="/dashboard" component={Dashboard} />
@@ -78,6 +84,7 @@ const Routes = () => {
         <RestrictedRoute path="/customers" component={Customers} />
         <RestrictedRoute path="/reports" component={SalesReport} />
         <RestrictedRoute path="/settings" component={Settings} />
+        <RestrictedRoute path="/sales" component={Profile} />
 
         {/* Other Pages */}
         <Route path="/signin" component={Login} />
@@ -85,10 +92,6 @@ const Routes = () => {
 
         <Route component={Error404} />
       </Switch>
-
-      <Socket/>
-
-      <AddEditUser  />
 
 
 

@@ -62,8 +62,6 @@ const contentTypes = {
 };
 
 const RenderRow = ({ type, item, updateNotificationItem }) => {
-    console.log(type)
-    console.log(item)
   const RenderItemRow = contentTypes[type];
 
   const onReadUnread = (notification, type) => {
