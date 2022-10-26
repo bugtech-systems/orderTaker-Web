@@ -77,10 +77,6 @@ const Dashboard = () => {
     total: 0, today:[], xrate: null
   });
 
-
-
-
-
   const handleDateCounter = (val) => {
     setDateCounter(val)
   }
@@ -103,12 +99,7 @@ const Dashboard = () => {
     //   total, today
     // }})
     setTodaySales({...todaySales, total, today})
-    
-
-
   }
-
-
 
   useEffect(() => {
     if(loadUser){
@@ -116,7 +107,6 @@ const Dashboard = () => {
     dispatch(getInventoryList(filterType));
     dispatch(getOrders());
     dispatch(getAllNotifications());
-
     }
   }, [loadUser, authUser]);
 
@@ -136,11 +126,6 @@ const Dashboard = () => {
           <CalendarEvents
           dateCounter={dateCounter}
           setDateCounter={handleDateCounter}
-          // backgroundColor="#6200EE"
-          // icon={<StarIcon style={{ color: '#ffffff' }} />}
-          // title={20}
-          // subTitle="PRODUCTS"
-          // Link="/products"
           />
         </Grid>
         <Grid item xs={12} sm={12} lg={6}>
@@ -148,11 +133,6 @@ const Dashboard = () => {
             <Grid item xs={12} sm={12} lg={12}>
               <OurStore
               business={business}
-              // backgroundColor="#6200EE"
-              // icon={<StarIcon style={{ color: '#ffffff' }} />}
-              // title={20}
-              // subTitle="PRODUCTS"
-              // Link="/products"
               />
             </Grid>
             {/* Easy Access Widget Portion */}
@@ -176,31 +156,7 @@ const Dashboard = () => {
                 Link="/customers"
               />
             </Grid>
-            {/* {isAdmin && <Grid item xs={12} sm={12} lg={12}>
-              <ToggleAnalyticsCard data={intranet.visitedChart}/>
-            </Grid>} */}
-          {/* {isAdmin &&
-          <>
-            <Grid item xs={12} sm={6} lg={6}>
-              <CardWidget
-                icon={<ContactPhone style={{ color: '#ffffff' }} />}
-                backgroundColor="#0795F4"
-                title={counts.customers}
-                subTitle="CUSTOMERS"
-                Link="/customers"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={6}>
-              <CardWidget
-                icon={<SupervisedUserCircleIcon style={{ color: '#ffffff' }} />}
-                backgroundColor="#8DCD03"
-                title={counts.users}
-                subTitle="USERS"
-                Link="/users"
-              />
-            </Grid>
-            </>
-            } */}
+
           </GridContainer>
         </Grid>
         {popularProducts && popularProducts.length !== 0 &&
@@ -229,9 +185,6 @@ const Dashboard = () => {
           />
         </Grid>
          }
-        {/* <Grid item xs={12} lg={12}>
-         <VideoPlayer/> 
-        </Grid> */}
       </GridContainer>
     </PageContainer>
   );

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, CLEAR_USER } from './types';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_AUTH_STORE, UPDATE_LOAD_USER, CLEAR_USER } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 
 import commonData from '../../utils/commonData';
@@ -11,6 +11,15 @@ export const setAuthUser = user => {
     dispatch({
       type: UPDATE_AUTH_USER,
       payload: user,
+    });
+  };
+};
+
+export const setAuthStore = store => {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_AUTH_STORE,
+      payload: store,
     });
   };
 };
@@ -69,6 +78,27 @@ export const getUserData = () => {
       localStorage.setItem('user', JSON.stringify({email, id, roles, name, address, dpUrl}));
 
       dispatch(setAuthUser(res.data))
+      dispatch(fetchSuccess());
+    },
+    (err) => {
+      console.log(err.response)
+      dispatch(fetchError('Something went wrong!'));
+      dispatch(logout())
+    }
+  );
+};
+}
+
+export const getStoreData = () => { 
+  return (dispatch) => {
+
+  axios.get(`${commonData.apiUrl}/store`,)
+  .then(
+    (res) => {
+      let { email, id, name, address, phone, title } = res.data;
+      localStorage.setItem('store', JSON.stringify({email, id, name, phone, address, title}));
+
+      dispatch(setAuthStore(res.data))
       dispatch(fetchSuccess());
     },
     (err) => {

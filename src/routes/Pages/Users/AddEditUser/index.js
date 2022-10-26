@@ -16,8 +16,6 @@ import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { DialogTitle, TextField, InputAdornment } from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CancelIcon from '@material-ui/icons/Cancel';
 import { isValidEmail } from '../../../../@jumbo/utils/commonHelper';
 
 //Icons
@@ -28,7 +26,7 @@ import commonData from 'utils/commonData';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewUser, setCurrentUser, updateUser, uploadFile } from '../../../../redux/actions/Users';
-import { SET_USER_DIALOG } from 'redux/actions/types';
+import { SET_USER_DIALOG, SET_STORE_DIALOG } from 'redux/actions/types';
 
 
 
@@ -117,6 +115,11 @@ const AddEditUser = () => {
     dispatch(setCurrentUser(null));
   };
 
+  const onClosesDialog = () => {
+    dispatch({type: SET_STORE_DIALOG, payload: false});
+    dispatch(setCurrentUser(null));
+  };
+
   useEffect(() => {
     if (currentUser) {
       setValues({ ...currentUser, roles: currentUser.roles[0].name });
@@ -168,7 +171,7 @@ const AddEditUser = () => {
   // const isPhonesMultiple = phones.length > 1;
 
   return (
-    <Dialog open={userDialog ? true : false} onClose={onCloseDialog} className={classes.dialogRoot}>
+    <Dialog open={userDialog ? true : false} onClose={onClosesDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>
       <DialogContent dividers>
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
