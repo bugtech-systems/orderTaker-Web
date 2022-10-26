@@ -24,6 +24,7 @@ const ListTableView = ({
   const classes = useStyles();
 
   const { customersList } = useSelector(({ customerApp }) => customerApp);
+  // const { customersList } = useSelector((state) => state.customersReducer);
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -105,7 +106,7 @@ const ListTableView = ({
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
                 {checkedCustomers.length === 0 && (
-                     <ListHeader
+                     <customersList
                      classes={classes}
                      numSelected={checkedCustomers.length}
                      order={order}
@@ -133,7 +134,7 @@ const ListTableView = ({
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 5, 10, 25, 50]}
+        rowsPerPageOptions={[1, 5, 15, 20, 50]}
         component="div"
         count={customers.length}
         rowsPerPage={rowsPerPage}
