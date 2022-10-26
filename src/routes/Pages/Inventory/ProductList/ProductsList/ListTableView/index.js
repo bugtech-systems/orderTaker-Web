@@ -11,10 +11,6 @@ import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import useStyles from './index.style';
 import NoRecordFound from './NoRecordFound';
-
-//Jumbo
-import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
-
 const ListTableView = ({
   checkedProducts,
   handleCellCheckBox,
@@ -27,7 +23,6 @@ const ListTableView = ({
 }) => {
 const classes = useStyles();
   const { users } = useSelector((state) => state.usersReducer);
-  const { userDialog } = useSelector((state) => state.uiReducer);
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -35,16 +30,11 @@ const classes = useStyles();
   const { productsList } = useSelector(({ productApp }) => productApp);
   const [page, setPage] = React.useState(0);
   const [products, setProducts] = useState([])
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [selectedUser, setSelectedUser] = useState({ name: '' });
-  // const [usersFetched, setUsersFetched] = useState(false);
-  // const [currentUser, setCurrent] = useState({});
   
   const fetchData = async () => {
   const response = await fetch("http://localhost:3001/api/products")
   const data = await response.json()
    setProducts(data)
-  //  setProducts(newProducts)
   }
   useEffect(() => {
     fetchData()
