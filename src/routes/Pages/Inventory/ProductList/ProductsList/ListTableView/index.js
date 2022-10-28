@@ -26,35 +26,39 @@ const ListTableView = ({
   onDelete
 }) => {
 const classes = useStyles();
-  const { users } = useSelector((state) => state.usersReducer);
-  const { userDialog } = useSelector((state) => state.uiReducer);
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const { productsList } = useSelector(({ productApp }) => productApp);
   const [page, setPage] = React.useState(0);
-  const [products, setProducts] = useState([])
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [selectedUser, setSelectedUser] = useState({ name: '' });
-  // const [usersFetched, setUsersFetched] = useState(false);
-  // const [currentUser, setCurrent] = useState({});
+  const [counts, setCounts] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  const [products, setProducts] = useState([]);
+  // const [rowsPerPage, setRowsPerPage] = useState([10]);
+
   
   const fetchData = async () => {
-  const response = await fetch("http://localhost:3001/api/products")
-  const data = await response.json()
-   setProducts(data)
-  //  setProducts(newProducts)
-  }
-  useEffect(() => {
-    fetchData()
-  }, [])
+  
+    // const response = await fetch("http://localhost:3001/api/products")
+    const response = await fetch("http://localhost:3001/api/products?search_query=${keyword}&page=${page}&limit=${limit});")
+    const data = await response.json()
+     setProducts(data)
+    }
+    useEffect(() => {
+      fetchData()
+    }, [])
   
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
   
+    const handleChange = (event, value) => {
+    setPage(value);
+  };
+
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -71,7 +75,7 @@ const classes = useStyles();
   
     const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelected = users.map(n => n.id);
+      const newSelected = products.map(n => n.id);
       setSelected(newSelected);
       return;
     }
@@ -155,9 +159,11 @@ const classes = useStyles();
       <TablePagination
         rowsPerPageOptions={[1, 10, 30, 50]}
         component="div"
+        counts={counts}
         count={products.length}
         rowsPerPage={rowsPerPage}
         page={page}
+        onChange={handleChange}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
