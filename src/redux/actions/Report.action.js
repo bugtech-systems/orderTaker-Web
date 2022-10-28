@@ -8,18 +8,32 @@
   
   //For setting Filtertype
   export const setOrderReceipt = data => {
-    console.log(data)
     return dispatch => {
-        const { customers, business } = data;
+        const { customers, business, tax_disc, total_vatable, notes, gross_total } = data;
         const customer = (!customers || customers.length === 0) ? '-' : customers[0].name;
         const amount_paid = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_paid)
         const amount_payable = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_payable)
         const amount_due = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_due)
+
         const order_date = moment(data.createdAt).format('LLL');
+        const due_date = data.dueDate && moment(data.dueDate).format('LLL');
+        const order_items = data.order_items.map((a, index) => {
+          return { ...a, price: Number(a.price).toFixed(2), total: Number(a.total).toFixed(2), no: index + 1 }
+        })
 
-      
+        const newTaxDisc = tax_disc.map(a => {
+          return {...a, total: Number(a.total).toFixed(2) }
+        })
 
-      
+        console.log(tax_disc)
+        let taxes = newTaxDisc.filter(a => a.type === 'tax');
+        let charges = newTaxDisc.filter(a => a.type === 'charges')
+        let discounts = newTaxDisc.filter(a => a.type === 'discounts')    
+        let totalTaxes = Number(sumValue(taxes, 'total')).toFixed(2);
+
+        let totalDiscounts = Number(sumValue(discounts, 'total')).toFixed(2);
+        let totalCharges = Number(sumValue(charges, 'total')).toFixed(2);
+
 
 
 
@@ -31,7 +45,7 @@
             "parser": "invoice",
             "header": {
               business, bill_to: (!customers || customers.length === 0) ? {} : customers[0],
-              invoice: { order_no: data.order_no, order_date }
+              invoice: { order_no: data.order_no, order_date, due_date }
             },
             "content": {
                 ...data,
@@ -40,6 +54,22 @@
                 amount_payable,
                 amount_due,
                 order_date,
+                order_items
+            },
+            "footer": {
+              amount_paid,
+              amount_payable,
+              amount_due,
+              order_date,
+              total_vatable,
+              taxes: taxes.length !== 0 ? 
+              { taxes, totalTaxes } : null,
+              charges: charges.length !== 0 ? 
+              { charges, totalCharges } : null,
+              discounts: discounts.length !== 0 ? 
+              { discounts, totalDiscounts  } : null,
+              gross_total,
+              notes
             },
             "page_options": {
               // "page_orientation": "portrait"
@@ -47,7 +77,7 @@
           }
           
 
-
+          console.log(newData)
         dispatch(printReport(newData))
 
     };
@@ -103,3 +133,9 @@
   };
   
  
+
+  const sumValue = (data, field) => {
+    return data.map(a => { return  a[field]}).reduce(function(previousValue, currentValue) {
+      return  Number(previousValue + currentValue)
+        });
+  }

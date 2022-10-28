@@ -327,7 +327,7 @@ const Comments = () => {
 
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
       return (
-      <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  key={index} >
+      <GridContainer  key={index} >
         <Grid item xs={8} lg={8}>
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
           {a.description}
@@ -368,7 +368,7 @@ const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
         {/* <Box display="flex" alignItems="center" justifyContent="center">
         <Typography variant="h5" style={{fontWeight: 'bolder'}}> */}
         {/* {a.total} */}
-        Add:
+        {/* Add: */}
           {/* </Typography> */}
         {/* </Box> */}
         </Grid>
@@ -405,7 +405,7 @@ const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) 
         {/* <Box display="flex" alignItems="center" justifyContent="center">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}> */}
         {/* {a.total} */}
-        Less:
+        {/* Less: */}
           {/* </Typography>
         </Box> */}
         </Grid>
@@ -442,7 +442,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
         <GridContainer >
               <Grid item xs={8} lg={8}>
               <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                  Gross total
+                 SUBTOTAL
                   </Typography>
               </Grid>
               <Grid item xs={2} lg={2} >
@@ -460,7 +460,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                 </Box>
                 </Grid>
           </GridContainer>
-        <Divider style={{margin: 5}}/>
+        {/* <Divider style={{margin: 5}}/>
         <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  >
         <Grid item xs={8} lg={8}>
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
@@ -476,12 +476,12 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
           </Grid>
           <Grid item xs={2} lg={2}>
           </Grid>
-        </GridContainer>
+        </GridContainer> */}
         {getTaxes}
         <Box className={classes.btnWrap}>
     
-        <Divider style={{margin: 5}}/>
-        <GridContainer >
+        {/* <Divider style={{margin: 5}}/> */}
+        {/* <GridContainer >
               <Grid item xs={8} lg={8}>
               <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
                 <Typography variant="h5" style={{fontWeight: 'bolder'}}>
@@ -498,7 +498,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                   </Typography>
                 </Box>
                 </Grid>
-            </GridContainer>
+            </GridContainer> */}
      {getDiscounts}
      {getCharges}
         <Box className={classes.btnWrap}>
@@ -686,7 +686,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
             <GridContainer style={{padding: 5}} >
               <Grid item xs={8} lg={8}>
               <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                  Total Amount Due
+                  AMOUNT DUE
                   </Typography>
               </Grid>
               <Grid item xs={2} lg={2} >
@@ -698,7 +698,7 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                 </Grid>
                 <Grid item xs={2} lg={2}>
                 <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
-                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
+                <Typography variant="h3" color='primary' style={{fontWeight: 'bolder'}}>
                 {amount_due}
                   </Typography>
                 </Box>

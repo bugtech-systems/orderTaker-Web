@@ -36,7 +36,8 @@ export const handleCartItem = (cart_items, item) => {
             total: item.price * qty,
             productId: item.productId,
             name: item.name,
-            description: item.description
+            description: item.description,
+            uom: item.uom
           }
         : a;
     });
@@ -50,7 +51,8 @@ export const handleCartItem = (cart_items, item) => {
       total: item.price * qty,
       productId: item.id ? item.id : item.productId,
       name: item.name,
-      description: item.description
+      description: item.description,
+      uom: item.uom
     });
   }
 
