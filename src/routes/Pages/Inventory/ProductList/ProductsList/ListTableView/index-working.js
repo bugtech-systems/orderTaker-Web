@@ -95,11 +95,11 @@ const classes = useStyles();
                     <ProductCell
                     key={index}
                     product={data}
-                    checkedProducts={checkedProducts}
-                    handleCellCheckBox={handleCellCheckBox}
-                    onShowProductDetail={onShowProductDetail}
-                    onClickEditProduct={onClickEditProduct}
-                    onClickAddStocks={onClickAddStocks}
+                    // checkedProducts={checkedProducts}
+                    // handleCellCheckBox={handleCellCheckBox}
+                    // onShowProductDetail={onShowProductDetail}
+                    // onClickEditProduct={onClickEditProduct}
+                    // onClickAddStocks={onClickAddStocks}
                     onDelete={onDelete}
                   />
             ))}
