@@ -105,10 +105,12 @@ export default function CartFooter() {
 
     const handleNewOrder = () => {
       dispatch({type: CLEAR_CART});
+      localStorage.removeItem('cart')
     }
   
     const handleClose = () => {
       dispatch({type: CLEAR_CART});
+      localStorage.removeItem('cart')
       dispatch({type: SET_DRAWER_OPEN, payload: false});
       dispatch(setCurrentCustomer(null));
     }
@@ -132,6 +134,7 @@ export default function CartFooter() {
       dispatch({ 
         type: CLEAR_CART
       });
+      localStorage.removeItem('cart')
       dispatch(setCurrentCustomer(null));
     } else {
       handleClose()
@@ -150,6 +153,7 @@ export default function CartFooter() {
       if(res){
         dispatch(fetchSuccess(message));
         dispatch({type: UPDATE_CART, payload: {...cart, ...data}})
+        localStorage.removeItem('cart')
         dispatch({type: SET_CART_SUCCESS, payload: data.id});
       dispatch({type: SET_ACTION, payload: 'success'})
       }
