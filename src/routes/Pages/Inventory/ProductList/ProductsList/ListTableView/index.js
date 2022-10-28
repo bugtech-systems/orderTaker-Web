@@ -12,9 +12,6 @@ import PropTypes from 'prop-types';
 import useStyles from './index.style';
 import NoRecordFound from './NoRecordFound';
 
-//Jumbo
-import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
-
 const ListTableView = ({
   checkedProducts,
   handleCellCheckBox,
@@ -41,7 +38,8 @@ const classes = useStyles();
   const fetchData = async () => {
   
     // const response = await fetch("http://localhost:3001/api/products")
-    const response = await fetch("http://localhost:3001/api/products?search_query=${keyword}&page=${page}&limit=${limit});")
+    const response = await fetch("http://localhost:3001/api/products?")
+    // const response = await fetch("http://localhost:3001/api/products?search_query=${keyword}&page=${page}&limit=${limit});")
     const data = await response.json()
      setProducts(data)
     }
@@ -64,8 +62,8 @@ const classes = useStyles();
     setPage(0);
   };
   
-    // const emptyRows =
-    // rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, products.length - page * rowsPerPage);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -149,21 +147,22 @@ const classes = useStyles();
                     onDelete={onDelete}
                   />
             ))}
-                      {/* {emptyRows > 0 && (
+                      {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
-          )} */}
+          )}
           </TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[1, 10, 30, 50]}
         component="div"
-        counts={counts}
+        counts={products.counts}
         count={products.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChange={handleChange}
+        handlePageChange={handlePageChange}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
