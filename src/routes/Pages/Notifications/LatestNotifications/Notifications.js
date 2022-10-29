@@ -129,7 +129,7 @@ const Notifications = ({ listsToShow, notifications }) => {
               setSnackBarStatus(true);
             }}
             color="primary">
-            SEE ALL
+            {/* SEE ALL */}
           </Button>
         </Box>
       </Box>
