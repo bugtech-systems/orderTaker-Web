@@ -5,6 +5,7 @@ import Table from '@material-ui/core/Table';
 import { useSelector } from 'react-redux';
 import { TableBody, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
+import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
 
 import ProductCell from './ProductCell';
 import CheckedListHeader from './CheckedListHeader';
@@ -31,19 +32,24 @@ const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [counts, setCounts] = React.useState(0);
   const [count, setCount] = React.useState(0);
+  // const [pageCount, setpageCount] = useState(0);
   const [products, setProducts] = useState([]);
+  const [isLoaded, setisLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // const [rowsPerPage, setRowsPerPage] = useState([10]);
 
   
   const fetchData = async () => {
+     setisLoaded(true);
   
     // const response = await fetch("http://localhost:3001/api/products")
-    const response = await fetch("http://localhost:3001/api/products?")
-    // const response = await fetch("http://localhost:3001/api/products?search_query=${keyword}&page=${page}&limit=${limit});")
+    // const response = await fetch("http://localhost:3001/api/products?")
+    const response = await fetch("http://localhost:3001/api/products?search_query=${keyword}&page=${page}&limit=${limit});")
     const data = await response.json()
      setProducts(data)
     }
     useEffect(() => {
+    setIsLoading(true);
       fetchData()
     }, [])
   
@@ -93,9 +99,9 @@ const classes = useStyles();
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
-
     setSelected(newSelected);
   };
+  
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
@@ -107,7 +113,6 @@ const classes = useStyles();
   
   const isSelected = id => selected.indexOf(id) !== -1;
   
-
   return (
     <React.Fragment>
           {checkedProducts.length > 0 && (
@@ -135,25 +140,29 @@ const classes = useStyles();
           <TableBody>
        {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((data, index) => (
-                    <ProductCell
-                    key={index}
-                    product={data}
-                    checkedProducts={checkedProducts}
-                    handleCellCheckBox={handleCellCheckBox}
-                    onShowProductDetail={onShowProductDetail}
-                    onClickEditProduct={onClickEditProduct}
-                    onClickAddStocks={onClickAddStocks}
-                    onDelete={onDelete}
-                  />
-            ))}
+            // .stableSort(products, getComparator(order, orderBy))
+            .map((data, row, index) => (
+              <ProductCell
+              key={index}
+              product={data}
+              checkedProducts={checkedProducts}
+              handleCellCheckBox={handleCellCheckBox}
+              onShowProductDetail={onShowProductDetail}
+              onClickEditProduct={onClickEditProduct}
+              onClickAddStocks={onClickAddStocks}
+              onDelete={onDelete}
+              />
+              ))}
                       {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
+              <NoRecordFound> Sorry! No Records Found! </NoRecordFound>
             </TableRow>
           )}
           </TableBody>
       </Table>
+      {isLoaded ? (
+      
       <TablePagination
         rowsPerPageOptions={[1, 10, 30, 50]}
         component="div"
@@ -166,6 +175,10 @@ const classes = useStyles();
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
+      ) : (
+              <div>
+                </div>
+        )}
     </TableContainer>
     </React.Fragment>
   );

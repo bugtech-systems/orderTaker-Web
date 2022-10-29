@@ -14,8 +14,6 @@ import ProductCellOptions from './ProductCellOptions';
 
 import commonData from "../../../../../../utils/commonData";
 
-
-
 const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct, onClickAddStocks }) => {
   const classes = useStyles();
   const { id, name, description, stocks, price, cover } = product;
