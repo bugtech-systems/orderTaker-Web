@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
 
 import ProductTableHead from './ProductTableHead';
-import Table from '@material-ui/core/Table';
 import { useSelector } from 'react-redux';
-import { TableBody, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
+import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
-import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
-
 import ProductCell from './ProductCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import useStyles from './index.style';
 import NoRecordFound from './NoRecordFound';
+import Box from '@material-ui/core/Box';
+
+import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
 
 const ListTableView = ({
   checkedProducts,
@@ -32,7 +32,6 @@ const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [counts, setCounts] = React.useState(0);
   const [count, setCount] = React.useState(0);
-  // const [pageCount, setpageCount] = useState(0);
   const [products, setProducts] = useState([]);
   const [isLoaded, setisLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +40,6 @@ const classes = useStyles();
   
   const fetchData = async () => {
      setisLoaded(true);
-  
     // const response = await fetch("http://localhost:3001/api/products")
     // const response = await fetch("http://localhost:3001/api/products?")
     const response = await fetch("http://localhost:3001/api/products?search_query=${keyword}&page=${page}&limit=${limit});")
@@ -123,63 +121,68 @@ const classes = useStyles();
           onDelete={onDelete}
         />
       )}
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-                {checkedProducts.length === 0 && (
-                     <ProductTableHead
-                     classes={classes}
-                     numSelected={checkedProducts.length}
-                     order={order}
-                     orderBy={orderBy}
-                     onSelectAllClick={handleHeaderCheckBox}
-                     onRequestSort={handleRequestSort}
-                     rowCount={productsList.length}
-
-                   />
-          )}
-          <TableBody>
-       {products
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            // .stableSort(products, getComparator(order, orderBy))
-            .map((data, row, index) => (
-              <ProductCell
-              key={index}
-              product={data}
-              checkedProducts={checkedProducts}
-              handleCellCheckBox={handleCellCheckBox}
-              onShowProductDetail={onShowProductDetail}
-              onClickEditProduct={onClickEditProduct}
-              onClickAddStocks={onClickAddStocks}
-              onDelete={onDelete}
-              />
-              ))}
-                      {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-              <NoRecordFound> Sorry! No Records Found! </NoRecordFound>
-            </TableRow>
-          )}
-          </TableBody>
-      </Table>
-      {isLoaded ? (
-      
-      <TablePagination
-        rowsPerPageOptions={[1, 10, 30, 50]}
-        component="div"
-        counts={products.counts}
-        count={products.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChange={handleChange}
-        handlePageChange={handlePageChange}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-      ) : (
-              <div>
-                </div>
-        )}
-    </TableContainer>
+      <Box className="Cmt-table-responsive">
+        <TableContainer component={Paper}>
+          {/* <Table className={classes.table} aria-label="simple table"> */}
+              <Table>
+                    {checkedProducts.length === 0 && (
+                         <ProductTableHead
+                         classes={classes}
+                         numSelected={checkedProducts.length}
+                         order={order}
+                         orderBy={orderBy}
+                         onSelectAllClick={handleHeaderCheckBox}
+                         onRequestSort={handleRequestSort}
+                         rowCount={productsList.length}
+    
+                       />
+              )}
+              <TableBody>
+           {!!productsList.length ? (
+             stableSort(productsList, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((data, row, index) => (
+                  <ProductCell
+                  key={index}
+                  product={data}
+                  checkedProducts={checkedProducts}
+                  handleCellCheckBox={handleCellCheckBox}
+                  onShowProductDetail={onShowProductDetail}
+                  onClickEditProduct={onClickEditProduct}
+                  onClickAddStocks={onClickAddStocks}
+                  onDelete={onDelete}
+                  />
+                  ))
+                ) : (
+                <TableRow style={{ height: 53 * 6 }}>
+                  <TableCell colSpan={7} rowSpan={10}>
+                      <NoRecordFound>There are no records found with your filter.</NoRecordFound>
+                  </TableCell>
+              </TableRow>
+              ) 
+              }
+              </TableBody>
+          </Table>
+          {isLoaded ? (
+          
+          <TablePagination
+            rowsPerPageOptions={[1, 10, 30, 50]}
+            component="div"
+            counts={products.counts}
+            count={products.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChange={handleChange}
+            handlePageChange={handlePageChange}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+          ) : (
+                  <div>
+                    </div>
+            )}
+        </TableContainer>
+    </Box>
     </React.Fragment>
   );
 };
