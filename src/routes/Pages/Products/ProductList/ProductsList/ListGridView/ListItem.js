@@ -98,11 +98,6 @@ const ListItem = ({item}) => {
     setSnackBarStatus(true);
   };
 
-  // const onVariantClick = React.useCallback((label, value) => {
-  //   setSnackBarMessage(`You choose ${label} ${value}`);
-  //   setSnackBarStatus(true);
-  // }, []);
-
   const handleCloseSnackBar = React.useCallback(() => {
     setSnackBarStatus(false);
     setSnackBarMessage("");

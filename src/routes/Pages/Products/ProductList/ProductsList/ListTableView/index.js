@@ -7,6 +7,7 @@ import ProductCell from './ProductCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Paper from "@material-ui/core/Paper";
 
 const ListTableView = ({
   checkedProducts,
@@ -36,18 +37,28 @@ const ListTableView = ({
             />
           )}
           <TableBody>
-            {productsList.map((product, index) => (
-              <ProductCell
-                key={index}
-                product={product}
-                checkedProducts={checkedProducts}
-                handleCellCheckBox={handleCellCheckBox}
-                onShowProductDetail={onShowProductDetail}
-                onClickEditProduct={onClickEditProduct}
-              />
-            ))}
+            {productsList
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((product, index) => (
+                <ProductCell
+                  key={index}
+                  product={product}
+                  handleCellCheckBox={handleCellCheckBox}
+                  onShowProductDetail={onShowProductDetail}
+                  onClickEditProduct={onClickEditProduct}
+                />
+              ))}
           </TableBody>
         </Table>
+              <TablePagination
+        rowsPerPageOptions={[1, 5, 15, 20, 50]}
+        component="div"
+        count={customers.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
       </Box>
     </React.Fragment>
   );

@@ -23,7 +23,6 @@ const PopularProducts = ({productsList}) => {
           data={productsList}
           renderRow={(item, index) => <ListItem key={index} item={item} />}
         />
-        {/* </PerfectScrollbar> */}
         </Box>
   );
 };

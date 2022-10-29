@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Paper from "@material-ui/core/Paper";
 import useStyles from './index.style';
-// import ListHeader from './ListHeader';
 
 const ListTableView = ({
   checkedCustomers,
@@ -24,7 +23,7 @@ const ListTableView = ({
 }) => {
   const classes = useStyles();
 
-  const { customersList } = useSelector(({ customerApp }) => customerApp);
+  const { filterType, customersList } = useSelector(({ customerApp }) => customerApp);
   // const { customersList } = useSelector((state) => state.customersReducer);
   const [selected, setSelected] = React.useState([]);
 
@@ -79,19 +78,12 @@ const ListTableView = ({
       } else if (selectedIndex > 0) {
         newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
       }
-  
       setSelected(newSelected);
     };
     
     const handlePageChange = (event, newPage) => {
       setPage(newPage);
     };
-  
-    const handleRowsPerPageChange = event => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
-    
     const isSelected = id => selected.indexOf(id) !== -1;
   
   return (
