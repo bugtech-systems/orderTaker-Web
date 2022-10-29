@@ -17,6 +17,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const filterOptionsList = [
   { label: 'Active', value: 'active' },
+  { label: 'Inactive', value: 'inactive' },
   { label: 'Suspended', value: 'suspended' },
 ];
 
@@ -57,17 +58,13 @@ const UserTableToolbar = ({
   };
 
   const onFilterOptionClick = option => {
-    setFilterOptions(prevState => {
-      if (prevState.includes(option.value)) {
-        return prevState.filter(item => item !== option.value);
-      } else {
-        return [...prevState, option.value];
-      }
-    });
+    setFilterOptions(option.value);
+
+
   };
 
   const onChipDelete = option => {
-    setFilterOptions(filterOptions.filter(item => item !== option.value));
+    setFilterOptions(option.value);
   };
 
   const onSearchChipDelete = () => setSearchTerm('');

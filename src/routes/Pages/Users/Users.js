@@ -35,6 +35,7 @@ const UsersModule = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentUser, setCurrent] = useState({});
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [filterRnd, SetFlterRnd] = useState(0);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const dispatch = useDispatch();
@@ -124,6 +125,25 @@ const UsersModule = () => {
     setOpenConfirmDialog(false);
   };
 
+  const handleFilter = (val) => {
+    console.log(val)
+    let ind = filterOptions.indexOf(val);
+    if(ind !== -1){
+      
+    }
+    if (ind > -1) { // only splice array when item is found
+      filterOptions.splice(ind, 1); // 2nd parameter means remove one item only
+    } else {
+      filterOptions.push(val);
+    }
+    
+
+    SetFlterRnd(Math.random())
+
+    setFilterOptions(filterOptions);
+
+  }
+
 
   const isSelected = id => selected.indexOf(id) !== -1;
 
@@ -131,23 +151,25 @@ const UsersModule = () => {
 
 
     let filtered = users.filter(a => {
+      // console.log(a.status)
+      // console.log(filterOptions.indexOf(a.status) !== -1 ? true : false)
             return (String(a.name).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()) ||
             String(a.email).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()) ||
-            String(a.status).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()))
+            String(a.status).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()) );
     })
 
     console.log(filtered)
 
+    let filteredOpt = filtered.filter(a => {
+      console.log(a.staat)
+      console.log(filterOptions.length === 0)
+        console.log(filterOptions.find(ab => String(ab).toLowerCase().trim() === String(a.status).toLowerCase().trim()))
+          return filterOptions.find(ab => String(ab).toLowerCase().trim() === String(a.status).toLowerCase().trim()) || filterOptions.length === 0 ;
+    })
 
+    setFilteredUsers(filteredOpt);
 
-    console.log(searchTerm)
-    console.log('Triggered')
-
-
-    setFilteredUsers(filtered);
-
-
-  }, [searchTerm, users])
+  }, [searchTerm, filterRnd, users])
 
 
 
@@ -162,7 +184,7 @@ const UsersModule = () => {
             dispatch({type: SET_USER_DIALOG, payload: e})
         }
           filterOptions={filterOptions}
-          setFilterOptions={setFilterOptions}
+          setFilterOptions={handleFilter}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
