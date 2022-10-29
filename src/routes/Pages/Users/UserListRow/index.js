@@ -97,13 +97,13 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
         </Box>
       </TableCell>
       <TableCell>{row.email}</TableCell>
-      { <TableCell>
-        
-      </TableCell> }
-      {/* <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell>
+       <TableCell>
+        {row.status}
+      </TableCell> 
+      {/* <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell> */}
       <TableCell align="center" onClick={event => event.stopPropagation()}>
   <CmtDropdownMenu items={userActions} onItemClick={(e) => onUserMenuClick(e)} TriggerComponent={<MoreHoriz />} />
-      </TableCell> */}
+      </TableCell>
     </TableRow>
   );
 };

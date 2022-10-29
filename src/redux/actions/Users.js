@@ -30,6 +30,7 @@ export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
+          console.log(data.data)
           dispatch({ type: GET_USERS, payload: data.data });
           if (callbackFun) callbackFun(data.data);
         } else {

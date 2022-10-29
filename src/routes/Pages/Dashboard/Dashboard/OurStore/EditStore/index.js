@@ -40,25 +40,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function NumberFormatCustom({ onChange, value, ...other }) {
-  const [phoneNo, setPhone] = useState('');
-
-  useEffect(() => {
-    if (!phoneNo && value) {
-      setTimeout(() => {
-        setPhone(value);
-      }, 300);
-    }
-  }, [phoneNo, value]);
-
-  const onNumberChange = number => {
-    setPhone(number.formattedValue);
-    onChange(number.formattedValue);
-  };
-
-  return <NumberFormat {...other} 
-  onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####"  />;
-}
 
 const labels = [
   { title: 'Home', slug: 'home' },
@@ -68,7 +49,6 @@ const labels = [
 
 const EditStore = ({ open, handleDialog, store }) => {
 
-  console.log(store)
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -106,13 +86,12 @@ const EditStore = ({ open, handleDialog, store }) => {
   };
 
   const onAddPhoneNo = (number, index) => {
-    console.log(number.target.value)
-    console.log(number.target.value.length < 12)
     const updatedList = [...values.contacts];
     if(number.target.value.length < 12){
       updatedList[index].number = number.target.value;
     }
-    console.log(updatedList)
+
+
     setValues({ ...values, contacts:  updatedList });
     setErrors({ ...errors, contacts:  '' });
   };
