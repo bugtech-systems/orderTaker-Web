@@ -164,7 +164,6 @@ const classes = useStyles();
               </TableBody>
           </Table>
           {isLoaded ? (
-          
           <TablePagination
             rowsPerPageOptions={[10, 30, 50]}
             component="div"

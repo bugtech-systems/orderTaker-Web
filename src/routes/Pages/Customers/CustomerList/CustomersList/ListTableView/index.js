@@ -12,7 +12,6 @@ import useStyles from './index.style';
 import NoRecordFound from 'routes/Pages/Users/NoRecordFound';
 
 import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
-
 const ListTableView = ({
   checkedCustomers,
   handleCellCheckBox,
@@ -26,7 +25,6 @@ const ListTableView = ({
   const classes = useStyles();
 
   const { filterType, customersList } = useSelector(({ customerApp }) => customerApp);
-  // const { customersList } = useSelector((state) => state.customersReducer);
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -35,17 +33,23 @@ const ListTableView = ({
   const [customers, setCustomers] = useState([])
   
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3001/api/customers")
+    const response = await fetch("http://localhost:3001/api/customers?search_query=${keyword}&page=${page}&limit=${limit});")
     const data = await response.json()
      setCustomers(data)
     }
     useEffect(() => {
       fetchData()
-    }, [])
+    }, [page])
+    // }, [pageItemCounts])
     
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
+    };
+    
+    const handleChange = (event, value) => {
+      setPage(value);
     };
     
     const handleChangeRowsPerPage = event => {
@@ -83,6 +87,11 @@ const ListTableView = ({
       setSelected(newSelected);
     };
     
+    const handleRowsPerPageChange = event => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    };
+    
     const handlePageChange = (event, newPage) => {
       setPage(newPage);
     };
@@ -115,7 +124,7 @@ const ListTableView = ({
        {!!customersList.length ? (
           stableSort(customersList, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((data, row, index) => (
+            .map((data, index) => (
                     <CustomerCell
                     key={index}
                     customer={data}
@@ -141,8 +150,11 @@ const ListTableView = ({
         rowsPerPageOptions={[10, 30, 50]}
         component="div"
         count={customers.length}
+        counts={customers.counts}
         rowsPerPage={rowsPerPage}
         page={page}
+        onChange={handleChange}
+        handlePageChange={handlePageChange}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
