@@ -23,11 +23,14 @@ const INIT_STATE = {
     selectedFolder: 'customers',
     selectedLabel: '',
     searchText: '',
+    page: 0,
+    rowsPerPage: 10
   },
   customersList: [],
   currentCustomer: null,
   totalCustomers: null,
   counter: null,
+  count: 0
 };
 
 export default (state = INIT_STATE, action) => {
@@ -74,8 +77,7 @@ export default (state = INIT_STATE, action) => {
     case GET_CUSTOMERS_LIST: {
       return {
         ...state,
-        customersList: action.payload,
-        totalCustomers: action.payload.length
+       ...action.payload
       };
     }
 

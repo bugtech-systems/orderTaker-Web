@@ -7,7 +7,7 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const ExportContacts = ({ children, data }) => {
   const contacts = data.map(item => {
-    item.phoneStrings = item.phones.map(contact => contact.phone).join(',');
+    item.phoneStrings = item.contacts.map(contact => contact.number).join(',');
     return item;
   });
 

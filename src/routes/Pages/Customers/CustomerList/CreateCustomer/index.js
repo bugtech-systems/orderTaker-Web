@@ -74,7 +74,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [values, setValues] = useState({ 
-    phones:[{phone: '', label: 'home'}],
+    contacts: [{number: '', label: 'home'}],
     tags: []
   });
   const [errors, setErrors] = useState({});
@@ -97,27 +97,33 @@ const CreateCustomer = ({ open, handleDialog }) => {
   const onAddPhoneRow = () => {
     setValues({
       ...values,
-      phones: values.phones.concat({ phone: '', label: 'home' }),
+      contacts:  values.contacts.concat({ number: '', label: 'home' }),
     });
   };
 
   const onRemovePhoneRow = index => {
-    const updatedList = [...values.phones];
+    const updatedList = [...values.contacts];
     updatedList.splice(index, 1);
-    setValues({ ...values, phones: updatedList });
+    setValues({ ...values, contacts:  updatedList });
   };
 
   const onAddPhoneNo = (number, index) => {
-    const updatedList = [...values.phones];
-    updatedList[index].phone = number;
-    setValues({ ...values, phones: updatedList });
-    setErrors({ ...errors, phones: '' });
+    const updatedList = [...values.contacts];
+  
+
+    if(number.target.value.length < 12){
+      updatedList[index].number = number.target.value;
+    }
+
+
+    setValues({ ...values, contacts:  updatedList });
+    setErrors({ ...errors, contacts:  '' });
   };
 
   const onSelectLabel = (value, index) => {
-    const updatedList = [...values.phones];
+    const updatedList = [...values.contacts];
     updatedList[index].label = value;
-    setValues({ ...values, phones: updatedList });
+    setValues({ ...values, contacts:  updatedList });
   };
 
   const handleChange = prop => event => {
@@ -127,7 +133,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
 
 
   const checkValidations = () => {
-    const phoneNumbers = values.phones.filter(item => item.phone.trim());
+    const phoneNumbers = values.contacts.filter(item => item.number.trim());
     if (!values.name) {
       setErrors({ ...errors, name: requiredMessage });
     } else if (!values.email) {
@@ -143,7 +149,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
     let { limit, balance } = values;
     const customer = {
       ...values,
-      phones: phoneNumbers,
+      contacts:  phoneNumbers,
       limit: limit ? limit : 0,
       balance: balance ? balance : 0,
     };
@@ -177,7 +183,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
       setValues({...values, ...currentCustomer})
     } else {
       setValues({
-        phones:[{phone: '', label: 'home'}],
+        contacts: [{number: '', label: 'home'}],
         tags: []
       })
     }
@@ -185,7 +191,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
 
 
 
-  const isPhonesMultiple = values.phones.length > 1;
+  const isPhonesMultiple = values.contacts.length > 1;
 
 
   return (
@@ -236,20 +242,21 @@ const CreateCustomer = ({ open, handleDialog }) => {
           </Grid>
         </GridContainer>
         <CmtList
-          data={values.phones}
+          data={values.contacts}
           renderRow={(item, index) => (
             <GridContainer style={{ marginBottom: 12 }} key={index}>
               <Grid item xs={12} sm={isPhonesMultiple ? 6 : 8}>
                 <AppTextInput
                   fullWidth
                   variant="outlined"
-                  label="Phones"
-                  value={item.phone}
+                  label="Number"
+                  value={item.number}
                   onChange={number => onAddPhoneNo(number, index)}
-                  helperText={errors.phones}
-                  InputProps={{
-                    inputComponent: NumberFormatCustom,
-                  }}
+                  helperText={errors.contacts}
+                  type="number"
+                  // InputProps={{
+                  //   inputComponent: NumberFormatCustom,
+                  // }}
                   
                 />
               </Grid>

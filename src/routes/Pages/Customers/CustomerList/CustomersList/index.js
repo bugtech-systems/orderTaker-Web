@@ -21,7 +21,7 @@ const CustomersList = ({ width, viewMode, onShowCustomerDetail, onClickEditCusto
 
   useEffect(() => {
     dispatch(getCustomersList(filterType));
-  }, [filterType, dispatch]);
+  }, [dispatch]);
 
   const handleCellCheckBox = (isChecked, id) => {
     if (isChecked) {

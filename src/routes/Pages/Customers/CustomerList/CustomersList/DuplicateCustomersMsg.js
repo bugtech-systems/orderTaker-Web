@@ -36,8 +36,8 @@ const DuplicateCustomersMsg = ({ customersList, toggleDuplicateMsgShow }) => {
     let result =
       res.length > 0 &&
       res.find(item => {
-        const itemPhones = item.phones.map(customers => customers.phone);
-        const itmPhones = itm.phones.map(customers => customers.phone);
+        const itemPhones = item.contacts.map(customers => customers.number);
+        const itmPhones = itm.contacts.map(customers => customers.number);
         return itemPhones.some(item => itmPhones.includes(item));
       });
     if (!result) {
