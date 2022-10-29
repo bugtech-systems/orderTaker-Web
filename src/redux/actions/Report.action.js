@@ -7,7 +7,7 @@
   import { authHeader } from '../../services/auth-header';
   
   //For setting Filtertype
-  export const setOrderReceipt = data => {
+  export const setOrderReceipt = (data, print) => {
     return dispatch => {
         const { customers, business, tax_disc, total_vatable, notes, gross_total } = data;
         const customer = (!customers || customers.length === 0) ? '-' : customers[0].name;
@@ -76,7 +76,7 @@
           
 
           console.log(newData)
-        dispatch(printReport(newData))
+        dispatch(printReport(newData, print))
 
     };
   };
@@ -115,11 +115,11 @@
   };
   
   //Generate Order Receipt Report
-  export const printReport = (data) => {
+  export const printReport = (data, print) => {
     return dispatch => {
       dispatch(fetchStart());
       axios
-        .post(`${commonData.apiUrl}/documents`, data, { headers: authHeader() })
+        .post(`${commonData.apiUrl}/documents?direct=${print}`, data, { headers: authHeader() })
         .then(data => {
           console.log(data)
           dispatch(fetchSuccess('Generation In Progress!'));
