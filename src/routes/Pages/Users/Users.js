@@ -34,7 +34,9 @@ const UsersModule = () => {
   const [filterOptions, setFilterOptions] = React.useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentUser, setCurrent] = useState({});
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -122,7 +124,31 @@ const UsersModule = () => {
     setOpenConfirmDialog(false);
   };
 
+
   const isSelected = id => selected.indexOf(id) !== -1;
+
+  useEffect(() => {
+
+
+    let filtered = users.filter(a => {
+            return (String(a.name).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()) ||
+            String(a.email).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()) ||
+            String(a.status).toLowerCase().trim('').includes(String(searchTerm).toLowerCase()))
+    })
+
+    console.log(filtered)
+
+
+
+    console.log(searchTerm)
+    console.log('Triggered')
+
+
+    setFilteredUsers(filtered);
+
+
+  }, [searchTerm, users])
+
 
 
 
@@ -149,11 +175,11 @@ const UsersModule = () => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={filteredUsers.length}
             />
             <TableBody>
-              {!!users.length ? (
-                stableSort(users, getComparator(order, orderBy))
+              {!!filteredUsers.length ? (
+                stableSort(filteredUsers, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <UserListRow
@@ -172,7 +198,7 @@ const UsersModule = () => {
                     {isFilterApplied ? (
                       <NoRecordFound>There are no records found with your filter.</NoRecordFound>
                     ) : (
-                      <NoRecordFound>{usersFetched ? 'There are no records found.' : 'Loading users...'}</NoRecordFound>
+                      <NoRecordFound>{usersFetched ? 'There are no records found.' : 'Loading Users..'}</NoRecordFound>
                     )}
                   </TableCell>
                 </TableRow>
@@ -183,7 +209,7 @@ const UsersModule = () => {
         <TablePagination
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
-          count={users.length}
+          count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handlePageChange}

@@ -82,7 +82,7 @@ const UserDetailView = ({ currentUser, open, onCloseDialog }) => {
 
 export default UserDetailView;
 
-UserDetailView.prototype = {
+UserDetailView.proptype = {
   open: PropTypes.bool.isRequired,
   onCloseDialog: PropTypes.func,
 };

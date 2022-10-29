@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import PropTypes from 'prop-types';
-import { Button, Chip, Menu, MenuItem } from '@material-ui/core';
+import { Box, Button, Chip, Menu, MenuItem } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { deleteBulkUsers } from '../../../../redux/actions/Users';
 import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
@@ -111,11 +111,11 @@ const UserTableToolbar = ({
                   ),
               )}
             </div>
-            {/* <Tooltip title="Filter list">
+            <Tooltip title="Filter list">
               <IconButton aria-label="filter list" onClick={handleClick}>
                 <FilterListIcon />
               </IconButton>
-            </Tooltip> */}
+            </Tooltip>
             <Menu
               transformOrigin={{
                 vertical: 'top',

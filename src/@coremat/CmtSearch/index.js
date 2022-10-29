@@ -54,7 +54,7 @@ const CmtSearch = ({
 
 export default CmtSearch;
 
-CmtSearch.prototype = {
+CmtSearch.proptype = {
   border: PropTypes.bool,
   iconPosition: PropTypes.string,
   align: PropTypes.string,

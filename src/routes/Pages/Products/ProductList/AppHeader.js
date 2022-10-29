@@ -49,7 +49,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
         </Hidden>
       </Box>
 
-      <Box className={classes.inBuildAppHeaderContent}>
+      <Box className={classes.inBuildAppHeaderContent}> 
         <CmtSearch placeholder="Search Products..." value={searchText} onChange={handleSearchText} border={false} />
         <Box ml="auto" display="flex" alignItems="center">
           {/* <Box ml={1}>
