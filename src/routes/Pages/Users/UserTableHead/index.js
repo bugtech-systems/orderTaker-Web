@@ -14,7 +14,7 @@ const headCells = [
     label: 'Name',
   },
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-  // { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+   { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
   //  {
   //   id: 'lastLoginAt',
   //   numeric: false,

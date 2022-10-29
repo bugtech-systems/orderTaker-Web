@@ -100,10 +100,10 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
       { <TableCell>
         
       </TableCell> }
-      {/* <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell>
+      {/* { <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell> */}
       <TableCell align="center" onClick={event => event.stopPropagation()}>
   <CmtDropdownMenu items={userActions} onItemClick={(e) => onUserMenuClick(e)} TriggerComponent={<MoreHoriz />} />
-      </TableCell> */}
+      </TableCell>
     </TableRow>
   );
 };
