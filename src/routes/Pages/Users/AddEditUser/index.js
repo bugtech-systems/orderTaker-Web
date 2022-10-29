@@ -22,6 +22,8 @@ import { isValidEmail } from '../../../../@jumbo/utils/commonHelper';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import commonData from 'utils/commonData';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,24 +44,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function PhoneNumberInput({ onChange, value, ...other }) {
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  useEffect(() => {
-    if (!phoneNumber && value) {
-      setTimeout(() => {
-        setPhoneNumber(value);
-      }, 300);
-    }
-  }, [phoneNumber, value]);
-
-  const onNumberChange = number => {
-    setPhoneNumber(number.formattedValue);
-    onChange(number.formattedValue);
-  };
-
-  return <NumberFormat {...other} onValueChange={onNumberChange} value={phoneNumber} format="(###) ###-####" />;
-}
 
 const labels = [
   { title: 'Home', slug: 'home' },
@@ -80,11 +64,12 @@ const AddEditUser = () => {
   const currentUser = useSelector(({ usersReducer }) => usersReducer.currentUser);
   const [visible, setVisible] = useState(false);
   const [dpUrl, setDpUrl] = useState('');
-  const [phones, setPhones] = useState([{ phone: '', label: 'home' }]);
 
   const [phoneError, setPhoneError] = useState('');
 
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    contacts: [{number: '', label: 'home'}],
+  });
   const [errors, setErrors] = useState({});
 
   const handleChange = prop => e => {
@@ -110,6 +95,38 @@ const AddEditUser = () => {
   });
 
 
+  const onAddPhoneRow = () => {
+    setValues({
+      ...values,
+      contacts:  values.contacts.concat({ number: '', label: 'home' }),
+    });
+  };
+
+  const onRemovePhoneRow = index => {
+    const updatedList = [...values.contacts];
+    updatedList.splice(index, 1);
+    setValues({ ...values, contacts:  updatedList });
+  };
+
+  const onAddPhoneNo = (number, index) => {
+    const updatedList = [...values.contacts];
+    if(number.target.value.length < 12){
+      updatedList[index].number = number.target.value;
+    }
+
+
+    setValues({ ...values, contacts:  updatedList });
+    setErrors({ ...errors, contacts:  '' });
+  };
+
+  const onSelectLabel = (value, index) => {
+    const updatedList = [...values.contacts];
+    updatedList[index].label = value;
+    setValues({ ...values, contacts:  updatedList });
+  };
+
+
+
   const onCloseDialog = () => {
     dispatch({type: SET_USER_DIALOG, payload: false});
     dispatch(setCurrentUser(null));
@@ -130,7 +147,7 @@ const AddEditUser = () => {
 
 
   const onSubmitClick = () => {
-    const phoneNumbers = phones.filter(item => item.phone.trim());
+    const phoneNumbers = values.contacts.filter(item => item.number.trim());
     if (!values.name) {
       setErrors({ ...errors, name: requiredMessage });
     } else if (!values.email) {
@@ -168,7 +185,8 @@ const AddEditUser = () => {
     }
   };
 
-  // const isPhonesMultiple = phones.length > 1;
+  console.log(values)
+  const isPhonesMultiple = values.contacts.length > 1;
 
   return (
     <Dialog open={userDialog ? true : false} onClose={onClosesDialog} className={classes.dialogRoot}>
@@ -204,38 +222,39 @@ const AddEditUser = () => {
         </Box>
 
         {/* //PHONES INPUT */}
-        {/* <CmtList
-          data={phones}
+        <CmtList
+          data={values.contacts}
           renderRow={(item, index) => (
-            <GridContainer style={{ marginBottom: 2 }} key={index}>
+            <GridContainer style={{ marginBottom: 12 }} key={index}>
               <Grid item xs={12} sm={isPhonesMultiple ? 6 : 8}>
                 <AppTextInput
                   fullWidth
                   variant="outlined"
-                  label="Phone"
-                  onChange={number => onPhoneNoAdd(number, index)}
-                  helperText={phoneError}
-                  InputProps={{
-                    inputComponent: PhoneNumberInput,
-                    inputProps: { value: item.phone },
-                  }}
+                  label="Number"
+                  value={item.number}
+                  onChange={number => onAddPhoneNo(number, index)}
+                  helperText={errors.contacts}
+                  // InputProps={{
+                  //   inputComponent: NumberFormatCustom,
+                  // }}
+                  
                 />
               </Grid>
-              <Grid item xs={isPhonesMultiple ? 10 : 12} sm={4}>
+              <Grid item xs={isPhonesMultiple ? 9 : 12} sm={4}>
                 <AppSelectBox
                   fullWidth
                   data={labels}
                   label="Label"
-                  valueKey="title"
+                  valueKey="slug"
                   variant="outlined"
                   labelKey="title"
                   value={item.label}
-                  onChange={e => onLabelChange(e.target.value, index)}
+                  onChange={e => onSelectLabel(e.target.value, index)}
                 />
               </Grid>
-              {index > 0 && (
-                <Grid container item xs={2} sm={2} justifyContent="center" alignItems="center">
-                  <IconButton color="inherit" onClick={() => onPhoneRowRemove(index)} size="small">
+              {isPhonesMultiple && (
+                <Grid item xs={3} sm={2}>
+                  <IconButton onClick={() => onRemovePhoneRow(index)}>
                     <CancelIcon />
                   </IconButton>
                 </Grid>
@@ -243,11 +262,18 @@ const AddEditUser = () => {
             </GridContainer>
           )}
         />
-        <Box mb={{ xs: 6, md: 5 }} display="inline-flex" alignItems="center" className="pointer">
-          <Button color="primary" onClick={onPhoneRowAdd} startIcon={<AddCircleOutlineIcon />}>
-            Add More
-          </Button>
-        </Box> */}
+
+        <Box
+          mb={{ xs: 6, md: 5 }}
+          display="flex"
+          alignItems="center"
+          onClick={onAddPhoneRow}
+          className="pointer"
+          color="primary.main">
+          <AddCircleOutlineIcon />
+          <Box ml={2}>Add More</Box>
+        </Box>
+
         <GridContainer style={{ marginBottom: 12 }}>
           <Grid item xs={12} sm={8}>
             <AppTextInput
