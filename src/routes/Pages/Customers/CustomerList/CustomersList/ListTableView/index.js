@@ -3,12 +3,15 @@ import React, {useState, useEffect} from 'react';
 import ListHeader from './ListHeader';
 import Table from '@material-ui/core/Table';
 import { useSelector } from 'react-redux';
-import {TableBody, TableContainer, TablePagination } from '@material-ui/core';
+import {TableBody, TableCell, TableRow, TableContainer, TablePagination } from '@material-ui/core';
 import CustomerCell from './CustomerCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import Paper from "@material-ui/core/Paper";
 import useStyles from './index.style';
+import NoRecordFound from 'routes/Pages/Users/NoRecordFound';
+
+import { getComparator, stableSort } from '../../../../../../@jumbo/utils/tableHelper';
 
 const ListTableView = ({
   checkedCustomers,
@@ -109,9 +112,10 @@ const ListTableView = ({
                    />
           )}
           <TableBody>
-       {customers
+       {!!customersList.length ? (
+          stableSort(customersList, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((data, index) => (
+            .map((data, row, index) => (
                     <CustomerCell
                     key={index}
                     customer={data}
@@ -122,11 +126,19 @@ const ListTableView = ({
                     onClickAddStocks={onClickAddStocks}
                     onDelete={onDelete}
                   />
-            ))}
+            ))
+          ) : (
+            <TableRow style={{ height: 53 * 6}}>
+              <TableCell colSpan={7} rowSpan={10}>
+                <NoRecordFound> SOrry! </NoRecordFound>
+              </TableCell>
+            </TableRow>
+            )
+            }
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 5, 15, 20, 50]}
+        rowsPerPageOptions={[10, 30, 50]}
         component="div"
         count={customers.length}
         rowsPerPage={rowsPerPage}
