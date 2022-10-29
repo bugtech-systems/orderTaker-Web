@@ -20,7 +20,31 @@ import {
             headers: authHeader(),
           })
         .then(({data}) => {
+          console.log('Dashboard data')
+          console.log(data)
             dispatch({ type: SET_DASHBOARD_DATA, payload: data });
+            dispatch(fetchSuccess())
+        })
+        .catch(error => {
+          dispatch(fetchError('Something went wrong'));
+        });
+    };
+  };
+
+
+
+  export const updateStoreDetails = (values) => {
+    return dispatch => {
+    dispatch(fetchStart())
+
+      axios
+        .put(`${commonData.apiUrl}/admin/store`, values, {
+            headers: authHeader(),
+          })
+        .then(({data}) => {
+          console.log('Store Updated!')
+          console.log(data)
+            dispatch({ type: SET_DASHBOARD_DATA, payload: { business: data.d }});
             dispatch(fetchSuccess())
         })
         .catch(error => {

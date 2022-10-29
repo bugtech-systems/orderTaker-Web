@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
@@ -19,6 +19,9 @@ import { setCurrentUser } from 'redux/actions/Users';
 
 import { SET_STORE_DIALOG } from 'redux/actions/types';
 import { setCurrentStore } from 'redux/actions/Users';
+
+//Components
+import EditStore from './EditStore';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -82,23 +85,47 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OurStore = ({ business }) => {
-  const { addresses } = intranet.ourOfficeData;
-  const { name, address } = business ? business : {};
-  const [currentAddress] = useState(addresses[0]);
+  const [open, setOpen] = useState(false);
+  const [store, setStore] = useState({
+    contacts: []
+  });
   const classes = useStyles();
   const dispatch = useDispatch();
-  
-  const { authUser } = useSelector(({auth}) => auth);
 
   const handleEdit = () => {
-    dispatch(setCurrentUser(authUser));
-    dispatch({type: SET_USER_DIALOG, payload: true});
+    setOpen(true);
     // dispatch(setCurrentStore(authUser));
     // dispatch({type: SET_STORE_DIALOG, payload: true});
   }
 
+  const handleDialog = (val) => {
+    setOpen(val)
+  }
+
+  useEffect(() => {
+    setStore(business)
+  }, [business])
+
+
+  let { name, address, contacts, email, description } = store;
+
+
+  let contactDetails = contacts.map((a, index) => {
+    return (
+      <Box key={index} display="flex" alignItems="center" mb={3} color="text.secondary">
+      <CallIcon /> 
+      <Box ml={3}>{String(a.label).toUpperCase()} - {a.number}</Box>
+    </Box>
+    )
+  })
+
+
+
   return (
+    <>
+    <EditStore open={open} handleDialog={handleDialog} store={business} />
     <CmtCard className={classes.cardRoot}>
+      
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardHeader title={name} subTitle={address} />
         
@@ -110,22 +137,25 @@ const OurStore = ({ business }) => {
         </Box>
 
         <Box className={classes.contactRoot} mb={6}>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+          {/* <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <CallIcon />
             <Box ml={3}>{currentAddress.phoneNumber1}</Box>
           </Box>
           <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <CallIcon />
             <Box ml={3}>{currentAddress.phoneNumber2}</Box>
-          </Box>
-          <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+          </Box> */}
+          {contactDetails}
+         {email && <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <MailOutlineIcon />
-            <Box ml={4}>{currentAddress.emailAddress}</Box>
-          </Box>
+            <Box ml={4}>{email}</Box>
+          </Box>}
         </Box>
 
       </CmtCardContent>
+      
     </CmtCard>
+    </>
   );
 };
 
