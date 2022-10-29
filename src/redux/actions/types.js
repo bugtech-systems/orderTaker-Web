@@ -76,9 +76,6 @@ export const SET_OTHER_AMOUNTS = 'set_other_amounts';
 export const SET_ALL_PRODUCTS = 'set_all_products';
 export const CLEAR_ALL_PRODUCTS = 'clear_all_products';
 
-
-
-
 export const ADD_LABEL = 'add_label';
 export const GET_LABELS_LIST = 'get_labels_list';
 export const SET_FILTER_TYPE = 'set_filter_type';
@@ -92,8 +89,6 @@ export const GET_USER_DETAIL = 'get_user_detail';
 export const GET_FEED_POSTS = 'get_feed_posts';
 export const CREATE_POST = 'create_post';
 export const UPDATE_POST = 'update_post';
-
-
 
 
 //DASHBOARD

@@ -31,7 +31,6 @@ import { addNewUser, setCurrentUser, updateUser, uploadFile } from '../../../../
 import { SET_USER_DIALOG } from 'redux/actions/types';
 
 
-
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
     position: 'relative',

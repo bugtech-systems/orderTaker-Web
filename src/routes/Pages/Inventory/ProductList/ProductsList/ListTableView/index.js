@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import { useDebounce } from '../../../@jumbo/utils/commonHelper';
 
 import ProductTableHead from './ProductTableHead';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
 import ProductCell from './ProductCell';
@@ -24,18 +25,27 @@ const ListTableView = ({
   onDelete
 }) => {
 const classes = useStyles();
-  const [selected, setSelected] = React.useState([]);
-
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
-  const { productsList } = useSelector(({ productApp }) => productApp);
   const [page, setPage] = React.useState(0);
-  const [counts, setCounts] = React.useState(0);
-  const [count, setCount] = React.useState(0);
-  const [products, setProducts] = useState([]);
-  const [isLoaded, setisLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  // const [rowsPerPage, setRowsPerPage] = useState([10]);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [selected, setSelected] = React.useState([]);
+  const [filterOptions, setFilterOptions] = React.useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentUser, setCurrent] = useState({});
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const dispatch = useDispatch();
+
+  // const [orderBy, setOrderBy] = React.useState('name');
+  // const [order, setOrder] = React.useState('asc');
+  // const { productsList } = useSelector(({ productApp }) => productApp);
+  // const [page, setPage] = React.useState(0);
+  // const [counts, setCounts] = React.useState(0);
+  // const [count, setCount] = React.useState(0);
+  // const [products, setProducts] = useState([]);
+  // const [isLoaded, setisLoaded] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // // const [rowsPerPage, setRowsPerPage] = useState([10]);
 
   
   const fetchData = async () => {
@@ -50,8 +60,17 @@ const classes = useStyles();
     setIsLoading(true);
       fetchData()
     }, [])
-  
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    
+    
+  //   useEffect(() => {
+  //     dispatch(
+  //       getUsers(filterOptions, debouncedSearchTerm, () => {
+  //         setFilterApplied(!!filterOptions.length || !!debouncedSearchTerm);
+  //         setUsersFetched(true);
+  //       }),
+  //     );
+  //   }, [dispatch, filterOptions, debouncedSearchTerm]);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
   
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

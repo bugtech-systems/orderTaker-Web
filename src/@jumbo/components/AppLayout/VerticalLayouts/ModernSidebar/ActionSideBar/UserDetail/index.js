@@ -99,7 +99,7 @@ const UserDetail = () => {
 
 
   let role = authUser.roles ? String(authUser.roles[0].name).toUpperCase() : ''
-  const { email, phones, address } = authUser;
+  const { email, phones, dpUrl, address, } = authUser;
 
   const handleEdit = () => {
     dispatch(setCurrentUser(authUser));
@@ -115,7 +115,8 @@ const UserDetail = () => {
       // actionHandleIcon={<EditIcon  />}
       // actionHandler={(e) => console.log(e)}
       actionMenuClassName={classes.actionMenu}>
-        <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
+        <IconButton onClick={(e) => handleEdit()} 
+        style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardMedia className={classes.cardMediaRoot} 
       // image={'https://via.placeholder.com/350x200'}
       >
@@ -123,7 +124,8 @@ const UserDetail = () => {
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}${authUser.dpUrl}`} alt={authUser.name} />
+              // <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}${authUser.dpUrl}`} alt={authUser.name} />
+              <CmtAvatar size={70} src={`${commonData.staticUrl}${dpUrl}`} />
             }
             title={authUser.name}
             titleProps={{ style: { color: '#fff' } }}
