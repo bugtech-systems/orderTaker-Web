@@ -67,15 +67,14 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
         {showDuplicateMsg && (
           <DuplicateProductsMsg productsList={productsList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
         )}
-                <TablePagination
-                rowsPerPageOptions={[10, 30, 50]}
+          <TablePagination
+                rowsPerPageOptions={[1, 10, 30, 50]}
                 component="div"
                 count={products.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
-                // rowCount={productsList.length}
       />
         <ListGridView 
                      rowCount={productsList.length}
@@ -90,11 +89,9 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
       <EmptyProductResult />
     </Box>
   );
-
 };
 
 export default ProductsList;
-
 ProductsList.prototype = {
   viewMode: PropTypes.string,
   onShowProductDetail: PropTypes.func,

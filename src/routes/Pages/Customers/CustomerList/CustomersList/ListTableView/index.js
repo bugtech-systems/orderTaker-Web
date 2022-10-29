@@ -7,7 +7,6 @@ import {TableBody, TableContainer, TablePagination } from '@material-ui/core';
 import CustomerCell from './CustomerCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import Paper from "@material-ui/core/Paper";
 import useStyles from './index.style';
 
@@ -107,7 +106,6 @@ const ListTableView = ({
                      onSelectAllClick={handleHeaderCheckBox}
                      onRequestSort={handleRequestSort}
                      rowCount={customersList.length}
-
                    />
           )}
           <TableBody>

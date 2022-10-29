@@ -27,11 +27,15 @@ const ListTableView = ({
           updateCheckedProducts={updateCheckedProducts}
         />
       )}
-      <Box className="Cmt-table-responsive">
-        <Table>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
           {checkedProducts.length === 0 && (
-            <ListHeader
-              productsList={productsList}
+            <productsList
+              // numSelected={checkedCustomers.length}
+              order={order}
+              orderBy={orderBy}
+              // productsList={productsList}
+              rowCount={productsList.length}
               checkedProducts={checkedProducts}
               handleHeaderCheckBox={handleHeaderCheckBox}
             />
@@ -39,10 +43,10 @@ const ListTableView = ({
           <TableBody>
             {productsList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((product, index) => (
+              .map((data, index) => (
                 <ProductCell
                   key={index}
-                  product={product}
+                  product={data}
                   handleCellCheckBox={handleCellCheckBox}
                   onShowProductDetail={onShowProductDetail}
                   onClickEditProduct={onClickEditProduct}
@@ -51,15 +55,15 @@ const ListTableView = ({
           </TableBody>
         </Table>
               <TablePagination
-        rowsPerPageOptions={[1, 5, 15, 20, 50]}
+        rowsPerPageOptions={[1, 10, 30, 50]}
         component="div"
-        count={customers.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-      </Box>
+      </TableContainer>
     </React.Fragment>
   );
 };
