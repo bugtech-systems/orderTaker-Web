@@ -56,7 +56,7 @@ function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected,
             </TableSortLabel>
           </TableCell>
         ))}
-        {/* <TableCell align="center">Actions</TableCell> */}
+        {<TableCell align="center">Actions</TableCell> }
       </TableRow>
     </TableHead>
   );
