@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import ProductTableHead from './ProductTableHead';
 import Table from '@material-ui/core/Table';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { TableBody, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
 
@@ -11,6 +11,9 @@ import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import useStyles from './index.style';
 import NoRecordFound from './NoRecordFound';
+import { getProductsList, setFilterType } from 'redux/actions/ProductApp';
+import ListHeader from './ListHeader';
+
 const ListTableView = ({
   checkedProducts,
   handleCellCheckBox,
@@ -22,12 +25,14 @@ const ListTableView = ({
   onDelete
 }) => {
 const classes = useStyles();
+const dispatch = useDispatch();
   const { users } = useSelector((state) => state.usersReducer);
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
-  const { productsList } = useSelector(({ productApp }) => productApp);
+  const { productsList, filterType, totalProducts  } = useSelector(({ productApp }) => productApp);
+  // const { productsList } = useSelector(({ productApp }) => productApp);
   const [page, setPage] = React.useState(0);
   const [products, setProducts] = useState([])
   // const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -47,11 +52,15 @@ const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
+      dispatch(getProductsList({...filterType, page: newPage, rowsPerPage}))
   };
   
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+    dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
+      dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
   };
   
     // const emptyRows =
@@ -65,7 +74,7 @@ const classes = useStyles();
   
     const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelected = users.map(n => n.id);
+      const newSelected = products.map(n => n.id);
       setSelected(newSelected);
       return;
     }
@@ -98,6 +107,10 @@ const classes = useStyles();
   };
   
   const isSelected = id => selected.indexOf(id) !== -1;
+
+  useEffect(() => {
+    setProducts(productsList)
+  }, [productsList])
   
 
   return (
@@ -113,21 +126,28 @@ const classes = useStyles();
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
                 {checkedProducts.length === 0 && (
-                     <ProductTableHead
-                     classes={classes}
-                     numSelected={checkedProducts.length}
-                     order={order}
-                     orderBy={orderBy}
-                     onSelectAllClick={handleHeaderCheckBox}
-                     onRequestSort={handleRequestSort}
-                     rowCount={productsList.length}
+                  //    <ProductTableHead
+                  //    classes={classes}
+                  //    numSelected={checkedProducts.length}
+                  //    order={order}
+                  //    orderBy={orderBy}
+                  //    onSelectAllClick={handleHeaderCheckBox}
+                  //    onRequestSort={handleRequestSort}
+                  //    rowCount={productsList.length}
 
-                   />
+                  //  />
+                  <ListHeader
+                          productsList={productsList.length}
+                          checkedProducts={checkedProducts}
+                          handleHeaderCheckBox={handleHeaderCheckBox}
+                          onDelete={onDelete}
+                        />
           )}
           <TableBody>
-       {products
+       {/* {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((data, index) => (
+            .map((data, index) => ( */}
+            {productsList.map((data, index) => (
                     <ProductCell
                     key={index}
                     product={data}
@@ -147,13 +167,20 @@ const classes = useStyles();
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 5, 10, 25, 50]}
+        // rowsPerPageOptions={[1, 5, 10, 25, 50]}
+        // component="div"
+        // count={products.length}
+        // rowsPerPage={rowsPerPage}
+        // page={page}
+        // onChangePage={handleChangePage}
+        // onChangeRowsPerPage={handleChangeRowsPerPage}
+        rowsPerPageOptions={[10, 50, 100]}
         component="div"
-        count={products.length}
+        count={totalProducts}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </TableContainer>
     </React.Fragment>
