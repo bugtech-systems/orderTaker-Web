@@ -29,9 +29,6 @@ export const SET_USER_DIALOG = 'SET_USER_DIALOG';
 export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 export const SET_NOTIF_COUNT = 'SET_NOTIF_COUNT';
 
-
-
-
 //DATA
 export const SET_DATA = 'SET_DATA';
 export const SET_INIT_OBJ = 'SET_INIT_OBJ';
@@ -49,20 +46,16 @@ export const UPDATE_CUSTOMER_LABEL = 'update_contact_label';
 export const UPDATE_CUSTOMER = 'update_contact';
 export const GET_CUSTOMER_COUNTS = 'get_contact_counts';
 
-
 //CART
 export const UPDATE_CART = 'update_cart';
 export const CLEAR_CART = 'clear_cart';
 export const UPDATE_CART_ITEMS = 'update_cart_items';
 export const SET_CART_ITEMS_COUNT = 'set_cart_items_count';
 
-
-
 //ORDER
 export const SET_ORDERS = 'set_orders';
 export const SET_UNPAID_ORDERS = 'set_unpaid_orders';
 export const CLEAR_ORDERS = 'clear_orders';
-
 
 //PRODUCT
 export const GET_PRODUCTS_LIST = 'get_products_list';

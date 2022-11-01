@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import ListHeader from './ListHeader';
 import Table from '@material-ui/core/Table';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {TableBody, TableContainer, TablePagination } from '@material-ui/core';
 import CustomerCell from './CustomerCell';
 import CheckedListHeader from './CheckedListHeader';
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Paper from "@material-ui/core/Paper";
 import useStyles from './index.style';
-// import ListHeader from './ListHeader';
+import { getCustomersList, setFilterType } from 'redux/actions/Customer';
 
 const ListTableView = ({
   checkedCustomers,
@@ -23,9 +23,9 @@ const ListTableView = ({
   onDelete
 }) => {
   const classes = useStyles();
-
-  const { customersList } = useSelector(({ customerApp }) => customerApp);
-  // const { customersList } = useSelector((state) => state.customersReducer);
+  const dispatch = useDispatch();
+  const { customersList, filterType, totalCustomers } = useSelector(({ customerApp }) => customerApp);
+  
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -33,24 +33,21 @@ const ListTableView = ({
   const [page, setPage] = React.useState(0);
   const [customers, setCustomers] = useState([])
   
-  const fetchData = async () => {
-    const response = await fetch("http://localhost:3001/api/customers")
-    const data = await response.json()
-     setCustomers(data)
-    }
-    useEffect(() => {
-      fetchData()
-    }, [])
-    
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
+      dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
+      dispatch(getCustomersList({...filterType, page: newPage, rowsPerPage}))
     };
     
     const handleChangeRowsPerPage = event => {
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
+      console.log()
+      dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
+      dispatch(getCustomersList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
+
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
       setOrderBy(property);
@@ -79,7 +76,6 @@ const ListTableView = ({
       } else if (selectedIndex > 0) {
         newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
       }
-  
       setSelected(newSelected);
     };
     
@@ -93,7 +89,11 @@ const ListTableView = ({
     };
     
     const isSelected = id => selected.indexOf(id) !== -1;
-  
+
+    useEffect(() => {
+      setCustomers(customersList)
+    }, [customersList])
+
   return (
     <React.Fragment>
       {checkedCustomers.length > 0 && (
@@ -107,21 +107,15 @@ const ListTableView = ({
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
                 {checkedCustomers.length === 0 && (
-                     <customersList
-                     classes={classes}
-                     numSelected={checkedCustomers.length}
-                     order={order}
-                     orderBy={orderBy}
-                     onSelectAllClick={handleHeaderCheckBox}
-                     onRequestSort={handleRequestSort}
-                     rowCount={customersList.length}
-
-                   />
+                        <ListHeader
+                          customersList={customersList}
+                          checkedCustomers={checkedCustomers}
+                          handleHeaderCheckBox={handleHeaderCheckBox}
+                          onDelete={onDelete}
+                        />
           )}
           <TableBody>
-       {customers
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((data, index) => (
+       {customersList.map((data, index) => (
                     <CustomerCell
                     key={index}
                     customer={data}
@@ -136,13 +130,13 @@ const ListTableView = ({
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 5, 15, 20, 50]}
+        rowsPerPageOptions={[10, 50, 100]}
         component="div"
-        count={customers.length}
+        count={totalCustomers}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
       </TableContainer>
     </React.Fragment>
