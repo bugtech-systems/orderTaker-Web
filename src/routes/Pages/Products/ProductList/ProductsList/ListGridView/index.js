@@ -1,14 +1,13 @@
-import React from "react";
-// import CmtCard from "../../../../../../@coremat/CmtCard";
-// import CmtCardHeader from "../../../../../../@coremat/CmtCard/CmtCardHeader";
-// import CmtCardContent from "../../../../../../@coremat/CmtCard/CmtCardContent";
-// import {popularProducts} from "../../../../../../@fake-db/modules/products";
+import React, {useState, useEffect} from 'react';
 import ListItem from "./ListItem";
 import CmtGridView from "../../../../../../@coremat/CmtGridView";
-// import PerfectScrollbar from "react-perfect-scrollbar";
 import { Box } from "@material-ui/core";
+import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 
 const PopularProducts = ({productsList}) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState([10]);
+  
   return (
     <Box p={5}>
         <CmtGridView
@@ -23,8 +22,18 @@ const PopularProducts = ({productsList}) => {
           data={productsList}
           renderRow={(item, index) => <ListItem key={index} item={item} />}
         />
-        {/* </PerfectScrollbar> */}
+           
+        <TablePagination
+          rowsPerPageOptions={[5, 20, 50]}
+          component="div"
+          counts={productsList.count}
+          count={productsList.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          
+        />
         </Box>
+        
   );
 };
 
