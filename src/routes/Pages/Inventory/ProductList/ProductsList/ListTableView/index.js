@@ -23,6 +23,7 @@ const ListTableView = ({
   onClickAddStocks,
   onDelete
 }) => {
+
 const classes = useStyles();
   const dispatch = useDispatch();
   const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
@@ -113,6 +114,7 @@ const classes = useStyles();
                      <ProductTableHead
                      classes={classes}
                      checkedProducts={productsList}
+                     onSelectAllClick={handleHeaderCheckBox}
                      handleHeaderCheckBox={handleHeaderCheckBox}
                     onDelete={onDelete}
                    />
