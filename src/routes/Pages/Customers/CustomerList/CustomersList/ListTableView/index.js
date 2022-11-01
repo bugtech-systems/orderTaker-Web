@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Paper from "@material-ui/core/Paper";
 import useStyles from './index.style';
 import { getCustomersList, setFilterType } from 'redux/actions/Customer';
+// import ListHeader from './ListHeader';
 
 const ListTableView = ({
   checkedCustomers,
@@ -33,6 +34,7 @@ const ListTableView = ({
   const [page, setPage] = React.useState(0);
   const [customers, setCustomers] = useState([])
   
+    
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
