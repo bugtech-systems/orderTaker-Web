@@ -50,6 +50,7 @@ const ListTableView = ({
       dispatch(getCustomersList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
 
+
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
       setOrderBy(property);
@@ -78,6 +79,7 @@ const ListTableView = ({
       } else if (selectedIndex > 0) {
         newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
       }
+  
       setSelected(newSelected);
     };
     
@@ -96,6 +98,7 @@ const ListTableView = ({
       setCustomers(customersList)
     }, [customersList])
 
+  
   return (
     <React.Fragment>
       {checkedCustomers.length > 0 && (
