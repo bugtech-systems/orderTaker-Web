@@ -12,6 +12,7 @@ const PopularProducts = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState([10]);
   const [products, setProducts] = useState([])
+  
   const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
   
       const handleChangePage = (event, newPage) => {
@@ -55,9 +56,11 @@ const PopularProducts = () => {
             data={productsList}
           renderRow={(item, index) =>
             <ListItem 
+              pageSize={5}
               key={index} 
               item={item} 
-              product={productsList}
+              product={item}
+              // product={productsList}
             />}
         />
            
