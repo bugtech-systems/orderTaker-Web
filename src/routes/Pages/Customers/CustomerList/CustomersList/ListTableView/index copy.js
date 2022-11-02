@@ -1,57 +1,56 @@
 import React, {useState, useEffect} from 'react';
 
-import ProductTableHead from './ProductTableHead';
+import ListHeader from './ListHeader';
 import Table from '@material-ui/core/Table';
-import { useDispatch, useSelector } from 'react-redux';
-import { TableBody, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
-import Paper from "@material-ui/core/Paper";
-
-import ProductCell from './ProductCell';
+import { useSelector } from 'react-redux';
+import {TableBody, TableContainer, TablePagination } from '@material-ui/core';
+import CustomerCell from './CustomerCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import Paper from "@material-ui/core/Paper";
 import useStyles from './index.style';
-
-import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
+// import ListHeader from './ListHeader';
 
 const ListTableView = ({
-  checkedProducts,
+  checkedCustomers,
   handleCellCheckBox,
   handleHeaderCheckBox,
-  updateCheckedProducts,
-  onShowProductDetail,
-  onClickEditProduct,
+  updateCheckedCustomers,
+  onShowCustomerDetail,
+  onClickEditCustomer,
   onClickAddStocks,
   onDelete
 }) => {
+  const classes = useStyles();
 
-const classes = useStyles();
-  const dispatch = useDispatch();
-  const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
-  
+  const { customersList } = useSelector(({ customerApp }) => customerApp);
+  // const { customersList } = useSelector((state) => state.customersReducer);
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const [page, setPage] = React.useState(0);
-  const [products, setProducts] = useState([])
+  const [customers, setCustomers] = useState([])
   
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
-  const handleChangePage = (event, newPage) => {
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:3001/api/customers")
+    const data = await response.json()
+     setCustomers(data)
+    }
+    useEffect(() => {
+      fetchData()
+    }, [])
+    
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const handleChangePage = (event, newPage) => {
       setPage(newPage);
-      dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
-      dispatch(getProductsList({...filterType, page: newPage, rowsPerPage}))
     };
-
-
+    
     const handleChangeRowsPerPage = event => {
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
-      console.log()
-      dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
-      dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
-    
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
       setOrderBy(property);
@@ -60,13 +59,13 @@ const classes = useStyles();
     
     const handleSelectAllClick = event => {
       if (event.target.checked) {
-        const newSelected = products.map(n => n.id);
+        const newSelected = customers.map(n => n.id);
         setSelected(newSelected);
         return;
       }
       setSelected([]);
     };
-    
+  
     const handleRowClick = (event, id) => {
       const selectedIndex = selected.indexOf(id);
       let newSelected = [];
@@ -80,6 +79,7 @@ const classes = useStyles();
       } else if (selectedIndex > 0) {
         newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
       }
+  
       setSelected(newSelected);
     };
     
@@ -93,43 +93,42 @@ const classes = useStyles();
     };
     
     const isSelected = id => selected.indexOf(id) !== -1;
-
-    useEffect(() => {
-      setProducts(productsList)
-    }, [productsList])
-
+  
   return (
     <React.Fragment>
-          {checkedProducts.length > 0 && (
+      {checkedCustomers.length > 0 && (
         <CheckedListHeader
-          checkedProducts={checkedProducts}
+          checkedCustomers={checkedCustomers}
           handleHeaderCheckBox={handleHeaderCheckBox}
-          updateCheckedProducts={updateCheckedProducts}
+          updateCheckedCustomers={updateCheckedCustomers}
           onDelete={onDelete}
         />
       )}
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
-                {checkedProducts.length === 0 && (
-                     <ProductTableHead
+                {checkedCustomers.length === 0 && (
+                     <customersList
                      classes={classes}
-                     checkedProducts={productsList}
+                     numSelected={checkedCustomers.length}
+                     order={order}
+                     orderBy={orderBy}
                      onSelectAllClick={handleHeaderCheckBox}
-                     handleHeaderCheckBox={handleHeaderCheckBox}
-                    onDelete={onDelete}
+                     onRequestSort={handleRequestSort}
+                     rowCount={customersList.length}
+
                    />
           )}
           <TableBody>
-       {products
+       {customers
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((data, index) => (
-                    <ProductCell
+                    <CustomerCell
                     key={index}
-                    product={data}
-                    checkedProducts={checkedProducts}
+                    customer={data}
+                    checkedCustomers={checkedCustomers}
                     handleCellCheckBox={handleCellCheckBox}
-                    onShowProductDetail={onShowProductDetail}
-                    onClickEditProduct={onClickEditProduct}
+                    onShowCustomerDetail={onShowCustomerDetail}
+                    onClickEditCustomer={onClickEditCustomer}
                     onClickAddStocks={onClickAddStocks}
                     onDelete={onDelete}
                   />
@@ -137,15 +136,15 @@ const classes = useStyles();
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 50, 100]}
+        rowsPerPageOptions={[1, 5, 15, 20, 50]}
         component="div"
-        count={totalProducts}
+        count={customers.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </TableContainer>
+      </TableContainer>
     </React.Fragment>
   );
 };
@@ -153,16 +152,16 @@ const classes = useStyles();
 export default ListTableView;
 
 ListTableView.prototype = {
-  checkedProducts: PropTypes.array,
+  checkedCustomers: PropTypes.array,
   handleCellCheckBox: PropTypes.func,
   handleHeaderCheckBox: PropTypes.func,
-  updateCheckedProducts: PropTypes.func,
-  onShowProductDetail: PropTypes.func,
-  onClickEditProduct: PropTypes.func,
+  updateCheckedCustomers: PropTypes.func,
+  onShowCustomerDetail: PropTypes.func,
+  onClickEditCustomer: PropTypes.func,
   onClickAddStocks: PropTypes.func,
   onDelete: PropTypes.func
 };
 
 ListTableView.defaultProps = {
-  checkedProducts: [],
+  checkedCustomers: [],
 };
