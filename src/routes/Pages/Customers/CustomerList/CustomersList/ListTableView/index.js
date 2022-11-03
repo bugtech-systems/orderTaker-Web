@@ -50,7 +50,6 @@ const ListTableView = ({
       dispatch(getCustomersList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
 
-
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
       setOrderBy(property);
@@ -120,7 +119,9 @@ const ListTableView = ({
                         />
           )}
           <TableBody>
-       {customersList.map((data, index) => (
+       {customersList
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((data, index) => (
                     <CustomerCell
                     key={index}
                     customer={data}
