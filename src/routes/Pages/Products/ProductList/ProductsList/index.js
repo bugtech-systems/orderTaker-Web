@@ -46,13 +46,13 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
     height: getProductContainerHeight(width, showFooter),
   });
 
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
     };
     
     const handleChangeRowsPerPage = event => {
-      setRowsPerPage(parseInt(event.target.value, 5));
+      setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
     };
     
