@@ -25,7 +25,6 @@ const ListItem = ({item}) => {
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
-
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
