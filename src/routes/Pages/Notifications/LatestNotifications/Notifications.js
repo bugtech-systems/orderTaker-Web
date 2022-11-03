@@ -125,9 +125,9 @@ const Notifications = ({ listsToShow, notifications }) => {
           <Button
             className={classes.listBtnRoot}
             size="small"
-            onClick={() => {
-              setSnackBarStatus(true);
-            }}
+            // onClick={() => {
+            //   setSnackBarStatus(true);
+            // }}
             color="primary">
             {/* SEE ALL */}
           </Button>
