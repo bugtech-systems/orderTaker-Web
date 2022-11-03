@@ -13,7 +13,6 @@ import CmtImage from '../../../@coremat/CmtImage';
 import HeaderChartComponent from '../Reports/HeaderChartComponent';
 import { intranet } from '@fake-db';
 
-
 const tabs = [
   { id: 1, title: 'Timeline', slug: 'timeline' },
   { id: 2, title: 'About', slug: 'about' },
@@ -139,7 +138,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
     fontSize: 14,
     fontWeight: theme.typography.fontWeightRegular,
-    zIndex: 3
+    zIndex: 3,
   },
 }));
 
@@ -150,12 +149,12 @@ const Header = ({ userDetail, tabValue, handleTabChange }) => {
   return (
     <Box className={classes.headerRoot}>
       <Box className={classes.headerBgImg}>
-        <HeaderChartComponent data={intranet.headerChartData}/>
-        {/* <CmtImage src={'/images/profile-bg-img.png'} /> */}
+        <HeaderChartComponent data={intranet.headerChartData} />
+        <CmtImage src={'/images/profile-bg-img.png'} />
       </Box>
       <Box className={classes.headerContent}>
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" mb={{ xs: 7, sm: 0, lg: 7 }}>
-          {/* <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" style={{zIndex: 3}}>
+          <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" style={{ zIndex: 3 }}>
             <Box mr={{ sm: 4, md: 5, lg: 6 }} mb={{ xs: 3, sm: 0 }}>
               <CmtAvatar size={80} src={profile_pic} alt={name} />
             </Box>
@@ -165,11 +164,11 @@ const Header = ({ userDetail, tabValue, handleTabChange }) => {
               </Typography>
               <Typography className={classes.subTitleRoot}>{location}</Typography>
             </Box>
-          </Box> */}
-          <Box style={{flexGrow: 1, zIndex: -1}} mt={{ xs: 7, sm: 0 }} mb={{ xs: 7, sm: 0 }}>
-            {/* center */}
           </Box>
-          <Box ml={{ sm: 'auto' }} mt={{ xs: 7, sm: 0 }} style={{zIndex: 3}}>
+          <Box style={{ flexGrow: 1, zIndex: -1 }} mt={{ xs: 7, sm: 0 }} mb={{ xs: 7, sm: 0 }}>
+            center
+          </Box>
+          <Box ml={{ sm: 'auto' }} mt={{ xs: 7, sm: 0 }} style={{ zIndex: 3 }}>
             <Box className={classes.followerList}>
               <Box className={classes.followerListItem}>
                 <Typography className={classes.followerListTitle} component="div" variant="h3">
@@ -193,7 +192,7 @@ const Header = ({ userDetail, tabValue, handleTabChange }) => {
           </Box>
         </Box>
 
-        <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }} style={{zIndex: 3}}>
+        <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }} style={{ zIndex: 3 }}>
           <Tabs className={classes.tabsList} value={tabValue} onChange={handleTabChange} aria-label="profile tabs">
             {tabs.map((item, index) => {
               return (

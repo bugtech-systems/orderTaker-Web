@@ -4,14 +4,14 @@ import Header from './Header';
 import GridContainer from '../../../@jumbo/components/GridContainer';
 import Grid from '@material-ui/core/Grid';
 import Contact from './Contact';
-// import Friends from './Friends';
+import Friends from './Friends';
 import About from './About';
-// import Biography from './Biography';
-// import Events from './Events';
+import Biography from './Biography';
+import Events from './Events';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetail } from '../../../redux/actions/ProfileApp';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-// import UserPhotos from './UserPhotos';
+import UserPhotos from './UserPhotos';
 
 const useStyles = makeStyles(() => ({
   pageFull: {
@@ -37,7 +37,6 @@ const Profile = () => {
   const [tabValue, setTabValue] = useState('about');
   const { userDetail } = useSelector(({ profileApp }) => profileApp);
 
-
   useEffect(() => {
     dispatch(getUserDetail());
   }, [dispatch]);
@@ -50,10 +49,9 @@ const Profile = () => {
     <React.Fragment>
       {userDetail && (
         <Box className={classes.pageFull}>
-          <Header classes={classes} userDetail={userDetail} 
-          tabValue={tabValue} handleTabChange={handleTabChange} />
+          <Header classes={classes} userDetail={userDetail} tabValue={tabValue} handleTabChange={handleTabChange} />
           <GridContainer>
-            {/* <Grid item xs={12} lg={4} className={classes.profileSidebar}>
+            <Grid item xs={12} lg={4} className={classes.profileSidebar}>
               <Box mb={6}>
                 <Contact userDetail={userDetail} />
               </Box>
@@ -72,7 +70,7 @@ const Profile = () => {
                 <Biography />
               </Box>
               <Events events={userDetail.events} />
-            </Grid> */}
+            </Grid>
           </GridContainer>
         </Box>
       )}
