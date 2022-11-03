@@ -43,10 +43,9 @@ const classes = useStyles();
       dispatch(getProductsList({...filterType, page: newPage, rowsPerPage}))
     };
 
-
     const handleChangeRowsPerPage = event => {
       setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
+      setPage(1);
       console.log()
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
       dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
@@ -137,7 +136,7 @@ const classes = useStyles();
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 50, 100]}
+        rowsPerPageOptions={[10, 50, 100]}
         component="div"
         count={totalProducts}
         rowsPerPage={rowsPerPage}
