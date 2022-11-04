@@ -109,8 +109,9 @@ export const getProductsList = params => {
     // dispatch(fetchStart());
     axios
       .get(`${commonData.apiUrl}/products`, { params })
-      .then(data => {
-        dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
+      .then(({data}) => {
+        console.log(data)
+        dispatch({ type: GET_PRODUCTS_LIST, payload: { productsList: data.rows, totalProducts: data.count} });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -124,7 +125,9 @@ export const getAllProducts = params => {
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(({data}) => {
-        dispatch({ type: SET_ALL_PRODUCTS, payload: data });
+        console.log(data)
+
+        dispatch({ type: SET_ALL_PRODUCTS, payload: { productsList: data.rows, totalProducts: data.count} });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
@@ -138,10 +141,11 @@ export const getInventoryList = params => {
     // dispatch(fetchStart());
     axios
       .get(
-        `${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}`,
+        `${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}&page=${params.page}&rowsPerPage=${params.rowsPerPage}`,
       )
-      .then(data => {
-        dispatch({ type: GET_PRODUCTS_LIST, payload: data.data });
+      .then(({data}) => {
+        console.log(data)
+        dispatch({ type: GET_PRODUCTS_LIST, payload: { productsList: data.rows, totalProducts: data.count} });
       })
       .catch(error => {
         console.log(error);

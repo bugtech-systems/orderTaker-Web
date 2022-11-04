@@ -23,7 +23,7 @@ import LocalGroceryStore from '@material-ui/icons/LocalGroceryStore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT } from '../../../../../../redux/actions/types';
+import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT, UPDATE_CART } from '../../../../../../redux/actions/types';
 import { logout } from '../../../../../../redux/actions/Auth';
 import commonData from 'utils/commonData';
 
@@ -104,6 +104,10 @@ const ActionSideBar = ({ width }) => {
   };
 
   const onDrawerClose = () => {
+    console.log(action)
+    console.log(activeOption)
+    console.log(cart)
+
     dispatch({type: SET_DRAWER_OPEN, payload: false})
     dispatch({type: SET_ACTIVE_OPTION, payload: null})
   };
@@ -150,6 +154,18 @@ const ActionSideBar = ({ width }) => {
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOption]);
+
+  useEffect(() => {
+    let localCart = localStorage.getItem('cart');
+
+    if(localCart){
+      dispatch({
+        type: UPDATE_CART,
+        payload: JSON.parse(localCart)
+      });
+    }
+
+  }, [])
 
 
   return (

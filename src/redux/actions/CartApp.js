@@ -36,7 +36,8 @@ export const handleCartItem = (cart_items, item) => {
             total: item.price * qty,
             productId: item.productId,
             name: item.name,
-            description: item.description
+            description: item.description,
+            uom: item.uom
           }
         : a;
     });
@@ -50,7 +51,8 @@ export const handleCartItem = (cart_items, item) => {
       total: item.price * qty,
       productId: item.id ? item.id : item.productId,
       name: item.name,
-      description: item.description
+      description: item.description,
+      uom: item.uom
     });
   }
 
@@ -183,18 +185,22 @@ export const handleCart = (cartItem)  => dispatch => {
   let disc_gross = Number(gross_total) - Number(total_discounts)
   amount_due = disc_gross + Number(total_charges);
 
+  const payload = {
+    ...cartItem,
+    cart_items: cart_items,
+    tax_disc: tax_disc,
+    gross_total: Number(gross_total).toFixed(2),
+    amount_due: Number(amount_due).toFixed(2),
+    cart_items_count: cart_items.length,
+    total_vatable: Number(total_vatable).toFixed(2),
+    other_amounts: other_amounts
+  }
+
+  localStorage.setItem('cart', JSON.stringify(payload))
+
   dispatch({
     type: UPDATE_CART,
-    payload: {
-      ...cartItem,
-      cart_items: cart_items,
-      tax_disc: tax_disc,
-      gross_total: Number(gross_total).toFixed(2),
-      amount_due: Number(amount_due).toFixed(2),
-      cart_items_count: cart_items.length,
-      total_vatable: Number(total_vatable).toFixed(2),
-      other_amounts: other_amounts
-    }
+    payload
   });
 };
 

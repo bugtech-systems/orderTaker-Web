@@ -26,9 +26,8 @@ const ListTableView = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const { customersList, filterType, totalCustomers } = useSelector(({ customerApp }) => customerApp);
-  
+  // const { customersList } = useSelector((state) => state.customersReducer);
   const [selected, setSelected] = React.useState([]);
-
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const [page, setPage] = React.useState(0);
@@ -119,9 +118,7 @@ const ListTableView = ({
                         />
           )}
           <TableBody>
-       {customersList
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((data, index) => (
+       {customersList.map((data, index) => (
                     <CustomerCell
                     key={index}
                     customer={data}

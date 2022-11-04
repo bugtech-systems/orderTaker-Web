@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import CmtList from '../../../../../@coremat/CmtList';
 import List from '@material-ui/core/List';
 import PropTypes from 'prop-types';
-import { getCustomerCounts, getLabelsList, setFilterType } from '../../../../../redux/actions/Customer';
+import { getCustomerCounts, getLabelsList, getCustomersList, setFilterType } from '../../../../../redux/actions/Customer';
 import ItemCell from './ItemCell';
 import AddLabel from './AddLabel';
 import { foldersList } from '../../../../../@fake-db/modules/customers';
@@ -34,18 +34,46 @@ const Sidebar = ({ onClickCreateCustomer, width }) => {
   }, [dispatch]);
 
   const onChangeFolder = folder => {
+
     dispatch(
       setFilterType({
+        ...filterType,
+        page: 0,
         selectedFolder: folder,
         selectedLabel: '',
         searchText: '',
       }),
     );
+
+
+    dispatch(
+      getCustomersList({
+        ...filterType,
+        page: 0,
+        selectedFolder: folder,
+        selectedLabel: '',
+        searchText: '',
+      }),
+    );
+
+  
+
   };
 
   const onChangeLabel = label => {
     dispatch(
       setFilterType({
+        ...filterType,
+        page: 0,
+        selectedFolder: '',
+        selectedLabel: label,
+        searchText: '',
+      }),
+    );
+    dispatch(
+      getCustomersList({
+        ...filterType,
+        page: 0,
         selectedFolder: '',
         selectedLabel: label,
         searchText: '',

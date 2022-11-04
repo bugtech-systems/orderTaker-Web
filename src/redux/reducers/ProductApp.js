@@ -25,6 +25,8 @@ const INIT_STATE = {
     selectedFolder: 'products',
     selectedLabel: '',
     searchText: '',
+    page: 0,
+    rowsPerPage: 10
   },
   productsList: [],
   allProducts: [],
@@ -85,8 +87,7 @@ export default (state = INIT_STATE, action) => {
     case GET_PRODUCTS_LIST: {
       return {
         ...state,
-        productsList: action.payload,
-        totalProducts: action.payload.length,
+        ...action.payload
       };
     }
 
@@ -159,8 +160,8 @@ export default (state = INIT_STATE, action) => {
       }
       return {
         ...state,
-        productsList: updatedList,
-        totalProducts: updatedCount,
+        productsList: updatedCount,
+        totalProducts: updatedList,
       };
     }
 

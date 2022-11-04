@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Box from '@material-ui/core/Box';
-import GridContainer from '../../../../../@jumbo/components/GridContainer';
+import GridContainer from '../../../../../../@jumbo/components/GridContainer';
 import Grid from '@material-ui/core/Grid';
-import AppTextInput from '../../../../../@jumbo/components/Common/formElements/AppTextInput';
-import CmtAvatar from '../../../../../@coremat/CmtAvatar';
+import AppTextInput from '../../../../../../@jumbo/components/Common/formElements/AppTextInput';
+import CmtImage from '../../../../../../@coremat/CmtImage';
 import { useDropzone } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
-import CmtList from '../../../../../@coremat/CmtList';
+import CmtList from '../../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
-import AppSelectBox from '../../../../../@jumbo/components/Common/formElements/AppSelectBox';
-import { requiredMessage } from '../../../../../@jumbo/constants/ErrorMessages';
-import { createCustomer, onUpdateCustomer, setCurrentCustomer } from '../../../../../redux/actions/Customer';
+import AppSelectBox from '../../../../../../@jumbo/components/Common/formElements/AppSelectBox';
+import { requiredMessage } from '../../../../../../@jumbo/constants/ErrorMessages';
+import { createCustomer, onUpdateCustomer, setCurrentCustomer } from '../../../../../../redux/actions/Customer';
 import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
@@ -20,10 +20,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
-import { uploadFile } from '../../../../../redux/actions/Users';
+import { isValidEmail } from '../../../../../../@jumbo/utils/commonHelper';
+import { uploadFile } from '../../../../../../redux/actions/Users';
 import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from 'redux/actions/types';
 import commonData from 'utils/commonData';
+import { updateStoreDetails } from 'redux/actions/Dashboard';
 
 
 
@@ -39,25 +40,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function NumberFormatCustom({ onChange, value, ...other }) {
-  const [phoneNo, setPhone] = useState('');
-
-  useEffect(() => {
-    if (!phoneNo && value) {
-      setTimeout(() => {
-        setPhone(value);
-      }, 300);
-    }
-  }, [phoneNo, value]);
-
-  const onNumberChange = number => {
-    setPhone(number.formattedValue);
-    onChange(number.formattedValue);
-  };
-
-  return <NumberFormat {...other} 
-  onValueChange={onNumberChange} value={phoneNo} format="(###) ###-####"  />;
-}
 
 const labels = [
   { title: 'Home', slug: 'home' },
@@ -65,17 +47,13 @@ const labels = [
   { title: 'Other', slug: 'other' },
 ];
 
-const CreateCustomer = ({ open, handleDialog }) => {
-  const { currentCustomer, customersList } = useSelector(({ customerApp }) => customerApp);
-  const { isDrawerOpen } = useSelector(({ uiReducer }) => uiReducer);
+const EditStore = ({ open, handleDialog, store }) => {
 
-  const cart = useSelector(({cartApp}) => cartApp);
 
   const dispatch = useDispatch();
   const classes = useStyles();
   const [values, setValues] = useState({ 
     contacts: [{number: '', label: 'home'}],
-    tags: []
   });
   const [errors, setErrors] = useState({});
 
@@ -86,7 +64,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
       formData.append("file", acceptedFiles[0]);
 
       dispatch(uploadFile(formData)).then(a => {
-        setValues({...values, cover: a.url})
+        setValues({...values, dpUrl: a.url})
       })
       .catch(err => {
         console.log(err)
@@ -109,8 +87,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
 
   const onAddPhoneNo = (number, index) => {
     const updatedList = [...values.contacts];
-  
-
     if(number.target.value.length < 12){
       updatedList[index].number = number.target.value;
     }
@@ -146,48 +122,25 @@ const CreateCustomer = ({ open, handleDialog }) => {
   };
 
   const handleSubmit = phoneNumbers => {
-    let { limit, balance } = values;
-    const customer = {
+    const business = {
       ...values,
       contacts:  phoneNumbers,
-      limit: limit ? limit : 0,
-      balance: balance ? balance : 0,
     };
-    if (currentCustomer && currentCustomer.id) {
-      dispatch(onUpdateCustomer({ ...currentCustomer, ...customer }));
+
+    dispatch(updateStoreDetails(business))
       handleDialog(false);
-    } else {
-      dispatch(createCustomer({...currentCustomer, ...customer}))
-      .then(res => {
-        if(isDrawerOpen){
-          dispatch({type: UPDATE_CART, payload: { ...cart, customerId: res.id  }})
-          dispatch(setCurrentCustomer(res));
-          dispatch({
-            type: SET_CREATE_CUSTOMER_DIALOG,
-            payload: false,
-          });
-        } else {
-          handleDialog(false);
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      ;
-    }
   };
 
 
   useEffect(() => {
-    if(currentCustomer){
-      setValues({...values, ...currentCustomer})
+    if(store){
+      setValues({...values, ...store})
     } else {
       setValues({
         contacts: [{number: '', label: 'home'}],
-        tags: []
       })
     }
-  }, [currentCustomer])
+  }, [store])
 
 
 
@@ -197,13 +150,14 @@ const CreateCustomer = ({ open, handleDialog }) => {
   return (
     <Dialog open={open} onClose={() => handleDialog(false)} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>
-        {currentCustomer ? 'Edit Customer Details' : 'Create New Customer'}
+       Edit Store Details
       </DialogTitle>
       <DialogContent dividers>
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={`${commonData.staticUrl}${values.cover}`} />
+            <CmtImage src={`${commonData.staticUrl}${values.dpUrl}`} height={80} width={80} alt={values.name} />
+
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>
@@ -211,7 +165,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
                 fullWidth
                 variant="outlined"
                 value={values.name}
-                label="Complete Name"
+                label="Store Name"
                 onChange={handleChange('name')}
                 helperText={errors.name}
               />
@@ -235,7 +189,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
               fullWidth
               variant="outlined"
               value={values.address}
-              label="Home Address"
+              label="Store Address"
               onChange={handleChange('address')}
               helperText={errors.address}
             />
@@ -253,7 +207,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
                   value={item.number}
                   onChange={number => onAddPhoneNo(number, index)}
                   helperText={errors.contacts}
-                  type="number"
                   // InputProps={{
                   //   inputComponent: NumberFormatCustom,
                   // }}
@@ -294,20 +247,18 @@ const CreateCustomer = ({ open, handleDialog }) => {
           <Box ml={2}>Add More</Box>
         </Box>
 
-        <GridContainer>
+        <GridContainer style={{ marginBottom: 5 }}>
           <Grid item xs={12} sm={12}>
             <AppTextInput
               fullWidth
-              type="number"
               variant="outlined"
-              label="Credit Limit"
-              value={values.limit}
-              onChange={handleChange('limit')}
+              value={values.description}
+              label="Description"
+              onChange={handleChange('description')}
+              helperText={errors.description}
             />
           </Grid>
-          <Grid item xs={12} sm={7} />
         </GridContainer>
-
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Button onClick={() => handleDialog(false)}>Cancel</Button>
           <Box ml={2}>
@@ -321,14 +272,14 @@ const CreateCustomer = ({ open, handleDialog }) => {
   );
 };
 
-export default CreateCustomer;
+export default EditStore;
 
-CreateCustomer.prototype = {
+EditStore.prototype = {
   open: PropTypes.bool.isRequired,
   handleDialog: PropTypes.func,
-  selectedCustomer: PropTypes.object,
+  store: PropTypes.object,
 };
 
-CreateCustomer.defaultProps = {
-  selectedCustomer: null,
+EditStore.defaultProps = {
+  store: null,
 };

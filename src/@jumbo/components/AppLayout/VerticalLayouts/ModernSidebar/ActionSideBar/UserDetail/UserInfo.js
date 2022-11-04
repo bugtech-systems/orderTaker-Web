@@ -58,14 +58,14 @@ const UserInfo = ({ userDetails }) => {
           ))}
         </Box>
       </Box>
-      {/* <Box className={classes.cardContentRoot}>
+      <Box className={classes.cardContentRoot}>
         <Box>{userDetails.bio}</Box>
         <Box ml={2}>
           <Fab size="medium" color="primary">
             <SendIcon />
           </Fab>
         </Box>
-      </Box> */}
+      </Box>
     </Box>
   );
 };

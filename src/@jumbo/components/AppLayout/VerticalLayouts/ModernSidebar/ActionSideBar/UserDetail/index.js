@@ -104,26 +104,22 @@ const UserDetail = () => {
   const handleEdit = () => {
     dispatch(setCurrentUser(authUser));
     dispatch({type: SET_USER_DIALOG, payload: true});
-    
   }
 
   return (
     <Box style={{margin: '10px'}}>
  <CmtAdvCard
       actionsPos="top-corner"
-      // actions={actions}
-      // actionHandleIcon={<EditIcon  />}
-      // actionHandler={(e) => console.log(e)}
       actionMenuClassName={classes.actionMenu}>
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardMedia className={classes.cardMediaRoot} 
-      // image={'https://via.placeholder.com/350x200'}
+      image={'https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX9896883.jpg'}
       >
         
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}${authUser.dpUrl}`} alt={authUser.name} />
+              <CmtAvatar className={classes.avatarRoot} size={50} src={`${commonData.staticUrl}${authUser.dpUrl}`} alt={authUser.name} />
             }
             title={authUser.name}
             titleProps={{ style: { color: '#fff' } }}
@@ -135,15 +131,12 @@ const UserDetail = () => {
               horizontal: 'right',
             }}
             avatarProps={{ variant: 'circle' }}
-            // badge={<CmtImage src={authUser.badge} alt="Badge" />}
             align="vertical"
           />
         </Box>
       </CmtCardMedia>
-      {/* <CmtAdvCardContent>
-        <UserInfo authUser={authUser} />
-      </CmtAdvCardContent> */}
     </CmtAdvCard>
+    
 <Box px={6} py={5}>
         <Box mb={5} component="p" color="common.dark">
          Personal Details

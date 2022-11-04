@@ -9,38 +9,40 @@ import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
 
 const PopularProducts = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState([10]);
-  const [products, setProducts] = useState([])
   
   const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
   
       const handleChangePage = (event, newPage) => {
-      setPage(newPage);
-      dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
-      dispatch(getProductsList({...filterType, page: newPage, rowsPerPage}))
+        console.log(event)
+      console.log('Paging')
+      console.log(newPage)
+      dispatch(setFilterType({...filterType, page: newPage}))
+      dispatch(getProductsList({...filterType, page: newPage}))
     };
     
     const handleChangeRowsPerPage = event => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-      console.log()
+      console.log(event)
+      console.log('RowsPerPag')
+
+      // setRowsPerPage(parseInt(event.target.value, 10));
+      // setPage(0);
+      // console.log()
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
       dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
     
         const handlePageChange = (event, newPage) => {
-      setPage(newPage);
+      // setPage(newPage);
     };
   
     const handleRowsPerPageChange = event => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
+      // setRowsPerPage(parseInt(event.target.value, 10));
+      // setPage(0);
     };
     
-    useEffect(() => {
-      setProducts(productsList)
-    }, [productsList])
+    // useEffect(() => {
+    //   setProducts(productsList)
+    // }, [productsList])
   
   return (
     <Box p={5}>
@@ -65,13 +67,11 @@ const PopularProducts = () => {
         />
            
         <TablePagination
-          rowsPerPageOptions={[5, 20, 50]}
+          rowsPerPageOptions={[10, 50, 100]}
           component="div"
-          counts={productsList.count}
-          // count={productsList.length}
           count={totalProducts}
-          rowsPerPage={rowsPerPage}
-          page={page}
+          rowsPerPage={filterType.rowsPerPage}
+          page={filterType.page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />

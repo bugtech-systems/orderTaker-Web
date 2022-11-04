@@ -34,11 +34,13 @@ const useStyles = makeStyles(theme => ({
   },
   inBuildAppHeaderContent: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center', 
+    flexGrow: 1,
+    justifyContent: 'space-between',
     width: '100%',
     padding: '11px 16px 10px 16px',
     [theme.breakpoints.up('md')]: {
-      width: 'calc(100% - 256px)',
+      // width: 'calc(100% - 256px)',
     },
     [theme.breakpoints.down('sm')]: {
       paddingLeft: 0,

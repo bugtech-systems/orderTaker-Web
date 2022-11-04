@@ -40,6 +40,11 @@ const WeeklySales = () => {
           <ShowChartIcon />
         </IconButton>
       </CmtCardHeader>
+      
+      
+      
+      
+      
       <CmtCardContent>
         <Box className={classes.productView}>
           <ProductsList selectedProducts={selectedProducts} />

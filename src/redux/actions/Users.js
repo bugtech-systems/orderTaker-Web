@@ -4,16 +4,22 @@ import {
   DELETE_BULK_USERS,
   DELETE_USER,
   EDIT_USER,
+  EDIT_STORE,
   GET_USERS,
+  GET_STORES,
   SET_USER_DETAILS,
+  SET_STORE_DETAILS,
+  SET_STORE_DIALOGS,
+  SET_USER_DIALOGS,
 } from '../../@jumbo/constants/ActionTypes';
 import { SET_SELECTED_USER } from './types';
+import { SET_SELECTED_STORE } from './types';
+
 
 // import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
 import { authHeader } from '../../services/auth-header';
-import { getUserData } from './Auth';
-
+import { getUserData, getStoreData } from './Auth';
 
 
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
@@ -24,7 +30,28 @@ export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
       .then(data => {
         if (data.status === 200) {
           dispatch(fetchSuccess());
+          console.log(data.data)
           dispatch({ type: GET_USERS, payload: data.data });
+          if (callbackFun) callbackFun(data.data);
+        } else {
+          dispatch(fetchError('There was something issue in responding server.'));
+        }
+      })
+      .catch(error => {
+        dispatch(fetchError('There was something issue in responding server'));
+      });
+  };
+};
+
+export const getStores = (filterOptions = [], searchTerm = '', callbackFun) => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios
+      .get(`${commonData.apiUrl}/stores`, { params: { filterOptions, searchTerm } })
+      .then(data => {
+        if (data.status === 200) {
+          dispatch(fetchSuccess());
+          dispatch({ type: GET_STORES, payload: data.data });
           if (callbackFun) callbackFun(data.data);
         } else {
           dispatch(fetchError('There was something issue in responding server.'));
@@ -40,6 +67,13 @@ export const setCurrentUser = user => {
   return dispatch => {
     dispatch({ type: SET_USER_DETAILS, payload: user });
     dispatch({ type: SET_SELECTED_USER, payload: user });
+  };
+};
+
+export const setCurrentStore = store => {
+  return dispatch => {
+    dispatch({ type: SET_STORE_DETAILS, payload: store });
+    dispatch({ type: SET_SELECTED_STORE, payload: store });
   };
 };
 
@@ -92,6 +126,30 @@ export const updateUser = (user, callbackFun) => {
       });
   };
 };
+
+export const updateStore = (store, callbackFun) => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios
+      .put(`${commonData.apiUrl}/stores/${store.id}`, store)
+      .then(data => {
+        dispatch(fetchSuccess('Selected store was updated successfully.'));
+
+        if (data.status === 200) {
+          dispatch(getStoreData())
+          dispatch(getStores());
+          if (callbackFun) callbackFun(data.data);
+        } else {
+          dispatch(fetchError('There was something issue in responding server.'));
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(fetchError('There was something issue in responding server'));
+      });
+  };
+};
+
 
 export const updateUserStatus = (data, callbackFun) => {
   let { status, id } = data;
@@ -173,5 +231,3 @@ export const uploadFile = (data, callbackFun) => dispatch =>  {
         return Promise.reject(error);
       });
   };
-
-

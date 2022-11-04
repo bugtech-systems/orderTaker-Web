@@ -61,9 +61,9 @@ export const sidebarNavs = [
       {
         name: <IntlMessages id={'sidebar.report'} />,
         icon: <Assessment />,
-        type: 'collapse',
+        type: 'item',
         link: '/reports',
-        disabled: false,
+        disabled: true,
         role: ['admin', 'super', 'sales'],
         children: [
           {
@@ -93,6 +93,8 @@ export const sidebarNavs = [
             type: 'item',
             link: '/reports/unpaid',
             role: ['admin', 'super'],
+            disabled: true,
+
           }
         ]
       },
@@ -102,6 +104,8 @@ export const sidebarNavs = [
         type: 'item',
         link: '/users',
         role: ['admin', 'super'],
+        disabled: false,
+
       },
       // {
       //   name: <IntlMessages id={'sidebar.settings'} />,

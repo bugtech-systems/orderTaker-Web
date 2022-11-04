@@ -14,13 +14,13 @@ const headCells = [
     label: 'Name',
   },
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-  {
-    id: 'lastLoginAt',
-    numeric: false,
-    disablePadding: false,
-    label: 'Last Login',
-  },
+  { id:   'status', numeric: false, disablePadding: false, label: 'Status' },
+  //  {
+  //   id: 'lastLoginAt',
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: 'Last Login',
+  // },
 ];
 
 function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) {
@@ -56,7 +56,7 @@ function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected,
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell align="center">Actions</TableCell>
+        {<TableCell align="center">Actions</TableCell> }
       </TableRow>
     </TableHead>
   );

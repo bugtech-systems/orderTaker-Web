@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import CmtDrawer from '../../../../../../@coremat/CmtDrawer';
@@ -7,6 +7,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
+import AppSwitch from '../../../../Common/formElements/AppSwitch';
+
 
 
 //Icons 
@@ -100,13 +102,17 @@ const useStyles = makeStyles(theme => ({
 const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
   const cart = useSelector(({cartApp}) => cartApp);
+  const {business} = useSelector(({dashboard}) => dashboard);
+  const [printDirect, setPrintDirect] = useState(false);
+
   const dispatch = useDispatch();
 
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
 
   const handlePrint = () => {
-    dispatch(setOrderReceipt(cart));
+    dispatch(setOrderReceipt({...cart, business}, printDirect));
   }
+
 
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
@@ -122,15 +128,23 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
             {activeOption === 'cart' && order_no}
         </Box>
         <Box>
+        <Box display="flex" >
+
         {
         activeOption === 'cart' &&
         ['paidSuccess','paidCart','success', 'unpaid', 'viewCart'].includes(action) && 
-        <IconButton onClick={() => handlePrint()}>
+        <Box display="flex" >
+          <AppSwitch label="Print Directly" checked={printDirect} onChange={() => setPrintDirect(!printDirect)} />
+          <IconButton onClick={() => handlePrint()}>
                 <PrintIcon/>
-          </IconButton>}
+          </IconButton>
+        </Box>
+      }
         <IconButton size="small" className={classes.iconBtn} onClick={onDrawerClose}>
             <CloseIcon />
           </IconButton>
+          </Box>
+
           </Box>
       </Box>
       }

@@ -4,7 +4,9 @@ import {
 } from '../actions/types';
 
 const INIT_STATE = {
-    business: {},
+    business: {
+      contacts: []
+    },
     counts: {
       users: 0,
       customers: 0,

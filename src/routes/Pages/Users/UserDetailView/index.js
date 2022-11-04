@@ -40,22 +40,7 @@ const UserDetailView = ({ currentUser, open, onCloseDialog }) => {
                 />
               </Box>
             </Box>
-            {(designation || company) && (
-              <Box mt={-1}>
-                {designation && <Typography className={classes.subTitleRoot}>{designation}</Typography>}
-                {company && <Typography className={classes.subTitleRoot}>@{company}</Typography>}
-              </Box>
-            )}
-          </Box>
-        </Box>
-        <Box ml="auto" mt={-2} display="flex" alignItems="center">
-          <Box ml={1}>
-            <Tooltip title={status}>
-              <IconButton aria-label="filter list">
-                {status === 'suspended' && <Block color="primary" />}
-                {status === 'active' && <CheckCircleOutline color="primary" />}
-              </IconButton>
-            </Tooltip>
+            
           </Box>
           <Box ml={1}>
             <IconButton onClick={onCloseDialog}>
