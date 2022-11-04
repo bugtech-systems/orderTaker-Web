@@ -146,7 +146,6 @@ const ListTableView = ({
   );
 };
 
-export default ListTableView;
 
 ListTableView.prototype = {
   checkedCustomers: PropTypes.array,
@@ -162,3 +161,5 @@ ListTableView.prototype = {
 ListTableView.defaultProps = {
   checkedCustomers: [],
 };
+
+export default ListTableView;

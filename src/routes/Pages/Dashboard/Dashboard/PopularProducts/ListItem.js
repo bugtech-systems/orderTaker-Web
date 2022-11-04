@@ -11,18 +11,60 @@ import useStyles from "./ListItem.style";
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
+import {
+  handleCartItem,
+  handleCart
+ } from "../../../../../redux/actions/CartApp";
+import { fetchError } from "../../../../../redux/actions";
+
 import commonData from "utils/commonData";
+
 
 
 const ListItem = ({item}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {cart_items} = useSelector(state => state.cartApp);
+  const cart = useSelector(state => state.cartApp);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+
   const [ revealed, setRevealed ] = useState(false);
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
+  const addToCart = () => {
+    const {cart_items} = cart;
+    console.log(item)
+    console.log(cart_items)
+    console.log(productsList)
+    if(Number(item.stocks) === 0) {
+      return dispatch(fetchError('Cant add 0 stocks!'))
+    } else {
   
+  
+  
+      let prd = productsList.find(a => a.id === item.id);
+  
+  
+      let obj = {
+        product: prd,
+        productId: item.id,
+        name: item.name,
+        stocks: prd.stocks - 1,
+        price: item.price,
+        total: item.price * 1,
+        other_amounts: item.other_amounts ? item.other_amounts : []
+      }
+  
+  
+  
+      handleCartItem(cart_items, obj).then(a => {
+        dispatch(handleCart({...cart, cart_items: a}))
+      })
+  
+    //   setRevealed(false);
+    }
+    };
+
 
   const getActionComponent = () => (
     <Box>
@@ -80,16 +122,19 @@ const ListItem = ({item}) => {
           }
         />
         <Box className={classes.listItemAction}>
-          <Box className={classes.listItemActionHover} onClick={() => setRevealed(true)}>
+          <Box className={classes.listItemActionHover} onClick={() => 
+            // setRevealed(true)
+            addToCart()
+            }>
             <IconButton className="btn"  disabled={item.stocks <= 0}>
               <AddShoppingCartIcon />
             </IconButton>
           </Box>
-          <AddToCart
+          {/* <AddToCart
             className={classes.revealContainer}
             item={item}
             setRevealed={setRevealed}
-          />
+          /> */}
         </Box>
       </Box>
 

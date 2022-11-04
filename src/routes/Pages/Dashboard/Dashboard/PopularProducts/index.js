@@ -30,7 +30,6 @@ const PopularProducts = ({ productsList }) => {
           </Button>
         </Box>
       </CmtCardHeader>
-      w
       <CmtCardContent>
           <CmtGridView
               itemPadding={10}
