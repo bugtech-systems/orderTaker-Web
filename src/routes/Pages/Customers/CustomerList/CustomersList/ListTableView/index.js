@@ -26,7 +26,7 @@ const ListTableView = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const { customersList, filterType, totalCustomers } = useSelector(({ customerApp }) => customerApp);
-  // const { customersList } = useSelector((state) => state.customersReducer);
+  
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
@@ -40,7 +40,6 @@ const ListTableView = ({
       setPage(newPage);
       dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
       dispatch(getCustomersList({...filterType, page: newPage, rowsPerPage}))
-
     };
     
     const handleChangeRowsPerPage = event => {
@@ -50,7 +49,6 @@ const ListTableView = ({
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
       dispatch(getCustomersList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
-
 
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
@@ -121,7 +119,9 @@ const ListTableView = ({
                         />
           )}
           <TableBody>
-       {customersList.map((data, index) => (
+       {customersList
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((data, index) => (
                     <CustomerCell
                     key={index}
                     customer={data}
@@ -149,7 +149,6 @@ const ListTableView = ({
   );
 };
 
-export default ListTableView;
 
 ListTableView.prototype = {
   checkedCustomers: PropTypes.array,
@@ -165,3 +164,5 @@ ListTableView.prototype = {
 ListTableView.defaultProps = {
   checkedCustomers: [],
 };
+
+export default ListTableView;
