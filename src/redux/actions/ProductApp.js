@@ -138,7 +138,7 @@ export const getAllProducts = params => {
 
 export const getInventoryList = params => {
   return dispatch => {
-    // dispatch(fetchStart());
+    dispatch(fetchStart());
     axios
       .get(
         `${commonData.apiUrl}/products?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}&page=${params.page}&rowsPerPage=${params.rowsPerPage}`,
