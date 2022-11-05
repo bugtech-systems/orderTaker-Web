@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 2, 2, 0),
     paddingLeft: `calc(1em + ${theme.spacing(6)}px)`,
     transition: theme.transitions.create('width'),
-    width: 162,
+    width: 200,
     height: 35,
     borderRadius: 4,
     boxSizing: 'border-box',

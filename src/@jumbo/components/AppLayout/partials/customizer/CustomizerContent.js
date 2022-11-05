@@ -45,7 +45,7 @@ const CustomizerContent = ({ onClose, children }) => {
     <div className={classes.customizerRoot}>
       <div className={classes.customizerHeader}>
         <Typography component="h2" variant="h2">
-          Theme Settings
+          Settings
         </Typography>
         <IconButton size="small" onClick={onClose}>
           <CloseIcon />

@@ -13,20 +13,14 @@ const PopularProducts = () => {
   const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
   
       const handleChangePage = (event, newPage) => {
-        console.log(event)
-      console.log('Paging')
-      console.log(newPage)
       dispatch(setFilterType({...filterType, page: newPage}))
       dispatch(getProductsList({...filterType, page: newPage}))
     };
     
     const handleChangeRowsPerPage = event => {
-      console.log(event)
-      console.log('RowsPerPag')
 
       // setRowsPerPage(parseInt(event.target.value, 10));
       // setPage(0);
-      // console.log()
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
       dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };

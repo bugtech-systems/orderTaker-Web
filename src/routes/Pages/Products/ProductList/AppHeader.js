@@ -60,7 +60,7 @@ const AppHeader = ({ onChangeViewMode, viewMode }) => {
 
       <Box style={{width: '100%'}} component="form" onSubmit={handleSubmit}>
       <Box  className={classes.inBuildAppHeaderContent} >
-        <CmtSearch placeholder="Search Customers..." value={searchText} onChange={handleSearchText} border={false} />
+        <CmtSearch placeholder="Search Products..." value={searchText} onChange={handleSearchText} border={false} />
         <Box ml="auto" display="flex" alignItems="center">
           <Button type='submit' variant="outlined" size="small">Search</Button>
           {/* <Box ml={1}>

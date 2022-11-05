@@ -63,40 +63,40 @@ export const sidebarNavs = [
         icon: <Assessment />,
         type: 'item',
         link: '/reports',
-        disabled: true,
-        role: ['admin', 'super', 'sales'],
-        children: [
-          {
-            name: <IntlMessages id={'sidebar.sales'} />,
-            icon: <ArrowForward />,
-            type: 'item',
-            link: '/reports/sales',
-            role: ['admin', 'super'],
-          },
-          {
-            name: <IntlMessages id={'sidebar.expense'} />,
-            icon: <ArrowForward />,
-            type: 'item',
-            link: '/reports/expenses',
-            role: ['admin', 'super'],
-          },
-          {
-            name: <IntlMessages id={'sidebar.purchases'} />,
-            icon: <ArrowForward />,
-            type: 'item',
-            link: '/reports/purchases',
-            role: ['admin', 'super'],
-          },
-          {
-            name: <IntlMessages id={'sidebar.unpaid'} />,
-            icon: <ArrowForward />,
-            type: 'item',
-            link: '/reports/unpaid',
-            role: ['admin', 'super'],
-            disabled: true,
+        // disabled: true,
+        role: ['admin', 'super'],
+        // children: [
+        //   {
+        //     name: <IntlMessages id={'sidebar.sales'} />,
+        //     icon: <ArrowForward />,
+        //     type: 'item',
+        //     link: '/reports/sales',
+        //     role: ['admin', 'super'],
+        //   },
+        //   {
+        //     name: <IntlMessages id={'sidebar.expense'} />,
+        //     icon: <ArrowForward />,
+        //     type: 'item',
+        //     link: '/reports/expenses',
+        //     role: ['admin', 'super'],
+        //   },
+        //   {
+        //     name: <IntlMessages id={'sidebar.purchases'} />,
+        //     icon: <ArrowForward />,
+        //     type: 'item',
+        //     link: '/reports/purchases',
+        //     role: ['admin', 'super'],
+        //   },
+        //   {
+        //     name: <IntlMessages id={'sidebar.unpaid'} />,
+        //     icon: <ArrowForward />,
+        //     type: 'item',
+        //     link: '/reports/unpaid',
+        //     role: ['admin', 'super'],
+        //     disabled: true,
 
-          }
-        ]
+        //   }
+        // ]
       },
       {
         name: <IntlMessages id={'sidebar.user'} />,

@@ -185,7 +185,6 @@ const AddEditUser = () => {
     }
   };
 
-  console.log(values)
   const isPhonesMultiple = values.contacts.length > 1;
 
   return (

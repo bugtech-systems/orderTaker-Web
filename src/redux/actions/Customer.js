@@ -107,7 +107,6 @@ export const getCustomersList = (params = {}) => {
         `${commonData.apiUrl}/customers?selectedFolder=${params.selectedFolder}&selectedLabel=${params.selectedLabel}&searchText=${params.searchText}&page=${params.page}&rows=${params.rowsPerPage}`,
       )
       .then(({ data }) => {
-        console.log(data)
         dispatch({ type: GET_CUSTOMERS_LIST, payload: { customersList: data.rows, totalCustomers: data.count} });
       })
       .catch(error => {
@@ -122,7 +121,6 @@ export const getCustomers = params => {
     axios
       .get(`${commonData.apiUrl}/customers`, { params })
       .then(({ data }) => {
-        console.log(data)
         dispatch({ type: GET_CUSTOMERS_LIST, payload: { customersList: data.rows, totalCustomers: data.count} });
       })
       .catch(error => {

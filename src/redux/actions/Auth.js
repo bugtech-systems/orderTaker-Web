@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_AUTH_STORE, UPDATE_LOAD_USER, CLEAR_USER } from './types';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_AUTH_STORE, UPDATE_LOAD_USER, CLEAR_USER, SET_DASHBOARD_DATA } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 
 import commonData from '../../utils/commonData';
@@ -74,9 +74,10 @@ export const getUserData = () => {
 
   axios.get(`${commonData.apiUrl}/auth`, { headers: authHeader() }).then(
     (res) => {
-      let { email, id, roles, name, address, dpUrl } = res.data;
+      let { email, id, roles, name, address, dpUrl, business } = res.data;
       localStorage.setItem('user', JSON.stringify({email, id, roles, name, address, dpUrl}));
-
+      console.log(res.data)
+      dispatch({type: SET_DASHBOARD_DATA, payload: { business }})
       dispatch(setAuthUser(res.data))
       dispatch(fetchSuccess());
     },

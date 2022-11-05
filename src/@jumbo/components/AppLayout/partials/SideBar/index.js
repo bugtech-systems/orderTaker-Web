@@ -38,16 +38,17 @@ const SideBar = () => {
 
 
 useEffect(() => {
-  if(authUser && loadUser){
+  if(authUser.roles){
+    console.log(authUser.roles)
 
-    if(authUser && authUser.roles && (authUser.roles.find(a => a === 'ROLE_SUPER' || a ===  'ROLE_ADMIN') || authUser.roles.find(a => a.name === 'super' || a.name === 'admin'))){
+    if(authUser && authUser.roles && (authUser.roles.find(a => (a === 'ROLE_SUPER' || a ===  'ROLE_ADMIN')) || authUser.roles.find(a => (a.name === 'super' || a.name === 'admin')))){
       setSideNavs(sidebarNavs)
     } else {
    let sd = sidebarNavs[0].children.filter(a => a.role.find(ab => ab === 'sales'));
    sidebarNavs[0].children = sd;
       setSideNavs(sidebarNavs)
     }
-    setSideNavs(sidebarNavs);
+    // setSideNavs(sidebarNavs);
   }
 }, [authUser, loadUser])
 

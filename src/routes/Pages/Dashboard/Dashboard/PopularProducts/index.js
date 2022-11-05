@@ -34,7 +34,6 @@ useEffect(() => {
     } : a
   })
 
-  console.log(popularProducts)
 
   setPopular(pp)
 
@@ -47,10 +46,8 @@ useEffect(() => {
 
 
 
-console.log(dashboard)
-  
   return (
-    <CmtCard>
+    <CmtCard >
       <CmtCardHeader
         className="pt-4"
         title="Popular Products"
@@ -64,7 +61,12 @@ console.log(dashboard)
           </Button>
         </Box>
       </CmtCardHeader>
-      <CmtCardContent>
+      <CmtCardContent 
+      style={{
+        height: '400px',
+        overflow: 'auto'
+      }}
+      >
           <CmtGridView
               itemPadding={10}
               responsive={{
@@ -77,7 +79,7 @@ console.log(dashboard)
               data={popular}
             renderRow={(item, index) => <ListItem key={index} item={item} />}
           />
-              <TablePagination
+              {/* <TablePagination
                 rowsPerPageOptions={[5, 20, 50]}
                 component="div"
                 counts={popular.count}
@@ -85,7 +87,7 @@ console.log(dashboard)
                 rowsPerPage={rowsPerPage}
                 page={page}
                 
-              />
+              /> */}
         </CmtCardContent>
     </CmtCard>
   );

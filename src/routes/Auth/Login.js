@@ -21,8 +21,14 @@ import {
 } from "../../@jumbo/constants/ErrorMessages";
 import {isValidEmail} from "../../@jumbo/utils/commonHelper";
 
+
+import { AuhMethods } from '../../services/auth';
+
+
 //Redux
 import {loginUser} from "../../redux/actions/Auth";
+
+
 
 import commonData from '../../utils/commonData';
 
@@ -122,7 +128,17 @@ const SignIn = ({
     e.preventDefault();
     const isError = handleErrors();
     if (!isError) {
-      dispatch(loginUser(values));
+      // dispatch(loginUser(values));
+    dispatch(AuhMethods[CurrentAuthMethod].onLogin(values));
+
+        // useEffect(() => {
+  //   dispatch(AuhMethods[CurrentAuthMethod].getAuthUser());
+  //   setLayoutLoader(false);
+
+  //   //eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+
     }
   };
 

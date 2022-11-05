@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import CmtCard from '../../../../@coremat/CmtCard';
-import CmtCardHeader from '../../../../@coremat/CmtCard/CmtCardHeader';
+import CmtCard from '../../../../../@coremat/CmtCard';
+import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 
 import RevenueSummaryGraph from './RevenueSummaryGraph';
 import SummaryTabs from './SummaryTabs';
@@ -38,8 +38,8 @@ const useStyles = makeStyles(theme => ({
 const SummaryStats = () => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <SummaryDetail title={'Earning this year'} figure={'$2,95,400'} className={'mr-5'} />
-      <SummaryDetail title={'Available in account'} figure={'$58,000'} className={'mr-5'} />
+      <SummaryDetail title={'Sales this year'} figure={new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(295400)} className={'mr-5'} />
+      <SummaryDetail title={'Available Inventory'} figure={new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(58000)} className={'mr-5'} />
     </div>
   );
 };

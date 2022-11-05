@@ -7,9 +7,26 @@ import SidebarOption from '../../partials/customizer/SidebarOption';
 // import NavigationLayout from '../../partials/customizer/NavigationLayout';
 import CustomizerBody from '../../partials/customizer/CustomizerBody';
 
+
+//DashBoard Components
+import OurStore from '../../../../../routes/Pages/Dashboard/Dashboard/OurStore';
+
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
+
 const Customizer = () => {
+  const {  business } = useSelector(({dashboard}) => dashboard);
+
+
+
   return (
     <CustomizerBody>
+       <OurStore
+              business={business}
+              />
       <Theme  />
       <ThemeColor />
       {/* <NavigationLayout /> */}

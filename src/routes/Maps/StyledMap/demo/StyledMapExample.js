@@ -27,7 +27,6 @@ const StyledMapExampleGoogleMap = withGoogleMap(props => (
  */
 const StyledMapExample = () => {
   const handleClickFromChildrenOfInfoBox = e => {
-    console.log(e);
   };
 
   return (

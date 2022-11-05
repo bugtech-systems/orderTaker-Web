@@ -22,7 +22,6 @@ const INIT_STATE = {
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case SET_DASHBOARD_DATA: {
-      console.log(action.payload)
       return {
         ...state,
         ...action.payload

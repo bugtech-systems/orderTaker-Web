@@ -3,6 +3,8 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   cardRoot: {
     height: 'auto',
+    overflow: 'hidden',
+    position: 'relative',
     '& .Cmt-card-content': {
       paddingTop: 16,
     },
@@ -18,13 +20,14 @@ const useStyles = makeStyles(theme => ({
   listContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '310px'
+    height: '500px'
   },
 
   listContainerA: {
     display: 'flex',
     flexDirection: 'column',
-    height: '280px'
+    // height: '100%'
+    height: '400px'
   },
   scrollbarRoot: {
     flex: 1,

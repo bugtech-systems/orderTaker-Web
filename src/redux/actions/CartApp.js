@@ -13,7 +13,7 @@ import { getOrders, getCartOrderById } from './OrderApp';
 //For expanding sidebar
 export const handleCartItem = (cart_items, item) => {
 
-  let { stocks  } = item.product ? item.product : {};
+  let { stocks, uom  } = item.product ? item.product : {};
   let qty = item.qty || item.qty >= 0 ? item.qty : 1;
   let cartItems = cart_items;
   let inds = cart_items.map(a => { return a.productId}).indexOf(item.productId);
@@ -27,6 +27,8 @@ export const handleCartItem = (cart_items, item) => {
   if (inds !== -1) {
 
     cartItems = cartItems.map(a => {
+      console.log(a)
+      console.log(a.productId == item.productId)
       return a.productId == item.productId
         ? {
            ...item, 
@@ -37,8 +39,7 @@ export const handleCartItem = (cart_items, item) => {
             productId: item.productId,
             name: item.name,
             description: item.description,
-            uom: item.uom
-          }
+            uom  }
         : a;
     });
 
@@ -52,7 +53,7 @@ export const handleCartItem = (cart_items, item) => {
       productId: item.id ? item.id : item.productId,
       name: item.name,
       description: item.description,
-      uom: item.uom
+      uom
     });
   }
 
@@ -211,7 +212,6 @@ export const createOrder = (cart) => dispatch => {
       .then((res) => {
         let { message, data } = res.data;
      
-        console.log(data);
         dispatch(getOrders());
         dispatch(getCartOrderById(data.id));
         dispatch(fetchSuccess(message));

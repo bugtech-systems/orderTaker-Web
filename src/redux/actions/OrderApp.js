@@ -26,15 +26,10 @@ export const getOrders = () => {
   };
 
   export const getCartOrderById = (id) => dispatch => {
-    // dispatch(fetchStart());
-    // dispatch({type: CLEAR_ORDERS});
-    console.log('GET RECORD BY ID')
-    console.log(id)
     return axios
       .get(`${commonData.apiUrl}/orders/${id}`, { headers: authHeader() })
       .then(({data}) => {
         dispatch({type: UPDATE_CART, payload: data})
-        console.log(data)
       })
       .catch(err => {
         console.log(err)

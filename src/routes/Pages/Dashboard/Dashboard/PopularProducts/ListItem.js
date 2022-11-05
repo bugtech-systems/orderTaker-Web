@@ -52,10 +52,6 @@ const ListItem = ({item}) => {
   
   
       let prd = productsList.find(a => a.id === item.id);
-      console.log(item)
-      console.log(cartList)
-      console.log(crt)
-      console.log(prd)
   
       let obj = crt ? {
         ...crt,
@@ -71,15 +67,12 @@ const ListItem = ({item}) => {
   
       
       const pp = popularProducts.map(a => {
-        console.log(a.id === item.id )
         return a.id === item.id ? {
-          ...prd,
+          ...a,
           stocks: prd.stocks - (obj.qty ? obj.qty : 1)
-        } : prd
+        } : a
       });
     
-      console.log(popularProducts)
-  
       dispatch({type: SET_DASHBOARD_DATA, payload: { popularProducts: pp }})
   
       handleCartItem(cartList, obj).then(a => {
@@ -127,7 +120,10 @@ const ListItem = ({item}) => {
   }, [cart])
 
 
-  console.log(item)
+  console.log(cartList)
+  console.log(popularProducts)
+
+
   return (
     <React.Fragment>
       <Box

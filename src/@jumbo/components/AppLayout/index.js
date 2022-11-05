@@ -41,7 +41,8 @@ const AppLayout = ({ children }) => {
 
   useEffect(() => {
     dispatch(AuhMethods[CurrentAuthMethod].getAuthUser());
-    setLayoutLoader(false);
+
+  setLayoutLoader(false);
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -57,6 +58,7 @@ const AppLayout = ({ children }) => {
   if (['/signin', '/signup', '/forgot-password'].includes(location.pathname)) {
     return <div style={{ minHeight: '100vh', width: '100%', display: 'flex' }}>{children}</div>;
   }
+  console.log(layout)
   switch (layout) {
     default:
       return <ModernSideBar children={children} />;

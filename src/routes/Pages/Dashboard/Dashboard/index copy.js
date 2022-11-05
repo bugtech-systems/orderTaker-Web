@@ -14,9 +14,6 @@ import RecentPayments from './RecentPayments';
 import PopularProducts from './PopularProducts';
 import CalendarEvents from './CalendarEvents';
 import ToggleAnalyticsCard from './ToggleAnalyticsCard/VisitedToggleAnalyticsCard';
-import RevenueSummary from './RevenueSummary';
-
-
 
 //Icons
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -124,26 +121,24 @@ const Dashboard = () => {
         {/* Business Profile Component - Top left side   */}
      
         {/* Business CalendarEvents - Top right side */}
-        {isAdmin ? <>
-      
         <Grid item xs={12} sm={12} lg={6}>
-        <GridContainer>
-        <Grid item xs={12} sm={12} lg={12}>
-              {/* <OurStore 
-                business={business}
-              />  */}
-               <CalendarEvents
+        {isAdmin &&  <ToggleAnalyticsCard data={todaySales} />}
+          <CalendarEvents
           dateCounter={dateCounter}
           setDateCounter={handleDateCounter}
           />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={6}>
+          <GridContainer>
+            <Grid item xs={12} sm={12} lg={12}>
+              <OurStore
+              business={business}
+              />
             </Grid>
-            {/* <Grid item xs={12} sm={12} lg={12}>
-              <RevenueSummary/> 
-            </Grid> */}
             {/* Easy Access Widget Portion */}
            
 
-            {/* <Grid item xs={12} sm={12} lg={isAdmin ? 12 : 6}>
+            <Grid item xs={12} sm={12} lg={isAdmin ? 12 : 6}>
               <CardWidget
                 backgroundColor="#6200EE"
                 icon={<LocalOfferIcon style={{ color: '#ffffff' }} />}
@@ -160,28 +155,11 @@ const Dashboard = () => {
                 subTitle="CUSTOMERS"
                 Link="/customers"
               />
-            </Grid> */}
+            </Grid>
 
           </GridContainer>
-              
-            </Grid>
-            <Grid item xs={12} sm={12} lg={6}>
-      <GridContainer >
-      <Grid  item xs={12} sm={12} lg={12}>
-       <ToggleAnalyticsCard data={todaySales} />
         </Grid>
-            <Grid item xs={12} sm={12} lg={12} >
-              {/* <OurStore
-              business={business}
-              /> */}
-              <RevenueSummary/> 
-
-            </Grid>
-      </GridContainer>
-      
-       
-        </Grid>
-            {popularProducts && popularProducts.length !== 0 &&
+        {popularProducts && popularProducts.length !== 0 &&
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6} className={classes.popularProductRoot}>
             <PopularProducts
@@ -190,33 +168,6 @@ const Dashboard = () => {
           </Box>
         </Grid>
         }
-            </>
-            : 
-            <>
-            
-              {popularProducts && popularProducts.length !== 0 &&
-              <Grid item xs={12} lg={12} className={classes.orderLg1}>
-                <Box pb={6} className={classes.popularProductRoot}>
-                  <PopularProducts
-                    count={popularProducts.length}
-                  />
-                </Box>
-              </Grid>}
-              <Grid item xs={12} sm={12} lg={12} >
-              {/* <OurStore
-              business={business}
-              /> */}
- <CalendarEvents
-          dateCounter={dateCounter}
-          setDateCounter={handleDateCounter}
-          />
-            </Grid>
-              </>
-        }
-
-
-
-       
         {unpaidCustomers && unpaidCustomers.length !== 0 &&
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6}>

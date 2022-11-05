@@ -30,7 +30,6 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
   }, [dispatch]);
 
   const onChangeFolder = folder => {
-    console.log('FOLDERING TOL')
     dispatch(
       setFilterType({
         selectedFolder: folder,

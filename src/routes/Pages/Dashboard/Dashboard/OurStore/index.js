@@ -23,9 +23,12 @@ import { setCurrentStore } from 'redux/actions/Users';
 //Components
 import EditStore from './EditStore';
 
+//Icons
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
 const useStyles = makeStyles(theme => ({
   cardRoot: {
-    height: '100%',
+    height: '200px',
   },
   selectBoxRoot: {
     marginBottom: 6,
@@ -85,6 +88,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OurStore = ({ business }) => {
+  const { isAdmin } = useSelector(({auth}) => auth);
   const [open, setOpen] = useState(false);
   const [store, setStore] = useState({
     contacts: []
@@ -112,7 +116,7 @@ const OurStore = ({ business }) => {
 
   let contactDetails = contacts.map((a, index) => {
     return (
-      <Box key={index} display="flex" alignItems="center" mb={3} color="text.secondary">
+      <Box  key={index} display="flex" alignItems="center" mb={3} color="text.secondary">
       <CallIcon /> 
       <Box ml={3}>{String(a.label).toUpperCase()} - {a.number}</Box>
     </Box>
@@ -125,17 +129,12 @@ const OurStore = ({ business }) => {
     <>
     <EditStore open={open} handleDialog={handleDialog} store={business} />
     <CmtCard className={classes.cardRoot}>
-      
+      {isAdmin && 
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
-      <CmtCardHeader title={name} subTitle={address} />
+      }
+        <CmtCardHeader title={name}  />
         
       <CmtCardContent>
-        <Box mb={5}>
-          <Typography component="div" variant="h4" className={classes.addressTitle}>
-            Contact Details
-          </Typography>
-        </Box>
-
         <Box className={classes.contactRoot} mb={6}>
           {/* <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <CallIcon />
@@ -145,6 +144,11 @@ const OurStore = ({ business }) => {
             <CallIcon />
             <Box ml={3}>{currentAddress.phoneNumber2}</Box>
           </Box> */}
+          {address && <Box display="flex" alignItems="center" mb={3} color="text.secondary">
+         <LocationOnIcon />
+         <Box ml={4}>{
+        address}</Box>
+       </Box>}
           {contactDetails}
          {email && <Box display="flex" alignItems="center" mb={3} color="text.secondary">
             <MailOutlineIcon />

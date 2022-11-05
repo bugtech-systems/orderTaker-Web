@@ -1,5 +1,5 @@
 import { fetchError, fetchStart, fetchSuccess } from '../../../redux/actions';
-import { setAuthUser, setForgetPassMailSent, updateLoadUser } from '../../../redux/actions/Auth';
+import { getUserData, loginUser, setAuthUser, setForgetPassMailSent, updateLoadUser } from '../../../redux/actions/Auth';
 import { usersModule } from '../../../@fake-db/modules/users';
 
 import React from 'react';
@@ -21,18 +21,19 @@ const BasicAuth = {
     };
   },
 
-  onLogin: ({ email, password }) => {
+  onLogin: (values) => {
     return dispatch => {
       try {
-        dispatch(fetchStart());
-        setTimeout(() => {
-          const user = users.find(a => a.email === email);
-          if(user.status !== 'active') return dispatch(fetchError('User suspended!'))
-          if (!user) return dispatch(fetchError('User not found!'));
-          dispatch(fetchSuccess());
-          localStorage.setItem('user', JSON.stringify(user));
-          dispatch(setAuthUser(user));
-        }, 300);
+        dispatch(loginUser(values))
+        // dispatch(fetchStart());
+        // setTimeout(() => {
+        //   const user = users.find(a => a.email === email);
+        //   if(user.status !== 'active') return dispatch(fetchError('User suspended!'))
+        //   if (!user) return dispatch(fetchError('User not found!'));
+        //   dispatch(fetchSuccess());
+        //   localStorage.setItem('user', JSON.stringify(user));
+        //   dispatch(setAuthUser(user));
+        // }, 300);
       } catch (error) {
         console.log(error);
         dispatch(fetchError(error.message));
@@ -52,6 +53,12 @@ const BasicAuth = {
 
   getAuthUser: (loaded = false) => {
     return dispatch => {
+      let token = localStorage.getItem('idToken');
+      
+      if(token){
+        dispatch(getUserData())
+      } else {
+
       dispatch(fetchStart());
       dispatch(updateLoadUser(loaded));
 
@@ -59,6 +66,7 @@ const BasicAuth = {
         dispatch(fetchSuccess());
         dispatch(setAuthUser(JSON.parse(localStorage.getItem('user'))));
       }, 300);
+    }
     };
   },
 
