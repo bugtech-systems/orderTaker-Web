@@ -44,7 +44,6 @@ const ListTableView = ({
     const handleChangeRowsPerPage = event => {
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
-      console.log()
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
       dispatch(getCustomersList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };

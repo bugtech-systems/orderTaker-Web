@@ -62,7 +62,6 @@ import { cart } from '../../@fake-db'
         gross_total: 0,
         grand_total: 0,
         amount_due: 0,
-        payment: 0,
         change: 0,
         total_vatable: 0,
         amount_paid: 0,

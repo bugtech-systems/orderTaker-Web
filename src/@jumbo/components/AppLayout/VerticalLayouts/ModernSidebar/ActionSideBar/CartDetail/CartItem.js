@@ -107,7 +107,7 @@ const useStyles = makeStyles(theme => ({
 
 const CommentItem = ({ item, handleItem }) => {
   const classes = useStyles();
-  const { allProducts }  = useSelector(({productApp}) => productApp);
+  const { productsList }  = useSelector(({productApp}) => productApp);
   const { action } = useSelector(({uiReducer}) => uiReducer); 
 
 
@@ -123,7 +123,7 @@ const CommentItem = ({ item, handleItem }) => {
 
 
   useEffect(() => {
-    let prdt = allProducts.find(a => a.id === item.productId || a.id === item.id);
+    let prdt = productsList.find(a => a.id === item.productId || a.id === item.id);
     setPrd(prdt ? prdt : {});
     setValues(item);
   }, [item]);

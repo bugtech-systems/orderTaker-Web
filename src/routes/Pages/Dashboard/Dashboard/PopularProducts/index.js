@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
 
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
@@ -11,9 +10,44 @@ import { Box, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 
-const PopularProducts = ({ productsList }) => {
+import { useSelector } from 'react-redux';
+
+
+const PopularProducts = () => {
+  const dashboard = useSelector(({dashboard}) => dashboard);
+  const cart = useSelector(({cartApp}) => cartApp);
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState([10]);
+  const [popular, setPopular] = useState([]);
+
+useEffect(() => {
+  const { popularProducts} = dashboard;
+  const {cart_items} = cart;
+
+  const pp = popularProducts.map(a => {
+    let ind = cart_items.find(ab => ab.productId === a.id);
+
+    return ind ? {
+      ...a, 
+      stocks: ind.stocks
+    } : a
+  })
+
+  console.log(popularProducts)
+
+  setPopular(pp)
+
+    
+
+
+
+
+}, [dashboard, cart]);
+
+
+
+console.log(dashboard)
   
   return (
     <CmtCard>
@@ -40,14 +74,14 @@ const PopularProducts = ({ productsList }) => {
                 lg: 2,
                 xl: 3,
               }}
-              data={productsList}
+              data={popular}
             renderRow={(item, index) => <ListItem key={index} item={item} />}
           />
               <TablePagination
                 rowsPerPageOptions={[5, 20, 50]}
                 component="div"
-                counts={productsList.count}
-                count={productsList.length}
+                counts={popular.count}
+                count={popular.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 

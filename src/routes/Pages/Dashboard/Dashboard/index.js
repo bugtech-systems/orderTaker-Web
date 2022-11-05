@@ -163,7 +163,6 @@ const Dashboard = () => {
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6} className={classes.popularProductRoot}>
             <PopularProducts
-              productsList={popularProducts}
               count={popularProducts.length}
             />
           </Box>

@@ -10,7 +10,7 @@ import { Typography, Box } from '@material-ui/core';
 // Reduxt
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ALL_PRODUCTS } from 'redux/actions/types';
-import {  getAllProducts } from 'redux/actions/ProductApp';
+import {  getAllProducts, getInventoryList } from 'redux/actions/ProductApp';
 
 const useStyles = makeStyles({
   option: {
@@ -24,12 +24,12 @@ const useStyles = makeStyles({
 
 export default function CountrySelect({value, handleSelect}) {
   const classes = useStyles();
-  const { allProducts }  = useSelector(({productApp}) => productApp);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
   const dispatch = useDispatch();
 
 
   useEffect(() => {
-    dispatch(getAllProducts())
+    dispatch(getInventoryList(filterType))
     return () => {
       dispatch({type: CLEAR_ALL_PRODUCTS})
     }
@@ -38,7 +38,7 @@ export default function CountrySelect({value, handleSelect}) {
   return (
     <Autocomplete
       id="option-select-demo"
-      options={allProducts}
+      options={productsList}
       value={value}
       classes={{
         option: classes.option,
