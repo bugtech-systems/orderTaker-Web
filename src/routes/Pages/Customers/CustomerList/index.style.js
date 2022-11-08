@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   inBuildAppHeaderContent: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center', 
     flexGrow: 1,
     justifyContent: 'space-between',
     width: '100%',

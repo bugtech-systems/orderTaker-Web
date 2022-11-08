@@ -25,7 +25,6 @@ const ListItem = ({item}) => {
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
 
-
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
@@ -97,11 +96,6 @@ const ListItem = ({item}) => {
     setSnackBarMessage("You have submitted for Checkout");
     setSnackBarStatus(true);
   };
-
-  // const onVariantClick = React.useCallback((label, value) => {
-  //   setSnackBarMessage(`You choose ${label} ${value}`);
-  //   setSnackBarStatus(true);
-  // }, []);
 
   const handleCloseSnackBar = React.useCallback(() => {
     setSnackBarStatus(false);

@@ -7,7 +7,7 @@
   import { authHeader } from '../../services/auth-header';
   
   //For setting Filtertype
-  export const setOrderReceipt = data => {
+  export const setOrderReceipt = (data, print) => {
     return dispatch => {
         const { customers, business, tax_disc, total_vatable, notes, gross_total } = data;
         const customer = (!customers || customers.length === 0) ? '-' : customers[0].name;
@@ -25,14 +25,12 @@
           return {...a, total: Number(a.total).toFixed(2) }
         })
 
-        console.log(tax_disc)
         let taxes = newTaxDisc.filter(a => a.type === 'tax');
         let charges = newTaxDisc.filter(a => a.type === 'charges')
         let discounts = newTaxDisc.filter(a => a.type === 'discounts')    
-        let totalTaxes = Number(sumValue(taxes, 'total')).toFixed(2);
-
-        let totalDiscounts = Number(sumValue(discounts, 'total')).toFixed(2);
-        let totalCharges = Number(sumValue(charges, 'total')).toFixed(2);
+        let totalTaxes = taxes.length !== 0 ? Number( sumValue(taxes, 'total')).toFixed(2) : 0;
+        let totalDiscounts = discounts.length !== 0 ? Number(sumValue(discounts, 'total')).toFixed(2) : 0;
+        let totalCharges = charges.length !== 0 ? Number(sumValue(charges, 'total')).toFixed(2) : 0;
 
 
 
@@ -78,7 +76,7 @@
           
 
           console.log(newData)
-        dispatch(printReport(newData))
+        dispatch(printReport(newData, print))
 
     };
   };
@@ -117,11 +115,11 @@
   };
   
   //Generate Order Receipt Report
-  export const printReport = (data) => {
+  export const printReport = (data, print) => {
     return dispatch => {
       dispatch(fetchStart());
       axios
-        .post(`${commonData.apiUrl}/documents`, data, { headers: authHeader() })
+        .post(`${commonData.apiUrl}/documents?direct=${print}`, data, { headers: authHeader() })
         .then(data => {
           console.log(data)
           dispatch(fetchSuccess('Generation In Progress!'));

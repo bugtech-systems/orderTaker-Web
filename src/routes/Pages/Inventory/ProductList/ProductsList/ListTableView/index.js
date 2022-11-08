@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import ProductTableHead from './ProductTableHead';
 import Table from '@material-ui/core/Table';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TableBody, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
 
@@ -10,7 +10,9 @@ import ProductCell from './ProductCell';
 import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import useStyles from './index.style';
-import NoRecordFound from './NoRecordFound';
+
+import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
+
 const ListTableView = ({
   checkedProducts,
   handleCellCheckBox,
@@ -21,84 +23,78 @@ const ListTableView = ({
   onClickAddStocks,
   onDelete
 }) => {
+
 const classes = useStyles();
-  const { users } = useSelector((state) => state.usersReducer);
+  const dispatch = useDispatch();
+  const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
+  
   const [selected, setSelected] = React.useState([]);
 
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
-  const { productsList } = useSelector(({ productApp }) => productApp);
   const [page, setPage] = React.useState(0);
   const [products, setProducts] = useState([])
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [selectedUser, setSelectedUser] = useState({ name: '' });
-  // const [usersFetched, setUsersFetched] = useState(false);
-  // const [currentUser, setCurrent] = useState({});
-  
-  const fetchData = async () => {
-  const response = await fetch("http://localhost:3001/api/products")
-  const data = await response.json()
-   setProducts(data)
-  }
-  useEffect(() => {
-    fetchData()
-  }, [])
   
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-  
-    // const emptyRows =
-    // rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+      setPage(newPage);
+      dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
+      dispatch(getProductsList({...filterType, page: newPage, rowsPerPage}))
+    };
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrderBy(property);
-    setOrder(isAsc ? 'desc' : 'asc');
-  };
-  
+    const handleChangeRowsPerPage = event => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+      dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
+      dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
+    };
+    
+    const handleRequestSort = (event, property) => {
+      const isAsc = orderBy === property && order === 'asc';
+      setOrderBy(property);
+      setOrder(isAsc ? 'desc' : 'asc');
+    };
+    
     const handleSelectAllClick = event => {
-    if (event.target.checked) {
-      const newSelected = users.map(n => n.id);
+      if (event.target.checked) {
+        const newSelected = products.map(n => n.id);
+        setSelected(newSelected);
+        return;
+      }
+      setSelected([]);
+    };
+    
+    const handleRowClick = (event, id) => {
+      const selectedIndex = selected.indexOf(id);
+      let newSelected = [];
+  
+      if (selectedIndex === -1) {
+        newSelected = newSelected.concat(selected, id);
+      } else if (selectedIndex === 0) {
+        newSelected = newSelected.concat(selected.slice(1));
+      } else if (selectedIndex === selected.length - 1) {
+        newSelected = newSelected.concat(selected.slice(0, -1));
+      } else if (selectedIndex > 0) {
+        newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      }
       setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleRowClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-
-    setSelected(newSelected);
-  };
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleRowsPerPageChange = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+    };
+    
+    const handlePageChange = (event, newPage) => {
+      setPage(newPage);
+    };
   
-  const isSelected = id => selected.indexOf(id) !== -1;
-  
+    const handleRowsPerPageChange = event => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    };
+    
+    const isSelected = id => selected.indexOf(id) !== -1;
+
+    useEffect(() => {
+      setProducts(productsList)
+    }, [productsList])
 
   return (
     <React.Fragment>
@@ -115,13 +111,10 @@ const classes = useStyles();
                 {checkedProducts.length === 0 && (
                      <ProductTableHead
                      classes={classes}
-                     numSelected={checkedProducts.length}
-                     order={order}
-                     orderBy={orderBy}
+                     checkedProducts={productsList}
                      onSelectAllClick={handleHeaderCheckBox}
-                     onRequestSort={handleRequestSort}
-                     rowCount={productsList.length}
-
+                     handleHeaderCheckBox={handleHeaderCheckBox}
+                    onDelete={onDelete}
                    />
           )}
           <TableBody>
@@ -139,21 +132,16 @@ const classes = useStyles();
                     onDelete={onDelete}
                   />
             ))}
-                      {/* {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )} */}
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[1, 5, 10, 25, 50]}
+        rowsPerPageOptions={[10, 50, 100]}
         component="div"
-        count={products.length}
+        count={totalProducts}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </TableContainer>
     </React.Fragment>

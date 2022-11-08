@@ -1,4 +1,4 @@
-import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS } from './types';
+import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS, UPDATE_CART } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import { authHeader } from '../../services/auth-header';
 
@@ -25,9 +25,24 @@ export const getOrders = () => {
     };
   };
 
+  export const getCartOrderById = (id) => dispatch => {
+    // dispatch(fetchStart());
+    // dispatch({type: CLEAR_ORDERS});
+    console.log('GET RECORD BY ID')
+    console.log(id)
+    return axios
+      .get(`${commonData.apiUrl}/orders/${id}`, { headers: authHeader() })
+      .then(({data}) => {
+        dispatch({type: UPDATE_CART, payload: data})
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+        throw err;
+      });
+};
+
   export const getOrderById = (id) => dispatch => {
-        // dispatch(fetchStart());
-        // dispatch({type: CLEAR_ORDERS});
         return axios
           .get(`${commonData.apiUrl}/orders/${id}`, { headers: authHeader() })
           .catch(err => {

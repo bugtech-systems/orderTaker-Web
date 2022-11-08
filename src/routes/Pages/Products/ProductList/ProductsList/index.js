@@ -21,7 +21,8 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
 
   useEffect(() => {
     dispatch(getInventoryList(filterType));
-  }, [filterType, dispatch]);
+    console.log('SOMETHING CHANGE')
+  }, []);
 
   // const handleCellCheckBox = (isChecked, id) => {
   //   if (isChecked) {

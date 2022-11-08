@@ -88,7 +88,7 @@ const Comments = () => {
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
   const { action } = useSelector(({uiReducer}) => uiReducer); 
-  const { filterType, allProducts }  = useSelector(({productApp}) => productApp);
+  const { filterType, productsList }  = useSelector(({productApp}) => productApp);
   const [expanded, setExpanded] = React.useState('cartItems');
   const [selected, setSelected] = useState(null);
   const [cartList, setCartList] = useState([]);
@@ -108,7 +108,7 @@ const Comments = () => {
 
 
   const handleItem = (val, qty) => {
-    let prd = allProducts.find(a => a.id === val.productId);
+    let prd = productsList.find(a => a.id === val.productId);
 
 
     
@@ -129,7 +129,7 @@ if(val){
   
   
   
-  let prd = allProducts.find(a => a.id === val.id)
+  let prd = productsList.find(a => a.id === val.id)
   if(!prd){
     return dispatch(fetchError("Unable to Find Product!"));
   }
@@ -177,7 +177,7 @@ setSelected(null);
     <Box flexGrow={1} className={classes.rootWrap}>
    {action === 'cart' && <SearchProduct
       value={selected}
-      options={allProducts}
+      options={productsList}
       handleSelect={handleSelect}
       />}
       <Divider/>

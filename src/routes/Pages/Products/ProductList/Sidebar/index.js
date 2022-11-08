@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import CmtList from '../../../../../@coremat/CmtList';
 import List from '@material-ui/core/List';
 import PropTypes from 'prop-types';
-import { getProductCounts, getLabelsList, setFilterType } from '../../../../../redux/actions/ProductApp';
+import { getProductCounts, getLabelsList, setFilterType, getInventoryList } from '../../../../../redux/actions/ProductApp';
 import ItemCell from './ItemCell';
 import { popularFoldersList } from '../../../../../@fake-db/modules/products';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -30,13 +30,24 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
   }, [dispatch]);
 
   const onChangeFolder = folder => {
+    console.log('FOLDERING TOL')
     dispatch(
       setFilterType({
         selectedFolder: folder,
         selectedLabel: '',
         searchText: '',
+        rowsPerPage: 10,
+        page: 0
       }),
     );
+    dispatch(getInventoryList({
+      
+      selectedFolder: folder,
+        selectedLabel: '',
+        searchText: '',
+        rowsPerPage: 10,
+        page: 0
+      }))
   };
 
   const onChangeLabel = label => {
@@ -45,8 +56,17 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
         selectedFolder: '',
         selectedLabel: label,
         searchText: '',
+        rowsPerPage: 10,
+        page: 0
       }),
     );
+    dispatch(getInventoryList({
+      selectedFolder: '',
+      selectedLabel: label,
+      searchText: '',
+      rowsPerPage: 10,
+      page: 0
+    }))
   };
 
   const classes = useStyles({

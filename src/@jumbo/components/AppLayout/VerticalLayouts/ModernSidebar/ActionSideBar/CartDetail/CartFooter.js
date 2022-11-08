@@ -148,16 +148,7 @@ export default function CartFooter() {
 
   const handleCheckout = () => {
     dispatch(createOrder(cart))
-    .then(res => {
-      let { message, data } = res;
-      if(res){
-        dispatch(fetchSuccess(message));
-        dispatch({type: UPDATE_CART, payload: {...cart, ...data}})
-        localStorage.removeItem('cart')
-        dispatch({type: SET_CART_SUCCESS, payload: data.id});
-      dispatch({type: SET_ACTION, payload: 'success'})
-      }
-    }).catch(err => {
+   .catch(err => {
       console.log(err)
       dispatch(fetchError(err.response.data.message))
     })

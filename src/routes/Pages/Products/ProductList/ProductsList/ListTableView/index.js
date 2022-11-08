@@ -17,6 +17,28 @@ const ListTableView = ({
   onClickEditProduct,
 }) => {
   const { productsList } = useSelector(({ productApp }) => productApp);
+  const [page, setPage] = React.useState(0);
+  const [counts, setCounts] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  const [products, setProducts] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [selected, setSelected] = React.useState([]);
+
+  
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  
+    const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  
+  
   return (
     <React.Fragment>
       {checkedProducts.length > 0 && (
@@ -49,6 +71,18 @@ const ListTableView = ({
           </TableBody>
         </Table>
       </Box>
+      <TablePagination
+            rowsPerPageOptions={[10, 30, 50]}
+            component="div"
+            counts={products.counts}
+            count={products.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChange={handleChange}
+            handlePageChange={handlePageChange}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
     </React.Fragment>
   );
 };

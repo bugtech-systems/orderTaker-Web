@@ -122,26 +122,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
     </Box>
   ) : (
     <Box {...rest}>
-      <Box display="flex" alignItems="center" mb={3}>
-        <AppTextInput
-          type="number"
-          label="Qty"
-          value={quantity}
-          variant="outlined"
-          onChange={event => handleQuantity(event.target.value)}
-        />
-        <Box ml={3}>
-          <Button
-            className={classes.btnRoot}
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={addToCart}
-          >
-            Add To Cart
-          </Button>
-        </Box>
-      </Box>
+     
       <Box display="flex" alignItems="center">
         <Box display="flex" flexDirection="column">
           <Box component="span" fontSize={{xl: 16}}>

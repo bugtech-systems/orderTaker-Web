@@ -53,6 +53,10 @@ const Product = () => {
     setOpenCreateDialog(false);
   };
 
+  const handleSubmit = (val) => {
+      console.log(val)
+      
+  }
 
 
 
@@ -60,7 +64,7 @@ const Product = () => {
 
   return (
     <Box className={classes.inBuildAppCard}>
-      <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} />
+      <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} handleSubmit={handleSubmit} />
       <Box className={clsx(classes.inBuildAppContainer, isSideBarCollapsed ? 'collapsed' : '')}>
         <Sidebar onClickCreateProduct={onClickCreateProduct} />
           <ProductsList

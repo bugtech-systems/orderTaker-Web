@@ -107,6 +107,11 @@ const ActionSideBar = ({ width }) => {
     console.log(action)
     console.log(activeOption)
     console.log(cart)
+    if(action !== 'cart') {
+        localStorage.removeItem('cart');
+        dispatch({type:  CLEAR_CART})
+    }
+
 
     dispatch({type: SET_DRAWER_OPEN, payload: false})
     dispatch({type: SET_ACTIVE_OPTION, payload: null})

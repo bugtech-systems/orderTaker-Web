@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
@@ -7,8 +8,47 @@ import CmtGridView from '../../../../../@coremat/CmtGridView';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Box, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 
-const PopularProducts = ({ productsList }) => {
+import { useSelector } from 'react-redux';
+
+
+const PopularProducts = () => {
+  const dashboard = useSelector(({dashboard}) => dashboard);
+  const cart = useSelector(({cartApp}) => cartApp);
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState([10]);
+  const [popular, setPopular] = useState([]);
+
+useEffect(() => {
+  const { popularProducts} = dashboard;
+  const {cart_items} = cart;
+
+  const pp = popularProducts.map(a => {
+    let ind = cart_items.find(ab => ab.productId === a.id);
+
+    return ind ? {
+      ...a, 
+      stocks: ind.stocks
+    } : a
+  })
+
+  console.log(popularProducts)
+
+  setPopular(pp)
+
+    
+
+
+
+
+}, [dashboard, cart]);
+
+
+
+console.log(dashboard)
+  
   return (
     <CmtCard>
       <CmtCardHeader
@@ -25,21 +65,28 @@ const PopularProducts = ({ productsList }) => {
         </Box>
       </CmtCardHeader>
       <CmtCardContent>
-        <PerfectScrollbar style={{ height: 600, overflow: 'scroll' }}>
           <CmtGridView
-            itemPadding={10}
-            responsive={{
-              xs: 1,
-              sm: 1,
-              md: 2,
-              lg: 2,
-              xl: 3,
-            }}
-            data={productsList}
+              itemPadding={10}
+              responsive={{
+                xs: 1,
+                sm: 1,
+                md: 2,
+                lg: 2,
+                xl: 3,
+              }}
+              data={popular}
             renderRow={(item, index) => <ListItem key={index} item={item} />}
           />
-        </PerfectScrollbar>
-      </CmtCardContent>
+              <TablePagination
+                rowsPerPageOptions={[5, 20, 50]}
+                component="div"
+                counts={popular.count}
+                count={popular.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                
+              />
+        </CmtCardContent>
     </CmtCard>
   );
 };

@@ -1,10 +1,10 @@
-import { UPDATE_CART, UPDATE_CART_ITEMS, SET_CART_ITEMS_COUNT } from './types';
+import { UPDATE_CART, UPDATE_CART_ITEMS, SET_CART_ITEMS_COUNT, SET_CART_SUCCESS, SET_ACTION } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import { authHeader } from '../../services/auth-header';
 
 import commonData from '../../utils/commonData';
 import axios from 'axios';
-import { getOrders } from './OrderApp';
+import { getOrders, getCartOrderById } from './OrderApp';
 
 
 
@@ -208,9 +208,17 @@ export const createOrder = (cart) => dispatch => {
     dispatch(fetchStart());
     return axios
       .post(`${commonData.apiUrl}/orders`, cart, { headers: authHeader() })
-      .then(({data}) => {
+      .then((res) => {
+        let { message, data } = res.data;
+     
+        console.log(data);
         dispatch(getOrders());
-        return data
+        dispatch(getCartOrderById(data.id));
+        dispatch(fetchSuccess(message));
+        localStorage.removeItem('cart')
+        dispatch({type: SET_CART_SUCCESS, payload: data.id});
+        dispatch({type: SET_ACTION, payload: 'success'})
+     
       })
       .catch(err => {
         console.log(err)
