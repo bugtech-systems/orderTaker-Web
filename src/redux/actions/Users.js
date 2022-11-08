@@ -21,7 +21,6 @@ import commonData from '../../utils/commonData';
 import { authHeader } from '../../services/auth-header';
 import { getUserData, getStoreData } from './Auth';
 
-
 export const getUsers = (filterOptions = [], searchTerm = '', callbackFun) => {
   return dispatch => {
     dispatch(fetchStart());
