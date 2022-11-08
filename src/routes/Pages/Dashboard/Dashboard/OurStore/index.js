@@ -111,8 +111,7 @@ const OurStore = ({ business }) => {
   }, [business])
 
 
-  let { name, address, contacts, email, description } = store;
-
+  let { name, address, contacts, email } = store;
 
   let contactDetails = contacts.map((a, index) => {
     return (
@@ -122,8 +121,6 @@ const OurStore = ({ business }) => {
     </Box>
     )
   })
-
-
 
   return (
     <>
