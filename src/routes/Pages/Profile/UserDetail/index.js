@@ -99,6 +99,7 @@ const UserDetail = () => {
           <CmtObjectSummary
             avatar={
               <CmtAvatar className={classes.avatarRoot} size={56} src={userDetails.profile_pic} alt={userDetails.name} />
+              // <CmtAvatar className={classes.avatarRoot} size={56} src={userDetails.profile_pic} alt={userDetails.name} />
             }
             title={userDetails.name}
             titleProps={{ style: { color: '#fff' } }}

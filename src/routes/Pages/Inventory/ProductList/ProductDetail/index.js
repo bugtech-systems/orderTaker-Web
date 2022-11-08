@@ -111,7 +111,7 @@ const ProductDetail = ({ open, handleDialog }) => {
               </Box>
             </Box>
             {price && (
-              <Box mt={-1}>{price && <Typography color="primary"> Price: `₱{Number(price).toFixed(2)}`</Typography>}</Box>
+              <Box mt={-1}>{price && <Typography color="primary"> Price: ₱{Number(price).toFixed(2)}</Typography>}</Box>
             )}
           </Box>
         </Box>
