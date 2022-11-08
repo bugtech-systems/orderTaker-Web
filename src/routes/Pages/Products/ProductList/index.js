@@ -59,7 +59,7 @@ const Product = () => {
   }
 
 
-
+console.log('ddddd')
 
 
   return (
@@ -67,11 +67,11 @@ const Product = () => {
       <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} handleSubmit={handleSubmit} />
       <Box className={clsx(classes.inBuildAppContainer, isSideBarCollapsed ? 'collapsed' : '')}>
         <Sidebar onClickCreateProduct={onClickCreateProduct} />
-          {/* <ProductsList
+          <ProductsList
             viewMode={viewMode}
             onShowProductDetail={onShowProductDetail}
             onClickEditProduct={onClickEditProduct}
-          /> */}
+          />
       </Box>
       {showProductDetail && <ProductDetail open={showProductDetail} handleDialog={onHideProductDetail} />}
       {openCreateDialog && <CreateProduct open={openCreateDialog} handleDialog={onCloseComposeDialog} />}

@@ -9,7 +9,7 @@ import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
 
 const PopularProducts = () => {
   const dispatch = useDispatch();
-  const dashboard = useSelector(({dashboard}) => dashboard);
+  const productApp = useSelector(({productApp}) => productApp);
   const cart = useSelector(({cartApp}) => cartApp);
 
   const [page, setPage] = React.useState(0);
@@ -17,12 +17,12 @@ const PopularProducts = () => {
   const [ prodList, setProdList ] = useState([]);
   
   useEffect(() => {
-    const { productLists} = dashboard;
+    const { productsList} = productApp;
 
-    
+      console.log(productsList)
     const {cart_items} = cart;
   
-    const pp = productLists.map(a => {
+    const pp = productsList.map(a => {
       let ind = cart_items.find(ab => ab.productId === a.id);
   
       return ind ? {
@@ -32,7 +32,7 @@ const PopularProducts = () => {
     })
     setProdList(pp)
     console.log('trigger dd')
-  }, [dashboard, cart]);
+  }, [productApp, cart]);
 
 
   const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
