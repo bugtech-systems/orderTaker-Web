@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import CmtCard from '../../../../../@coremat/CmtCard';
 import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 import CmtCardContent from '../../../../../@coremat/CmtCard/CmtCardContent';
 import ListItem from './ListItem';
 import CmtGridView from '../../../../../@coremat/CmtGridView';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Box, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
-import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
+
+import { useSelector } from 'react-redux';
+
 
 const PopularProducts = () => {
   const dashboard = useSelector(({dashboard}) => dashboard);
@@ -33,29 +35,6 @@ useEffect(() => {
   })
   setPopular(pp)
 }, [dashboard, cart]);
-
-const dispatch = useDispatch();
-  
-const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
-
-    const handleChangePage = (event, newPage) => {
-    dispatch(setFilterType({...filterType, page: newPage}))
-    dispatch(getProductsList({...filterType, page: newPage}))
-  };
-  
-  const handleChangeRowsPerPage = event => {
-    dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
-    dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
-  };
-  
-      const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleRowsPerPageChange = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   return (
     <CmtCard >
@@ -88,23 +67,17 @@ const { productsList, filterType, totalProducts } = useSelector(({ productApp })
                 xl: 3,
               }}
               data={popular}
-            renderRow={(item, index) =>  
-                  <ListItem 
-                  pageSize={5}
-                  key={index} 
-                  item={item} 
-                  product={item}
-                />}
+            renderRow={(item, index) => <ListItem key={index} item={item} />}
           />
-        <TablePagination
-          rowsPerPageOptions={[10, 50, 100]}
-          component="div"
-          count={totalProducts}
-          rowsPerPage={filterType.rowsPerPage}
-          page={filterType.page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+              {/* <TablePagination
+                rowsPerPageOptions={[5, 20, 50]}
+                component="div"
+                counts={popular.count}
+                count={popular.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                
+              /> */}
         </CmtCardContent>
     </CmtCard>
   );

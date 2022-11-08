@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CmtGridView from "../../../../../../@coremat/CmtGridView";
 import { Box } from "@material-ui/core";
-import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
+import { TableCell, TableHead, TablePagination } from '@material-ui/core';
 import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
 
 const PopularProducts = () => {
@@ -18,9 +18,6 @@ const PopularProducts = () => {
     };
     
     const handleChangeRowsPerPage = event => {
-
-      // setRowsPerPage(parseInt(event.target.value, 10));
-      // setPage(0);
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
       dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
@@ -33,10 +30,6 @@ const PopularProducts = () => {
       // setRowsPerPage(parseInt(event.target.value, 10));
       // setPage(0);
     };
-    
-    // useEffect(() => {
-    //   setProducts(productsList)
-    // }, [productsList])
   
   return (
     <Box p={5}>
