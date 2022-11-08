@@ -15,6 +15,7 @@ import {
   SET_CART_ITEMS_COUNT,
   UPDATE_CART_ITEMS
 } from "../../../../../../redux/actions/types";
+import { fetchError } from "../../../../../../redux/actions";
 import commonData from "../../../../../../utils/commonData";
 
 const ListItem = ({item}) => {
@@ -45,6 +46,9 @@ const ListItem = ({item}) => {
     let cartItems = cart_items;
     let ind = cart_items.find(a => a.productId == item.id);
 
+    if(((ind && Number(ind.stocks) === 0) || Number(item.stocks) === 0)) {
+      return dispatch(fetchError('Cant add 0 stocks!'))
+    }
     if (ind) {
       let newItems = cartItems.map(a => {
         return a.productId == item.id
@@ -137,17 +141,17 @@ const ListItem = ({item}) => {
           }
         />
         <Box className={classes.listItemAction}>
-          <Box className={classes.listItemActionHover} onClick={() => setRevealed(true)}>
-            <IconButton className="btn" >
+          <Box className={classes.listItemActionHover} onClick={() => handleCheckout()}>
+            <IconButton className="btn">
               <AddShoppingCartIcon />
             </IconButton>
           </Box>
-          <AddToCart
+          {/* <AddToCart
             className={classes.revealContainer}
             item={item}
             setRevealed={setRevealed}
             onCheckout={handleCheckout}
-          />
+          /> */}
         </Box>
       </Box>
 
