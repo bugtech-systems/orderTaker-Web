@@ -118,6 +118,9 @@ const Dashboard = () => {
   }, [orders, dateCounter])
 
 
+  console.log(popularProducts.length);
+  
+
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>
       <GridContainer>
@@ -184,9 +187,7 @@ const Dashboard = () => {
             {popularProducts && popularProducts.length !== 0 &&
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6} className={classes.popularProductRoot}>
-            <PopularProducts
-              count={popularProducts.length}
-            />
+            <PopularProducts />
           </Box>
         </Grid>
         }

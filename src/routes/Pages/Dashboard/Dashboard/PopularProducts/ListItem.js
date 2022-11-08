@@ -46,10 +46,6 @@ const ListItem = ({item}) => {
     if(((crt && Number(crt.stocks) === 0) || Number(item.stocks) === 0)) {
       return dispatch(fetchError('Cant add 0 stocks!'))
     } else {
-
-
-
-  
   
       let prd = productsList.find(a => a.id === item.id);
       console.log(item)
@@ -66,6 +62,7 @@ const ListItem = ({item}) => {
         productId: item.id,
         name: item.name,
         price: item.price,
+        qty: 10,
         other_amounts: item.other_amounts ? item.other_amounts : []
       }
   

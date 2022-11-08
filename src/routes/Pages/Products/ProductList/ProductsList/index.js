@@ -61,7 +61,7 @@ const ProductsList = ({ width, viewMode, onShowProductDetail, onClickEditProduct
           <DuplicateProductsMsg productsList={productsList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
         )}
         {/* {viewMode === 'grid' ? ( */}
-          <ListGridView productsList={productsList} onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} />
+          {/* <ListGridView productsList={productsList} onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} /> */}
         {/* ) : viewMode === 'table' ? (
           <ListTableView
             checkedProducts={checkedProducts}

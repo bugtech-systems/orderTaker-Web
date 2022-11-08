@@ -32,6 +32,7 @@ useEffect(() => {
     } : a
   })
   setPopular(pp)
+  console.log('trigger dd')
 }, [dashboard, cart]);
 
 const dispatch = useDispatch();

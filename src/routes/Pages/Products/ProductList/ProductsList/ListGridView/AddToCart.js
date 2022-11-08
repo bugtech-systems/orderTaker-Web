@@ -36,11 +36,11 @@ const useStyles = makeStyles(theme => ({
 
 const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const dispatch = useDispatch();
-  const [ quantity, setQuantity ] = useState(0);
   const cart = useSelector(({cartApp}) => cartApp);
   const { productsList, filterType }  = useSelector(({productApp}) => productApp);
   
   const { cart_items } = cart;
+  const [ quantity, setQuantity ] = useState(0);
   const [ stocks, setStocks ] = useState(0);
   const [ addedToCart] = useState(false);
   const classes = useStyles();
@@ -53,8 +53,6 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   };
 
   const addToCart = () => {
-    // onCheckout(quantity);
-
     if(Number(quantity) === 0) {
       return dispatch(fetchError('Cant add 0 quantity!'))
     } else {
@@ -122,7 +120,26 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
     </Box>
   ) : (
     <Box {...rest}>
-     
+       <Box display="flex" alignItems="center" mb={3}>
+        <AppTextInput
+          type="number"
+          label="Qty"
+          value={quantity}
+          variant="outlined"
+          onChange={event => handleQuantity(event.target.value)}
+        />
+        <Box ml={3}>
+          <Button
+            className={classes.btnRoot}
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={addToCart}
+          >
+            Add To Cart
+          </Button>
+        </Box>
+      </Box>
       <Box display="flex" alignItems="center">
         <Box display="flex" flexDirection="column">
           <Box component="span" fontSize={{xl: 16}}>

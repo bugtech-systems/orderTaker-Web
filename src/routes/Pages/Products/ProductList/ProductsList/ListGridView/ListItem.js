@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Box, Typography} from "@material-ui/core";
 import CmtImage from "../../../../../../@coremat/CmtImage";
 import CmtMediaObject from "../../../../../../@coremat/CmtMediaObject";
@@ -15,16 +15,78 @@ import {
   SET_CART_ITEMS_COUNT,
   UPDATE_CART_ITEMS
 } from "../../../../../../redux/actions/types";
+import {
+  handleCartItem,
+  handleCart
+ } from "../../../../../../redux/actions/CartApp";
 import { fetchError } from "../../../../../../redux/actions";
 import commonData from "../../../../../../utils/commonData";
+import { SET_DASHBOARD_DATA } from "../../../../../../redux/actions/types";
 
 const ListItem = ({item}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {cart_items} = useSelector(state => state.cartApp);
+  const cart = useSelector(state => state.cartApp);
+  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  const {  productLists } = useSelector(({dashboard}) => dashboard);
+
   const [ revealed, setRevealed ] = useState(false);
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
+  const [ prodList, setProdList ] = useState([]);
+
+
+
+
+  const handleCheckout = () => {
+    // let cartItems = cart_items;
+    let ind = prodList.find(a => a.productId === item.id);
+
+    if((ind && Number(ind.stocks) === 0 || Number(item.stocks) === 0)) {
+      return dispatch(fetchError('Cant add 0 stocks!'))
+    }
+    else {
+      
+      let prd = productsList.find(a => a.id === item.id);
+      console.log(item)
+      console.log(prodList)
+      console.log(ind)
+      console.log(prd)
+  
+      let obj = ind ? {
+        ...ind,
+        qty: ind ? ind.qty + 1 : 1,
+        product: prd
+      } : {
+        product: prd,
+        productId: item.id,
+        name: item.name,
+        price: item.price,
+        other_amounts: item.other_amounts ? item.other_amounts : []
+      }
+
+      const pl = productLists.map(a => {
+        console.log(a.id === item.id )
+        return a.id === item.id ? {
+          ...prd,
+          stocks: prd.stocks - (obj.qty ? obj.qty : 1)
+        } : prd
+      });
+    
+      console.log(productLists)
+  
+      dispatch({type: SET_DASHBOARD_DATA, payload: { productLists: pl }})
+  
+      handleCartItem(prodList, obj).then(a => {
+        dispatch(handleCart({...cart, cart_items: a}))
+      })
+
+      
+    }
+     
+    setSnackBarMessage("You have submitted for Checkout");
+    setSnackBarStatus(true);
+  };
 
   const getActionComponent = () => (
     <Box>
@@ -42,69 +104,17 @@ const ListItem = ({item}) => {
     </Box>
   );
 
-  const handleCheckout = qty => {
-    let cartItems = cart_items;
-    let ind = cart_items.find(a => a.productId == item.id);
-
-    if(((ind && Number(ind.stocks) === 0) || Number(item.stocks) === 0)) {
-      return dispatch(fetchError('Cant add 0 stocks!'))
-    }
-    if (ind) {
-      let newItems = cartItems.map(a => {
-        return a.productId == item.id
-          ? {
-              ...item,
-              price: item.price,
-              qty: qty,
-              total: item.price * qty,
-              stocks: item.stocks - qty,
-              productId: item.id,
-              name: item.name,
-              description: item.description
-            }
-          : a;
-      });
-
-      dispatch({
-        type: UPDATE_CART_ITEMS,
-        payload: newItems
-      });
-
-      dispatch({
-        type: SET_CART_ITEMS_COUNT,
-        payload: newItems.length
-      });
-    } else {
-      cartItems.push({
-        ...item,
-        price: item.price,
-        qty: qty,
-        total: item.price * qty,
-        stocks: item.stocks - qty,
-        productId: item.id,
-        name: item.name,
-        description: item.description
-      });
-
-      dispatch({
-        type: UPDATE_CART_ITEMS,
-        payload: cartItems
-      });
-
-      dispatch({
-        type: SET_CART_ITEMS_COUNT,
-        payload: cartItems.length
-      });
-    }
-
-    setSnackBarMessage("You have submitted for Checkout");
-    setSnackBarStatus(true);
-  };
-
   const handleCloseSnackBar = React.useCallback(() => {
     setSnackBarStatus(false);
     setSnackBarMessage("");
   }, []);
+
+  useEffect(() => {
+    const { cart_items} = cart;
+
+    setProdList(cart_items)
+  }, [cart])
+
 
   return (
     <React.Fragment>
@@ -142,7 +152,7 @@ const ListItem = ({item}) => {
         />
         <Box className={classes.listItemAction}>
           <Box className={classes.listItemActionHover} onClick={() => handleCheckout()}>
-            <IconButton className="btn">
+            <IconButton className="btn" disabled={item.stocks <= 0}>
               <AddShoppingCartIcon />
             </IconButton>
           </Box>

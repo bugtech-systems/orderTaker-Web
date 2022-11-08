@@ -14,6 +14,7 @@ const INIT_STATE = {
       orders: 0
     },
     popularProducts: [],
+    productLists: [],
     unpaidCustomers: [],
     unpaidOrders: [],
     todaySales: []
@@ -38,6 +39,7 @@ export default (state = INIT_STATE, action) => {
           orders: 0
         },
         popularProducts: [],
+        productLists: [],
         unpaidCustomers: [],
         unpaidOrders: [],
         todaySales: {
