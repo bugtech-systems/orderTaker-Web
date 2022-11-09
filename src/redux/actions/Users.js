@@ -15,8 +15,6 @@ import {
 import { SET_SELECTED_USER } from './types';
 import { SET_SELECTED_STORE } from './types';
 
-
-// import CrudService from '../../services/http-api/crud.service';
 import commonData from '../../utils/commonData';
 import { authHeader } from '../../services/auth-header';
 import { getUserData, getStoreData } from './Auth';
@@ -148,7 +146,6 @@ export const updateStore = (store, callbackFun) => {
   };
 };
 
-
 export const updateUserStatus = (data, callbackFun) => {
   let { status, id } = data;
   return dispatch => {
@@ -210,7 +207,6 @@ export const deleteUser = (userId, callbackFun) => {
       });
   };
 };
-
 
 export const uploadFile = (data, callbackFun) => dispatch =>  {
  
