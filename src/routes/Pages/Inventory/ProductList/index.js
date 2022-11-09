@@ -26,6 +26,7 @@ const Product = () => {
   const [addStock, setAddStocks] = useState(false);
   const dispatch = useDispatch();
 
+
   const onChangeViewMode = mode => {
     setViewMode(mode);
   };
@@ -91,7 +92,7 @@ const Product = () => {
 
   
 
-  return (
+  return  (
     <Box className={classes.inBuildAppCard}>
       <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} />
       <Box className={clsx(classes.inBuildAppContainer, isSideBarCollapsed ? 'collapsed' : '')}>

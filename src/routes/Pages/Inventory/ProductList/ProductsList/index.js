@@ -20,7 +20,7 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
 
   useEffect(() => {
     dispatch(getInventoryList(filterType));
-  }, [filterType, dispatch]);
+  }, []);
 
   const handleCellCheckBox = (isChecked, id) => {
     if (isChecked) {
@@ -57,6 +57,10 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
         {showDuplicateMsg && (
           <DuplicateProductsMsg productsList={productsList} toggleDuplicateMsgShow={toggleDuplicateMsgShow} />
         )}
+        {/* {
+          <ListTableView productsList={productsList} onShowProductDetail={onShowProductDetail} onClickEditProduct={onClickEditProduct} />
+
+        } */}
           <ListTableView
             checkedProducts={checkedProducts}
             handleCellCheckBox={handleCellCheckBox}
@@ -86,7 +90,7 @@ ProductsList.prototype = {
   onClickAddStocks: PropTypes.func
 
 };
-
+ 
 ProductsList.defaultProps = {
   viewMode: 'table',
 };

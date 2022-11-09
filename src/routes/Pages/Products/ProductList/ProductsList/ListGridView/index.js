@@ -19,7 +19,6 @@ const PopularProducts = () => {
   useEffect(() => {
     const { productsList} = productApp;
 
-      console.log(productsList)
     const {cart_items} = cart;
   
     const pp = productsList.map(a => {
@@ -31,7 +30,7 @@ const PopularProducts = () => {
       } : a
     })
     setProdList(pp)
-    console.log('trigger dd')
+    // console.log('trigger dd')
   }, [productApp, cart]);
 
 

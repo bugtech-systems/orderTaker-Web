@@ -11,7 +11,6 @@ import useStyles from "./ListItem.style";
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
-
 import {
   handleCartItem,
   handleCart
@@ -19,7 +18,6 @@ import {
 import { fetchError } from "../../../../../redux/actions";
 
 import commonData from "utils/commonData";
-import { SET_DASHBOARD_DATA } from "../../../../../redux/actions/types";
 
 
 
@@ -28,64 +26,47 @@ const ListItem = ({item}) => {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cartApp);
   const { productsList, filterType }  = useSelector(({productApp}) => productApp);
-  const {  popularProducts } = useSelector(({dashboard}) => dashboard);
-
-
 
   const [ revealed, setRevealed ] = useState(false);
   const [ openSnackBar, setSnackBarStatus ] = useState(false);
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
-  const [cartList, setCartList] = useState([]);
+  const [cartList, setCartList ] = useState([]);
 
 
   const addToCart = () => {
-   
+    // let cartItems = cartItems;
     let crt = cartList.find(a => a.productId === item.id);
 
-
-    if(((crt && Number(crt.stocks) === 0) || Number(item.stocks) === 0)) {
+    // const {cart_items} = cart;
+    console.log(item)
+    console.log(productsList)
+    if((crt && Number(crt.stocks) === 0 || Number(item.stocks) === 0)) {
       return dispatch(fetchError('Cant add 0 stocks!'))
     } else {
   
-      let prd = productsList.find(a => a.id === item.id);
-      console.log(item)
-      console.log(cartList)
-      console.log(crt)
-      console.log(prd)
   
-      let obj = crt ? {
-        ...crt,
-        qty: crt ? crt.qty + 1 : 1,
-        product: prd
-      } : {
+  
+      let prd = productsList.find(a => a.id === item.id);
+  
+  
+      let obj = {
         product: prd,
         productId: item.id,
         name: item.name,
+        stocks: prd.stocks - 1,
         price: item.price,
-        qty: 10,
+        total: item.price * 1,
         other_amounts: item.other_amounts ? item.other_amounts : []
       }
   
-      
-      const pp = popularProducts.map(a => {
-        console.log(a.id === item.id )
-        return a.id === item.id ? {
-          ...prd,
-          stocks: prd.stocks - (obj.qty ? obj.qty : 1)
-        } : prd
-      });
-    
-      console.log(popularProducts)
   
-      dispatch({type: SET_DASHBOARD_DATA, payload: { popularProducts: pp }})
   
       handleCartItem(cartList, obj).then(a => {
         dispatch(handleCart({...cart, cart_items: a}))
       })
+  
     //   setRevealed(false);
     }
-    setSnackBarMessage("You have submitted for Checkout");
-    setSnackBarStatus(true);
     };
 
 
@@ -116,8 +97,6 @@ const ListItem = ({item}) => {
     setCartList(cart_items)
   }, [cart])
 
-
-  console.log(item)
   return (
     <React.Fragment>
       <Box
@@ -141,7 +120,7 @@ const ListItem = ({item}) => {
             component: "p",
             className: classes.subTitleRoot
           }}
-          actionsComponent={getActionComponent()}
+          actionsCompone nt={getActionComponent()}
           content={
             item.stocks && item.stocks !== 0 ? (
               getStocks()

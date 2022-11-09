@@ -10,10 +10,12 @@ import { Box, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
 import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
+import { popularProducts } from '@fake-db';
 
 const PopularProducts = () => {
   const dashboard = useSelector(({dashboard}) => dashboard);
   const cart = useSelector(({cartApp}) => cartApp);
+  const cartApp = useSelector(({cartApp}) => cartApp);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState([10]);
@@ -21,6 +23,8 @@ const PopularProducts = () => {
 
 useEffect(() => {
   const { popularProducts} = dashboard;
+  // console.log(popularProducts);
+  console.log('add dd')
   const {cart_items} = cart;
 
   const pp = popularProducts.map(a => {
