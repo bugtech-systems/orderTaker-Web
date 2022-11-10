@@ -69,10 +69,12 @@ const ListItem = ({item}) => {
       
       const pp = popularProducts.map(a => {
         console.log(a.id === item.id )
+        console.log(a.id)
+        console.log(item.id)
         return a.id === item.id ? {
-          ...prd,
+          ...a,
           stocks: prd.stocks - (obj.qty ? obj.qty : 1)
-        } : prd
+        } : a
       });
     
       console.log(popularProducts)
