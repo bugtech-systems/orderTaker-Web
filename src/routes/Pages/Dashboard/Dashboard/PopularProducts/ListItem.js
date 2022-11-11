@@ -59,6 +59,18 @@ const ListItem = ({item}) => {
         other_amounts: item.other_amounts ? item.other_amounts : []
       }
   
+      
+      const pp = popularProducts.map(a => {
+        console.log(a.id === item.id )
+        console.log(a.id)
+        console.log(item.id)
+        return a.id === item.id ? {
+          ...a,
+          stocks: prd.stocks - (obj.qty ? obj.qty : 1)
+        } : a
+      });
+    
+      console.log(popularProducts)
   
   
       handleCartItem(cartList, obj).then(a => {
