@@ -35,7 +35,7 @@ export default function ProceedPayment() {
   const { currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
   const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { amount_due, change, payment, notes, order_no, amount_payable } = cart
+  const { amount_due, payment, notes, order_no, amount_payable, change } = cart
   const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
   const [cartCustomer, setCartCustomer] = useState({});
 
@@ -61,9 +61,18 @@ export default function ProceedPayment() {
     
      
   }
-
+  console.log(order_no)
   const handleChanges = prop => event =>{
-    dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: event.target.value }})
+    console.log(prop)
+    let val = event.target.value
+    let newChange = Number(val) - (order_no ? Number(amount_due) : Number(amount_due));
+    console.log(newChange)
+
+    if(prop === 'payment'){
+      dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val, change: newChange }})
+    } else {
+      dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val }})
+    }
   }
 
   const handleDialog = (val) =>{
@@ -71,7 +80,6 @@ export default function ProceedPayment() {
   }
 
   useEffect(() => {
-    console.log(currentCustomer)
     setCartCustomer(currentCustomer)
   }, [currentCustomer, cart])
 
@@ -84,7 +92,6 @@ export default function ProceedPayment() {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    console.log(cart)
     if(action === 'unpaid'){
       const { id, customerId, payment, notes } = cart;
       dispatch(payOrder({orderId: id, customerId, amount: Number(payment), description: notes}))
@@ -109,14 +116,7 @@ export default function ProceedPayment() {
   }
 
 
-
-
-
-  const { name, address, limit, balance } = cartCustomer ? cartCustomer : {};
-  console.log(cart)
-  console.log(currentCustomer)
-
-  console.log(cartCustomer)
+  const { name, address } = cartCustomer ? cartCustomer : {};
 
   return (
     <Box className={classes.rootWrap}>
@@ -195,7 +195,7 @@ export default function ProceedPayment() {
                <br/>
 
                <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-              <Typography m={1} variant="subtitle1">Available Change</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_payable).toFixed(2)}</Typography>
+              <Typography m={1} variant="subtitle1">Available Change</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(change).toFixed(2)}</Typography>
           </Box>
 
         

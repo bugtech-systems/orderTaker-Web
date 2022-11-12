@@ -182,13 +182,13 @@ const Dashboard = () => {
       
        
         </Grid>
-            {popularProducts && popularProducts.length !== 0 &&
+            {/* {popularProducts && popularProducts.length !== 0 &&
         <Grid item xs={12} lg={12} className={classes.orderLg1}>
           <Box pb={6} className={classes.popularProductRoot}>
             <PopularProducts />
           </Box>
         </Grid>
-        }
+        } */}
             </>
             : 
             <>

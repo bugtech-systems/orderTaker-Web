@@ -11,6 +11,9 @@ import { timeFromNow } from '../../../../../@jumbo/utils/dateHelper';
 import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import { isNull } from 'lodash';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, UPDATE_CART } from 'redux/actions/types';
+import { setCurrentCustomer } from 'redux/actions/Customer';
 
 const useStyles = makeStyles(theme => ({
   tableRowRoot: {
@@ -126,9 +129,32 @@ const useStyles = makeStyles(theme => ({
 
 const TableItem = ({ row }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const [open, setOpen] = useState(false);
   const [payments, setPayments] = useState([]);
+  const [customer, setCustomer] = useState(null);
+  
+
+
+  const handlePay = (val) => { 
+    console.log(val);
+    if(row && row.customers && row.customers.length !== 0){
+       
+      dispatch(setCurrentCustomer(row.customers[0]))
+      dispatch({type: UPDATE_CART, payload: {...row, customerId: row.customers[0].id, cart_items: row.order_items }}); 
+
+    } else {
+      dispatch({type: UPDATE_CART, payload: {...row, customerId: null, cart_items: row.order_items }}); 
+    }
+
+       localStorage.removeItem('cart')
+      dispatch({type: SET_ACTIVE_OPTION, payload: 'cart'});
+      dispatch({type: SET_ACTION, payload: val});
+      dispatch({type: SET_DRAWER_OPEN, payload: true});
+
+
+      }
 
 
   useEffect(() => {
@@ -141,7 +167,11 @@ const TableItem = ({ row }) => {
         setPayments(sortedDesc)
 
     }
+  
 
+    if(row.customers && row.customers.length !== 0){
+        setCustomer(row.customers[0])
+    }
 
   }, [row])
 
@@ -149,7 +179,7 @@ const TableItem = ({ row }) => {
   return (
     <React.Fragment>
       <TableRow className={clsx(classes.tableRowRoot, open ? 'active' : '')}>
-        <TableCell className={clsx(classes.tableCellRoot, classes.tableCellFirst)}>
+        <TableCell className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
           {/* <CmtObjectSummary
             avatar={<CmtAvatar src={row.user.avatar} alt={row.user.name} />}
             title={row.invoice_no}
@@ -163,12 +193,15 @@ const TableItem = ({ row }) => {
           /> */}
           <Typography>{row.order_no}</Typography>
         </TableCell>
+        <TableCell align='center' className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
+           ₱{row.amount_due}
+        </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
-           ₱{row.amount_payable}
+           ₱{row.recordedAt}
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>
-            <div className={classes.showContent}>₱{row.amount_due}</div>
+            <div className={classes.showContent}>₱{row.amount_payable}</div>
             <Box
               className={clsx(classes.hideContent, classes.hideShowLink)}
               color="primary.main"
@@ -188,20 +221,36 @@ const TableItem = ({ row }) => {
         <TableCell className={classes.tableCellRoot} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <div className={classes.openDataRot}>
-              <br/>
+            <br/>
+            {customer && 
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                    <div >
+                    <Typography color="primary" component="spane">Customer Name:</Typography> 
+                    </div>&nbsp;&nbsp;&nbsp;
+                    <div className={'mr-3'}>
+                    <Typography component="span">{customer.name}</Typography> 
+                    </div>
+                    </div>
+                    }
             {payments.length !== 0 ? <>
-              <h4 style={{marginBottom: '5px'}}>Payment History</h4>
+              <h4 style={{marginBottom: '10px'}}>Payment History:</h4>
               {payments.map((a, index) => {
                   return (
-                    <div key={a.id + index} style={{ display: 'flex', alignItems: 'center', margin: '5px' }}>
+                    <div key={a.id + index} style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', margin: '5px' }}>
                     <div className={'mr-3'}>
-                     Date: 
+                     Order Date: &nbsp;&nbsp;
                       <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
                       {new Date(a.createdAt).toLocaleDateString("en-US", options)}
                       </Box>
                     </div>
-    
                     <div className={'mr-3'}>
+                    <b>Amount:</b> &nbsp;&nbsp;
+                    <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
+                      {new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(a.amount)}
+                      </Box>
+                    </div>
+                    <hr/>
+                    {/* <div className={'mr-3'}>
                     
                     </div>
     
@@ -210,19 +259,29 @@ const TableItem = ({ row }) => {
                       <Box component="span" fontWeight="fontWeightRegular" color="text.primary">
                       {new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(a.amount)}
                       </Box>
-                    </div>
-                    {/* <div style={{ marginLeft: 'auto' }}>
-                      <Button size="small" variant="contained" color="primary">
-                        Pay Now
-                      </Button>
                     </div> */}
+                    {/* <br/> */}
+                   
                   </div>
                   )
               })}
-         
+              <br/>
+                <div style={{ marginLeft: 'auto' }}>
+                      <Button size="small" variant="contained" color="primary" onClick={() => handlePay('unpaid')}>
+                        Pay Now
+                      </Button>
+                    </div>
               </>
               :
+              <Box width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center"  >
               <h3 style={{textAlign: 'center', margin: '5px'}}>No Recent Payments</h3> 
+              <br/>
+                   {/* <div style={{ marginLeft: 'auto' }}> */}
+                      <Button size="small" variant="contained" color="primary" onClick={() => handlePay('unpaid')}>
+                        Pay Now
+                      </Button>
+                    {/* </div> */}
+              </Box>
             }
             </div>
           </Collapse>
