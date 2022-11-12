@@ -117,7 +117,7 @@ const ProductDetail = ({ open, handleDialog }) => {
         </Box>
         <Box ml="auto" mtq={-2} display="flex" alignItems="center">
           <Box ml={1}>
-            <MoreOptions product={currentProduct} isFromDetailPage={true} isDetailView={true} />
+            {/* <MoreOptions product={currentProduct} isFromDetailPage={true} isDetailView={true} /> */}
           </Box>
           <Box ml={1}>
             <IconButton onClick={handleDialog}>
