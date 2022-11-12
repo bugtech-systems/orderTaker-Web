@@ -9,7 +9,7 @@ import CmtGridView from '../../../../../@coremat/CmtGridView';
 import { Box, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { TableBody, Table, TableRow, TableCell, TableContainer, TableHead, TablePagination } from '@material-ui/core';
-import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
+import { getAllProducts, getProductsList, setFilterType } from 'redux/actions/ProductApp'
 
 const PopularProducts = () => {
   const dashboard = useSelector(({dashboard}) => dashboard);
@@ -56,6 +56,12 @@ const { productsList, filterType, totalProducts } = useSelector(({ productApp })
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [])
+
 
   return (
     <CmtCard >

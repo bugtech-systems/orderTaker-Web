@@ -27,7 +27,6 @@ const ListItem = ({item}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cartApp);
-  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
   const {  popularProducts } = useSelector(({dashboard}) => dashboard);
 
 
@@ -47,8 +46,8 @@ const ListItem = ({item}) => {
       return dispatch(fetchError('Cant add 0 stocks!'))
     } else {
   
-      let prd = productsList.find(a => a.id === item.id);
-  
+      let prd = popularProducts.find(a => a.id === item.id);
+      console.log(prd)
       let obj = crt ? {
         ...crt,
         qty: crt ? crt.qty + 1 : 1,
@@ -80,6 +79,7 @@ const ListItem = ({item}) => {
     };
 
 
+
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
@@ -106,6 +106,8 @@ const ListItem = ({item}) => {
 
     setCartList(cart_items)
   }, [cart])
+
+
 
   return (
     <React.Fragment>
