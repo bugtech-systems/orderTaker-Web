@@ -86,7 +86,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
       formData.append("file", acceptedFiles[0]);
 
       dispatch(uploadFile(formData)).then(a => {
-        setValues({...values, cover: a.url})
+        setValues({...values, dpUrl: a.url})
       })
       .catch(err => {
         console.log(err)
@@ -205,7 +205,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={`${commonData.staticUrl}${values.cover}`} />
+            <CmtAvatar size={70} src={`${commonData.staticUrl}${values.dpUrl}`}  />
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>
