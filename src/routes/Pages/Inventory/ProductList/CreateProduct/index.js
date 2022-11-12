@@ -358,6 +358,18 @@ const handleEditOtherAmounts = (val, index) => {
                   onChange={handleChange('price')}
                 />
               </Grid>
+              <Grid item xs={12} sm={6} lg={6}>
+         <Typography variant="h4">Purchase Price</Typography>
+              <br/>
+                <AppTextInput
+                  fullWidth
+                  type="number"
+                  variant="outlined"
+                  label="Amount"
+                  value={values.purchase_price}
+                  onChange={handleChange('purchase_price')}
+                />
+              </Grid>
          {/* <Grid item xs={12} sm={4} lg={4}>
          <Typography variant="h4">Purchase Price</Typography>
               <br/>
@@ -374,7 +386,7 @@ const handleEditOtherAmounts = (val, index) => {
          <FormGroup row>
       <FormControlLabel
         control={<Switch checked={showLimit} onChange={() => setShowLimit(!showLimit)} name="checkedA" />}
-        label="Mainimum Stock Limit"
+        label="Minimum Stock Limit"
       />
     </FormGroup>
          {/* <Typography variant="h4">Minimum Stock Limit</Typography> */}
@@ -427,15 +439,7 @@ const handleEditOtherAmounts = (val, index) => {
 </Typography>
                   <Typography variant="caption">{String(item.amount_type).toUpperCase()}</Typography>
                   </Box>
-                  {/* <AppTextInput
-                  fullWidth
-                  // type="number"
-                  variant="outlined"
-                  label="Title"
-                  value={item.name}
-                  // onChange={(e) => handleOAChange(e.taget.value, index, 'value')}
-                  // style={{width: '200px'}}
-                /> */}
+               
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                
            
 <IconButton 

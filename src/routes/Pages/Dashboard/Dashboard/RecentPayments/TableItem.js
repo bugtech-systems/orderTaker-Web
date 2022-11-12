@@ -197,7 +197,7 @@ const TableItem = ({ row }) => {
            ₱{row.amount_due}
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
-           ₱{row.recordedAt}
+           {row.recordedAt}
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>

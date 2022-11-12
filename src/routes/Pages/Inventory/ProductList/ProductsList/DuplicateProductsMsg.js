@@ -57,11 +57,11 @@ const DuplicateCustomersMsg = ({ productsList, toggleDuplicateMsgShow }) => {
             </Box>
           </Box>
           <Box ml="auto" display="flex" alignItems="center">
-            <Box ml={2}>
+            {/* <Box ml={2}>
               <Button className={classes.btnRoot} variant="contained">
                 View All
               </Button>
-            </Box>
+            </Box> */}
             <Box ml={2}>
               <IconButton onClick={toggleDuplicateMsgShow}>
                 <ClearIcon />

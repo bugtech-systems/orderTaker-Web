@@ -1,4 +1,4 @@
-import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS, UPDATE_CART, SET_FILTER_TYPE, SET_ORDERS_COUNT } from './types';
+import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS, UPDATE_CART, SET_FILTER_TYPE, SET_ORDERS_COUNT, SET_CART_SUCCESS, SET_ACTION } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import { authHeader } from '../../services/auth-header';
 
@@ -70,11 +70,19 @@ export const getOrders = params => {
       dispatch(fetchStart());
       return axios
         .post(`${commonData.apiUrl}/payments`, data, { headers: authHeader() })
-        .then(({data}) => {
-          dispatch(getOrders());
+        .then((res) => {
+          let { message, data } = res.data;
+        dispatch(getOrders());
+        dispatch(getCartOrderById(data.id));
+        dispatch(fetchSuccess(message));
+        localStorage.removeItem('cart')
+        // dispatch({type: SET_CART_SUCCESS, payload: data.id});
+        // dispatch({type: SET_ACTION, payload: 'success'})
+
+
           dispatch(getAdminDashboard())
           dispatch(getProductsList());
-          return data
+          return res.data
         })
         .catch(err => {
           console.log(err)

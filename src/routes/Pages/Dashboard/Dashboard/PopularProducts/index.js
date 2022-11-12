@@ -36,7 +36,8 @@ useEffect(() => {
 
 const dispatch = useDispatch();
   
-const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
+const { filterType } = useSelector(({ productApp }) => productApp);
+const {  popularProducts } = useSelector(({ dashboard }) => dashboard);
 
     const handleChangePage = (event, newPage) => {
     dispatch(setFilterType({...filterType, page: newPage}))
@@ -62,6 +63,7 @@ const { productsList, filterType, totalProducts } = useSelector(({ productApp })
     dispatch(getAllProducts())
   }, [])
 
+  console.log(popularProducts)
 
   return (
     <CmtCard >
@@ -105,7 +107,7 @@ const { productsList, filterType, totalProducts } = useSelector(({ productApp })
         <TablePagination
           rowsPerPageOptions={[10, 50, 100]}
           component="div"
-          count={totalProducts}
+          count={popularProducts.length}
           rowsPerPage={filterType.rowsPerPage}
           page={filterType.page}
           onPageChange={handleChangePage}

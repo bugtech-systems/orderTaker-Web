@@ -21,6 +21,7 @@ import { cart } from '../../@fake-db'
         cart_items_count: 0,
         payments: [],
         amount_paid: 0,
+        payments: [],
         change: null,
         notes: ''
   };

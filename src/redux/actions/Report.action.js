@@ -12,7 +12,7 @@
         const { customers, business, tax_disc, total_vatable, notes, gross_total } = data;
         const customer = (!customers || customers.length === 0) ? '-' : customers[0].name;
         const amount_paid = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_paid)
-        const amount_payable = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_payable)
+        const amount_payable = data.amount_payable > 0 ? new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_payable) : 0;
         const amount_due = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_due)
 
         const order_date = moment(data.createdAt).format('LLL');

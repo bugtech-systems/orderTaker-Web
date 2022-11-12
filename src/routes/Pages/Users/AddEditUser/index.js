@@ -173,12 +173,20 @@ const AddEditUser = () => {
     if (currentUser && currentUser.id) {
       dispatch(
         updateUser({ ...currentUser, ...userDetail }, a => {
+          dispatch(setCurrentUser(null))
+          setValues({
+            contacts: [{number: '', label: 'home'}],
+          })
           onCloseDialog();
         }),
       );
     } else {
       dispatch(
         addNewUser(userDetail, a => {
+          dispatch(setCurrentUser(null))
+          setValues({
+            contacts: [{number: '', label: 'home'}],
+          })
           onCloseDialog();
         }),
       );

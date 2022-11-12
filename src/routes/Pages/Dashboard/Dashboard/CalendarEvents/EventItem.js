@@ -56,7 +56,7 @@ const EventItem = ({ item }) => {
       </Box>
       Customer:
       <Box component="span" color="primary.main" ml={1}>
-        {item.customers[0] ? item.customers[0].name : 'No Customer'}
+        {item.customers[0] ? item.customers[0].name : '-'}
       </Box>
     </Typography>
   );

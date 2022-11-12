@@ -8,6 +8,7 @@ const RevenueSummaryGraph = ({ value }) => {
   let incomeColor = value === 0 ? '#5F33C2' : '#FF8C00';
   let expanseColor = value === 1 ? '#5F33C2' : '#FF8C00';
 
+  console.log(crypto.revenueSummary)
   return (
     <React.Fragment>
       <Zoom in={value === 0} direction="up">

@@ -33,7 +33,6 @@ export default function ProceedPayment() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
-  const [isChange, setChange] = useState(false);
   const cart = useSelector(({cartApp}) => cartApp);
   const { amount_due, payment, notes, order_no, amount_payable, change } = cart
   const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
@@ -61,15 +60,16 @@ export default function ProceedPayment() {
     
      
   }
-  console.log(order_no)
+  console.log(amount_payable)
+  console.log(cart)
   const handleChanges = prop => event =>{
     console.log(prop)
     let val = event.target.value
-    let newChange = Number(val) - (order_no ? Number(amount_due) : Number(amount_due));
+    let newChange = Number(val) - (order_no ? Number(amount_payable ? amount_payable : 0) : Number(amount_due));
     console.log(newChange)
 
     if(prop === 'payment'){
-      dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val, change: newChange }})
+      dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val, change: newChange <= 0 ? 0 : newChange }})
     } else {
       dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val }})
     }
@@ -83,10 +83,6 @@ export default function ProceedPayment() {
     setCartCustomer(currentCustomer)
   }, [currentCustomer, cart])
 
-
-  const handlePayment = () => {
-   
-  }
 
 
 
@@ -136,12 +132,14 @@ export default function ProceedPayment() {
         {cartCustomer && cartCustomer.id &&
         <Box width="100%" display="flex">
           {!cart.order_no && 
-          <IconButton style={{position: 'absolute', right: 5}} onClick={() => {
-            dispatch({type: UPDATE_CART, payload: {...cart, customers: [], customerId: null}});
-            dispatch(setCurrentCustomer(null))
-          }}>
-            <CancelIcon/>
-          </IconButton>
+            <CancelIcon
+            style={{position: 'absolute', right: 5}}
+            color="secondary"
+            onClick={() => {
+              dispatch({type: UPDATE_CART, payload: {...cart, customers: [], customerId: null}});
+              dispatch(setCurrentCustomer(null))
+            }}
+            />
             }
 
             <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
@@ -160,8 +158,8 @@ export default function ProceedPayment() {
                 <Typography variant="subtitle2">₱{Number(limit).toFixed(2)}</Typography>
             </Box>
             <Box mb={1} display="flex">
-            <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">Balance:</Typography>&nbsp;&nbsp;
-                 <Typography variant="subtitle2">₱{Number(balance).toFixed(2)}</Typography>
+            <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">amount_payable:</Typography>&nbsp;&nbsp;
+                 <Typography variant="subtitle2">₱{Number(amount_payable).toFixed(2)}</Typography>
             </Box>
          </Box> */}
         </Box>}
@@ -200,8 +198,11 @@ export default function ProceedPayment() {
 
         
           <br/>
+          <Box width="100%" component="form"  onSubmit={handleCheckout}>
+
           <TextField fullWidth label="Notes" value={notes}
               onChange={handleChanges('notes')}/>
+          </Box>
           </Box>
           </Box>
   )

@@ -15,8 +15,8 @@ import { getComparator, stableSort } from '../../../../../@jumbo/utils/tableHelp
 
 const RecentPaymentsTable = ({data}) => {
   const classes = useStyles();
-  const [order, setOrder] = useState('order_no');
-  const [orderBy, setOrderBy] = useState('desc');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('order_no');
 
 
   const handleRequestSort = (event, property) => {

@@ -27,7 +27,7 @@ const headCells = [
 ];
 
 
-function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) {
+function UserTableHead({ classes, onSelectAllClick, order, orderBy, onRequestSort }) {
   const onSortOrderChange = property => event => {
     onRequestSort(event, property);
   };

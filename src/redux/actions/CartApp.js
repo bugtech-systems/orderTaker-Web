@@ -5,6 +5,7 @@ import { authHeader } from '../../services/auth-header';
 import commonData from '../../utils/commonData';
 import axios from 'axios';
 import { getOrders, getCartOrderById } from './OrderApp';
+import { getAdminDashboard } from './Dashboard';
 
 
 
@@ -69,7 +70,7 @@ export const handleCart = (cartItem)  => dispatch => {
 
 
 
-  let { cart_items, other_amounts } = cartItem;
+  let { cart_items, other_amounts, payments} = cartItem;
   let gross_total = 0;
   let amount_due = 0;
   let total_vatable = 0;
@@ -184,12 +185,15 @@ export const handleCart = (cartItem)  => dispatch => {
   let disc_gross = Number(gross_total) - Number(total_discounts)
   amount_due = disc_gross + Number(total_charges);
 
+
   const payload = {
     ...cartItem,
     cart_items: cart_items,
     tax_disc: tax_disc,
     gross_total: Number(gross_total).toFixed(2),
+
     amount_due: Number(amount_due).toFixed(2),
+    
     cart_items_count: cart_items.length,
     total_vatable: Number(total_vatable).toFixed(2),
     other_amounts: other_amounts
@@ -210,6 +214,7 @@ export const createOrder = (cart) => dispatch => {
         let { message, data } = res.data;
      
         dispatch(getOrders());
+        dispatch(getAdminDashboard());
         dispatch(getCartOrderById(data.id));
         dispatch(fetchSuccess(message));
         localStorage.removeItem('cart')

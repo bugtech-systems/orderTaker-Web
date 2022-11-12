@@ -132,8 +132,10 @@ const UsersModule = () => {
         <UserTableToolbar
           selected={selected}
           setSelected={setSelected}
-          onUserAdd={(e) => 
+          onUserAdd={(e) => {
+            dispatch(setCurrentUser(null))
             dispatch({type: SET_USER_DIALOG, payload: e})
+          }
         }
           filterOptions={filterOptions}
           setFilterOptions={setFilterOptions}
