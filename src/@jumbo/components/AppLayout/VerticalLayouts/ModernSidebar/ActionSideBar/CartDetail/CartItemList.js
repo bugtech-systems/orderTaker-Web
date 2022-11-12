@@ -179,6 +179,10 @@ setSelected(null);
     setAmountDue(amount_due)
   }, [cart])
 
+
+ 
+
+
   return (
     <Box flexGrow={1} className={classes.rootWrap}>
    {action === 'cart' && <SearchProduct

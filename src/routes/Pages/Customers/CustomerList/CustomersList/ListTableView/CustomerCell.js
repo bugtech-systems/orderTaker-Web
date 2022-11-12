@@ -9,6 +9,7 @@ import useStyles from '../CustomerCell.style';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import CustomerCellOptions from './CustomerCellOptions';
+import commonData from 'utils/commonData';
 
 const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCustomerDetail, onClickEditCustomer, onDelete }) => {
   const classes = useStyles();
@@ -31,7 +32,7 @@ const CustomerCell = ({ customer, checkedCustomers, handleCellCheckBox, onShowCu
           </Box>
           <Box display="flex" alignItems="center">
             <Box mr={{ xs: 4, md: 5 }}>
-              <CmtAvatar size={40} src={dpUrl} alt={name} />
+              <CmtAvatar size={40} src={`${commonData.staticUrl}${dpUrl}`} alt={name} />
             </Box>
 
             <Box>

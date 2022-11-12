@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import { Box, Hidden, IconButton, Tooltip, Button } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 
@@ -154,6 +154,8 @@ export default function CartFooter() {
       dispatch(fetchError(err.response.data.message))
     })
   }
+
+
 
   return (
     <Box height="100%"  p={5} display="flex" alignItems="center" justifyContent="space-around">
