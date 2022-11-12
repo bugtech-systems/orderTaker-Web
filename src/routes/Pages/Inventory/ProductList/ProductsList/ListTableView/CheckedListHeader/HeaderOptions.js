@@ -71,7 +71,7 @@ const HeaderOptions = ({ onDelete, checkedProducts, productsList, labelsList, up
         </Tooltip>
       </Box> */}
 
-      <Box ml={1}>
+      {/* <Box ml={1}>
         <ExportProducts data={getDataForExport()}>
           <Tooltip title="Export">
             <IconButton size="small">
@@ -79,7 +79,7 @@ const HeaderOptions = ({ onDelete, checkedProducts, productsList, labelsList, up
             </IconButton>
           </Tooltip>
         </ExportProducts>
-      </Box>
+      </Box> */}
 
       <Box ml={1}>
         <Tooltip title="Delete">

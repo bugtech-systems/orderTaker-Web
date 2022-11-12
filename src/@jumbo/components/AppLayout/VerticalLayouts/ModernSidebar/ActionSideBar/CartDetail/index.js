@@ -53,24 +53,7 @@ const Comments = () => {
     }
   }, [cart])
 
-  useEffect(() => {
-    const keyDownHandler = event => {
-      console.log('User pressed: ', event.key);
 
-      if (event.key === 'Enter') {
-        event.preventDefault();
-
-        // 👇️ your logic here
-        console.log('HELLOWAG')
-      }
-    };
-
-    document.addEventListener('keydown', keyDownHandler);
-
-    return () => {
-      document.removeEventListener('keydown', keyDownHandler);
-    };
-  }, []);
 
 
   return (

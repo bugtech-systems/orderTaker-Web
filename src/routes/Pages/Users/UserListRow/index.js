@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { sentMailToUser, updateUserStatus } from '../../../../redux/actions/Users';
 
+import commonData from 'utils/commonData';
+
 const useStyles = makeStyles(theme => ({
   titleRoot: {
     marginBottom: 2,
@@ -87,7 +89,7 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
       <TableCell component="th" id={labelId} scope="row" padding="none">
         <Box display="flex" alignItems="center">
           <Box mr={{ xs: 4, md: 5 }}>
-            <CmtAvatar size={40} src={row.dpUrl} alt={row.name} />
+            <CmtAvatar size={40} src={`${commonData.staticUrl}${row.dpUrl}`} alt={row.name} />
           </Box>
           <div>
             <Typography className={classes.titleRoot} component="div" variant="h4">

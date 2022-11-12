@@ -206,7 +206,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>
           <Box {...getRootProps()} mr={{ xs: 0, md: 5 }} mb={{ xs: 3, md: 0 }} className="pointer">
             <input {...getInputProps()} />
-            <CmtAvatar size={70} src={`${commonData.staticUrl}${values.dpUrl}`} />
+            <CmtAvatar size={70} src={`${commonData.staticUrl}${values.dpUrl}`}  />
           </Box>
           <GridContainer>
             <Grid item xs={12} sm={12}>
