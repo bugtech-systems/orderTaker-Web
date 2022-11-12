@@ -47,6 +47,12 @@ const Comments = () => {
     dispatch(handleCart(cart))
   }, [])
 
+  useEffect(() => {
+    if(action === 'cart'){
+      localStorage.setItem('cart', JSON.stringify(cart))
+    }
+  }, [cart])
+
 
   return (
       <Box height="100%" className={classes.rootWrap}>

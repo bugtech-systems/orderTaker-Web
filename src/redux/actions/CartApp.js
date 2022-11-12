@@ -195,7 +195,6 @@ export const handleCart = (cartItem)  => dispatch => {
     other_amounts: other_amounts
   }
 
-  localStorage.setItem('cart', JSON.stringify(payload))
 
   dispatch({
     type: UPDATE_CART,

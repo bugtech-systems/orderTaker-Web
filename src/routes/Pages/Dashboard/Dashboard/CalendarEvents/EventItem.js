@@ -26,10 +26,12 @@ const EventItem = ({ item }) => {
   const handleClick = (val) => { 
     console.log(val);
     if(val && val.customers && val.customers.length !== 0){
+       
       dispatch(setCurrentCustomer(val.customers[0]))
       dispatch({type: UPDATE_CART, payload: {...val, customerId: val.customers[0].id }}); 
 
     }
+      localStorage.removeItem('cart')
       dispatch({type: UPDATE_CART, payload: {...val, cart_items: val.order_items }}); 
       dispatch({type: SET_ACTIVE_OPTION, payload: 'cart'});
       dispatch({type: SET_ACTION, payload: val.isPaid ? 'paidCart' : 'viewCart'});

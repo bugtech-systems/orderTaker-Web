@@ -193,28 +193,12 @@ export default function ProceedPayment() {
 
 
                <br/>
-         
 
-            {!isChange ? 
-            <Button variant='outlined' m={1}
-            onClick={() => setChange(true)}
-            >Add Change</Button>
-            
-             :
-             <>
-               <Typography m={1}>Change</Typography>
-               <TextField 
-              variant='outlined'
-              size='small'
-              type="number"
-              margin='dense'
-              label="amount"
-              value={change}
-              onChange={handleChanges('change')}
-              helperText={<Typography onClick={() => setChange(false)} color="secondary" variant="button" style={{fontSize: '10px'}}>Remove</Typography>}
-            />
-          </>
-          }
+               <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={1} variant="subtitle1">Available Change</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_payable).toFixed(2)}</Typography>
+          </Box>
+
+        
           <br/>
           <TextField fullWidth label="Notes" value={notes}
               onChange={handleChanges('notes')}/>
