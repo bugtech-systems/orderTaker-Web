@@ -9,7 +9,9 @@ const INIT_STATE = {
     viewMode: 'order',
     isDrawerOpen: false,
     cartSuccess: null,
-    UserDialog: false
+    UserDialog: false,
+    autoCompleteProducts: [],
+    autoCompleteCustomers: []
 };
 
 export default (state = INIT_STATE, action) => {

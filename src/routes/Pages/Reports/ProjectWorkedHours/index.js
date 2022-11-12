@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CmtBackDrop from '../../../../@coremat/CmtBackDrop';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Box from '@material-ui/core/Box';
@@ -14,6 +14,12 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import PageContainer from '@jumbo/components/PageComponents/layouts/PageContainer';
 import GridContainer from '@jumbo/components/GridContainer';
 import { Grid } from '@material-ui/core';
+
+//Components
+import Table from '../Table';
+import { useDispatch } from 'react-redux';
+import { getOrders } from 'redux/actions/OrderApp';
+
 
 const useStyles = makeStyles(theme => ({
   headerItem: {
@@ -73,17 +79,19 @@ const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStar
   };
   const classes = useStyles();
 
+
   return (
   
     <CmtCardContent>
       <Box className={classes.backdropContent}>
         <AppSelectBox
-          label="Select Project"
+          label="Select Report Table"
           data={classicWidget.projects}
           valueKey="value"
           labelKey="label"
           value={currentProject.value}
           onChange={handleProjectChange}
+          disabled={true}
         />
         <AppDatePicker label="Start Date" value={startDate} onChange={onStartDateChange} />
         <AppDatePicker label="End Date" value={endDate} onChange={onEndDateChange} />
@@ -97,7 +105,7 @@ const ProjectHeader = ({ startDate, endDate }) => {
   const classes = useStyles();
   return (
     <Box display="flex" alignItems="center" mx={{ xs: -2, sm: -4 }}>
-      <Box className={classes.headerItem}>Projects</Box>
+      <Box className={classes.headerItem}>Reports</Box>
       <Box className={classes.headerItem}>
         <CalendarTodayIcon />
         {getFormattedDate(startDate, ' DD MMM')} - {getFormattedDate(endDate, ' DD MMM')}
@@ -108,20 +116,29 @@ const ProjectHeader = ({ startDate, endDate }) => {
 
 const ProjectWorkedHours = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [currentProject, setCurrentProject] = React.useState(classicWidget.projects[0]);
   const [startDate, setStartDate] = React.useState('2020-07-03');
   const [endDate, setEndDate] = React.useState('2020-08-20');
   const [revealed, setRevealed] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
   const handleOnRevealed = status => {
     setRevealed(status);
   };
 
+  const handleProject = (e) => {
+    console.log(e)
+
+  }
+
+
   const resetWidget = () => {
     setCurrentProject(classicWidget.projects[0]);
   };
 
-  console.log(currentProject)
+
+
 
   return (
     <PageContainer heading="Sales Report" breadcrumbs={breadcrumbs}>
@@ -129,22 +146,24 @@ const ProjectWorkedHours = () => {
       <Grid item xs={12} sm={12} md={12} lg={12}>
     <CmtBackDrop
       concealedIcon={<DeveloperBoardIcon />}
-      extrasContainer={<RefreshIcon className="pointer" onClick={resetWidget} />}
+      // extrasContainer={<RefreshIcon className="pointer" 
+      // onClick={resetWidget} />}
       backLayerConcealed={
         revealed ? '' : <ProjectHeader currentProject={currentProject} startDate={startDate} endDate={endDate} />
       }
-      backLayerRevealed={
-        <ProjectSwitcher
-          currentProject={currentProject}
-          setCurrentProject={setCurrentProject}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
-        />
-      }
-      onRevealed={handleOnRevealed}>
-      <Box p={6}>
+      // backLayerRevealed={
+      //   <ProjectSwitcher
+      //     currentProject={currentProject}
+      //     setCurrentProject={handleProject}
+      //     startDate={startDate}
+      //     setStartDate={setStartDate}
+      //     endDate={endDate}
+      //     setEndDate={setEndDate}
+      //   />
+      // }
+      // onRevealed={handleOnRevealed}
+      >
+      {/* <Box p={6}> */}
         {/* <Box>{currentProject.label}</Box> */}
         {/* <Box className={classes.subHeaderBottom}>
           <Box>
@@ -155,9 +174,13 @@ const ProjectWorkedHours = () => {
             52 Hours
           </Box>
         </Box>  */}
-      </Box>
-      <Box width="100%" height={294}>
-
+      {/* </Box> */}
+      <Box width="100%">
+      <Table
+        project={currentProject}
+        startDate={startDate}
+        endDate={endDate}
+      />
       </Box>
       {/* <ProjectWorkedGraph
         data={currentProject.data}

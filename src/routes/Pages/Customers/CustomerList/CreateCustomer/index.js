@@ -180,7 +180,9 @@ const CreateCustomer = ({ open, handleDialog }) => {
 
   useEffect(() => {
     if(currentCustomer){
-      setValues({...values, ...currentCustomer})
+      let contacts = currentCustomer.contacts ? currentCustomer.contacts :  [{number: '', label: 'home'}]
+      setValues({
+        ...values, ...currentCustomer, contacts})
     } else {
       setValues({
         contacts: [{number: '', label: 'home'}],
@@ -190,7 +192,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
   }, [currentCustomer])
 
 
-
+  console.log(values)
   const isPhonesMultiple = values.contacts.length > 1;
 
 

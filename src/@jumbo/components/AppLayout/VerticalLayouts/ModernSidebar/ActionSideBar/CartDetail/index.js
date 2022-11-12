@@ -47,6 +47,7 @@ const Comments = () => {
     dispatch(handleCart(cart))
   }, [])
 
+
   return (
       <Box height="100%" className={classes.rootWrap}>
       {(action === 'cart' || action === 'paidCart' || action === 'viewCart') && <CartItemList/>}

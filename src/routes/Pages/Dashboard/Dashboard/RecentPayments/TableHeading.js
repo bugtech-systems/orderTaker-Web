@@ -30,8 +30,8 @@ const TableHeading = () => {
   return (
     <TableRow>
       <TableCell className={classes.tableCellRoot}>Order ID</TableCell>
-      <TableCell className={classes.tableCellRoot}>Last Payment</TableCell>
       <TableCell className={classes.tableCellRoot}>Amount Payable</TableCell>
+      <TableCell className={classes.tableCellRoot}>Total Amount</TableCell>
     </TableRow>
   );
 };

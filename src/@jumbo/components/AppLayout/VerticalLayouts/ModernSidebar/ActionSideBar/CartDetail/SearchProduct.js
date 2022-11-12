@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 export default function CountrySelect({value, handleSelect}) {
   const classes = useStyles();
-  const { productsList, filterType }  = useSelector(({productApp}) => productApp);
+  const { allProducts, filterType }  = useSelector(({productApp}) => productApp);
   const dispatch = useDispatch();
 
 
@@ -38,7 +38,7 @@ export default function CountrySelect({value, handleSelect}) {
   return (
     <Autocomplete
       id="option-select-demo"
-      options={productsList}
+      options={allProducts}
       value={value}
       classes={{
         option: classes.option,

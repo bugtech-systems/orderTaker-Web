@@ -124,8 +124,7 @@ export const getAllProducts = params => {
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(({data}) => {
-
-        dispatch({ type: SET_ALL_PRODUCTS, payload: { productsList: data.rows, totalProducts: data.count} });
+        dispatch({ type: SET_ALL_PRODUCTS, payload: data.rows });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));

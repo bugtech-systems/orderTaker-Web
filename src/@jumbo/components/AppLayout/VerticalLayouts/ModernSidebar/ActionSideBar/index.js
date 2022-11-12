@@ -26,6 +26,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_CART, SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_NOTIF_COUNT, UPDATE_CART } from '../../../../../../redux/actions/types';
 import { logout } from '../../../../../../redux/actions/Auth';
 import commonData from 'utils/commonData';
+import { setCurrentCustomer } from 'redux/actions/Customer';
 
 
 const useStyles = makeStyles(theme => ({
@@ -86,31 +87,33 @@ const ActionSideBar = ({ width }) => {
 
 
           dispatch({type: SET_ACTIVE_OPTION, payload: option})
+     
 
-    // if(option === 'cart'){
-    //   // setAction('cartItems');
-    //   dispatch({type: SET_ACTION, payload: 'cart'})
-    // }
+    if(option === 'cart'){
+      // setAction('cartItems');
+      dispatch({type: SET_ACTION, payload: 'cart'})
+     
+    }
 
-    // if(action !== 'cart' &&  action !== 'payment' && action !== 'success'){
-    //   dispatch({type: SET_ACTION, payload: action})
-    //   dispatch({type: SET_ACTIVE_OPTION, payload: (option === 'notification' || option === 'profile') ? action : 'cart'})
-    // } else{
-    //   dispatch({type: SET_ACTION, payload: 'cart'})
-    //   dispatch({type: SET_ACTIVE_OPTION, payload: option})
-    // }
+    if(action !== 'cart' &&  action !== 'payment' && action !== 'success'){
+      dispatch({type: SET_ACTION, payload: action})
+      dispatch({type: SET_ACTIVE_OPTION, payload: (option === 'notification' || option === 'profile') ? action : 'cart'})
+    } else{
+      dispatch({type: SET_ACTION, payload: 'cart'})
+      dispatch({type: SET_ACTIVE_OPTION, payload: option})
+    }
 
     dispatch({type: SET_DRAWER_OPEN, payload: true})
   };
 
   const onDrawerClose = () => {
-    console.log(action)
 
     if((action !== 'cart' && action !== 'payment')) {
         localStorage.removeItem('cart');
         dispatch({type:  CLEAR_CART})
     }
 
+    
     dispatch({type: SET_DRAWER_OPEN, payload: false})
     dispatch({type: SET_ACTIVE_OPTION, payload: null})
   };
@@ -160,18 +163,19 @@ const ActionSideBar = ({ width }) => {
 
   useEffect(() => {
     let localCart = localStorage.getItem('cart');
-
-    if(localCart){
+    let cart = localCart ? JSON.parse(localCart) : null;
+    if(cart){
       dispatch({
         type: UPDATE_CART,
-        payload: JSON.parse(localCart)
+        payload: {...cart, order_no: null }
       });
+    
+    } else {
+      dispatch(setCurrentCustomer(null))
+      dispatch({type: CLEAR_CART})
     }
-
   }, [])
 
-
-  console.log(action)
 
 
   return (

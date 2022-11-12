@@ -18,7 +18,6 @@
         const order_date = moment(data.createdAt).format('LLL');
         const due_date = data.dueDate && moment(data.dueDate).format('LLL');
         const order_items = data.order_items.map((a, index) => {
-          console.log(a)
           return { ...a, price: Number(a.price).toFixed(2), total: Number(a.total).toFixed(2), no: index + 1 }
         })
 

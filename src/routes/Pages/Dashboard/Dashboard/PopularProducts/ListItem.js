@@ -48,10 +48,6 @@ const ListItem = ({item}) => {
     } else {
   
       let prd = productsList.find(a => a.id === item.id);
-      console.log(item)
-      console.log(cartList)
-      console.log(crt)
-      console.log(prd)
   
       let obj = crt ? {
         ...crt,
@@ -62,22 +58,17 @@ const ListItem = ({item}) => {
         productId: item.id,
         name: item.name,
         price: item.price,
-        qty: 10,
         other_amounts: item.other_amounts ? item.other_amounts : []
       }
   
       
       const pp = popularProducts.map(a => {
-        console.log(a.id === item.id )
-        console.log(a.id)
-        console.log(item.id)
         return a.id === item.id ? {
           ...a,
           stocks: prd.stocks - (obj.qty ? obj.qty : 1)
         } : a
       });
     
-      console.log(popularProducts)
   
       dispatch({type: SET_DASHBOARD_DATA, payload: { popularProducts: pp }})
   
@@ -86,8 +77,6 @@ const ListItem = ({item}) => {
       })
     //   setRevealed(false);
     }
-    setSnackBarMessage("You have submitted for Checkout");
-    setSnackBarStatus(true);
     };
 
 
@@ -118,8 +107,6 @@ const ListItem = ({item}) => {
     setCartList(cart_items)
   }, [cart])
 
-
-  console.log(item)
   return (
     <React.Fragment>
       <Box

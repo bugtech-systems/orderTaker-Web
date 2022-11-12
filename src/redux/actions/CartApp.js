@@ -27,8 +27,6 @@ export const handleCartItem = (cart_items, item) => {
   if (inds !== -1) {
 
     cartItems = cartItems.map(a => {
-      console.log(a)
-      console.log(a.productId == item.productId)
       return a.productId == item.productId
         ? {
            ...item, 

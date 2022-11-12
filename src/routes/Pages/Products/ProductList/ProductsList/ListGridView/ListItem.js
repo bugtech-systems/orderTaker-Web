@@ -48,10 +48,6 @@ const ListItem = ({item}) => {
     else {
       
       let prd = productsList.find(a => a.id === item.id);
-      console.log(item)
-      console.log(prodList)
-      console.log(ind)
-      console.log(prd)
   
       let obj = ind ? {
         ...ind,
@@ -66,14 +62,12 @@ const ListItem = ({item}) => {
       }
 
       const pl = productLists.map(a => {
-        console.log(a.id === item.id )
         return a.id === item.id ? {
           ...prd,
           stocks: prd.stocks - (obj.qty ? obj.qty : 1)
         } : prd
       });
     
-      console.log(productLists)
   
       dispatch({type: SET_DASHBOARD_DATA, payload: { productLists: pl }})
   
@@ -84,8 +78,8 @@ const ListItem = ({item}) => {
       
     }
      
-    setSnackBarMessage("You have submitted for Checkout");
-    setSnackBarStatus(true);
+    // setSnackBarMessage("You have submitted for Checkout");
+    // setSnackBarStatus(true);
   };
 
   const getActionComponent = () => (

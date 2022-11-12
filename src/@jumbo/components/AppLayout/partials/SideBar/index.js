@@ -39,7 +39,6 @@ const SideBar = () => {
 
 useEffect(() => {
   if(authUser.roles){
-    console.log(authUser.roles)
 
     if(authUser && authUser.roles && (authUser.roles.find(a => (a === 'ROLE_SUPER' || a ===  'ROLE_ADMIN')) || authUser.roles.find(a => (a.name === 'super' || a.name === 'admin')))){
       setSideNavs(sidebarNavs)

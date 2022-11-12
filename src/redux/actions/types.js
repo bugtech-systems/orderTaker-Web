@@ -67,6 +67,7 @@ export const SET_CART_ITEMS_COUNT = 'set_cart_items_count';
 
 //ORDER
 export const SET_ORDERS = 'set_orders';
+export const SET_ORDERS_COUNT = 'set_orders_count';
 export const SET_UNPAID_ORDERS = 'set_unpaid_orders';
 export const CLEAR_ORDERS = 'clear_orders';
 

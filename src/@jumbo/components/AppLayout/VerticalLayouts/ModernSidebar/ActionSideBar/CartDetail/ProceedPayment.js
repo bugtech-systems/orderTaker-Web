@@ -10,7 +10,10 @@ import SearchCustomer from './AutoComplete';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentCustomer, getCustomersList} from '../../../../../../../redux/actions/Customer';
-import { SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from 'redux/actions/types';
+import { SET_ACTION, SET_CART_SUCCESS, SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from 'redux/actions/types';
+import { createOrder } from 'redux/actions/CartApp';
+import { fetchError, fetchSuccess } from 'redux/actions';
+import { payOrder } from 'redux/actions/OrderApp';
 
 
 const useStyles = makeStyles(theme => ({
@@ -68,18 +71,52 @@ export default function ProceedPayment() {
   }
 
   useEffect(() => {
+    console.log(currentCustomer)
     setCartCustomer(currentCustomer)
-  }, [currentCustomer])
+  }, [currentCustomer, cart])
+
+
+  const handlePayment = () => {
+   
+  }
 
 
 
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    console.log(cart)
+    if(action === 'unpaid'){
+      const { id, customerId, payment, notes } = cart;
+      dispatch(payOrder({orderId: id, customerId, amount: Number(payment), description: notes}))
+      .then(res => {
+        let { message, data } = res;
+        if(res){
+          dispatch(fetchSuccess(message));
+          dispatch({type: SET_CART_SUCCESS, payload: data.id});
+        dispatch({type: SET_ACTION, payload: 'success'})
+        }
+      }).catch(err => {
+        console.log(err)
+        dispatch(fetchError(err.response.data.message))
+      })
+    } else {
+    dispatch(createOrder(cart))
+   .catch(err => {
+      console.log(err)
+      dispatch(fetchError(err.response.data.message))
+    })
+  }
+  }
 
 
 
 
 
   const { name, address, limit, balance } = cartCustomer ? cartCustomer : {};
+  console.log(cart)
+  console.log(currentCustomer)
 
+  console.log(cartCustomer)
 
   return (
     <Box className={classes.rootWrap}>
@@ -96,9 +133,18 @@ export default function ProceedPayment() {
             handleSelect={handleSelect}
         />}
         <Box maxHeight="100px" p={5} display="flex" alignItems="flex-start" justifyContent="center">
-        {currentCustomer && currentCustomer.id &&
+        {cartCustomer && cartCustomer.id &&
         <Box width="100%" display="flex">
-           <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
+          {!cart.order_no && 
+          <IconButton style={{position: 'absolute', right: 5}} onClick={() => {
+            dispatch({type: UPDATE_CART, payload: {...cart, customers: [], customerId: null}});
+            dispatch(setCurrentCustomer(null))
+          }}>
+            <CancelIcon/>
+          </IconButton>
+            }
+
+            <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
             <Box mb={1} display="flex">
                 <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">Name: </Typography>&nbsp;&nbsp;
                 <Typography variant="subtitle2">{name}</Typography>
@@ -129,9 +175,11 @@ export default function ProceedPayment() {
         {action === 'unpaid' && <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
               <Typography m={1} variant="subtitle1">Amount Payable</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_payable).toFixed(2)}</Typography>
           </Box>}
-          <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+          <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" component="form">
               {/* <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{Number(amount_due).toFixed(2)}</Typography> */}
               {/* <Typography m={1}>Payment</Typography> */}
+              <Box component="form"  onSubmit={handleCheckout}>
+
             <TextField 
               variant='outlined'
               size='small'
@@ -141,8 +189,12 @@ export default function ProceedPayment() {
               type="number"
               onChange={handleChanges('payment')}
             />
+    </Box>
+
+
                <br/>
          
+
             {!isChange ? 
             <Button variant='outlined' m={1}
             onClick={() => setChange(true)}
@@ -167,6 +219,6 @@ export default function ProceedPayment() {
           <TextField fullWidth label="Notes" value={notes}
               onChange={handleChanges('notes')}/>
           </Box>
-        </Box>
+          </Box>
   )
 }

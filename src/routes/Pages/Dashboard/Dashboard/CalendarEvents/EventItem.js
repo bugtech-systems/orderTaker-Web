@@ -13,6 +13,7 @@ import useStyles from './index.style';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleCart } from '../../../../../redux/actions/CartApp';
 import { SET_ACTION, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, UPDATE_CART } from '../../../../../redux/actions/types';
+import { setCurrentCustomer } from 'redux/actions/Customer';
 
 const EventItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -22,8 +23,14 @@ const EventItem = ({ item }) => {
 
 
 
-  const handleClick = (val) => {
-      dispatch({type: UPDATE_CART, payload: {...val, cart_items: val.order_items}}); 
+  const handleClick = (val) => { 
+    console.log(val);
+    if(val && val.customers && val.customers.length !== 0){
+      dispatch(setCurrentCustomer(val.customers[0]))
+      dispatch({type: UPDATE_CART, payload: {...val, customerId: val.customers[0].id }}); 
+
+    }
+      dispatch({type: UPDATE_CART, payload: {...val, cart_items: val.order_items }}); 
       dispatch({type: SET_ACTIVE_OPTION, payload: 'cart'});
       dispatch({type: SET_ACTION, payload: val.isPaid ? 'paidCart' : 'viewCart'});
       dispatch({type: SET_DRAWER_OPEN, payload: true});

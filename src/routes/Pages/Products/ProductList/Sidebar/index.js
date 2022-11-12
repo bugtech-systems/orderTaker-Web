@@ -118,7 +118,7 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
             )}
           />
 
-          <MoreOptions classes={classes} productsList={productsList} />
+          {/* <MoreOptions classes={classes} productsList={productsList} /> */}
         </List>
       </PerfectScrollbar>
     </Box>

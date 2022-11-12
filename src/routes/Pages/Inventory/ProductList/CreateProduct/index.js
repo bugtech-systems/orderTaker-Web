@@ -18,7 +18,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
-import { Typography, Menu, Tooltip, MenuItem } from '@material-ui/core';
+import { Typography, Menu, Tooltip, MenuItem, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 
 
 
@@ -43,6 +43,7 @@ import { uploadFile } from '../../../../../redux/actions/Users';
 
 
 import commonData from "../../../../../utils/commonData";
+import { CheckBox } from '@material-ui/icons';
 
 
 
@@ -90,7 +91,7 @@ const CreateProduct = ({ handleDialog }) => {
   const classes = useStyles();
   const [isAddVD, setIsAddVD] = useState(null);
   const [showLabels, setShowLabels] = useState(null);
-
+  const [showLimit, setShowLimit] = useState(false);
   const [other_amounts, setOtherAmounts] = useState({
     type: null,
     name: '',
@@ -345,7 +346,7 @@ const handleEditOtherAmounts = (val, index) => {
           </GridContainer>
         </Box>
         <GridContainer >
-         <Grid item xs={12} sm={8} lg={8}>
+         <Grid item xs={12} sm={6} lg={6}>
          <Typography variant="h4">Selling Price</Typography>
               <br/>
                 <AppTextInput
@@ -369,17 +370,22 @@ const handleEditOtherAmounts = (val, index) => {
                   onChange={handleChange('purchase_price')}
                 />
            </Grid> */}
-         <Grid item xs={12} sm={4} lg={4}>
-         <Typography variant="h4">Stock Limit</Typography>
-              <br/>
-              <AppTextInput
+         <Grid item xs={12} sm={6} lg={6}>
+         <FormGroup row>
+      <FormControlLabel
+        control={<Switch checked={showLimit} onChange={() => setShowLimit(!showLimit)} name="checkedA" />}
+        label="Mainimum Stock Limit"
+      />
+    </FormGroup>
+         {/* <Typography variant="h4">Minimum Stock Limit</Typography> */}
+                  {showLimit && <AppTextInput
                 fullWidth
                 type="number"
                 variant="outlined"
                 label="Quantity"
                 value={values.limit}
                 onChange={handleChange('limit')}
-              />
+              />}
             </Grid>
             {/* <Grid item xs={12} sm={6} /> */}
             

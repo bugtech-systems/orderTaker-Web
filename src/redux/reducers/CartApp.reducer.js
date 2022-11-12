@@ -9,6 +9,7 @@ import { cart } from '../../@fake-db'
 
   const INIT_STATE = {
         // cart_items: cart.cartItems,
+        order_no: null,
         cart_items: [],
         other_amounts: [],
         tax_disc: [], 
@@ -55,6 +56,7 @@ import { cart } from '../../@fake-db'
       case CLEAR_CART: {
         return {
             // ...state,
+         order_no: null,
         cart_items: [],
         other_amounts: [],
         tax_disc: [], 

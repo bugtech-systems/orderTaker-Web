@@ -54,9 +54,10 @@ export const classicWidget = {
   ],
   projects: [
     {
-      label: 'jumbo react',
-      value: 'jumbo-react',
+      label: 'Orders',
+      value: 'orders',
       color: '#6200EE',
+      disabled: false,
       backgroundColor: '#DDC9FB',
       data: [
         { month: 'Jan', amount: 1000 },
@@ -74,9 +75,10 @@ export const classicWidget = {
       ],
     },
     {
-      label: 'Wieldy',
-      value: 'wieldy',
+      label: 'Expenses',
+      value: 'expenses',
       color: '#F5A32F',
+      disabled: true,
       backgroundColor: '#FBE0B9',
       data: [
         { month: 'Jan', amount: 800 },
@@ -94,9 +96,10 @@ export const classicWidget = {
       ],
     },
     {
-      label: 'Drift Angular',
-      value: 'drift-angular',
+      label: 'Purchases',
+      value: 'Purchases',
       color: '#FF4081',
+      disabled: true,
       backgroundColor: '#FFBDD4',
       data: [
         { month: 'Jan', amount: 1100 },

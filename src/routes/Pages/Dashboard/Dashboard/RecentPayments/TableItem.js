@@ -164,7 +164,7 @@ const TableItem = ({ row }) => {
           <Typography>{row.order_no}</Typography>
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellSecond)}>
-         {payments.length !== 0 ? timeFromNow(row.createdAt) : 'No Payments'}
+           ₱{row.amount_payable}
         </TableCell>
         <TableCell className={clsx(classes.tableCellRoot, classes.tableCellHideShow)} onClick={() => setOpen(!open)}>
           <div className={classes.hideShowContent}>

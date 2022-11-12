@@ -16,6 +16,8 @@ import ActionSideBar from './ActionSideBar';
 // import { THEME_TYPES } from '../../../../constants/ThemeOptions';
 import AppContext from '../../../contextProvider/AppContextProvider/AppContext';
 import defaultContext from '../../../contextProvider/AppContextProvider/defaultContext';
+import { useSelector } from 'react-redux';
+import Cart from './ActionSideBar/CartDetail/index'
 
 // const useStyles = makeStyles(theme => ({
 //   sidebarHeader: {
@@ -36,6 +38,8 @@ const layoutOptions = {
 };
 
 const ModernSideBar = ({ children, className }) => {
+  const {action} = useSelector(({uiReducer}) => uiReducer);
+
   // const classes = useStyles();
 
   const { themeType } = useContext(AppContext);
@@ -44,7 +48,9 @@ const ModernSideBar = ({ children, className }) => {
       className={clsx('Cmt-modernLayout', className)}
       layoutOptions={layoutOptions}
       sidebar={
-        <CmtSidebar actionBar={<ActionSideBar />}>
+        <CmtSidebar 
+        actionBar={<ActionSideBar />}
+        >
           {/* <Hidden mdDown>
             <Logo color={themeType !== THEME_TYPES.LIGHT ? 'white' : 'dark'} className={classes.sidebarHeader} />
           </Hidden> */}

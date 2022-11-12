@@ -59,9 +59,6 @@ const Product = () => {
   }
 
 
-console.log('ddddd')
-
-
   return (
     <Box className={classes.inBuildAppCard}>
       <AppHeader onChangeViewMode={onChangeViewMode} viewMode={viewMode} handleSubmit={handleSubmit} />

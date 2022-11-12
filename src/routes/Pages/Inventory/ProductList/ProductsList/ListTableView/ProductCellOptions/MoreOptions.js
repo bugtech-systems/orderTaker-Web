@@ -108,7 +108,7 @@ const MoreOptions = ({ product, isDetailView, onDelete, onClickEditProduct }) =>
             Edit
           </Box>
         </MenuItem>
-        <MenuItem onClick={onHideMoreOptions} className={classes.menuItemsRoot}>
+        {/* <MenuItem onClick={onHideMoreOptions} className={classes.menuItemsRoot}>
           <ExportProducts data={[{ ...product }]}>
             <Box component="span" display="flex" alignItems="center">
               <CloudUploadIcon />
@@ -117,7 +117,7 @@ const MoreOptions = ({ product, isDetailView, onDelete, onClickEditProduct }) =>
               </Box>
             </Box>
           </ExportProducts>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={onClickDeleteOption} className={classes.menuItemsRoot}>
           <DeleteIcon />
           <Box component="span" ml={4}>

@@ -58,7 +58,11 @@ const AppLayout = ({ children }) => {
   if (['/signin', '/signup', '/forgot-password'].includes(location.pathname)) {
     return <div style={{ minHeight: '100vh', width: '100%', display: 'flex' }}>{children}</div>;
   }
-  console.log(layout)
+
+  
+
+
+
   switch (layout) {
     default:
       return <ModernSideBar children={children} />;

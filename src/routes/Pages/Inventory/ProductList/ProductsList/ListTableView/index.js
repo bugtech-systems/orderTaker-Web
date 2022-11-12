@@ -11,7 +11,7 @@ import CheckedListHeader from './CheckedListHeader';
 import PropTypes from 'prop-types';
 import useStyles from './index.style';
 
-import { getProductsList, setFilterType } from 'redux/actions/ProductApp'
+import { getInventoryList, setFilterType } from 'redux/actions/ProductApp'
 
 const ListTableView = ({
   checkedProducts,
@@ -26,10 +26,12 @@ const ListTableView = ({
 
 const classes = useStyles();
   const dispatch = useDispatch();
-  const { productsList, filterType, totalProducts } = useSelector(({ productApp }) => productApp);
-  
-  const [selected, setSelected] = React.useState([]);
 
+  const productApp = useSelector(({ productApp }) => productApp);
+  const cart = useSelector(({ cartApp }) => cartApp);
+
+  const { filterType, totalProducts } = productApp;
+  
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const [page, setPage] = React.useState(0);
@@ -40,61 +42,65 @@ const classes = useStyles();
   const handleChangePage = (event, newPage) => {
       setPage(newPage);
       dispatch(setFilterType({...filterType, page: newPage, rowsPerPage}))
-      dispatch(getProductsList({...filterType, page: newPage, rowsPerPage}))
+      dispatch(getInventoryList({...filterType, page: newPage, rowsPerPage}))
     };
 
     const handleChangeRowsPerPage = event => {
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
       dispatch(setFilterType({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
-      dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
+      dispatch(getInventoryList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
     };
     
-    const handleRequestSort = (event, property) => {
-      const isAsc = orderBy === property && order === 'asc';
-      setOrderBy(property);
-      setOrder(isAsc ? 'desc' : 'asc');
-    };
-    
-    const handleSelectAllClick = event => {
-      if (event.target.checked) {
-        const newSelected = products.map(n => n.id);
-        setSelected(newSelected);
-        return;
+    const handleSort = (event, field) => {
+      setOrderBy(field)
+      setOrder(order === 'asc' ? 'desc' : 'asc');
+
+
+      let newProds = products.sort((a, b) =>{
+        if(field === 'name'){
+
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (order === 'asc' ? nameA < nameB : nameA > nameB) {
+            return -1;
+          }
+          if (order === 'asc' ? nameA < nameB : nameA > nameB) {
+            return 1;
+          }
+        
+          // names must be equal
+          return 0;
+      } else {
+        return order === 'asc' ? a[field] - b[field] : b[field] - a[field];
       }
-      setSelected([]);
-    };
-    
-    const handleRowClick = (event, id) => {
-      const selectedIndex = selected.indexOf(id);
-      let newSelected = [];
+      });
+
+      setProducts(newProds)
+    }
+
   
-      if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, id);
-      } else if (selectedIndex === 0) {
-        newSelected = newSelected.concat(selected.slice(1));
-      } else if (selectedIndex === selected.length - 1) {
-        newSelected = newSelected.concat(selected.slice(0, -1));
-      } else if (selectedIndex > 0) {
-        newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-      }
-      setSelected(newSelected);
-    };
-    
-    const handlePageChange = (event, newPage) => {
-      setPage(newPage);
-    };
-  
-    const handleRowsPerPageChange = event => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
-    
-    const isSelected = id => selected.indexOf(id) !== -1;
+    // useEffect(() => {
+    //   setProducts(productsList)
+    // }, [productsList])
+
 
     useEffect(() => {
-      setProducts(productsList)
-    }, [productsList])
+      const { productsList} = productApp;
+  
+      const {cart_items} = cart;
+    
+      const pp = productsList.map(a => {
+        let ind = cart_items.find(ab => ab.productId === a.id);
+    
+        return ind ? {
+          ...a, 
+          stocks: ind.stocks
+        } : a
+      })
+      setProducts(pp)
+    }, [productApp, cart]);
+
 
   return (
     <React.Fragment>
@@ -111,16 +117,17 @@ const classes = useStyles();
                 {checkedProducts.length === 0 && (
                      <ProductTableHead
                      classes={classes}
-                     checkedProducts={productsList}
+                     checkedProducts={products}
                      onSelectAllClick={handleHeaderCheckBox}
                      handleHeaderCheckBox={handleHeaderCheckBox}
                     onDelete={onDelete}
+                    onRequestSort={handleSort}
+                    order={order}
+                    orderBy={orderBy}
                    />
           )}
           <TableBody>
-       {products
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((data, index) => (
+       {products.map((data, index) => (
                     <ProductCell
                     key={index}
                     product={data}

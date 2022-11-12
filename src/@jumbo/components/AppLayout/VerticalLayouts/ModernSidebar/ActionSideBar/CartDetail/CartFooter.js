@@ -147,6 +147,7 @@ export default function CartFooter() {
   }
 
   const handleCheckout = () => {
+    console.log(cart)
     dispatch(createOrder(cart))
    .catch(err => {
       console.log(err)

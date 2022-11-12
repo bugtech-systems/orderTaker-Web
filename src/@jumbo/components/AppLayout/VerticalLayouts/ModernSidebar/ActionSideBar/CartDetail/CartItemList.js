@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION, CLEAR_ALL_PRODUCTS } from '../../../../../../../redux/actions/types';
 import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
-import { getInventoryList } from '../../../../../../../redux/actions/ProductApp';
+import { getAllProducts, getInventoryList } from '../../../../../../../redux/actions/ProductApp';
 import { fetchError, fetchStart, fetchSuccess } from '../../../../../../../redux/actions/Common';
 
 
@@ -88,7 +88,7 @@ const Comments = () => {
   const dispatch = useDispatch();
   const cart = useSelector(({cartApp}) => cartApp);
   const { action } = useSelector(({uiReducer}) => uiReducer); 
-  const { filterType, productsList }  = useSelector(({productApp}) => productApp);
+  const { filterType, allProducts }  = useSelector(({productApp}) => productApp);
   const [expanded, setExpanded] = React.useState('cartItems');
   const [selected, setSelected] = useState(null);
   const [cartList, setCartList] = useState([]);
@@ -108,7 +108,7 @@ const Comments = () => {
 
 
   const handleItem = (val, qty) => {
-    let prd = productsList.find(a => a.id === val.productId);
+    let prd = allProducts.find(a => a.id === val.productId);
 
 
     
@@ -129,7 +129,7 @@ if(val){
   
   
   
-  let prd = productsList.find(a => a.id === val.id)
+  let prd = allProducts.find(a => a.id === val.id)
   if(!prd){
     return dispatch(fetchError("Unable to Find Product!"));
   }
@@ -156,7 +156,13 @@ setSelected(null);
 
 
   useEffect(() => {
-    dispatch(getInventoryList(filterType));
+    dispatch(getAllProducts({
+      selectedFolder: 'products',
+      selectedLabel: '',
+      searchText: '',
+      page: 0,
+      rowsPerPage: 2000
+    }));
   }, [filterType, dispatch]);
 
   useEffect(() => {
@@ -177,7 +183,7 @@ setSelected(null);
     <Box flexGrow={1} className={classes.rootWrap}>
    {action === 'cart' && <SearchProduct
       value={selected}
-      options={productsList}
+      options={allProducts}
       handleSelect={handleSelect}
       />}
       <Divider/>

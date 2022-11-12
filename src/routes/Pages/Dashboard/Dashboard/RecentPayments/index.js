@@ -35,15 +35,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RecentPayments = () => {
+const RecentPayments = ({unpaidOrders}) => {
   const classes = useStyles();
-  const {unpaid_orders} = useSelector(({orderApp}) => orderApp);
 
 
 
 
 
-
+  console.log(unpaidOrders)
 
 
 
@@ -67,7 +66,7 @@ const RecentPayments = () => {
       </CmtCardHeader>
       <CmtCardContent className={classes.cardContentRoot}>
         <PerfectScrollbar className={classes.scrollbarRoot}>
-          <RecentPaymentsTable data={unpaid_orders} />
+          <RecentPaymentsTable data={unpaidOrders} />
         </PerfectScrollbar>
       </CmtCardContent>
     </CmtCard>

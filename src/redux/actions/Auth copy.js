@@ -139,7 +139,6 @@ export const getUserData = (history) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      console.log(error.response)
       error.response?.data?.errors && 
       dispatch({
         type: SET_ERRORS,
@@ -188,7 +187,6 @@ export const logout = (history) => (dispatch) => {
         });
         dispatch(setAuthUser(null));
         dispatch(fetchSuccess())
-        console.log(error.response)
         error.response?.data?.errors && 
         dispatch({
           type: SET_ERRORS,

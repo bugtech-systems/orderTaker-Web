@@ -18,9 +18,10 @@ const ProductsList = ({ width, onDelete, onShowProductDetail, onClickEditProduct
   const [checkedProducts, setCheckedProducts] = useState([]);
   const [showDuplicateMsg, setShowDuplicateMsg] = useState(true);
 
+
   useEffect(() => {
     dispatch(getInventoryList(filterType));
-  }, [filterType, dispatch]);
+  }, []);
 
   const handleCellCheckBox = (isChecked, id) => {
     if (isChecked) {

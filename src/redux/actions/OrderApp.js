@@ -1,4 +1,4 @@
-import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS, UPDATE_CART } from './types';
+import { SET_ORDERS, SET_UNPAID_ORDERS, CLEAR_ORDERS, UPDATE_CART, SET_FILTER_TYPE, SET_ORDERS_COUNT } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 import { authHeader } from '../../services/auth-header';
 
@@ -8,22 +8,40 @@ import axios from 'axios';
 import { getAdminDashboard } from './Dashboard';
 import { getProductsList } from './ProductApp';
 
-export const getOrders = () => {
+
+
+//For setting Filtertype
+export const setFilterType = filterType => {
+  return {
+    type: SET_FILTER_TYPE,
+    payload: filterType,
+  };
+};
+
+export const getOrders = params => {
     return dispatch => {
         dispatch(fetchStart());
         dispatch({type: CLEAR_ORDERS});
         return axios
-          .get(`${commonData.apiUrl}/orders`, { headers: authHeader() })
+          .get(`${commonData.apiUrl}/orders`, {params}, { headers: authHeader() })
           .then(({data}) => {
-            dispatch({type: SET_ORDERS, payload: data.orders})
-            dispatch({type: SET_UNPAID_ORDERS, payload: data.unpaid_orders})
+            dispatch({ type: SET_ORDERS, payload:  data.rows });
+            dispatch({ type: SET_ORDERS_COUNT, payload:  data.count });
+
+            dispatch(fetchSuccess());
+
+            // dispatch({type: SET_ORDERS, payload: data.orders})
+            // dispatch({type: SET_UNPAID_ORDERS, payload: data.unpaid_orders})
             // return data
           }).catch(err => {
             console.log(err)
             // return null;
+            dispatch(fetchError('Something went wrong!'));
+
           });
     };
   };
+
 
   export const getCartOrderById = (id) => dispatch => {
     return axios

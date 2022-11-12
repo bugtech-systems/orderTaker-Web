@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import CmtList from '../../../../../@coremat/CmtList';
 import List from '@material-ui/core/List';
 import PropTypes from 'prop-types';
-import { getProductCounts, getLabelsList, setFilterType } from '../../../../../redux/actions/ProductApp';
+import { getProductCounts, getLabelsList, setFilterType, getInventoryList } from '../../../../../redux/actions/ProductApp';
 import ItemCell from './ItemCell';
 import AddLabel from './AddLabel';
 import { foldersList } from '../../../../../@fake-db/modules/products';
@@ -39,8 +39,18 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
         selectedFolder: folder,
         selectedLabel: '',
         searchText: '',
+        rowsPerPage: 10,
+        page: 0
       }),
     );
+    dispatch(getInventoryList({
+      
+      selectedFolder: folder,
+        selectedLabel: '',
+        searchText: '',
+        rowsPerPage: 10,
+        page: 0
+      }))
   };
 
   const onChangeLabel = label => {
@@ -49,8 +59,17 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
         selectedFolder: '',
         selectedLabel: label,
         searchText: '',
+        rowsPerPage: 10,
+        page: 0
       }),
     );
+    dispatch(getInventoryList({
+      selectedFolder: '',
+      selectedLabel: label,
+      searchText: '',
+      rowsPerPage: 10,
+      page: 0
+    }))
   };
 
   const classes = useStyles({
@@ -103,7 +122,7 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
             )}
           />
 
-          <MoreOptions classes={classes} productsList={productsList} />
+          {/* <MoreOptions classes={classes} productsList={productsList} /> */}
         </List>
       </PerfectScrollbar>
     </Box>

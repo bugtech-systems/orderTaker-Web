@@ -1,7 +1,7 @@
 import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_LOAD_USER, CLEAR_USER } from '../actions/types';
 
 const INIT_USER = {
-  phones: [],
+  contacts: [],
   password: null
 }
 
