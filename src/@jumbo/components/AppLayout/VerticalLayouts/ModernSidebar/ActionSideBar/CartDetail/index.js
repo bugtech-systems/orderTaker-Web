@@ -61,7 +61,7 @@ const Comments = () => {
       {(action === 'cart' || action === 'paidCart' || action === 'viewCart') && <CartItemList/>}
       {(action === 'payment' || action === 'unpaid') && <ProceedPayment/>}
       {(action === 'success' || action === 'paidSuccess') && <SuccessPage/>}
-      <CartFooter/>
+      {cart.order_status !== 'Cancelled' && <CartFooter/>}
     </Box>
   );
 };

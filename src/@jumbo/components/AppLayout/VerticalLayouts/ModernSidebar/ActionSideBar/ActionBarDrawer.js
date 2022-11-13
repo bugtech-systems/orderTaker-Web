@@ -131,8 +131,8 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
       });
       localStorage.removeItem('cart')
       dispatch(setCurrentCustomer(null))
-      dispatch({type: SET_DRAWER_OPEN, payload: false});
       dispatch(getAdminDashboard())
+      dispatch({type: SET_DRAWER_OPEN, payload: false});
     })
   }
 
@@ -153,7 +153,7 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
         </Box>
-        {cart && cart.id && isAdmin && <IconButton color="secondary" size="small" style={{marginLeft: '10px'}} onClick={() => setVoidConfirm(true)}>
+        {cart && cart.id && isAdmin && cart.order_status !== 'Cancelled' && <IconButton color="secondary" size="small" style={{marginLeft: '10px'}} onClick={() => setVoidConfirm(true)}>
           <BlockIcon fontSize="small"/>
         </IconButton>}
         </Box>
@@ -161,7 +161,7 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
         <Box display="flex" >
 
         {
-        activeOption === 'cart' &&
+        activeOption === 'cart' && cart.order_status !== 'Cancelled' && 
         ['paidSuccess','paidCart','success', 'unpaid', 'viewCart'].includes(action) && 
         <Box display="flex" >
           <AppSwitch label="Print Directly" checked={printDirect} onChange={() => setPrintDirect(!printDirect)} />

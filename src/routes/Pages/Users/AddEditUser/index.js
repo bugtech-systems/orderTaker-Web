@@ -142,6 +142,11 @@ const AddEditUser = () => {
       setValues({ contacts: [{number: '', label: 'home'}], ...currentUser, roles: currentUser.roles[0].name,  });
       setDpUrl(currentUser.dpUrl);
       // setPhones(currentUser.phones);
+    } else {
+      setValues({
+        contacts: [{number: '', label: 'home'}]
+      })
+      setDpUrl(null)
     }
   }, [currentUser]);
 
