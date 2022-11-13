@@ -57,6 +57,8 @@ export const loginUser = (user, callbackFun) => {
           localStorage.setItem('idToken', accessToken);
           dispatch(getUserData());
           clearTimeout(ot);
+          dispatch(fetchSuccess());
+
           if (callbackFun) callbackFun(data.data);
       })
       .catch(error => {
