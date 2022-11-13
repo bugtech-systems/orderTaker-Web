@@ -8,6 +8,7 @@ import CmtCardHeader from '../../../../../@coremat/CmtCard/CmtCardHeader';
 
 import RevenueSummaryGraph from './RevenueSummaryGraph';
 import SummaryTabs from './SummaryTabs';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   cardRoot: {
@@ -35,11 +36,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SummaryStats = () => {
+const SummaryStats = ({data}) => {
+
+
+
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <SummaryDetail title={'Sales this year'} figure={new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(295400)} className={'mr-5'} />
-      <SummaryDetail title={'Available Inventory'} figure={new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(58000)} className={'mr-5'} />
+      <SummaryDetail title={'Annual Sales'} figure={`₱${data.totalSales}`}className={'mr-5'} />
+      <SummaryDetail title={'Available Inventory'} figure={`₱${data.totalInventory}`} className={'mr-5'} />
     </div>
   );
 };
@@ -57,15 +61,18 @@ const SummaryDetail = ({ title, figure, className }) => {
 };
 
 const RevenueSummary = () => {
+  const { revenueSummary } = useSelector(({dashboard}) => dashboard);
   const [tabValue, setTabValue] = useState(0);
   const classes = useStyles();
 
+
+  console.log(revenueSummary)
   return (
     <CmtCard className={classes.cardRoot}>
-      <CmtCardHeader title={<SummaryStats />}>
+      <CmtCardHeader title={<SummaryStats data={revenueSummary} />}>
         <SummaryTabs tabValue={tabValue} setTabValue={setTabValue} />
       </CmtCardHeader>
-      <RevenueSummaryGraph value={tabValue} />
+      <RevenueSummaryGraph value={tabValue} revenueSummary={revenueSummary.data} />
     </CmtCard>
   );
 };

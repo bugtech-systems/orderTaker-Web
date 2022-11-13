@@ -16,6 +16,12 @@ const INIT_STATE = {
     popularProducts: [],
     productLists: [],
     unpaidCustomers: [],
+    revenueSummary: {
+      totalSales: 0,
+      totalExpenses: 0,
+      totalInventory: 0,
+      data: []
+    },
     unpaidOrders: [],
     todaySales: []
 };

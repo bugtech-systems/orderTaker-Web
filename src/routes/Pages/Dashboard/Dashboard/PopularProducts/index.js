@@ -49,15 +49,6 @@ const {  popularProducts } = useSelector(({ dashboard }) => dashboard);
     dispatch(getProductsList({...filterType, page: 0, rowsPerPage: parseInt(event.target.value, 10)}))
   };
   
-      const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleRowsPerPageChange = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
 
   useEffect(() => {
     dispatch(getAllProducts())
