@@ -7,6 +7,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CmtMediaObject from '../../../../../@coremat/CmtMediaObject';
 import { getTime } from '../../../../../@jumbo/utils/dateHelper';
 import useStyles from './index.style';
+import BlockIcon from '@material-ui/icons/Block';
 
 
 //Redux
@@ -73,9 +74,13 @@ const EventItem = ({ item }) => {
         }}
         subTitle={getSubTitle()}
         actionsComponent={
-          item.isPaid && (
+          item.order_status === 'Paid' ? (
             <Box color="success.main">
               <CheckIcon />
+            </Box>
+          ) : item.order_status === 'Cancelled' && (
+            <Box >
+              <BlockIcon fontSize='small' />
             </Box>
           )
         }

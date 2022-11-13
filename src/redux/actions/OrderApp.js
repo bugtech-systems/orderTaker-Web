@@ -65,10 +65,11 @@ export const getOrders = params => {
     };
 
     export const voidOrderId = (id) => dispatch => {
+      console.log(id)
       return axios
-        .post(`${commonData.apiUrl}/order/void/${id}`, { headers: authHeader() })
+        .post(`${commonData.apiUrl}/order/void/${id}`,  {}, { headers: authHeader() })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
           throw err;
         });
   };

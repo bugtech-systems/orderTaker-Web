@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CmtAvatar from '../../../../../../@coremat/CmtAvatar';
 import AppSwitch from '../../../../Common/formElements/AppSwitch';
+import ConfirmDialog from '../../../../../../@jumbo/components/Common/ConfirmDialog';
 
 
 
@@ -30,6 +31,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setOrderReceipt } from 'redux/actions/Report.action';
 
 import { voidOrderId } from 'redux/actions/OrderApp';
+import { CLEAR_CART, SET_DRAWER_OPEN } from 'redux/actions/types';
+import { setCurrentCustomer } from 'redux/actions/Customer';
+import { getAdminDashboard } from 'redux/actions/Dashboard';
 
 
 
@@ -108,6 +112,7 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
   const { isAdmin } = useSelector(({auth}) => auth);
   const {business} = useSelector(({dashboard}) => dashboard);
   const [printDirect, setPrintDirect] = useState(false);
+  const [voidConfirm, setVoidConfirm] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -119,11 +124,22 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
 
   const handleVoid = () => {
     dispatch(voidOrderId(cart.id))
+    .then(() => {
+      setVoidConfirm(false);
+      dispatch({ 
+        type: CLEAR_CART
+      });
+      localStorage.removeItem('cart')
+      dispatch(setCurrentCustomer(null))
+      dispatch({type: SET_DRAWER_OPEN, payload: false});
+      dispatch(getAdminDashboard())
+    })
   }
 
-  console.log(activeOption)
-  console.log(isAdmin)
+
   return (
+    <>
+    
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
                <Box className={classes.contentArea}>
@@ -137,7 +153,7 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
         </Box>
-        {cart && cart.id && isAdmin && <IconButton color="secondary" size="small" style={{marginLeft: '10px'}} onClick={() => handleVoid()}>
+        {cart && cart.id && isAdmin && <IconButton color="secondary" size="small" style={{marginLeft: '10px'}} onClick={() => setVoidConfirm(true)}>
           <BlockIcon fontSize="small"/>
         </IconButton>}
         </Box>
@@ -170,6 +186,15 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
         </Box>
       </Box>
     </CmtDrawer>
+    <ConfirmDialog
+        open={voidConfirm}
+        title={`Cancelling order # ${cart.order_no}`}
+        content={'Are you sure, you want to  cancel this order?'}
+        onClose={() => setVoidConfirm(false)}
+        onConfirm={handleVoid}
+      />
+
+    </>
   );
 };
 

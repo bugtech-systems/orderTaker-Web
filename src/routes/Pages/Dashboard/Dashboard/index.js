@@ -92,8 +92,10 @@ const Dashboard = () => {
       let today = todayOrders.map((a, index) => {
       let dt = new moment(a.createdAt)
       let dObj = getDateElements(dt);
-
+        if(a.order_status !== 'Cancelled'){
       total += a.amount_due;
+    }
+
       return { label: dObj.time, value: total }
      })
 
