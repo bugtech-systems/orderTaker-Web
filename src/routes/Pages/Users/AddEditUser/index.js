@@ -201,7 +201,7 @@ const AddEditUser = () => {
   const isPhonesMultiple = values.contacts.length > 1;
 
   return (
-    <Dialog open={userDialog ? true : false} onClose={onClosesDialog} className={classes.dialogRoot}>
+    <Dialog open={userDialog ? true : false} onClose={onCloseDialog} className={classes.dialogRoot}>
       <DialogTitle className={classes.dialogTitleRoot}>{currentUser ? 'Edit User Details' : 'Create New User'}</DialogTitle>
       <DialogContent dividers>
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems="center" mb={{ xs: 6, md: 5 }}>

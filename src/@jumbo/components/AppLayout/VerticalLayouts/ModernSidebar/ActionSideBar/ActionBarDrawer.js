@@ -150,7 +150,7 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
             <Box className={classes.header}>
               <Box display="flex" justifyContent="flex-start" alignItems="center">
         <Box fontSize={20} fontWeight={700}>
-            {activeOption === 'profile' && 'My Pofile'}
+            {activeOption === 'profile' && 'My Profile'}
             {activeOption === 'cart' && order_no}
         </Box>
         {cart && cart.id && isAdmin && cart.order_status !== 'Cancelled' && <IconButton color="secondary" size="small" style={{marginLeft: '10px'}} onClick={() => setVoidConfirm(true)}>
