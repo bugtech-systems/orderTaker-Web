@@ -1,24 +1,18 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
-import CmtAvatar from '../../../../../@coremat/CmtAvatar';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { setCurrentProduct, updateStarredStatus } from '../../../../../redux/actions/ProductApp';
 import { useDispatch, useSelector } from 'react-redux';
-import CmtList from '../../../../../@coremat/CmtList';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
-import MoreOptions from '../ProductsList/ListTableView/ProductCellOptions/MoreOptions';
 import CmtImage from '../../../../../@coremat/CmtImage';
-
-
 import commonData from "../../../../../utils/commonData";
-
 
 const useStyles = makeStyles(theme => ({
   dialogRoot: {
@@ -39,17 +33,18 @@ const useStyles = makeStyles(theme => ({
   avatarView: {
     [theme.breakpoints.down('sm')]: {
       '& .Cmt-avatar-size': {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
       },
     },
   },
   titleRoot: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 900,
     color: theme.palette.common.dark,
     fontWeight: theme.typography.fontWeightBold,
     [theme.breakpoints.up('md')]: {
-      fontSize: 18,
+      fontSize: 20,
     },
   },
   subTitleRoot: {
@@ -65,6 +60,8 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
   },
 }));
+
+
 const ProductDetail = ({ open, handleDialog }) => {
   const classes = useStyles();
   const { currentProduct } = useSelector(({ productApp }) => productApp);
@@ -75,16 +72,17 @@ const ProductDetail = ({ open, handleDialog }) => {
     dispatch(setCurrentProduct({ ...currentProduct, starred: status }));
   };
 
-  const { name, description, limit, price, cover, uom, other_amounts, starred } = currentProduct;
+  const { name, description, limit, tax, discounts, charges, price, cover, uom, other_amounts, starred } = currentProduct;
 
   const otherAmounts = other_amounts.map(a => {
     let oaType = a.type.charAt(0).toUpperCase() + a.type.slice(1);
-    let oaName = `${a.name} - ${a.amount_type === 'rate' ? `${a.value}%` : `₱${Number(a.value).toFixed(2)}`}`;
+    let oaName = `${a.name} : ${a.amount_type === 'rate' ? `${a.value}%` : `₱${Number(a.value).toFixed(2)}`}`;
 
     return (
-      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" mb={1}>
-        <Typography color="primary">{oaName}</Typography>
-        <Typography variant="caption">{oaType}</Typography>
+      // <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" mb={1}>
+      <Box display="flex" alignItems="center">
+        <Typography color="tertiary">{oaName}</Typography>
+        <Typography color="secondary" variant="caption">{oaType}</Typography>
       </Box>
     );
   });
@@ -94,13 +92,12 @@ const ProductDetail = ({ open, handleDialog }) => {
       <Box className={classes.userInfoRoot}>
         <Box mr={3} display="flex" alignItems="center">
           <Box className={classes.avatarView} mr={{ xs: 4, md: 6 }}>
-            {/* <CmtAvatar size={70} src={dpUrl} alt={name} /> */}
-            <CmtImage  src={`${commonData.staticUrl}${cover}`} height={70} width={70} alt={name} />
+            <CmtImage  src={`${commonData.staticUrl}${cover}`} height={100} width={100} alt={name} />
           </Box>
 
           <Box mt={-2}>
             <Box display="flex" alignItems="center">
-              <Typography className={classes.titleRoot}> {name}</Typography>
+              <Typography className={classes.titleRoot}> {name} </Typography>
               <Box ml={1}>
                 <Checkbox
                   icon={<StarBorderIcon />}
@@ -111,13 +108,12 @@ const ProductDetail = ({ open, handleDialog }) => {
               </Box>
             </Box>
             {price && (
-              <Box mt={-1}>{price && <Typography color="primary"> Price: ₱{Number(price).toFixed(2)}</Typography>}</Box>
+              <Box mt={-1}>{price && <Typography color="primary">  ₱{Number(price).toFixed(2)}</Typography>}</Box>
             )}
           </Box>
         </Box>
         <Box ml="auto" mtq={-2} display="flex" alignItems="center">
           <Box ml={1}>
-            {/* <MoreOptions product={currentProduct} isFromDetailPage={true} isDetailView={true} /> */}
           </Box>
           <Box ml={1}>
             <IconButton onClick={handleDialog}>
@@ -127,24 +123,30 @@ const ProductDetail = ({ open, handleDialog }) => {
         </Box>
       </Box>
       <Box px={6} py={5}>
-        <Box mb={5} component="p" color="common.dark">
-          Product Detail
-        </Box>
-          <Box display="flex" alignItems="center" mb={3} color="primary" pl={5}>
-            <Typography color="primary"> Description: {currentProduct.description}</Typography>
+            <Box mb={3} color="primary" component="p" pl={60}>
+              Product Detail
+            </Box>
+        
+          <Box display="flex" alignItems="center" mb={1} color="primary" pl={5}>
+            <Typography color="tertiary" fontWeight="900"> Description: </Typography>
+            <Typography color="primary">{currentProduct.description}</Typography>
           </Box>
-          <Box display="flex" alignItems="center" mb={3} color="primary" pl={5}>
-            <Typography color="primary"> Stock Limit: {currentProduct.limit}</Typography>
-             <Typography variant="caption"> {currentProduct.uom}</Typography>
+          
+          <Box display="flex" alignItems="center" mb={1} color="primary" pl={5}>
+            <Typography color="tertiary"> Stock Limit: </Typography>
+            <Typography color="primary"> {currentProduct.limit}</Typography>
+            /  <Typography color="secondary" variant="caption"> ({currentProduct.uom})</Typography>
           </Box>
+          
           <Box display="flex" alignItems="center" color="primary" pl={5}>
-            <Typography color="primary"> Available Stocks: {currentProduct.stocks}</Typography>
-              <Typography variant="caption"> {currentProduct.uom}</Typography>
+            <Typography color="tertiary"> Available Stocks: </Typography>
+            <Typography color="primary">{currentProduct.stocks}</Typography>
+            /  <Typography color="secondary" variant="caption"> ({currentProduct.uom})</Typography>
           </Box>
         </Box>
       {other_amounts.length !== 0 && (
         <Box px={6} py={5}>
-          <Box component="p" color="common.dark">
+          <Box component="p" pl={50} color="common.dark">
             Other Charges and Discounts
           </Box>
           <br />
