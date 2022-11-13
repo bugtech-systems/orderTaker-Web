@@ -23,10 +23,13 @@ import Cart from './CartDetail/index';
 import CartFooter from './CartDetail/CartFooter';
 
 
+import BlockIcon from '@material-ui/icons/Block';
+
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrderReceipt } from 'redux/actions/Report.action';
 
+import { voidOrderId } from 'redux/actions/OrderApp';
 
 
 
@@ -102,6 +105,7 @@ const useStyles = makeStyles(theme => ({
 const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, handleClick, ...rest }) => {
   const classes = useStyles();
   const cart = useSelector(({cartApp}) => cartApp);
+  const { isAdmin } = useSelector(({auth}) => auth);
   const {business} = useSelector(({dashboard}) => dashboard);
   const [printDirect, setPrintDirect] = useState(false);
 
@@ -113,7 +117,12 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
     dispatch(setOrderReceipt({...cart, business}, printDirect));
   }
 
+  const handleVoid = () => {
+    dispatch(voidOrderId(cart.id))
+  }
+
   console.log(activeOption)
+  console.log(isAdmin)
   return (
     <CmtDrawer variant="temporary" anchor="left" onClose={onDrawerClose} {...rest} style={{overflowY: 'hidden'}}>
       <Box className={clsx(classes.root)}>
@@ -123,9 +132,14 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
           </IconButton> */}
           {(activeOption === 'profile' || activeOption === 'cart') && 
             <Box className={classes.header}>
+              <Box display="flex" justifyContent="flex-start" alignItems="center">
         <Box fontSize={20} fontWeight={700}>
             {activeOption === 'profile' && 'My Pofile'}
             {activeOption === 'cart' && order_no}
+        </Box>
+        {cart && cart.id && isAdmin && <IconButton color="secondary" size="small" style={{marginLeft: '10px'}} onClick={() => handleVoid()}>
+          <BlockIcon fontSize="small"/>
+        </IconButton>}
         </Box>
         <Box>
         <Box display="flex" >

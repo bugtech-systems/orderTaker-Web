@@ -64,6 +64,15 @@ export const getOrders = params => {
           });
     };
 
+    export const voidOrderId = (id) => dispatch => {
+      return axios
+        .post(`${commonData.apiUrl}/order/void/${id}`, { headers: authHeader() })
+        .catch(err => {
+          console.log(err)
+          throw err;
+        });
+  };
+
 
 
   export const payOrder = (data) => dispatch => {
