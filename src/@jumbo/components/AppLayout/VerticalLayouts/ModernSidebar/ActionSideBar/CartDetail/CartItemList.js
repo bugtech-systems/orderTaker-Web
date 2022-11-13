@@ -3,11 +3,12 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import { Box, Divider, Typography, Button } from '@material-ui/core';
+import { Box, Divider, Typography, Button, IconButton } from '@material-ui/core';
 import CmtList from '../../../../../../../@coremat/CmtList';
 import EmptyResult from '../EmptyResult';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
+import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -229,6 +230,9 @@ setSelected(null);
           <Box width="100%" display="flex" justifyContent="space-between">
         <Box>
         Amount Due
+        <IconButton>
+          <UnfoldMoreIcon />
+        </IconButton>
         </Box>
         <Box pr={5} fontSize={18} fontWeight={700}>
         ₱{Number(amount_due).toFixed(2)}
