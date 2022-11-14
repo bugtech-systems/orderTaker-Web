@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CmtAdvCard from '../../../../../../../@coremat/CmtAdvCard';
 import CmtCardMedia from '../../../../../../../@coremat/CmtCard/CmtCardMedia';
 import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
-
-import CmtList from '../../../../../../../@coremat/CmtImage';
-
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import EditIcon from '@material-ui/icons/Edit';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import { useSelector } from 'react-redux';
-
 import { IconButton } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { SET_USER_DIALOG } from 'redux/actions/types';
 import { setCurrentUser } from 'redux/actions/Users';
-import commonData from 'utils/commonData';
 
+import commonData from 'utils/commonData';
+import { useEffect, useState } from 'react';
+
+const actions = [
+  {
+    label: 'View Profile',
+  }
+];
 
 const useStyles = makeStyles(theme => ({
   actionMenu: {
@@ -89,32 +92,43 @@ const UserDetail = () => {
   const { authUser } = useSelector(({auth}) => auth);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({
+    contacts: []
+  });
 
   let role = authUser.roles ? String(authUser.roles[0].name).toUpperCase() : ''
-  const { email, phones, address } = authUser;
+  const { email, contacts, phone, phones, cotact, address, dpUrl } = authUser;
 
   const handleEdit = () => {
-    // dispatch(setCurrentUser(authUser));
+    dispatch(setCurrentUser(user));
     dispatch({type: SET_USER_DIALOG, payload: true});
-    setOpen(true);
   }
+
+  useEffect(() => {
+    setUser({
+      contacts: [],
+      ...authUser
+    })
+  }, [authUser])
+
 
   return (
     <Box style={{margin: '10px'}}>
+    
  <CmtAdvCard
       actionsPos="top-corner"
       actionMenuClassName={classes.actionMenu}>
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardMedia className={classes.cardMediaRoot} 
       >
-        
+
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={56} src={`${commonData.staticUrl}${authUser.dpUrl}`} alt={authUser.name} />
+              // <CmtAvatar className={user.dpUrl} size={50} src={`${commonData.staticUrl}${user.dpUrl}`} alt={user.name} />
+              <CmtAvatar className={classes.avatarRoot} size={50} src={`${commonData.staticUrl}${user.dpUrl}`} alt={user.name} />
             }
-            title={authUser.name}
+            title={user.name}
             titleProps={{ style: { color: '#fff' } }}
             subTitle={role}
             subTitleProps={{ style: { color: '#fff' } }}
@@ -124,50 +138,75 @@ const UserDetail = () => {
               horizontal: 'right',
             }}
             avatarProps={{ variant: 'circle' }}
-            // badge={<CmtImage src={authUser.badge} alt="Badge" />}
             align="vertical"
           />
         </Box>
       </CmtCardMedia>
-    </CmtAdvCard>
+      {/* <CmtAdvCardContent>
+        <UserInfo user={user} />
+      </CmtAdvCardContent> */}    
+      </CmtAdvCard>
     
 <Box px={6} py={5}>
         <Box mb={5} component="p" color="common.dark">
          Personal Details
         </Box>
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+        
+          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <EmailIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
-            {email}
+            {user.email}
           </Box>
         </Box>
-     {phones.length !== 0 && <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
+        
+          {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <EmailIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {user.dpUrl}
+          </Box>
+        </Box> */}
+        
+        {/* {user.contacts.length !== 0 && phones()} */}
+        {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
           <PhoneIcon />
           <Box ml={5}>
-            <CmtList
-              data={phones}
-              renderRow={(item, index) => (
-                <Box key={index} display="flex" alignItems="center">
-                  <Box color="text.secondary">{item.phone}</Box>
-                  <Box ml={2} className={classes.labelRoot}>
-                    {item.label}
-                  </Box>
-                </Box>
-              )}
-            />
+            {user.contacts.map((item, index) => {
+              return ( <Box key={index} display="flex" alignItems="center" >
+              <Box color="primary.main" component="p" className="pointer">{item.number}</Box>
+              <Box ml={2} className={classes.labelRoot}>
+                {item.label}
+              </Box>
+            </Box>)
+            })}
           </Box>
-        </Box>
-        }
+        </Box> */}
+        
          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <RoomIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
-            {address}
+            {user.address}
           </Box>
         </Box>
+        
+        
+         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <PhoneIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {user.contacts}
+          </Box>
+        </Box>
+         
+         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <PhoneIphoneIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {user.phone}
+          </Box>
+        </Box>
+        
       </Box>
     </Box>
    
   );
 };
 
-export default UserDetail;
+export default UserDetail;  
