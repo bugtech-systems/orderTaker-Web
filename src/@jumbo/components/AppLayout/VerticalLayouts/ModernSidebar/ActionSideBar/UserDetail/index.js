@@ -3,14 +3,13 @@ import CmtAdvCard from '../../../../../../../@coremat/CmtAdvCard';
 import CmtCardMedia from '../../../../../../../@coremat/CmtCard/CmtCardMedia';
 import CmtObjectSummary from '../../../../../../../@coremat/CmtObjectSummary';
 import CmtAvatar from '../../../../../../../@coremat/CmtAvatar';
-import CmtList from '../../../../../../../@coremat/CmtImage';
-
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import EditIcon from '@material-ui/icons/Edit';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import { useSelector } from 'react-redux';
 import { IconButton } from '@material-ui/core';
@@ -20,7 +19,6 @@ import { setCurrentUser } from 'redux/actions/Users';
 
 import commonData from 'utils/commonData';
 import { useEffect, useState } from 'react';
-
 
 const actions = [
   {
@@ -99,7 +97,7 @@ const UserDetail = () => {
   });
 
   let role = authUser.roles ? String(authUser.roles[0].name).toUpperCase() : ''
-  const { email, contacts, address } = authUser;
+  const { email, contacts, phone, phones, cotact, address, dpUrl } = authUser;
 
   const handleEdit = () => {
     dispatch(setCurrentUser(user));
@@ -107,30 +105,27 @@ const UserDetail = () => {
   }
 
   useEffect(() => {
-
     setUser({
       contacts: [],
       ...authUser
     })
-
   }, [authUser])
-
 
 
   return (
     <Box style={{margin: '10px'}}>
+    
  <CmtAdvCard
       actionsPos="top-corner"
       actionMenuClassName={classes.actionMenu}>
         <IconButton onClick={(e) => handleEdit()} style={{position: 'absolute', right: '5px', zIndex: 5}} color="primary"><EditIcon  /></IconButton>
       <CmtCardMedia className={classes.cardMediaRoot} 
-      // image={'https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX9896883.jpg'}
       >
 
         <Box className={classes.cardMediaContent}>
           <CmtObjectSummary
             avatar={
-              <CmtAvatar className={classes.avatarRoot} size={50} src={`${commonData.staticUrl}${user.dpUrl}`} alt={user.name} />
+              <CmtAvatar className={user.dpUrl} size={50} src={`${commonData.staticUrl}${user.dpUrl}`} alt={user.name} />
             }
             title={user.name}
             titleProps={{ style: { color: '#fff' } }}
@@ -142,8 +137,6 @@ const UserDetail = () => {
               horizontal: 'right',
             }}
             avatarProps={{ variant: 'circle' }}
-         
-            // badge={<CmtAvatar src={user.badge} alt="Badge" />}
             align="vertical"
           />
         </Box>
@@ -157,14 +150,22 @@ const UserDetail = () => {
         <Box mb={5} component="p" color="common.dark">
          Personal Details
         </Box>
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+        
+          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <EmailIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
             {user.email}
           </Box>
         </Box>
+        
+          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <EmailIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {user.dpUrl}
+          </Box>
+        </Box>
         {/* {user.contacts.length !== 0 && phones()} */}
-        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
+        {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
           <PhoneIcon />
           <Box ml={5}>
             {user.contacts.map((item, index) => {
@@ -176,13 +177,30 @@ const UserDetail = () => {
             </Box>)
             })}
           </Box>
-        </Box>
+        </Box> */}
+        
          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <RoomIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
             {user.address}
           </Box>
         </Box>
+        
+        
+         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <PhoneIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {user.contacts}
+          </Box>
+        </Box>
+         
+         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          <PhoneIphoneIcon />
+          <Box ml={5} color="primary.main" component="p" className="pointer">
+            {user.phone}
+          </Box>
+        </Box>
+        
       </Box>
     </Box>
    
