@@ -210,9 +210,9 @@ const SignIn = ({
               style={{textAlign: "end"}}
               component="p"
             >
-              <NavLink to="/forgot-password">
+              {/* <a target="_blank" href="http://localhost/netflix/">
                 <IntlMessages id="appModule.forgotPassword" />
-              </NavLink>
+              </a> */}
             </Box>
           </Box>
 

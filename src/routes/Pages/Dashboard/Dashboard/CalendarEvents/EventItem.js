@@ -74,11 +74,11 @@ const EventItem = ({ item }) => {
         }}
         subTitle={getSubTitle()}
         actionsComponent={
-          item.order_status === 'Paid' ? (
+          String(item.order_status).toLowerCase() === 'paid' ? (
             <Box color="success.main">
               <CheckIcon />
             </Box>
-          ) : item.order_status === 'Cancelled' && (
+          ) : String(item.order_status).toLowerCase() === 'cancelled' && (
             <Box >
               <BlockIcon fontSize='small' />
             </Box>
