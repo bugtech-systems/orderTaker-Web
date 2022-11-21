@@ -4,9 +4,9 @@
 // const staticUrl = `${apiUrl}/static/`;
 
 // //Local
-const url = 'http://localhost:3001';
+const url = 'http://localhost:3005';
 const apiUrl = `${url}/api`;
-const staticUrl = 'http://localhost:3001/api/static/';
+const staticUrl = 'http://localhost:3005/api/static/';
 
 
 export default {

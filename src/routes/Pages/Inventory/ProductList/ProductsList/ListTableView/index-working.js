@@ -36,7 +36,7 @@ const classes = useStyles();
   const [products, setProducts] = useState([])
   
   const fetchData = async () => {
-  const response = await fetch("http://localhost:3001/api/products")
+  const response = await fetch("http://localhost:3005/api/products")
   const data = await response.json()
    setProducts(data)
   //  setProducts(newProducts)
