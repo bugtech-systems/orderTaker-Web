@@ -25,7 +25,18 @@ const useStyles = makeStyles({
 export default function CountrySelect({value, handleSelect}) {
   const classes = useStyles();
   const { allProducts, filterType }  = useSelector(({productApp}) => productApp);
+  const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
+  
+  
+  
+
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(getAllProducts({...filterType, searchText: searchTerm, page: 0 }))
+  }
 
 
   useEffect(() => {
@@ -36,6 +47,10 @@ export default function CountrySelect({value, handleSelect}) {
   }, [])
 
   return (
+    
+    <form
+      onSubmit={handleSubmit}
+    >
     <Autocomplete
       id="option-select-demo"
       options={allProducts}
@@ -44,6 +59,7 @@ export default function CountrySelect({value, handleSelect}) {
         option: classes.option,
       }}
       onChange={(event, newValue) => {
+      console.log(newValue)
         handleSelect(newValue)
       }}
       autoHighlight
@@ -51,7 +67,7 @@ export default function CountrySelect({value, handleSelect}) {
       getOptionLabel={(option) => option.name}
       renderOption={(option) => (
             <Box width="100%" display="flex" alignItems="flex-end" justifyContent="space-between">
-         <Typography >{option.name} </Typography> 
+         <Typography >{option.name} - {option.description} </Typography> 
            <Box display="flex" alignItems="flex-start" justifyContent="center">
             <Box mr={3} mt={1} style={{width: '30px'}} display="flex" alignItems="center" justifyContent="flex-end">
            <Typography  variant="caption" style={{ fontSize: "10px"}}>({option.stocks})</Typography>
@@ -65,6 +81,10 @@ export default function CountrySelect({value, handleSelect}) {
       renderInput={(params) => (
         <TextField
           {...params}
+          onChange={(e) => {
+          console.log(e.target.value)
+          setSearchTerm(e.target.value)
+          }}
           label="Choose a product"
           variant="outlined"
           size="small"
@@ -76,5 +96,6 @@ export default function CountrySelect({value, handleSelect}) {
         />
       )}
     />
+    </form>
   );
 }

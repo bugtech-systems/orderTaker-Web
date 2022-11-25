@@ -96,7 +96,7 @@ const {  popularProducts } = useSelector(({ dashboard }) => dashboard);
                 />}
           />
         <TablePagination
-          rowsPerPageOptions={[10, 50, 100]}
+          rowsPerPageOptions={[10, 25, 50]}
           component="div"
           count={popularProducts.length}
           rowsPerPage={filterType.rowsPerPage}

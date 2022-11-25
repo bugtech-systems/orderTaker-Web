@@ -132,7 +132,7 @@ const ListTableView = ({
           </TableBody>
       </Table>
       <TablePagination
-        rowsPerPageOptions={[10, 50, 100]}
+        rowsPerPageOptions={[10, 25, 50]}
         component="div"
         count={totalCustomers}
         rowsPerPage={rowsPerPage}

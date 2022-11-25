@@ -27,11 +27,12 @@ const Sidebar = ({ onClickCreateProduct, width }) => {
 
   useEffect(() => {
     dispatch(getProductCounts());
-  }, [dispatch, productsList]);
+  }, [productsList]);
 
   useEffect(() => {
     dispatch(getLabelsList());
-  }, [dispatch]);
+    localStorage.setItem('filter', JSON.stringify(filterType))
+  }, []);
 
   const onChangeFolder = folder => {
     dispatch(

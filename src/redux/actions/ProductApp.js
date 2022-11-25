@@ -32,6 +32,7 @@ export const toggleExpandSidebar = value => {
 
 //For setting Filtertype
 export const setFilterType = filterType => {
+  localStorage.setItem('filter', JSON.stringify(filterType))
   return {
     type: SET_FILTER_TYPE,
     payload: filterType,
@@ -105,6 +106,15 @@ export const updateLabel = label => {
 
 //for getting products list
 export const getProductsList = params => {
+console.log(params)
+  let filter = localStorage.getItem('filter');
+  
+  if(filter){
+    params = JSON.parse(filter)
+  }
+  console.log(params)
+
+
   return dispatch => {
     // dispatch(fetchStart());
     axios
@@ -113,6 +123,7 @@ export const getProductsList = params => {
         dispatch({ type: GET_PRODUCTS_LIST, payload: { productsList: data.rows, totalProducts: data.count} });
       })
       .catch(error => {
+      console.log(error)
         dispatch(fetchError('Something went wrong'));
       });
   };

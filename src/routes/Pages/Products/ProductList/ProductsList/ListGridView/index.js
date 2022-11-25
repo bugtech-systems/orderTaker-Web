@@ -79,7 +79,7 @@ const PopularProducts = () => {
         />
            
         <TablePagination
-          rowsPerPageOptions={[10, 50, 100]}
+          rowsPerPageOptions={[10, 25, 50]}
           component="div"
           count={totalProducts}
           rowsPerPage={filterType.rowsPerPage}
