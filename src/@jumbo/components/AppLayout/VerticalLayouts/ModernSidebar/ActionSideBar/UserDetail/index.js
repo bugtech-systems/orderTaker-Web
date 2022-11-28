@@ -158,12 +158,12 @@ const UserDetail = () => {
           </Box>
         </Box>
         
-          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <EmailIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
             {user.dpUrl}
           </Box>
-        </Box>
+        </Box> */}
         {/* {user.contacts.length !== 0 && phones()} */}
         {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
           <PhoneIcon />
@@ -187,7 +187,7 @@ const UserDetail = () => {
         </Box>
         
         
-         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+         {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <PhoneIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
             {user.contacts}
@@ -200,7 +200,7 @@ const UserDetail = () => {
             {user.phone}
           </Box>
         </Box>
-        
+         */}
       </Box>
     </Box>
    
