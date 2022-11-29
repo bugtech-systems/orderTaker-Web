@@ -198,7 +198,7 @@ const AddEditUser = () => {
     }
   };
 
-  const isPhonesMultiple = values.contacts.length > 1;
+  const isPhonesMultiple = values.contacts.length >= 1;
 
   return (
     <Dialog open={userDialog ? true : false} onClose={onCloseDialog} className={classes.dialogRoot}>

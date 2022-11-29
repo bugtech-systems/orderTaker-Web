@@ -111,6 +111,7 @@ const UserDetail = () => {
     })
   }, [authUser])
 
+    console.log(user)
 
   return (
     <Box style={{margin: '10px'}}>
@@ -158,12 +159,12 @@ const UserDetail = () => {
           </Box>
         </Box>
         
-          <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <EmailIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
             {user.dpUrl}
           </Box>
-        </Box>
+        </Box> */}
         {/* {user.contacts.length !== 0 && phones()} */}
         {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 5 }}>
           <PhoneIcon />
@@ -186,20 +187,24 @@ const UserDetail = () => {
           </Box>
         </Box>
         
-        
-         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+        {user.contacts && user.contacts.length !== 0 && contacts.map(a => {
+          return (
+        <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <PhoneIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
-            {user.contacts}
+              {a.number} - {a.label}
           </Box>
         </Box>
-         
-         <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
+          )
+        })
+      
+}
+            {/* <Box display="flex" alignItems="center" mb={{ xs: 4, sm: 7 }}>
           <PhoneIphoneIcon />
           <Box ml={5} color="primary.main" component="p" className="pointer">
             {user.phone}
           </Box>
-        </Box>
+        </Box> */}
         
       </Box>
     </Box>
