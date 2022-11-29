@@ -82,7 +82,10 @@ const SignIn = ({
   variant = "default",
   wrapperVariant = "default"
 }) => {
-  const [ values, setValues ] = useState({});
+  const [ values, setValues ] = useState({
+    email: "aja@mail.com",
+    password: "123123123"
+  });
   const [ errors, setErrors ] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles({variant});
