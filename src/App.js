@@ -31,7 +31,7 @@ if (token) {
 const App = () => (
   <Provider store={store}>
     <BrowserRouter 
-    // basename="/build"
+    basename="/pos"
      history={history}>
       <AppContextProvider>
         <AppWrapper>
