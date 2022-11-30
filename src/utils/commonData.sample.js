@@ -1,12 +1,12 @@
-//Dev
-// const url = 'https://www.allinpaking.online';
-// const apiUrl = `${url}/app/api`;
+// Dev
+// const url = 'http://192.168.254.122:3001';
+// const apiUrl = `${url}/api`;
 // const staticUrl = `${apiUrl}/static/`;
 
-// //Local
-const url = 'http://localhost:3001';
+// // //Local
+const url = 'https://docampaign.online';
 const apiUrl = `${url}/api`;
-const staticUrl = 'http://localhost:3001/api/static/';
+const staticUrl = `${apiUrl}/static/`;
 
 
 export default {
