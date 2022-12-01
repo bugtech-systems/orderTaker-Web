@@ -17,6 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddIcon from '@material-ui/icons/Add';
 // import { isValidEmail } from '../../../../../@jumbo/utils/commonHelper';
 import { Typography, Menu, Tooltip, MenuItem, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 
@@ -38,13 +39,16 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductOtherAmount, createProduct, onUpdateProduct, updateProductOtherAmount, getAllProductOtherAmount } from '../../../../../redux/actions/ProductApp';
+import { addProductOtherAmount, createProduct, onUpdateProduct, updateProductOtherAmount, getAllProductOtherAmount, getAllUom, createTag } from '../../../../../redux/actions/ProductApp';
 import { uploadFile } from '../../../../../redux/actions/Users';
 
 
 import commonData from "../../../../../utils/commonData";
 import { CheckBox } from '@material-ui/icons';
-
+import Uomautocomplete from './UomAutocomplete';
+import { CLEAR_OPTIONS } from 'redux/actions/types';
+import _, { isFunction } from 'lodash';
+import { fetchError } from 'redux/actions';
 
 
 const useStyles = makeStyles(theme => ({
@@ -86,12 +90,15 @@ const useStyles = makeStyles(theme => ({
 const CreateProduct = ({ handleDialog }) => {
 
   const { currentProduct, labelsList, tax_disc } = useSelector(({ productApp }) => productApp);
+  const { options } = useSelector(({ uiReducer }) => uiReducer);
 
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [openTag, setOpenTag] = useState(false);
   const [isAddVD, setIsAddVD] = useState(null);
   const [showLabels, setShowLabels] = useState(null);
   const [showLimit, setShowLimit] = useState(false);
+  const [uom, setUom] = useState({});
   const [other_amounts, setOtherAmounts] = useState({
     type: null,
     name: '',
@@ -261,8 +268,16 @@ const CreateProduct = ({ handleDialog }) => {
 
   useEffect(() => {
     if(currentProduct){
+    let { uom } = currentProduct;
       setValues(currentProduct) 
+      let unit = options.find(a => String(a.name).toLowerCase() === String(uom).toLowerCase());
+      setUom(unit);
     }
+
+
+
+
+
   }, [currentProduct])
 
 
@@ -307,8 +322,49 @@ const handleEditOtherAmounts = (val, index) => {
   setOtherAmounts({...val, isNew: true});
 }
 
+const handleTag = (e) => {
+  let i = options.find(a => String(a.name).toLowerCase() === String(e.name).toLowerCase());
 
+  if(!i){
+    dispatch(createTag({
+      name: String(e.name).toLowerCase(),
+      type: 'uom'
+    }))
+  return
+  }
+
+  dispatch(fetchError('Unit already exist'))
+  
+}
+
+const handleUom = (e) => {
+  setUom(e);
+  setValues({...values, uom: e.name})
+  }
+
+  useEffect(() => {
+
+    dispatch(getAllUom())
+
+    return () => {
+      dispatch({type: CLEAR_OPTIONS})
+    }
+  }, [])
+
+  
+  console.log(values)
   return (
+    <>
+     <Uomautocomplete
+            open={openTag}
+            handleClose={() => setOpenTag(false)}
+            handleSave={handleTag}
+            title="Unit of measure"
+            selected={uom}
+            handleSelect={handleUom}
+            options={options}
+              />
+              
     <Dialog maxWidth="sm" fullWidth 
     open={true} 
       onClose={handleDialog} className={classes.dialogRoot}>
@@ -330,7 +386,11 @@ const handleEditOtherAmounts = (val, index) => {
                 label="Product Name"
                 onChange={handleChange('name')}
                 helperText={errors.name}
-              />
+              /><br/>&nbsp;<span>UNIT: {values.uom && String(values.uom).toUpperCase()}&nbsp;&nbsp;
+                <IconButton size="small" onClick={() => setOpenTag(true)}>
+                  <AddIcon fontSize="small" color="primary"/>
+                </IconButton>
+              </span>
             </Grid>
             <Grid item xs={2} sm={2}>
             <Box ml={1}>
@@ -382,6 +442,7 @@ const handleEditOtherAmounts = (val, index) => {
                   onChange={handleChange('purchase_price')}
                 />
            </Grid> */}
+      
          <Grid item xs={12} sm={6} lg={6}>
          <FormGroup row>
       <FormControlLabel
@@ -586,6 +647,8 @@ style={{marginLeft: '10px'}}
       </DialogContent>
       {/* <ADDTAXDISC/> */}
     </Dialog>
+    </>
+
   );
 };
 

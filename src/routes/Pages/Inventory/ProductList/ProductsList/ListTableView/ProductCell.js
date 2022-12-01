@@ -18,7 +18,7 @@ import commonData from "../../../../../../utils/commonData";
 
 const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, onShowProductDetail, onClickEditProduct, onClickAddStocks }) => {
   const classes = useStyles();
-  const { id, name, description, stocks, price, cover } = product;
+  const { id, name, description, stocks, price, cover, uom } = product;
 
   return (
     <TableRow className={classes.tableRowRoot} onClick={() => onShowProductDetail(product)}>
@@ -52,7 +52,7 @@ const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, o
       <TableCell align='center' padding="none" >
            <Box pr={5}>
               <Typography className={classes.titleRoot} component="div" variant="h5">
-              {stocks}
+              {stocks}/{uom}
               </Typography>
               </Box>
        </TableCell>

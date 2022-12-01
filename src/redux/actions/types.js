@@ -32,6 +32,9 @@ export const SET_UI = 'SET_UI';
 export const SET_USER_DIALOG = 'SET_USER_DIALOG';
 export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 export const SET_NOTIF_COUNT = 'SET_NOTIF_COUNT';
+export const SET_OPTIONS = 'SET_OPTIONS';
+export const CLEAR_OPTIONS = 'CLEAR_OPTIONS';
+
 
 
 // STORE

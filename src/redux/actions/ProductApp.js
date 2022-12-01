@@ -11,6 +11,7 @@ import {
   TOGGLE_SIDEBAR_COLLAPSED,
   SET_OTHER_AMOUNTS,
   SET_ALL_PRODUCTS,
+  SET_OPTIONS,
   // UPDATE_PRODUCT,
   // UPDATE_PRODUCT_LABEL,
   // UPDATE_LABEL_ITEM,
@@ -356,3 +357,37 @@ export const getAllProductOtherAmount = () => {
       });
   };
 };
+
+export const getAllUom = () => {
+  return dispatch => {
+    axios
+      .get(`${commonData.apiUrl}/tags/uom`)
+      .then(({ data }) => {
+        console.log(data)
+        dispatch({ type: SET_OPTIONS, payload: data });
+        // dispatch(getProductsList());
+        // dispatch(fetchSuccess(data.message));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+
+
+export const createTag = (data) => {
+  return dispatch => {
+    axios
+      .post(`${commonData.apiUrl}/tag`, data)
+      .then(({ data }) => {
+        console.log(data)
+        dispatch(getAllUom());
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(fetchError('Something went wrong'));
+      });
+  };
+};
+

@@ -1,4 +1,4 @@
-import {SET_CREATE_CUSTOMER_DIALOG, SET_USER_DIALOG, SET_STORE_DIALOG, SET_UI, CLEAR_CART, SET_CART_SUCCESS, SET_NOTIFICATIONS, SET_NOTIF_COUNT, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
+import {SET_CREATE_CUSTOMER_DIALOG, SET_OPTIONS, SET_USER_DIALOG, SET_STORE_DIALOG, SET_UI, CLEAR_CART, SET_CART_SUCCESS, SET_NOTIFICATIONS, SET_NOTIF_COUNT, SET_DRAWER_OPEN, SET_ACTIVE_OPTION, SET_ACTION} from "../actions/types";
 
 const INIT_STATE = {
     createCustomerDialog: false,
@@ -11,7 +11,8 @@ const INIT_STATE = {
     cartSuccess: null,
     UserDialog: false,
     autoCompleteProducts: [],
-    autoCompleteCustomers: []
+    autoCompleteCustomers: [],
+    options: []
 };
 
 export default (state = INIT_STATE, action) => {
@@ -22,6 +23,13 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         ...payload
+      };
+    }
+
+    case SET_OPTIONS: {
+      return {
+        ...state,
+        options: payload
       };
     }
 
