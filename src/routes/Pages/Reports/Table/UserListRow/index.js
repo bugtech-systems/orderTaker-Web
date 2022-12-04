@@ -87,8 +87,8 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
             <Typography className={classes.titleRoot} component="div" variant="h4">
               {String(row.order_no).toUpperCase()}
             </Typography>
-            <Typography component="span" variant="h6" color={String(row.order_status).toLowerCase() === 'paid' ? 'primary' : String(row.order_status).toLowerCase() === 'unpaid' ? 'secondary' :  'textPrimary'}>
-              {String(row.order_status).toUpperCase()}
+            <Typography component="span" variant="h6" color={(String(row.order_status).toLowerCase() === 'paid' || row.isPaid) ? 'primary' : String(row.order_status).toLowerCase() === 'unpaid' ? 'secondary' :  'textPrimary'}>
+              {(String(row.order_status).toLowerCase() === 'paid' || row.isPaid) ? 'PAID' : String(row.order_no).toUpperCase()}
             </Typography>
           </div>
         </Box>

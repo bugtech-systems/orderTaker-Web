@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     border: `1px solid ${alpha(theme.palette.common.dark, 0.08)}`,
     borderRadius: 4,
-    padding: 17,
+    padding: 27,
     position: 'relative',
     overflow: 'hidden',
     '& .Cmt-media-object': {
@@ -137,15 +137,15 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    width: 140,
-    height: 140,
+    width: 160,
+    height: 160,
     borderRadius: '50%',
     padding: 12,
     cursor: 'pointer',
     marginTop: -11,
     '@media screen and (max-width: 420px)': {
-      width: 240,
-      height: 240,
+      width: 260,
+      height: 260,
       paddingLeft: 3,
     },
     '& .btn': {

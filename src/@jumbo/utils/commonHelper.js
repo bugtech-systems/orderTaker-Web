@@ -72,3 +72,13 @@ export const useDebounce = (value, delay) => {
 
   return debouncedValue;
 };
+
+export const formatNumber = (nm) => {
+  let n = Number(String(nm).replace('.00', ''));
+  var result = (n - Math.floor(n)) !== 0; 
+   
+  if (result)
+    return Number(n).toFixed(2);
+   else
+     return Number(n);
+}

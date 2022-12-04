@@ -43,6 +43,7 @@ const ModernSideBar = ({ children, className }) => {
   // const classes = useStyles();
 
   const { themeType } = useContext(AppContext);
+  console.log(layoutOptions)
   return (
     <CmtVerticalLayout
       className={clsx('Cmt-modernLayout', className)}

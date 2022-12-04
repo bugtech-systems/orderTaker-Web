@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import ListItem from "./ListItem";
+import ListItem from "../../../../Dashboard/Dashboard/PopularProducts/ListItem";
 import { useDispatch, useSelector } from 'react-redux';
 
 import CmtGridView from "../../../../../../@coremat/CmtGridView";
@@ -73,8 +73,6 @@ const PopularProducts = () => {
               pageSize={5}
               key={index} 
               item={item} 
-              product={item}
-              // product={productsList}
             />}
         />
            

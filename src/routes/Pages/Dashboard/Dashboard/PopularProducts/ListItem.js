@@ -22,6 +22,8 @@ import commonData from "utils/commonData";
 import { SET_DASHBOARD_DATA } from "../../../../../redux/actions/types";
 
 
+import { formatNumber } from "@jumbo/utils/commonHelper";
+
 
 const ListItem = ({item}) => {
   const classes = useStyles();
@@ -82,7 +84,7 @@ const ListItem = ({item}) => {
 
   const getActionComponent = () => (
     <Box>
-      <Box component="span" mr={1} color="primary.main">
+      <Box component="span" mr={3} color="primary.main">
         ₱{item.price} / {item.uom}
       </Box>
     </Box>
@@ -91,7 +93,7 @@ const ListItem = ({item}) => {
   const getStocks = () => (
     <Box>
       <Box component="span" mr={1} color="primary.main">
-        Stocks: {item.stocks}
+        Stocks: {formatNumber(item.stocks)}
       </Box>
     </Box>
   );
@@ -144,19 +146,19 @@ const ListItem = ({item}) => {
           }
         />
         <Box className={classes.listItemAction}>
-          <Box className={classes.listItemActionHover} onClick={() => 
-            // setRevealed(true)
-            addToCart()
-            }>
+          <Box className={classes.listItemActionHover} onClick={() => {
+            setRevealed(true);
+            // addToCart();
+          }}>
             <IconButton className="btn"  disabled={item.stocks <= 0}>
               <AddShoppingCartIcon />
             </IconButton>
           </Box>
-          {/* <AddToCart
+          <AddToCart
             className={classes.revealContainer}
             item={item}
             setRevealed={setRevealed}
-          /> */}
+          />
         </Box>
       </Box>
 

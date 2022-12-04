@@ -13,6 +13,7 @@ import clsx from 'clsx';
 import ProductCellOptions from './ProductCellOptions';
 
 import commonData from "../../../../../../utils/commonData";
+import { formatNumber } from "@jumbo/utils/commonHelper";
 
 
 
@@ -52,7 +53,7 @@ const ProductCell = ({ product, onDelete, checkedProducts, handleCellCheckBox, o
       <TableCell align='center' padding="none" >
            <Box pr={5}>
               <Typography className={classes.titleRoot} component="div" variant="h5">
-              {stocks}/{uom}
+              {formatNumber(stocks)}/{uom}
               </Typography>
               </Box>
        </TableCell>

@@ -17,6 +17,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
+import { formatNumber } from '@jumbo/utils/commonHelper';
 
 const useStyles = makeStyles(theme => ({
   itemRoot: {
@@ -124,7 +125,9 @@ const CommentItem = ({ item, handleItem }) => {
 
   useEffect(() => {
     let prdt = productsList.find(a => a.id === item.productId || a.id === item.id);
-    setPrd(prdt ? prdt : {});
+    console.log(prdt)
+    console.log(item)
+    setPrd(item && item.product ? item.product : {});
     setValues(item);
   }, [item]);
 
@@ -159,7 +162,7 @@ const CommentItem = ({ item, handleItem }) => {
       ₱{values.price}{values.product && values.product.uom ? `/${values.product.uom}` : ''}
       </Box>
       <Box fontSize={14} color="text.disabled" className={classes.htext}>
-      {values.stocks}
+      {formatNumber(values.stocks)}
       </Box>
     </Box>
       </Box>
@@ -187,7 +190,7 @@ const CommentItem = ({ item, handleItem }) => {
           <>
           <Box display="flex" flexDirection="column" alignItems="center">
           <Box fontSize={14} alignItems="center" style={{marginBottom: 5}} color="text.disabled">
-         <Typography>₱{values.total}</Typography> 
+         <Typography>₱{formatNumber(values.total)}</Typography> 
          <Typography className={isCart ? classes.qty : ''}>x{values.qty}</Typography> 
          {isCart && <IconButton className={classes.clearButton}
           size="small"
@@ -207,9 +210,12 @@ const CommentItem = ({ item, handleItem }) => {
             />
           </IconButton>
           <Box ml={3} mr={3} display="flex" justifyContent="center" alignItems="center" style={{ fontSize: 18, textAlign: 'center'}}>
-            <TextField type="number" value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={(e) => {
-                let av = prd.stocks - Number(e.target.value);
-           Number(e.target.value) >= 0 && av >= 0 ? handleItem(values, e.target.value) : e.target.value === '' && handleItem(values, 0);
+            <TextField 
+            // type="number"
+            step="any"
+            value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={(e) => {
+              let av = prd.stocks - Number(e.target.value).toFixed(2);
+           Number(e.target.value) >= 0 && av >= 0 ? handleItem(values, e.target.value) : handleItem(values, 0);
               }}/> 
             </Box>
           <IconButton className="btn-white"

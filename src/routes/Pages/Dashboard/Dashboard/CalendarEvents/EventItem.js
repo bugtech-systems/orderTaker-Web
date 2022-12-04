@@ -74,7 +74,7 @@ const EventItem = ({ item }) => {
         }}
         subTitle={getSubTitle()}
         actionsComponent={
-          String(item.order_status).toLowerCase() === 'paid' ? (
+          (String(item.order_status).toLowerCase() === 'paid' || item.isPaid) ? (
             <Box color="success.main">
               <CheckIcon />
             </Box>

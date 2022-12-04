@@ -60,19 +60,30 @@ export default function ProceedPayment() {
     
      
   }
-  console.log(amount_payable)
-  console.log(cart)
   const handleChanges = prop => event =>{
-    console.log(prop)
     let val = event.target.value
+    let valN = val % 1;
+    let valD = Number(val);
+    console.log(!valD)
+    console.log(!valN)
+    console.log(!val)
+    if(!Number(val) && val) {
+      return false; 
+    } else {
+      console.log(typeof val % 1 != 0 == 'number')
+      console.log(val % 1 != 0)
+    if(typeof val % 1 != 0 == 'number'){
+      return 
+    }
+
     let newChange = Number(val) - (order_no ? Number(amount_payable ? amount_payable : 0) : Number(amount_due));
-    console.log(newChange)
 
     if(prop === 'payment'){
       dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val, change: newChange <= 0 ? 0 : newChange }})
     } else {
       dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val }})
     }
+  }
   }
 
   const handleDialog = (val) =>{
@@ -184,7 +195,7 @@ export default function ProceedPayment() {
               margin='dense'
               label="Amount Paid"
               value={payment}
-              type="number"
+              step="0.01"
               onChange={handleChanges('payment')}
             />
     </Box>

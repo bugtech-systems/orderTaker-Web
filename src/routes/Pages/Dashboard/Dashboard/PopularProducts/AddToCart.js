@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import AppTextInput from "../../../../../@jumbo/components/Common/formElements/AppTextInput";
-import {Box, Button, Typography} from "@material-ui/core";
+import {Box, Button, IconButton, Typography} from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Chip from '@material-ui/core/Chip';
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
@@ -11,6 +12,7 @@ import {
   handleCart
  } from "../../../../../redux/actions/CartApp";
 import { fetchError } from "redux/actions";
+import { number } from "prop-types";
 
 
 
@@ -89,6 +91,13 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
     console.log("Checkout");
   };
 
+  const handleDecimals = (val) => {
+    let newQty = Number(quantity) + Number(val);
+    console.log(val)
+    handleQuantity(Number(newQty).toFixed(2));
+  }
+
+
   const backToInfo = () => {
     setRevealed(false);
   };
@@ -127,14 +136,28 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
     </Box>
   ) : (
     <Box {...rest}>
-      <Box display="flex" alignItems="center" mb={3}>
+      <Box display="flex" alignItems="center">
+        <div style={{padding: '10px', width: '100%' }}>
         <AppTextInput
           type="number"
+          step="any"
           label="Qty"
           value={quantity}
           variant="outlined"
           onChange={event => handleQuantity(event.target.value)}
         />
+        <Box display="flex" justifyContent="flex-start" alignItems="center">
+        <IconButton size="small">
+        <Chip size="small" label="1/4" onClick={() => handleDecimals(0.25)} />
+        </IconButton>
+        <IconButton size="small">
+        <Chip size="small" label="1/2" onClick={() => handleDecimals(0.5)} />
+        </IconButton>  <IconButton size="small">
+        <Chip size="small" label="3/4" onClick={() => handleDecimals(0.75)} />
+        </IconButton>
+        </Box>
+        </div>
+      
         <Box ml={3}>
           <Button
             className={classes.btnRoot}
@@ -148,11 +171,11 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
         </Box>
       </Box>
       <Box display="flex" alignItems="center">
-        <Box display="flex" flexDirection="column">
-          <Box component="span" fontSize={{xl: 16}}>
+        <Box display="flex" flexDirection="column" pl={3}>
+          <Box component="span" fontSize={{xl: 14}}>
             Price: ₱{item.price} / {item.uom}
           </Box>
-          <Box component="span" fontSize={{xl: 16}}>
+          <Box component="span" fontSize={{xl: 14}}>
             Stocks:{" "}
             {stocks > 0 ? (
               <Typography color="primary" component="span">
