@@ -70,7 +70,6 @@ const AssignTo = ({ options, handleClose, open, handleSave, title, selected, han
     const [value, setValue] = useState({});
   const classes = useStyles();
 
-  console.log(selected)
   return (
     <Dialog className={classes.dialogRoot} onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">

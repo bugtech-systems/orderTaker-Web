@@ -26,6 +26,7 @@ export const getNewDate = (noOfDays, format = 'DD MMM, YYYY') => {
     .format(format);
 };
 
+
 export const getDateElements = date => {
   const dateString = moment(date).format('dddd, MMMM DD YYYY, hh:mm A');
   const dateSections = dateString.split(',');
@@ -50,6 +51,8 @@ export const getTime = date => {
 };
 
 export const isDatesSame = (dateA, dateB) => {
+  // console.log(dateA)
+  // console.log(dateB)
   return moment(dateA).isSame(dateB, 'day');
 };
 

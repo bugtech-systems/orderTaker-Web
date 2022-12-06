@@ -7,6 +7,7 @@ import axios from 'axios';
 import { getOrders, getCartOrderById } from './OrderApp';
 import { getAdminDashboard } from './Dashboard';
 
+import {formatDec} from '../../utils/helpers';
 
 
 
@@ -14,8 +15,11 @@ import { getAdminDashboard } from './Dashboard';
 //For expanding sidebar
 export const handleCartItem = (cart_items, item) => {
 
+    console.log(item)
+
   let { stocks, uom  } = item.product ? item.product : {};
-  let qty = item.qty || item.qty >= 0 ? item.qty : 1;
+  let stcks = formatDec(stocks);
+  let qty = item.qty || item.qty >= 0 ? formatDec(item.qty) : formatDec(1);
   let cartItems = cart_items;
   let inds = cart_items.map(a => { return a.productId}).indexOf(item.productId);
 
@@ -23,7 +27,7 @@ export const handleCartItem = (cart_items, item) => {
 
   if(qty >= 0){
 
-    let newStock = stocks > qty && qty >= 0 ? stocks - qty : 0;
+    let newStock = stcks > qty && qty >= 0 ? stcks - qty : 0;
 
   if (inds !== -1) {
 
@@ -31,10 +35,10 @@ export const handleCartItem = (cart_items, item) => {
       return a.productId == item.productId
         ? {
            ...item, 
-            price: item.price,
+            price: formatDec(item.price),
             qty: qty,
-            stocks: newStock,
-            total: item.price * qty,
+            stocks: formatDec(newStock),
+            total: formatDec(item.price) * qty,
             productId: item.productId,
             name: item.name,
             description: item.description,
@@ -80,7 +84,6 @@ export const handleCart = (cartItem)  => dispatch => {
 
 
   for(let val of cart_items){
-
       //Gross Total
       let total = val.price * val.qty;
       gross_total += total;
@@ -215,7 +218,14 @@ export const createOrder = (cart) => dispatch => {
      
         dispatch(getOrders());
         dispatch(getAdminDashboard());
-        dispatch(getCartOrderById(data.id));
+        dispatch(getCartOrderById(data.id))
+        .then(rs => {
+          console.log(rs);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        ;
         dispatch(fetchSuccess(message));
         localStorage.removeItem('cart')
         dispatch({type: SET_CART_SUCCESS, payload: data.id});

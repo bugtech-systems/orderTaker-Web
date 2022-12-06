@@ -107,14 +107,11 @@ export const updateLabel = label => {
 
 //for getting products list
 export const getProductsList = params => {
-console.log(params)
   let filter = localStorage.getItem('filter');
   
   if(filter){
     params = JSON.parse(filter)
   }
-  console.log(params)
-
 
   return dispatch => {
     // dispatch(fetchStart());
@@ -136,13 +133,24 @@ export const getAllProducts = params => {
     axios
       .get(`${commonData.apiUrl}/products`, { params })
       .then(({data}) => {
-        console.log(data)
         dispatch({ type: SET_ALL_PRODUCTS, payload: data.rows });
       })
       .catch(error => {
         dispatch(fetchError('Something went wrong'));
       });
   };
+};
+
+export const getProductById =  id => {
+    // dispatch(fetchStart());
+   return axios
+      .get(`${commonData.apiUrl}/product/${id}`)
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        return 
+      })
 };
 
 
@@ -363,7 +371,6 @@ export const getAllUom = () => {
     axios
       .get(`${commonData.apiUrl}/tags/uom`)
       .then(({ data }) => {
-        console.log(data)
         dispatch({ type: SET_OPTIONS, payload: data });
         // dispatch(getProductsList());
         // dispatch(fetchSuccess(data.message));
@@ -381,7 +388,6 @@ export const createTag = (data) => {
     axios
       .post(`${commonData.apiUrl}/tag`, data)
       .then(({ data }) => {
-        console.log(data)
         dispatch(getAllUom());
       })
       .catch(error => {

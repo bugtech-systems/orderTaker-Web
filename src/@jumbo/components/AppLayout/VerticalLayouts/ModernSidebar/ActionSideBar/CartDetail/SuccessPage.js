@@ -109,7 +109,9 @@ export default function SuccessPage() {
               <tr><td>Order Status </td><td><b className={classes.value}>{values.isPaid ? 'Paid' : values.order_status}</b></td></tr>
               <tr><td>Amount Due </td><td ><b className={classes.value}>{values.amount_due}</b></td></tr>
               <tr><td>Amount Paid </td><td ><b className={classes.value}>{values.amount_paid}</b></td></tr>
-              <tr><td>Amount Payable </td><td ><b className={classes.value}>{values.amount_payable}</b></td></tr>
+            {values.amount_payable && values.amount_payable > 0 && <tr><td>Amount Payable </td><td ><b className={classes.value}>{values.amount_payable}</b></td></tr>}     
+              {values.amount_change && values.amount_change > 0 &&  <tr><td>Change </td><td ><b className={classes.value}>{values.amount_change}</b></td></tr>}
+
               <tr><td>Order Date</td><td className={classes.value}><b >{moment(values.createdAt).tz('Asia/Manila').format('LLLL')}</b></td></tr>
               <tr><td>Notes </td><td ><b className={classes.value}>{values.notes ? values.notes : '-'}</b ></td></tr>
               </tbody>

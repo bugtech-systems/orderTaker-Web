@@ -5,7 +5,7 @@ const INIT_STATE = {
     notifications: [],
     notifCount: 0,
     action: 'cart',
-    activeOption: 'profile',
+    activeOption: 'cart',
     viewMode: 'order',
     isDrawerOpen: false,
     cartSuccess: null,

@@ -30,7 +30,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrderReceipt } from 'redux/actions/Report.action';
 
-import { voidOrderId } from 'redux/actions/OrderApp';
+import { getCartOrderById, getOrderById, voidOrderId } from 'redux/actions/OrderApp';
 import { CLEAR_CART, SET_DRAWER_OPEN } from 'redux/actions/types';
 import { setCurrentCustomer } from 'redux/actions/Customer';
 import { getAdminDashboard } from 'redux/actions/Dashboard';
@@ -119,7 +119,16 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
 
   const handlePrint = () => {
-    dispatch(setOrderReceipt({...cart, business}, printDirect));
+    console.log(action)
+    dispatch(getOrderById(cart.id))
+    .then(({data}) => {
+      console.log(data)
+      let crt = (action === 'viewCart' || action === 'unpaid') ? data : cart 
+      dispatch(setOrderReceipt({...crt, business}, printDirect));
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   const handleVoid = () => {

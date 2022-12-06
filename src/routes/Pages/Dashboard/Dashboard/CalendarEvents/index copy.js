@@ -72,11 +72,11 @@ const CalendarEvents = ({setDateCounter, dateCounter}) => {
 
   const handleOrders = () => {
     let newDate = getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a')
-    setDate(newDate)
 
     dispatch(getOrders({
       dateCounter
     }));
+    setDate(newDate)
   };
 
 

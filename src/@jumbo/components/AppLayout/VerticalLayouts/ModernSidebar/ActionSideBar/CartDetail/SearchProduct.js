@@ -59,7 +59,6 @@ export default function CountrySelect({value, handleSelect}) {
         option: classes.option,
       }}
       onChange={(event, newValue) => {
-      console.log(newValue)
         handleSelect(newValue)
       }}
       autoHighlight
@@ -82,7 +81,6 @@ export default function CountrySelect({value, handleSelect}) {
         <TextField
           {...params}
           onChange={(e) => {
-          console.log(e.target.value)
           setSearchTerm(e.target.value)
           }}
           label="Choose a product"

@@ -55,7 +55,6 @@ const RecentPayments = ({unpaidOrders}) => {
 
     
 
-    console.log(filtered)
     setFilteredOrders(filtered)
   }, [searchTerm, unpaidOrders])
 

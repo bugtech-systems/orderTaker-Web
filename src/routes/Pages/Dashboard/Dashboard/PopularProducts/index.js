@@ -54,7 +54,6 @@ const {  popularProducts } = useSelector(({ dashboard }) => dashboard);
     dispatch(getAllProducts())
   }, [])
 
-  console.log(popularProducts)
 
   return (
     <CmtCard >

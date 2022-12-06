@@ -25,6 +25,7 @@ export const getOrders = params => {
         return axios
           .get(`${commonData.apiUrl}/orders`, {params}, { headers: authHeader() })
           .then(({data}) => {
+            console.log(data.rows)
             dispatch({ type: SET_ORDERS, payload:  data.rows });
             dispatch({ type: SET_ORDERS_COUNT, payload:  data.count });
 
@@ -48,12 +49,14 @@ export const getOrders = params => {
       .get(`${commonData.apiUrl}/orders/${id}`, { headers: authHeader() })
       .then(({data}) => {
         dispatch({type: UPDATE_CART, payload: data})
+        return data
       })
       .catch(err => {
         console.log(err)
         throw err;
       });
 };
+
 
   export const getOrderById = (id) => dispatch => {
         return axios

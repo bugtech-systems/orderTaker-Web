@@ -138,7 +138,6 @@ const TableItem = ({ row }) => {
 
 
   const handlePay = (val) => { 
-    console.log(val);
     if(row && row.customers && row.customers.length !== 0){
        
       dispatch(setCurrentCustomer(row.customers[0]))

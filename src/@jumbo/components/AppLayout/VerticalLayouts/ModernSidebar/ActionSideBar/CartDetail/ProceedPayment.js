@@ -13,7 +13,8 @@ import { setCurrentCustomer, getCustomersList} from '../../../../../../../redux/
 import { SET_ACTION, SET_CART_SUCCESS, SET_CREATE_CUSTOMER_DIALOG, UPDATE_CART } from 'redux/actions/types';
 import { createOrder } from 'redux/actions/CartApp';
 import { fetchError, fetchSuccess } from 'redux/actions';
-import { payOrder } from 'redux/actions/OrderApp';
+import { getCartOrderById, payOrder } from 'redux/actions/OrderApp';
+import { formatDec } from "../../../../../../../utils/helpers";
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +35,7 @@ export default function ProceedPayment() {
   const dispatch = useDispatch();
   const { currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
   const cart = useSelector(({cartApp}) => cartApp);
-  const { amount_due, payment, notes, order_no, amount_payable, change } = cart
+  const { amount_due, payment, notes, order_no, amount_payable, amount_change } = cart
   const { createCustomerDialog, action } = useSelector(({uiReducer}) => uiReducer);
   const [cartCustomer, setCartCustomer] = useState({});
 
@@ -62,24 +63,18 @@ export default function ProceedPayment() {
   }
   const handleChanges = prop => event =>{
     let val = event.target.value
-    let valN = val % 1;
-    let valD = Number(val);
-    console.log(!valD)
-    console.log(!valN)
-    console.log(!val)
-    if(!Number(val) && val) {
+
+    if(!formatDec(val) && val) {
       return false; 
     } else {
-      console.log(typeof val % 1 != 0 == 'number')
-      console.log(val % 1 != 0)
     if(typeof val % 1 != 0 == 'number'){
       return 
     }
 
-    let newChange = Number(val) - (order_no ? Number(amount_payable ? amount_payable : 0) : Number(amount_due));
+    let newChange = formatDec(val) - (order_no ? formatDec(amount_payable ? amount_payable : 0) : formatDec(amount_due));
 
     if(prop === 'payment'){
-      dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val, change: newChange <= 0 ? 0 : newChange }})
+      dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val, amount_change: newChange <= 0 ? 0 : newChange }})
     } else {
       dispatch({type: UPDATE_CART, payload: { ...cart, [prop]: val }})
     }
@@ -101,7 +96,7 @@ export default function ProceedPayment() {
     e.preventDefault();
     if(action === 'unpaid'){
       const { id, customerId, payment, notes } = cart;
-      dispatch(payOrder({orderId: id, customerId, amount: Number(payment), description: notes}))
+      dispatch(payOrder({orderId: id, customerId, amount: formatDec(payment), description: notes}))
       .then(res => {
         let { message, data } = res;
         if(res){
@@ -139,7 +134,7 @@ export default function ProceedPayment() {
             margin="dense"
             handleSelect={handleSelect}
         />}
-        <Box maxHeight="100px" p={5} display="flex" alignItems="flex-start" justifyContent="center">
+        <Box maxHeight="100px" p={2} display="flex" alignItems="flex-start" justifyContent="center">
         {cartCustomer && cartCustomer.id &&
         <Box width="100%" display="flex">
           {!cart.order_no && 
@@ -166,11 +161,11 @@ export default function ProceedPayment() {
          {/* <Box width="100%" display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start ">
             <Box mb={1} display="flex">
                 <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">Limit: </Typography>&nbsp;&nbsp;
-                <Typography variant="subtitle2">₱{Number(limit).toFixed(2)}</Typography>
+                <Typography variant="subtitle2">₱{formatDec(limit).toFixed(2)}</Typography>
             </Box>
             <Box mb={1} display="flex">
             <Typography mr={5} style={{fontWeight: 'bolder'}} variant="body2">amount_payable:</Typography>&nbsp;&nbsp;
-                 <Typography variant="subtitle2">₱{Number(amount_payable).toFixed(2)}</Typography>
+                 <Typography variant="subtitle2">₱{formatDec(amount_payable).toFixed(2)}</Typography>
             </Box>
          </Box> */}
         </Box>}
@@ -178,14 +173,14 @@ export default function ProceedPayment() {
 
         <Divider/>
         
-        <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-              <Typography m={1} variant="subtitle1">Total Amount Due</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_due).toFixed(2)}</Typography>
+        <Box p={1} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={0.5} variant="subtitle1">Total Amount Due</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{formatDec(amount_due).toFixed(2)}</Typography>
           </Box>
-        {action === 'unpaid' && <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-              <Typography m={1} variant="subtitle1">Amount Payable</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(amount_payable).toFixed(2)}</Typography>
+        {action === 'unpaid' && <Box p={1} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={0.5} variant="subtitle1">Amount Payable</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{formatDec(amount_payable).toFixed(2)}</Typography>
           </Box>}
-          <Box p={5} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" component="form">
-              {/* <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{Number(amount_due).toFixed(2)}</Typography> */}
+          <Box  width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" component="form">
+              {/* <Typography m={1}>Total Amount Due</Typography><Typography variant="h2">₱{formatDec(amount_due).toFixed(2)}</Typography> */}
               {/* <Typography m={1}>Payment</Typography> */}
               <Box component="form"  onSubmit={handleCheckout}>
 
@@ -200,18 +195,17 @@ export default function ProceedPayment() {
             />
     </Box>
 
-
-               <br/>
-
-               <Box p={3} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-              <Typography m={1} variant="subtitle1">Available Change</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{Number(change).toFixed(2)}</Typography>
+               <Box width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Typography m={0} variant="subtitle1">Available Change</Typography><Typography variant="h3" style={{fontWeight: 'bold'}}>₱{formatDec(amount_change).toFixed(2)}</Typography>
           </Box>
-
-        
-          <br/>
-          <Box width="100%" component="form"  onSubmit={handleCheckout}>
-
-          <TextField fullWidth label="Notes" value={notes}
+          <Box
+          pr={3} pl={3}
+          width="100%" component="form"  onSubmit={handleCheckout}>
+          <TextField 
+             margin='dense'
+          fullWidth label="Notes" 
+          size='small'
+          value={notes}
               onChange={handleChanges('notes')}/>
           </Box>
           </Box>

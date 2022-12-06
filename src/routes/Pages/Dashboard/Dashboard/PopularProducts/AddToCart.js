@@ -12,7 +12,8 @@ import {
   handleCart
  } from "../../../../../redux/actions/CartApp";
 import { fetchError } from "redux/actions";
-import { number } from "prop-types";
+import { formatDec } from "../../../../../utils/helpers";
+import { getProductById } from "redux/actions/ProductApp";
 
 
 
@@ -46,24 +47,25 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
   const { cart_items } = cart;
   const [ quantity, setQuantity ] = useState(0);
   const [ stocks, setStocks ] = useState(0);
-  const [ addedToCart] = useState(false);
   const classes = useStyles();
 
   const handleQuantity = val => {
-    if (item.stocks >= val && val >= 0) {
-      setQuantity(val);
-      setStocks(item.stocks - val);
+    let stcks = formatDec(item.stocks);
+    let qty = formatDec(val)
+    if (stcks >= qty && qty >= 0) {
+      setQuantity(qty > stcks ? stcks : qty);
+      setStocks(stcks - qty);
     }
   };
 
-  const addToCart = () => {
+  const addToCart = async () => {
   if(Number(quantity) === 0) {
     return dispatch(fetchError('Cant add 0 quantity!'))
   } else {
 
 
 
-    let prd = productsList.find(a => a.id === item.id);
+    let prd = await getProductById(item.id);
 
 
     let obj = {
@@ -93,7 +95,6 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
 
   const handleDecimals = (val) => {
     let newQty = Number(quantity) + Number(val);
-    console.log(val)
     handleQuantity(Number(newQty).toFixed(2));
   }
 
@@ -113,28 +114,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
     [ item.stocks ]
   );
 
-  return addedToCart ? (
-    <Box {...rest}>
-      <Box display="flex" alignItems="center" mb={3}>
-        <Box mr={2} className={classes.iconView}>
-          <CheckCircleIcon />
-        </Box>
-        <Typography className={classes.textSuccess}>
-          Added to cart Successfully
-        </Typography>
-      </Box>
-      <Box display="flex" alignItems="center">
-        <Box mr={2}>
-          <Button variant="contained" color="primary" onClick={checkoutOrder}>
-            Checkout
-          </Button>
-        </Box>
-        <Button className={classes.textBtn} onClick={backToInfo}>
-          Later
-        </Button>
-      </Box>
-    </Box>
-  ) : (
+  return (
     <Box {...rest}>
       <Box display="flex" alignItems="center">
         <div style={{padding: '10px', width: '100%' }}>

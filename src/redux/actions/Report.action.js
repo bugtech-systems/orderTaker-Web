@@ -14,14 +14,15 @@
         const amount_paid = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_paid)
         const amount_payable = data.amount_payable > 0 ? new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_payable) : 0;
         const amount_due = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_due)
+        const amount_change = data.amount_change > 0 ? new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'PHP' }).format(data.amount_change) : 0;
 
         const order_date = moment(data.createdAt).format('LLL');
         const due_date = data.dueDate && moment(data.dueDate).format('LLL');
         const order_items = data.order_items.map((a, index) => {
           return { ...a, price: Number(a.price).toFixed(2), total: Number(a.total).toFixed(2), no: index + 1 }
         })
-
-        const newTaxDisc = tax_disc.map(a => {
+        let txd = typeof tax_disc === 'string' ? JSON.parse(tax_disc) : tax_disc;
+        const newTaxDisc =  txd.map(a => {
           return {...a, total: Number(a.total).toFixed(2) }
         })
 
@@ -57,6 +58,7 @@
             "footer": {
               amount_paid,
               amount_payable,
+              amount_change,
               amount_due,
               order_date,
               total_vatable,

@@ -111,7 +111,6 @@ const UserDetail = () => {
     })
   }, [authUser])
 
-    console.log(user)
 
   return (
     <Box style={{margin: '10px'}}>

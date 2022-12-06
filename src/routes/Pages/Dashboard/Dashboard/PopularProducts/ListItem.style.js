@@ -87,9 +87,10 @@ const useStyles = makeStyles(theme => ({
   },
   titleRoot: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
+    whiteSpace: 'wrap',
     width: '100%',
+    fontSize: "12px"
   },
   subTitleRoot: {
     fontWeight: theme.typography.fontWeightRegular,

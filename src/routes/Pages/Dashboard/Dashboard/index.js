@@ -119,7 +119,6 @@ const Dashboard = () => {
         handleSales();
   }, [orders, dateCounter])
 
-  console.log(unpaidOrders)
 
   return (
     <PageContainer heading={'DASHBOARD'} breadcrumbs={breadcrumbs}>

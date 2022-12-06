@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_CART, SET_ACTIVE_OPTION, SET_DRAWER_OPEN, SET_ACTION, CLEAR_ALL_PRODUCTS } from '../../../../../../../redux/actions/types';
 import { handleCartItem, handleCart } from '../../../../../../../redux/actions/CartApp';
 import { setCurrentCustomer } from '../../../../../../../redux/actions/Customer';
-import { getAllProducts, getInventoryList } from '../../../../../../../redux/actions/ProductApp';
+import { getAllProducts, getInventoryList, getProductById } from '../../../../../../../redux/actions/ProductApp';
 import { fetchError, fetchStart, fetchSuccess } from '../../../../../../../redux/actions/Common';
 
 
@@ -108,12 +108,15 @@ const Comments = () => {
   };
 
 
-  const handleItem = (val, qty) => {
-    let prd = allProducts.find(a => a.id === val.productId);
+  const handleItem = async (val, qty) => {
+    console.log(val)
+    console.log(qty)
+    let prd = await getProductById(val.productId);
 
-
+    console.log(val)
+    console.log(prd)
     
-
+  console.log(qty)
     let obj = {
       ...val,
       qty: qty,
@@ -201,8 +204,8 @@ setSelected(null);
         <AccordionDetails>
 
         <Box flexGrow={1} width="100%" style={{ 
-          minHeight: '30vh',
-          maxHeight: '50vh', 
+          minHeight: '250px',
+          maxHeight: '45vh', 
           overflowY: 'auto'
           }} 
           >
@@ -227,15 +230,15 @@ setSelected(null);
       </Accordion>
       <Accordion expanded={expanded === 'summary'} onChange={() => cartList.length > 0 && handleChange('summary')}>
         <AccordionSummary aria-controls="summary-content" id="summary-header">
-          <Box width="100%" display="flex" justifyContent="space-between">
+          <Box height={35} width="100%" display="flex" justifyContent="space-between" alignItems="center">
         <Box>
         Amount Due
         <IconButton>
-          <UnfoldMoreIcon />
+          <UnfoldMoreIcon color="primary"/>
         </IconButton>
         </Box>
-        <Box pr={5} fontSize={18} fontWeight={700}>
-        ₱{Number(amount_due).toFixed(2)}
+        <Box pr={5} fontSize={15} fontWeight={700}>
+        ₱{amount_due}
         </Box>
         </Box>
         </AccordionSummary>

@@ -22,7 +22,7 @@ import { cart } from '../../@fake-db'
         payments: [],
         amount_paid: 0,
         payments: [],
-        change: null,
+        amount_change: 0,
         notes: ''
   };
   

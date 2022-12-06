@@ -8,6 +8,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 // import ClearIcon from '@material-ui/icons/Clear';
 import {IconButton, TextField, Typography} from '@material-ui/core';
 
+import { formatDec } from "../../../../../../../utils/helpers";
 
 
 // Icons
@@ -18,6 +19,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 //Redux
 import {useDispatch, useSelector} from "react-redux";
 import { formatNumber } from '@jumbo/utils/commonHelper';
+import { getProductById } from 'redux/actions/ProductApp';
 
 const useStyles = makeStyles(theme => ({
   itemRoot: {
@@ -70,8 +72,8 @@ const useStyles = makeStyles(theme => ({
   },
   actionCounter: {
     paddingTop: 5,
-    display: 'none',
-    opacity: 0,
+    display: 'flex',
+    opacity: 1,
     zIndex: 2,
     transition: 'all 0.2s',
     '& .btn-white': {
@@ -83,7 +85,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: 0,
     zIndex: 2,
-    visibility: 'hidden',
+    visibility: 'visible',
     opacity: 0,
     transition: 'all 0.2s',
     '& .btn-white': {
@@ -96,13 +98,17 @@ const useStyles = makeStyles(theme => ({
     },
   },
   clearButton: {
-     display: 'none'   
+    position: 'absolute',
+    display: 'flex',
+    right: -20,
+    top: -10,
+    opacity: 1,
   },
   qty: {
-    display: 'flex'
+    display: 'none'
   },
   htext: {
-    display: 'none'
+    display: 'flex'
   }
 }));
 
@@ -119,16 +125,33 @@ const CommentItem = ({ item, handleItem }) => {
   const [prd, setPrd] = useState({});
 
 
-  
+  const handleQuantity = val => {
+    console.log(val)
+    let stocks = formatDec(prd.stocks);
+    let qty = formatDec(val)
+
+    if (stocks >= qty && qty >= 0) {
+      console.log('sulod')
+      handleItem(values, qty > stocks ? stocks : qty)
+      // setValues({...values, qty: qty > stocks ? stocks : qty})
+    } else {
+      handleItem(values, -1)
+    console.log('gawas')
+    }
+
+  };
+
+  const handleInitItem = async () => {
+    let prdt =  await getProductById(item.productId);
+    console.log(prdt)
+    setPrd(prdt);
+    setValues(item);
+  }
 
 
 
   useEffect(() => {
-    let prdt = productsList.find(a => a.id === item.productId || a.id === item.id);
-    console.log(prdt)
-    console.log(item)
-    setPrd(item && item.product ? item.product : {});
-    setValues(item);
+    handleInitItem()
   }, [item]);
 
   const getTitle = () => {
@@ -162,7 +185,7 @@ const CommentItem = ({ item, handleItem }) => {
       ₱{values.price}{values.product && values.product.uom ? `/${values.product.uom}` : ''}
       </Box>
       <Box fontSize={14} color="text.disabled" className={classes.htext}>
-      {formatNumber(values.stocks)}
+      {values.stocks}
       </Box>
     </Box>
       </Box>
@@ -204,24 +227,22 @@ const CommentItem = ({ item, handleItem }) => {
           <IconButton className="btn-white"
           size="small"
           disabled={values.qty < 0}
-            onClick={() => handleItem(values, Number(values.qty) - 1 )}
+            onClick={() => handleQuantity(values.qty - 1)}
           >
             <RemoveCircleOutlineIcon 
             />
           </IconButton>
           <Box ml={3} mr={3} display="flex" justifyContent="center" alignItems="center" style={{ fontSize: 18, textAlign: 'center'}}>
             <TextField 
-            // type="number"
+            type="number"
             step="any"
-            value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={(e) => {
-              let av = prd.stocks - Number(e.target.value).toFixed(2);
-           Number(e.target.value) >= 0 && av >= 0 ? handleItem(values, e.target.value) : handleItem(values, 0);
-              }}/> 
+            value={values.qty} variant="outlined" size="small" style={{ maxWidth: '75px', minWidth: '50px', textAlign: 'center'}} onChange={event => handleQuantity(event.target.value)}
+            /> 
             </Box>
           <IconButton className="btn-white"
           size="small"
           disabled={prd.stocks <= 0 || prd.stocks <= values.qty}
-          onClick={() => handleItem(values, Number(values.qty) + 1)}
+          onClick={() => handleQuantity(values.qty + 1)}
           >
             <AddCircleIcon
             />

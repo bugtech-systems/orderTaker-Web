@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Box, Typography} from "@material-ui/core";
+import { Box, Tooltip, Typography} from "@material-ui/core";
 import CmtImage from "../../../../../@coremat/CmtImage";
 import CmtMediaObject from "../../../../../@coremat/CmtMediaObject";
 import {IconButton} from "@material-ui/core";
@@ -38,50 +38,6 @@ const ListItem = ({item}) => {
   const [ snackBarMessage, setSnackBarMessage ] = useState("");
   const [cartList, setCartList] = useState([]);
 
-
-  const addToCart = () => {
-   
-    let crt = cartList.find(a => a.productId === item.id);
-
-
-    if(((crt && Number(crt.stocks) === 0) || Number(item.stocks) === 0)) {
-      return dispatch(fetchError('Cant add 0 stocks!'))
-    } else {
-  
-      let prd = popularProducts.find(a => a.id === item.id);
-      console.log(prd)
-      let obj = crt ? {
-        ...crt,
-        qty: crt ? crt.qty + 1 : 1,
-        product: prd
-      } : {
-        product: prd,
-        productId: item.id,
-        name: item.name,
-        price: item.price,
-        other_amounts: item.other_amounts ? item.other_amounts : []
-      }
-  
-      
-      const pp = popularProducts.map(a => {
-        return a.id === item.id ? {
-          ...a,
-          stocks: prd.stocks - (obj.qty ? obj.qty : 1)
-        } : a
-      });
-    
-  
-      dispatch({type: SET_DASHBOARD_DATA, payload: { popularProducts: pp }})
-  
-      handleCartItem(cartList, obj).then(a => {
-        dispatch(handleCart({...cart, cart_items: a}))
-      })
-    //   setRevealed(false);
-    }
-    };
-
-
-
   const getActionComponent = () => (
     <Box>
       <Box component="span" mr={3} color="primary.main">
@@ -92,7 +48,7 @@ const ListItem = ({item}) => {
 
   const getStocks = () => (
     <Box>
-      <Box component="span" mr={1} color="primary.main">
+      <Box component="span" mr={1}  style={{fontSize: '12px'}}  color="primary.main">
         Stocks: {formatNumber(item.stocks)}
       </Box>
     </Box>

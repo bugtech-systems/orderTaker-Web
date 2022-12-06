@@ -66,7 +66,6 @@ const RevenueSummary = () => {
   const classes = useStyles();
 
 
-  console.log(revenueSummary)
   return (
     <CmtCard className={classes.cardRoot}>
       <CmtCardHeader title={<SummaryStats data={revenueSummary} />}>

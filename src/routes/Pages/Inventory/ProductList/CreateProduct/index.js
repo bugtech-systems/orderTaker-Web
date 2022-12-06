@@ -352,7 +352,6 @@ const handleUom = (e) => {
   }, [])
 
   
-  console.log(values)
   return (
     <>
      <Uomautocomplete

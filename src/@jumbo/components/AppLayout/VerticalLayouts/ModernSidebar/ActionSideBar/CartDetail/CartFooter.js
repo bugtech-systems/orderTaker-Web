@@ -75,6 +75,10 @@ const useStyles = makeStyles(theme => ({
           // bottom: 20,
         },
       },
+      cartFooter: {
+        position: 'relative',
+        top: 0
+      }
   }));
 
 
@@ -88,8 +92,8 @@ export default function CartFooter() {
     const { action} = useSelector(({uiReducer}) => uiReducer);
 
     const handlePayment = () => {
-      const { id, customerId, payment, notes } = cart;
-      dispatch(payOrder({orderId: id, customerId, amount: Number(payment), description: notes}))
+      const { id, customerId, payment, notes, amount_change } = cart;
+      dispatch(payOrder({orderId: id, customerId, amount: payment, amount_change, description: notes}))
       .then(res => {
         let { message, data } = res;
         if(res){
@@ -147,7 +151,6 @@ export default function CartFooter() {
   }
 
   const handleCheckout = () => {
-    console.log(cart)
     dispatch(createOrder(cart))
    .catch(err => {
       console.log(err)
@@ -158,7 +161,7 @@ export default function CartFooter() {
 
 
   return (
-    <Box height="100%"  p={5} display="flex" alignItems="center" justifyContent="space-around">
+    <Box height="100%" className={classes.cartFooter} p={5} display="flex" alignItems="center" justifyContent="space-around">
       {action === 'paidCart' && <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleSuccess()} disabled={cart_items.length === 0} >Next</Button></>} 
       
       {action === 'cart' &&  <><Button variant="outlined" onClick={() => handleClearCart()} >Clear</Button> <Button variant="contained" color="primary" onClick={() => handleProceedPayment('payment')} disabled={cart_items.length === 0} >Proceed Payment</Button></>}

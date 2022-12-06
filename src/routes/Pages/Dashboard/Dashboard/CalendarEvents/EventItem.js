@@ -25,7 +25,6 @@ const EventItem = ({ item }) => {
 
 
   const handleClick = (val) => { 
-    console.log(val);
     if(val && val.customers && val.customers.length !== 0){
        
       dispatch(setCurrentCustomer(val.customers[0]))

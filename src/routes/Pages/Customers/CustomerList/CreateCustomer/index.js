@@ -192,7 +192,6 @@ const CreateCustomer = ({ open, handleDialog }) => {
   }, [currentCustomer])
 
 
-  console.log(values)
   const isPhonesMultiple = values.contacts.length > 1;
 
 
