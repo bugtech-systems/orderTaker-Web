@@ -51,8 +51,6 @@ export const getTime = date => {
 };
 
 export const isDatesSame = (dateA, dateB) => {
-  // console.log(dateA)
-  // console.log(dateB)
   return moment(dateA).isSame(dateB, 'day');
 };
 

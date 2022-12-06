@@ -61,8 +61,6 @@ const CalendarEvents = ({setDateCounter, dateCounter}) => {
   };
 
   const getEvents = () => {
-    console.log(date)
-
     return orders.filter(item => isDatesSame(item.createdAt, date));
   };
 
