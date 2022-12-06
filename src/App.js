@@ -31,7 +31,9 @@ if (token) {
 const App = () => (
   <Provider store={store}>
     <BrowserRouter 
-     history={history}>
+     basename='/pos'
+     history={history}
+     >
       <AppContextProvider>
         <AppWrapper>
           <Switch>
