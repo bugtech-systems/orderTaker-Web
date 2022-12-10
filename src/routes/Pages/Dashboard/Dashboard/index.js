@@ -71,17 +71,23 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {orders} = useSelector(({orderApp}) => orderApp);
-  const { users } = useSelector((state) => state.usersReducer);
   const { filterType } = useSelector(({ productApp }) => productApp);
   const { loadUser, authUser, isAdmin } = useSelector(({auth}) => auth);
-  const { counts, business, unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
+  const {  unpaidCustomers, unpaidOrders, popularProducts } = useSelector(({dashboard}) => dashboard);
   const [dateCounter, setDateCounter] = useState(0);
   const [todaySales, setTodaySales] = useState({
     total: 0, today:[], xrate: null
   });
 
+  const [filter, setFilter] = useState('all');
+
+
   const handleDateCounter = (val) => {
     setDateCounter(val)
+  }
+
+  const handleFilter = (val) => {
+    setFilter(val)
   }
 
   const handleSales = () => {
@@ -137,6 +143,8 @@ const Dashboard = () => {
                <CalendarEvents
           dateCounter={dateCounter}
           setDateCounter={handleDateCounter}
+          filter={filter}
+          setFilter={handleFilter}
           />
             </Grid>
             {/* <Grid item xs={12} sm={12} lg={12}>

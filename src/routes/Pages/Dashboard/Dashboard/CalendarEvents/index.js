@@ -11,7 +11,7 @@ import { intranet } from '../../../../../@fake-db';
 import CmtList from '../../../../../@coremat/CmtList';
 import EventItem from './EventItem';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import Button from '@material-ui/core/Button';
+import HistoryIcon from '@material-ui/icons/History';
 import useStyles from './index.style';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,14 +19,19 @@ import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from 'redux/actions/OrderApp';
 
+//Component
+import FilterMenu from './FilterMenu';
 
-const CalendarEvents = ({setDateCounter, dateCounter}) => {
+
+
+const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
   const {orders} = useSelector(({orderApp}) => orderApp);
   const { isAdmin } = useSelector(({auth}) => auth);
 
   const dispatch = useDispatch();
-  const [date, setDate] = useState(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
   const classes = useStyles();
+  const [orderData, setOrderData] = useState([]);
+  const [date, setDate] = useState(getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a'));
 
 
 
@@ -60,32 +65,90 @@ const CalendarEvents = ({setDateCounter, dateCounter}) => {
     );
   };
 
-  const getEvents = () => {
-    return orders.filter(item => isDatesSame(item.createdAt, date));
+  const getEvents = (data, newDate) => {
+    let orData = [];
+
+      orData = data.filter(item => isDatesSame(item.createdAt, newDate));
+
+    setOrderData(orData)
   };
 
   const showDate = () => {
     return isToday(date) ? 'Today' : getDateElements(date).date.dateString;
   };
 
-  const handleOrders = () => {
-    let newDate = getNewDate(dateCounter, 'DD MMM, YYYY, hh:mm a')
-    setDate(newDate)
+  const handleOrders = (val) => {
+    let newDate = getNewDate(val, 'DD MMM, YYYY, hh:mm a')
+    setDateCounter(val);
+    setDate(newDate);
 
+    console.log(val)
     dispatch(getOrders({
-      dateCounter
-    }));
-  };
-
+      dateCounter: val
+    }))
+    .then(res => {
+  
+      getEvents(res, newDate)
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    });
 
 
 
   
+  };
+
+  const handleFilter = (val) => {
+      let options = {};  
+    console.log(val)
+      if(val === 'all'){
+        return handleOrders(dateCounter)
+      }
+
+
+      if(val === 'paid'){
+        options.isPaid = true;
+      }
+
+      if(val === 'unpaid'){
+        options.isPaid = false;
+        options.searchText = 'Unpaid';
+      }
+
+      if(val === 'cancelled'){
+        options.searchText = 'Cancelled';
+        options.isPaid = false;
+      }
+
+      setFilter(val)
+
+    
+      dispatch(getOrders({
+        dateCounter, ...options
+      }))
+      .then(res => {
+
+        getEvents(res, date)
+
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  
+  };
+
+
+  
   useEffect(() => {
-    handleOrders()
-  }, [dateCounter]);
+    handleOrders(0)
+  }, []);
 
 
+  console.log(orderData)
+  console.log(filter)
 
   return (
     <CmtCard className={classes.cardRoot}>
@@ -94,21 +157,32 @@ const CalendarEvents = ({setDateCounter, dateCounter}) => {
         title={getHeader()}
         backgroundColor={['rgba(255, 255, 255, 0.3)', 'rgba(0, 0, 0, 0.3)']}>
         <Box display="flex" alignItems="center" color="common.white" mt={-5}>
-          <IconButton className={classes.iconBtn} size="small" onClick={() => setDateCounter(dateCounter - 1)}>
+          <IconButton className={classes.iconBtn} size="small" onClick={() => handleOrders(dateCounter - 1)}>
             <ChevronLeftIcon />
           </IconButton>
-          <Box component="span" mx={2} onClick={() => setDateCounter(0)} className="pointer">
+          <Box component="span" mx={2} onClick={() => handleOrders(0)} className="pointer">
             SALES
           </Box>
-          <IconButton className={classes.iconBtn} size="small" onClick={() => setDateCounter(dateCounter + 1)}>
+          <IconButton className={classes.iconBtn} size="small" onClick={() => handleOrders(dateCounter + 1)}>
             <ChevronRightIcon />
           </IconButton>
+        </Box>
+        <Box display="flex" alignItems="center" color="common.white" mt={-5}>
+          <FilterMenu 
+          handleFilter={handleFilter}
+          />
         </Box>
       </CmtCardHeader>
       <CmtCardContent className={isAdmin ? classes.listContainerA : classes.listContainer}>
         <Typography className={classes.eventTitle}>{showDate()}</Typography>
         <PerfectScrollbar className={classes.scrollbarRoot}>
-          <CmtList data={getEvents()} renderRow={(item, index) => <EventItem item={item} key={index} />} />
+          {orderData.length !== 0 ? 
+          <CmtList data={orderData} renderRow={(item, index) => <EventItem item={item} key={index} />} />
+          :
+          <Box height="100%" display="flex" alignItems="center" justifyContent="center">
+           <HistoryIcon/>&nbsp;<Typography>No Recent Orders</Typography>
+        </Box>
+          }
         </PerfectScrollbar>
         {/* <Box display="flex" alignItems="center" mb={-2} pt={2}>
           <Button color="primary" size="small" className={classes.btnRoot}>

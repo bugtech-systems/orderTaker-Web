@@ -33,7 +33,7 @@ export const getOrders = params => {
 
             // dispatch({type: SET_ORDERS, payload: data.orders})
             // dispatch({type: SET_UNPAID_ORDERS, payload: data.unpaid_orders})
-            // return data
+            return data.rows
           }).catch(err => {
             console.log(err)
             // return null;

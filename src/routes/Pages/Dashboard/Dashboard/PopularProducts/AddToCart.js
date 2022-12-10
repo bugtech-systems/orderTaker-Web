@@ -2,8 +2,11 @@ import React, {useEffect, useState} from "react";
 import AppTextInput from "../../../../../@jumbo/components/Common/formElements/AppTextInput";
 import {Box, Button, IconButton, Typography} from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import PlusIcon from '@material-ui/icons/Add';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Chip from '@material-ui/core/Chip';
+
+
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
@@ -146,7 +149,7 @@ const AddToCart = ({item, setRevealed, onCheckout, ...rest}) => {
             size="small"
             onClick={addToCart}
           >
-            Add To Cart
+         <PlusIcon/>&nbsp;Add
           </Button>
         </Box>
       </Box>
