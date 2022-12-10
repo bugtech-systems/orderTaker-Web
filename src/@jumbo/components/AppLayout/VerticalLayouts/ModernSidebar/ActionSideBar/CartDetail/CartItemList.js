@@ -109,14 +109,8 @@ const Comments = () => {
 
 
   const handleItem = async (val, qty) => {
-    console.log(val)
-    console.log(qty)
     let prd = await getProductById(val.productId);
 
-    console.log(val)
-    console.log(prd)
-    
-  console.log(qty)
     let obj = {
       ...val,
       qty: qty,

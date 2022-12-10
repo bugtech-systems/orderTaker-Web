@@ -29,6 +29,10 @@ const useStyles = makeStyles(theme => ({
     // height: '100%'
     height: '400px'
   },
+  menuActive: {
+      backgroundColor: alpha(theme.palette.common.dark, 0.2),
+      // color: theme.palette.common.white,
+  },
   scrollbarRoot: {
     flex: 1,
     flexGrow: 1,

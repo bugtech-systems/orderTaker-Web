@@ -180,7 +180,7 @@ const ActionSideBar = ({ width }) => {
 
   return (
     <div className={clsx(classes.root, 'actionSidebar')}>
-      <Hidden smDown>
+      <Hidden mdDown>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title="Profile">
             <IconButton className={classes.iconBtn} onClick={() => onIconClick('profile')}>

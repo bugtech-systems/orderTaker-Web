@@ -49,7 +49,6 @@ const Customer = () => {
   };
 
   const onClickEditCustomer = customer => {
-    console.log(customer)
     dispatch(setCurrentCustomer(customer));
     dispatch({
       type: SET_CREATE_CUSTOMER_DIALOG,

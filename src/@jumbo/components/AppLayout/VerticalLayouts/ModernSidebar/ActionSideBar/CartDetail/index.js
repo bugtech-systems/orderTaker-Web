@@ -54,7 +54,7 @@ const Comments = () => {
   }, [cart])
 
 
-
+  console.log(cart)
 
   return (
       <Box height="100%" className={classes.rootWrap}>

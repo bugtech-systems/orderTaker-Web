@@ -119,10 +119,8 @@ const ActionBarDrawer = ({ activeOption, action, onIconClick, onDrawerClose, han
   let order_no = cart && cart.order_no ? cart.order_no : 'ORDER SUMMARY';
 
   const handlePrint = () => {
-    console.log(action)
     dispatch(getOrderById(cart.id))
     .then(({data}) => {
-      console.log(data)
       let crt = (action === 'viewCart' || action === 'unpaid') ? data : cart 
       dispatch(setOrderReceipt({...crt, business}, printDirect));
     })

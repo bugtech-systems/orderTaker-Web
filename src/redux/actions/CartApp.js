@@ -15,8 +15,6 @@ import {formatDec} from '../../utils/helpers';
 //For expanding sidebar
 export const handleCartItem = (cart_items, item) => {
 
-    console.log(item)
-
   let { stocks, uom  } = item.product ? item.product : {};
   let stcks = formatDec(stocks);
   let qty = item.qty || item.qty >= 0 ? formatDec(item.qty) : formatDec(1);
@@ -219,13 +217,6 @@ export const createOrder = (cart) => dispatch => {
         dispatch(getOrders());
         dispatch(getAdminDashboard());
         dispatch(getCartOrderById(data.id))
-        .then(rs => {
-          console.log(rs);
-        })
-        .catch(err => {
-          console.log(err)
-        })
-        ;
         dispatch(fetchSuccess(message));
         localStorage.removeItem('cart')
         dispatch({type: SET_CART_SUCCESS, payload: data.id});

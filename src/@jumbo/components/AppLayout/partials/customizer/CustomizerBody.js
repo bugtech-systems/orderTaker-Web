@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   customizerBtn: {
     position: 'fixed',
     right: 0,
-    top: 160,
+    top: 108,
     zIndex: 999,
     backgroundColor: theme.palette.primary.main,
     backgroundImage: 'linear-gradient(90deg, #D62DF1 -7.69%, #0F3CB0 92.31%)',

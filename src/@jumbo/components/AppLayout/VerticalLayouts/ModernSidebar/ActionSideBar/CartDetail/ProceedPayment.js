@@ -119,7 +119,7 @@ export default function ProceedPayment() {
 
 
   const { name, address } = cartCustomer ? cartCustomer : {};
-
+  console.log(cart)
   return (
     <Box className={classes.rootWrap}>
       <CreateCustomer

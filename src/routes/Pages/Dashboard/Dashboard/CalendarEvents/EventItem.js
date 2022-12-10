@@ -26,7 +26,7 @@ const EventItem = ({ item }) => {
 
   const handleClick = (val) => { 
     if(val && val.customers && val.customers.length !== 0){
-       
+      console.log(val)
       dispatch(setCurrentCustomer(val.customers[0]))
       dispatch({type: UPDATE_CART, payload: {...val, customerId: val.customers[0].id }}); 
 
@@ -77,9 +77,13 @@ const EventItem = ({ item }) => {
             <Box color="success.main">
               <CheckIcon />
             </Box>
-          ) : String(item.order_status).toLowerCase() === 'cancelled' && (
+          ) : String(item.order_status).toLowerCase() === 'cancelled' ? (
+            <Box  >
+              <BlockIcon color='secondary' fontSize='small' />
+            </Box>
+          ) : !item.isPaid && (
             <Box >
-              <BlockIcon fontSize='small' />
+              <CheckIcon />
             </Box>
           )
         }

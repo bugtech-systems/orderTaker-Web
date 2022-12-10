@@ -126,24 +126,20 @@ const CommentItem = ({ item, handleItem }) => {
 
 
   const handleQuantity = val => {
-    console.log(val)
     let stocks = formatDec(prd.stocks);
     let qty = formatDec(val)
 
     if (stocks >= qty && qty >= 0) {
-      console.log('sulod')
       handleItem(values, qty > stocks ? stocks : qty)
       // setValues({...values, qty: qty > stocks ? stocks : qty})
     } else {
       handleItem(values, -1)
-    console.log('gawas')
     }
 
   };
 
   const handleInitItem = async () => {
     let prdt =  await getProductById(item.productId);
-    console.log(prdt)
     setPrd(prdt);
     setValues(item);
   }
