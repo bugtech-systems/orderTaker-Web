@@ -11,7 +11,7 @@ import CmtImage from '../../../@coremat/CmtImage';
 
 //Components
 import HeaderChartComponent from '../Reports/HeaderChartComponent';
-import { intranet } from '@fake-db';
+import { intranet } from '../../../@fake-db';
 
 
 const tabs = [

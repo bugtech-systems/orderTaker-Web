@@ -116,7 +116,6 @@ const Dashboard = () => {
     if(loadUser){
     dispatch(getAdminDashboard())
     dispatch(getInventoryList(filterType));
-    dispatch(getOrders());
     dispatch(getAllNotifications());
     }
   }, [loadUser, authUser]);

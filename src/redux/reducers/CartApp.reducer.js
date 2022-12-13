@@ -5,8 +5,6 @@ import {
     SET_CART_ITEMS_COUNT
   } from '../actions/types';
 
-import { cart } from '../../@fake-db'
-
   const INIT_STATE = {
         // cart_items: cart.cartItems,
         order_no: null,
@@ -45,8 +43,6 @@ import { cart } from '../../@fake-db'
         };
       }
 
-
-
       case UPDATE_CART_ITEMS: {
         return {
           ...state,
@@ -65,7 +61,7 @@ import { cart } from '../../@fake-db'
         gross_total: 0,
         grand_total: 0,
         amount_due: 0,
-        change: 0,
+        amount_change: 0,
         total_vatable: 0,
         amount_paid: 0,
         amount_payable: 0,
