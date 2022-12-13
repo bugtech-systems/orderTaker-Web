@@ -14,6 +14,7 @@ import ConfirmDialog from '../../../../../@jumbo/components/Common/ConfirmDialog
 import CmtSearch from '../../../../../@coremat/CmtSearch';
 import useStyles from './index.style';
 import Checkbox from '@material-ui/core/Checkbox';
+import { AddCircle } from '@material-ui/icons';
 
 const filterOptionsList = [
   { label: 'Active', value: 'active' },
@@ -34,7 +35,6 @@ const UserTableToolbar = ({
   const classes = useStyles();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const dispatch = useDispatch();
 
 
@@ -81,14 +81,17 @@ const UserTableToolbar = ({
             {numSelected} selected
           </Typography>
         ) : (
-          <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
-            {project.label}{' '}
-            {project.value === 'expenses' && 
-            <Button color="primary" onClick={() => onUserAdd(true)}>
-              Add Expenses
+          <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
+              <Button variant="contained" size="small" color="primary" onClick={() => alert(`Add New ${project.label}`)}>
+             <AddCircle/>&nbsp;Add
             </Button>
-            }
-          </Typography>
+          {/* {project.value === 'expenses' &&  */}
+          <Box display="flex" alignItems="center" justifyContent="flex-end" width="100%">
+          <CmtSearch onChange={e => setSearchTerm(e.target.value)} value={searchTerm} border={false} onlyIcon />
+          
+            </Box>
+            {/* } */}
+          </Box>
         )}
 
         {numSelected > 0 ? (

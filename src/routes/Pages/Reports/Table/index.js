@@ -147,7 +147,10 @@ const UsersModule = ({project, startDate, endDate}) => {
 
 
   useEffect(() => {
-    dispatch(getOrders(filterType));
+    dispatch(getOrders({
+      page: 0,
+      rowsPerPage: 10
+    }));
   }, [filterType, startDate, endDate, project]);
 
 

@@ -13,7 +13,7 @@ import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import PageContainer from '@jumbo/components/PageComponents/layouts/PageContainer';
 import GridContainer from '@jumbo/components/GridContainer';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 //Components
 import Table from '../Table';
@@ -66,7 +66,12 @@ const breadcrumbs = [
 
 
 const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStartDate, endDate, setEndDate }) => {
+  
+  
   const handleProjectChange = event => {
+    console.log(event.target.value)
+    console.log(classicWidget.projects.find(project => project.value === event.target.value))
+
     setCurrentProject(classicWidget.projects.find(project => project.value === event.target.value));
   };
 
@@ -79,7 +84,10 @@ const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStar
   };
   const classes = useStyles();
 
-
+  
+console.log(currentProject.value)
+  console.log(currentProject)
+  console.log(classicWidget)
   return (
   
     <CmtCardContent>
@@ -91,7 +99,7 @@ const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStar
           labelKey="label"
           value={currentProject.value}
           onChange={handleProjectChange}
-          disabled={true}
+          // disabled={true}
         />
         <AppDatePicker label="Start Date" value={startDate} onChange={onStartDateChange} />
         <AppDatePicker label="End Date" value={endDate} onChange={onEndDateChange} />
@@ -101,7 +109,7 @@ const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStar
   );
 };
 
-const ProjectHeader = ({ startDate, endDate }) => {
+const ProjectHeader = ({ revealed, startDate, endDate }) => {
   const classes = useStyles();
   return (
     <Box display="flex" alignItems="center" mx={{ xs: -2, sm: -4 }}>
@@ -117,7 +125,7 @@ const ProjectHeader = ({ startDate, endDate }) => {
 const ProjectWorkedHours = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [currentProject, setCurrentProject] = React.useState(classicWidget.projects[0]);
+  const [currentProject, setCurrentProject] = React.useState(classicWidget.projects[1]);
   const [startDate, setStartDate] = React.useState('2020-07-03');
   const [endDate, setEndDate] = React.useState('2020-08-20');
   const [revealed, setRevealed] = useState(false);
@@ -128,13 +136,19 @@ const ProjectWorkedHours = () => {
   };
 
   const handleProject = (e) => {
-    console.log(e)
-
+    setCurrentProject(e)
   }
 
 
   const resetWidget = () => {
     setCurrentProject(classicWidget.projects[0]);
+  };  
+
+  const handleReset = () => {
+    dispatch(getOrders({
+      page: 0,
+      rowsPerPage: 10
+    }))
   };
 
 
@@ -146,35 +160,39 @@ const ProjectWorkedHours = () => {
       <Grid item xs={12} sm={12} md={12} lg={12}>
     <CmtBackDrop
       concealedIcon={<DeveloperBoardIcon />}
-      // extrasContainer={<RefreshIcon className="pointer" 
-      // onClick={resetWidget} />}
-      backLayerConcealed={
-        revealed ? '' : <ProjectHeader currentProject={currentProject} startDate={startDate} endDate={endDate} />
+      extrasContainer={<RefreshIcon className="pointer" 
+      onClick={handleReset} />}
+      backLayerConcealed={<ProjectHeader revealed currentProject={currentProject} startDate={startDate} endDate={endDate} />
       }
-      // backLayerRevealed={
-      //   <ProjectSwitcher
-      //     currentProject={currentProject}
-      //     setCurrentProject={handleProject}
-      //     startDate={startDate}
-      //     setStartDate={setStartDate}
-      //     endDate={endDate}
-      //     setEndDate={setEndDate}
-      //   />
-      // }
-      // onRevealed={handleOnRevealed}
+      backLayerRevealed={
+        <ProjectSwitcher
+          currentProject={currentProject}
+          setCurrentProject={handleProject}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+        />
+      }
+      onRevealed={handleOnRevealed}
       >
-      {/* <Box p={6}> */}
-        {/* <Box>{currentProject.label}</Box> */}
-        {/* <Box className={classes.subHeaderBottom}>
+      <Box p={6}>
+        <Box>
+
+        <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+            {currentProject.label}
+          </Typography>
+      </Box>
+        <Box className={classes.subHeaderBottom}>
           <Box>
             {getFormattedDate(startDate, ' DD MMM')} - {getFormattedDate(endDate, ' DD MMM')}
           </Box>
 
           <Box component="span" fontSize={14} color="primary.main">
-            52 Hours
+            
           </Box>
-        </Box>  */}
-      {/* </Box> */}
+        </Box> 
+      </Box>
       <Box width="100%">
       <Table
         project={currentProject}
