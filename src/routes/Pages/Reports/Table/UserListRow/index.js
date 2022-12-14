@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: 0.25,
     color: theme.palette.common.dark,
   },
+  tableCell: {
+    padding: 1
+  }
 }));
 
 
@@ -72,17 +75,23 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
   return (
     <TableRow
       hover
-      onClick={event => handleClick(row)}
+      // onClick={event => handleClick(row)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
       key={row.id}
-      selected={isItemSelected}>
-      <TableCell padding="checkbox">
-    {/* <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} /> */}
+      selected={isItemSelected}
+      className={classes.tableRow}
+      >
+      <TableCell 
+      className={classes.tableCell}
+      // padding="checkbox"
+      >
       </TableCell>
-      <TableCell component="th" id={labelId} scope="row" padding="none">
-        <Box display="flex" alignItems="center">
+      <TableCell component="th" id={labelId} scope="row" padding="none"
+        className={classes.tableCell}
+      >
+        <Box  display="flex" alignItems="center">
           <div>
             <Typography className={classes.titleRoot} component="div" variant="h4">
               {String(row.order_no).toUpperCase()}
@@ -100,12 +109,20 @@ const UserListRow = ({ row, isSelected, onRowClick, onUserEdit, onUserDelete, on
           </div>
         </Box>
       </TableCell>
-      <TableCell>₱{Number(row.amount_due).toFixed(2)}</TableCell>
-       <TableCell>
+      <TableCell
+        className={classes.tableCell}
+        align="center"
+      >₱{Number(row.amount_due).toFixed(2)}</TableCell>
+       <TableCell
+        align="center"
+        className={classes.tableCell}
+       >
         {row.recordedAt}
       </TableCell> 
       {/* <TableCell>{timeFromNow(row.lastLoginAt)}</TableCell> */}
-      <TableCell align="center" onClick={event => event.stopPropagation()}>
+      <TableCell align="center" onClick={event => event.stopPropagation()}
+         className={classes.tableCell}
+      >
         <IconButton onClick={() => handleClick(row)}>
           <LaunchIcon color='primary'/>
         </IconButton>

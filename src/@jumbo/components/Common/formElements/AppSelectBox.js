@@ -66,7 +66,7 @@ const AppSelectBox = props => {
           renderRow ? (
             renderRow(item, index)
           ) : (
-            <MenuItem key={index} value={valueKey ? item[valueKey] : item}>
+            <MenuItem disabled={item.disabled} key={index} value={valueKey ? item[valueKey] : item}>
               {item[labelKey]}
             </MenuItem>
           ),

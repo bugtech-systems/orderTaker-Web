@@ -1,20 +1,20 @@
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Checkbox from '@material-ui/core/Checkbox';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 
-const headCells = [
+const headCellsOrders = [
   {
     id: 'order_no',
     numeric: false,
     disablePadding: true,
-    label: 'Order #',
+    label: 'ORDER #',
   },
-  { id: 'amount_due', numeric: false, disablePadding: false, label: 'Total Amount' },
-  { id:   'recordedAt', numeric: false, disablePadding: false, label: 'Date' },
+  { id: 'amount_due', numeric: true, disablePadding: false, label: 'TOTAL' },
+  { id:   'recordedAt', numeric: true, disablePadding: false, label: 'DATE' },
   //  {
   //   id: 'lastLoginAt',
   //   numeric: false,
@@ -23,15 +23,47 @@ const headCells = [
   // },
 ];
 
-function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) {
+const headCellsExpenses = [
+  {
+    id: 'ref_no',
+    numeric: false,
+    disablePadding: true,
+    label: 'Ref #',
+  },
+  {
+    id: 'description',
+    numeric: false,
+    disablePadding: true,
+    label: 'Description',
+  },
+  { id: 'amount', numeric: false, disablePadding: true, label: 'TOTAL' },
+  { id:   'recordedAt', numeric: false, disablePadding: true, label: 'DATE' },
+];
+
+
+
+function UserTableHead({ classes, header, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) {
+  const [headerCells, setHeaderCells] = useState([]);
+ 
   const onSortOrderChange = property => event => {
     onRequestSort(event, property);
   };
 
+
+  useEffect(() => {
+      if(header === 'expenses'){
+        setHeaderCells(headCellsExpenses)
+      } else {
+        setHeaderCells(headCellsOrders)
+      }
+  }, [header])
+
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell 
+           className={classes.tableCell}
+        >
           {/* <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -39,10 +71,11 @@ function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected,
             inputProps={{ 'aria-label': 'select all desserts' }}
           /> */}
         </TableCell>
-        {headCells.map(headCell => (
+        {headerCells.map(headCell => (
           <TableCell
+          className={classes.tableCell}
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}>
             <TableSortLabel
@@ -56,7 +89,9 @@ function UserTableHead({ classes, onSelectAllClick, order, orderBy, numSelected,
             </TableSortLabel>
           </TableCell>
         ))}
-        {<TableCell align="center">Actions</TableCell> }
+        <TableCell align="center"
+         className={classes.tableCell}
+        ></TableCell> 
       </TableRow>
     </TableHead>
   );

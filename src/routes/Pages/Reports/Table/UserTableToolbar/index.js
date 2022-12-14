@@ -24,7 +24,7 @@ const filterOptionsList = [
 const UserTableToolbar = ({
   selected,
   setSelected,
-  onUserAdd,
+  onAdd,
   filterOptions,
   setFilterOptions,
   searchTerm,
@@ -82,15 +82,18 @@ const UserTableToolbar = ({
           </Typography>
         ) : (
           <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
-              <Button variant="contained" size="small" color="primary" onClick={() => alert(`Add New ${project.label}`)}>
+                      {project.value === 'expenses' && 
+            <Button variant="contained" size="small" color="primary" onClick={() => onAdd()}>
              <AddCircle/>&nbsp;Add
             </Button>
-          {/* {project.value === 'expenses' &&  */}
-          <Box display="flex" alignItems="center" justifyContent="flex-end" width="100%">
-          <CmtSearch onChange={e => setSearchTerm(e.target.value)} value={searchTerm} border={false} onlyIcon />
+             }
+
+          <Box component="form" onSubmit={handleSearch} display="flex" alignItems="center" justifyContent="flex-end" width="100%">
+          <CmtSearch 
+          onChange={e => setSearchTerm(e.target.value)}
+           value={searchTerm} border={false}  />
           
             </Box>
-            {/* } */}
           </Box>
         )}
 

@@ -4,13 +4,18 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
   },
+  tableCell: {
+    padding: 2,
+    fontSize: '15px',
+    fontWeight: 'bold'
+  },
   paper: {
     width: '100%',
     marginBottom: theme.spacing(4),
     backgroundColor: lighten(theme.palette.background.paper, 0.1),
   },
   container: {
-    maxHeight: 415,
+    // maxHeight: 415,
   },
   table: {
     minWidth: 750,

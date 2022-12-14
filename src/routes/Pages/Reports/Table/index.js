@@ -11,22 +11,23 @@ import { deleteUser, getUsers, setCurrentUser } from '../../../../redux/actions/
 import ConfirmDialog from '../../../../@jumbo/components/Common/ConfirmDialog';
 import { useDebounce } from '../../../../@jumbo/utils/commonHelper';
 import useStyles from './index.style';
-import UserDetailView from './UserDetailView';
 import NoRecordFound from './NoRecordFound';
-import { SET_USER_DIALOG } from 'redux/actions/types';
+import AddEdit from './AddEdit';
+import { SET_EXPENSE_DIALOG, SET_USER_DIALOG } from 'redux/actions/types';
 import { getOrders, setFilterType } from 'redux/actions/OrderApp';
 
 const UsersModule = ({project, startDate, endDate}) => {
   const classes = useStyles();
   const { users } = useSelector((state) => state.usersReducer);
-  const { userDialog } = useSelector((state) => state.uiReducer);
-  const { orders, unpaidOrders, filterType, count } = useSelector(({orderApp}) => orderApp);
-
+  const { expenses } = useSelector(({dataReducer}) => dataReducer);
+  const { orders,  filterType, count } = useSelector(({orderApp}) => orderApp);
+  const [tableData, setTableData] = useState([]);
   const [orderBy, setOrderBy] = React.useState('name');
   const [order, setOrder] = React.useState('asc');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [selected, setSelected] = React.useState([]);
+  const [current, setCurrent] = useState({});
   const [openViewDialog, setOpenViewDialog] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState({ name: '' });
@@ -34,18 +35,9 @@ const UsersModule = ({project, startDate, endDate}) => {
   const [isFilterApplied, setFilterApplied] = useState(false);
   const [filterOptions, setFilterOptions] = React.useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentUser, setCurrent] = useState({});
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(
-      getUsers(filterOptions, debouncedSearchTerm, () => {
-        setFilterApplied(!!filterOptions.length || !!debouncedSearchTerm);
-        setUsersFetched(true);
-      }),
-    );
-  }, [dispatch, filterOptions, debouncedSearchTerm]);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -86,6 +78,11 @@ const UsersModule = ({project, startDate, endDate}) => {
       searchText: searchTerm,
       page: newPage
     }));
+    dispatch(getOrders({
+      ...filterType,
+      searchText: searchTerm,
+      page: newPage
+    }));
   };
 
   const handleRowsPerPageChange = event => {
@@ -99,17 +96,17 @@ const UsersModule = ({project, startDate, endDate}) => {
       rowsPerPage: parseInt(event.target.value, 10)
     }));
 
+    dispatch(getOrders({
+      ...filterType,
+      searchText: searchTerm,
+      page: 0,
+      rowsPerPage: parseInt(event.target.value, 10)
+    }));
+
   };
 
   const handleUserView = user => {
-    setCurrent(user)
     dispatch(setCurrentUser(user));
-    setOpenViewDialog(true);
-  };
-
-  const handleCloseViewDialog = () => {
-    setOpenViewDialog(false);
-    dispatch(setCurrentUser(null));
   };
 
   const handleUserEdit = user => {
@@ -136,12 +133,17 @@ const UsersModule = ({project, startDate, endDate}) => {
 
   const handleSearchTerm = (e) => {
     e.preventDefault();
-    dispatch(getOrders(filterType));
+    console.log('wewewew')
     dispatch(setFilterType({
       ...filterType,
+      page: 0,
       searchText: searchTerm
     }));
-
+    dispatch(getOrders({
+      ...filterType,
+      page: 0,
+      searchText: searchTerm
+    }));
 
   }
 
@@ -151,19 +153,33 @@ const UsersModule = ({project, startDate, endDate}) => {
       page: 0,
       rowsPerPage: 10
     }));
-  }, [filterType, startDate, endDate, project]);
+  }, []);
+
+    useEffect(() => {
+      console.log(project)
+      if(project.value === 'orders'){
+        setTableData(orders);
+      }
+
+      if(project.value === 'expenses'){
+        setTableData(expenses);
+      }
+    },[orders, project, expenses])
 
 
 
   return (
     <div className={classes.root}>
+      <AddEdit 
+          data={current}
+      />
       <Paper className={classes.paper}>
         <UserTableToolbar
           selected={selected}
           setSelected={setSelected}
-          onUserAdd={(e) => 
-            dispatch({type: SET_USER_DIALOG, payload: e})
-        }
+          onAdd={(e) => 
+            dispatch({type: SET_EXPENSE_DIALOG, payload: true})
+          }
           filterOptions={filterOptions}
           setFilterOptions={setFilterOptions}
           searchTerm={searchTerm}
@@ -174,17 +190,18 @@ const UsersModule = ({project, startDate, endDate}) => {
         <TableContainer className={classes.container}>
           <Table stickyHeader className={classes.table} aria-labelledby="tableTitle" aria-label="sticky enhanced table">
             <UserTableHead
+              header={project.value}
               classes={classes}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={tableData.length}
             />
             <TableBody>
-              {!!orders.length ? (
-                stableSort(orders, getComparator(order, orderBy))
+              {!!tableData.length ? (
+                stableSort(tableData, getComparator(order, orderBy))
                   .map((row, index) => (
                     <UserListRow
                       key={index}
@@ -197,7 +214,7 @@ const UsersModule = ({project, startDate, endDate}) => {
                     />
                   ))
               ) : (
-                <TableRow style={{ height: 53 * 6 }}>
+                <TableRow style={{ height: 43 * 6 }}>
                   <TableCell colSpan={7} rowSpan={10}>
                     {isFilterApplied ? (
                       <NoRecordFound>There are no records found with your filter.</NoRecordFound>
@@ -221,7 +238,6 @@ const UsersModule = ({project, startDate, endDate}) => {
         />
       </Paper>
 
-      {openViewDialog && <UserDetailView currentUser={currentUser} open={openViewDialog} onCloseDialog={handleCloseViewDialog} />}
 
       <ConfirmDialog
         open={openConfirmDialog}

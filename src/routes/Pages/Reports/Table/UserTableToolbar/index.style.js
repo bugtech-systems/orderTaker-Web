@@ -4,6 +4,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(2),
+    minHeight: 0,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
   },
   highlight:
     theme.palette.type === 'light'

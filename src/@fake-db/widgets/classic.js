@@ -99,7 +99,7 @@ export const classicWidget = {
       label: 'Purchases',
       value: 'Purchases',
       color: '#FF4081',
-      disabled: false,
+      disabled: true,
       backgroundColor: '#FFBDD4',
       data: [
         { month: 'Jan', amount: 1100 },
@@ -120,7 +120,7 @@ export const classicWidget = {
       label: 'Withdrawals',
       value: 'withdrawals',
       color: '#FF4081',
-      disabled: false,
+      disabled: true,
       backgroundColor: '#FFBDD4',
       data: [
         { month: 'Jan', amount: 1100 },

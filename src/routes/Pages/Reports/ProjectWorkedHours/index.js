@@ -14,11 +14,13 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import PageContainer from '@jumbo/components/PageComponents/layouts/PageContainer';
 import GridContainer from '@jumbo/components/GridContainer';
 import { Grid, Typography } from '@material-ui/core';
+import PrintIcon from '@material-ui/icons/Print';
 
 //Components
 import Table from '../Table';
-import { useDispatch } from 'react-redux';
-import { getOrders } from 'redux/actions/OrderApp';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrders, setFilterType} from 'redux/actions/OrderApp';
+import moment from 'moment';
 
 
 const useStyles = makeStyles(theme => ({
@@ -101,8 +103,8 @@ console.log(currentProject.value)
           onChange={handleProjectChange}
           // disabled={true}
         />
-        <AppDatePicker label="Start Date" value={startDate} onChange={onStartDateChange} />
-        <AppDatePicker label="End Date" value={endDate} onChange={onEndDateChange} />
+        <AppDatePicker label="Start Date" value={startDate} onChange={setStartDate} />
+        <AppDatePicker label="End Date" value={endDate} onChange={setEndDate} />
       </Box>
     </CmtCardContent>
    
@@ -125,16 +127,47 @@ const ProjectHeader = ({ revealed, startDate, endDate }) => {
 const ProjectWorkedHours = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [currentProject, setCurrentProject] = React.useState(classicWidget.projects[1]);
-  const [startDate, setStartDate] = React.useState('2020-07-03');
-  const [endDate, setEndDate] = React.useState('2020-08-20');
+  const { orders,  filterType, count } = useSelector(({orderApp}) => orderApp);
+  const [currentProject, setCurrentProject] = React.useState(classicWidget.projects[0]);
+  const [startDate, setStartDate] = React.useState(moment().format('YYYY-MM-DD'));
+  const [endDate, setEndDate] = React.useState(moment().format('YYYY-MM-DD'));
   const [revealed, setRevealed] = useState(false);
   const [tableData, setTableData] = useState([]);
 
   const handleOnRevealed = status => {
+    console.log(status)
     setRevealed(status);
   };
 
+
+  const handleDateRange = prop => event => {
+    let start = startDate
+    let end = endDate
+
+    if(prop === 'startDate'){
+      start = moment(event).format('YYYY-MM-DD')
+      setStartDate(start)
+    } 
+
+    if(prop === 'endDate'){
+      end = moment(event).format('YYYY-MM-DD')
+      setEndDate(end)
+    }
+
+    dispatch(setFilterType({
+      ...filterType,
+      page: 0,
+      startDate: start, 
+      endDate: end
+    }));
+
+    dispatch(getOrders({
+      ...filterType,
+      startDate: start,
+      endDate: end
+    }))
+
+};
   const handleProject = (e) => {
     setCurrentProject(e)
   }
@@ -151,17 +184,30 @@ const ProjectWorkedHours = () => {
     }))
   };
 
+  // useEffect(() => {
+  //   console.log(startDate && endDate)
+  //   if(startDate  && endDate) dispatch(getOrders({
+  //     ...filterType,
+  //     startDate: startDate,
+  //     endDate: endDate
+  //   }))
+  // }, [startDate, endDate])
 
 
 
+  console.log(revealed)
   return (
-    <PageContainer heading="Sales Report" breadcrumbs={breadcrumbs}>
+    <PageContainer heading="Sales Reports" breadcrumbs={breadcrumbs}>
     <GridContainer>
       <Grid item xs={12} sm={12} md={12} lg={12}>
     <CmtBackDrop
       concealedIcon={<DeveloperBoardIcon />}
-      extrasContainer={<RefreshIcon className="pointer" 
-      onClick={handleReset} />}
+      extrasContainer={<Box >
+          <PrintIcon className="pointer" 
+      onClick={() => alert('PRINT')}/>&nbsp;&nbsp;&nbsp;
+      <RefreshIcon className="pointer" 
+      onClick={handleReset} />
+        </Box>}
       backLayerConcealed={<ProjectHeader revealed currentProject={currentProject} startDate={startDate} endDate={endDate} />
       }
       backLayerRevealed={
@@ -169,30 +215,30 @@ const ProjectWorkedHours = () => {
           currentProject={currentProject}
           setCurrentProject={handleProject}
           startDate={startDate}
-          setStartDate={setStartDate}
+          setStartDate={handleDateRange('startDate')}
           endDate={endDate}
-          setEndDate={setEndDate}
+          setEndDate={handleDateRange('endDate')}
         />
       }
       onRevealed={handleOnRevealed}
-      >
-      <Box p={6}>
+      subHeader={ <Box >
+      <Box>
+      <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+          {currentProject.label}
+        </Typography>
+    </Box>
+      <Box className={classes.subHeaderBottom}>
         <Box>
+          {getFormattedDate(startDate, ' DD MMM')} - {getFormattedDate(endDate, ' DD MMM')}
+        </Box>
 
-        <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
-            {currentProject.label}
-          </Typography>
-      </Box>
-        <Box className={classes.subHeaderBottom}>
-          <Box>
-            {getFormattedDate(startDate, ' DD MMM')} - {getFormattedDate(endDate, ' DD MMM')}
-          </Box>
-
-          <Box component="span" fontSize={14} color="primary.main">
-            
-          </Box>
-        </Box> 
-      </Box>
+        <Box component="span" fontSize={14} color="primary.main">
+          
+        </Box>
+      </Box> 
+    </Box>}
+      >
+     
       <Box width="100%">
       <Table
         project={currentProject}

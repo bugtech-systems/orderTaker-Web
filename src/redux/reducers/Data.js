@@ -1,11 +1,13 @@
-import {SET_SELECTED_USER, SET_INIT_OBJ} from "../actions/types";
+import {SET_SELECTED_USER, SET_INIT_OBJ, SET_EXPENSE_DATA, SET_SELECTED_EXPENSE} from "../actions/types";
 
 const INIT_STATE = {
   selectedUser: {
     birthDate: new Date(),
     roles: [],
     gender: "male"
-  }
+  },
+  expense: {},
+  expenses: []
 };
 
 export default (state = INIT_STATE, action) => {
@@ -18,6 +20,21 @@ export default (state = INIT_STATE, action) => {
         selectedUser: payload
       };
     }
+    case SET_EXPENSE_DATA: {
+      return {
+        ...state,
+        expenses: payload
+      };
+    }
+
+    case SET_SELECTED_EXPENSE: {
+      return {
+        ...state,
+        expense: payload
+      };
+    } 
+
+
     case SET_INIT_OBJ: {
       return {
         ...state,
