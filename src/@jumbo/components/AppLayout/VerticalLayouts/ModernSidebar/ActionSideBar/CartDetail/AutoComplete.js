@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 
@@ -7,7 +7,7 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentCustomer} from '../../../../../../../redux/actions/Customer';
+import { getCustomers, setCurrentCustomer} from '../../../../../../../redux/actions/Customer';
 import { SET_CREATE_CUSTOMER_DIALOG } from '../../../../../../../redux/actions/types';
 
 
@@ -25,6 +25,7 @@ export default function FreeSoloCreateOptionDialog({
 }) {
     const dispatch = useDispatch();
     const {currentCustomer, customersList }  = useSelector(({customerApp}) => customerApp);
+  const [searchTerm, setSearchTerm] = useState('');
 
 
 
@@ -38,7 +39,13 @@ export default function FreeSoloCreateOptionDialog({
     tags: [], name: data.name}));
   }
 
+  const handleChange = (e) => {
 
+
+    dispatch(getCustomers({searchText: e, page: 0 }))
+  }
+
+ 
 
   const toggleOpen = (val) => {
     dispatch({
@@ -47,10 +54,22 @@ export default function FreeSoloCreateOptionDialog({
       })
   }
 
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+ 
+  }
+
+
+
 
 
   return (
     <React.Fragment>
+         <form
+      onSubmit={handleSubmit}
+    >
       <Autocomplete
         value={currentCustomer}
         onChange={(event, newValue) => {
@@ -102,10 +121,14 @@ export default function FreeSoloCreateOptionDialog({
         freeSolo
         fullWidth
         renderInput={(params) => (
-          <TextField {...params} label={label} placeholder={placeholder} margin={margin} fullWidth={fullWidth} size={size} variant={variant} />
+          <TextField {...params} label={label} placeholder={placeholder} margin={margin} fullWidth={fullWidth} size={size} variant={variant} 
+          onChange={(e) => {
+            handleChange(e.target.value)
+            }}
+             />
         )}
       />
-
+</form>
     </React.Fragment>
   );
 }

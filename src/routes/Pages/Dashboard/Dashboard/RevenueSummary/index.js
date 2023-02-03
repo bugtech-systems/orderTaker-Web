@@ -37,13 +37,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SummaryStats = ({data}) => {
-
-
-
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <SummaryDetail title={'Annual Sales'} figure={`₱${data.totalSales}`}className={'mr-5'} />
-      <SummaryDetail title={'Available Inventory'} figure={`₱${data.totalInventory}`} className={'mr-5'} />
+      <SummaryDetail title={'Available Inventory'} figure={`₱${Number(data.totalInventory).toFixed(2)}`} className={'mr-5'} />
     </div>
   );
 };

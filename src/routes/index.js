@@ -89,7 +89,6 @@ const Routes = () => {
         {/* Other Pages */}
         <Route path="/signin" component={Login} />
         <Route path="/forgot-password" component={DefaultForgotPassword} />
-
         <Route component={Error404} />
       </Switch>
 
