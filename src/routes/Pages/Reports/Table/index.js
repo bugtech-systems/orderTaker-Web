@@ -133,7 +133,6 @@ const UsersModule = ({project, startDate, endDate}) => {
 
   const handleSearchTerm = (e) => {
     e.preventDefault();
-    console.log('wewewew')
     dispatch(setFilterType({
       ...filterType,
       page: 0,
@@ -156,7 +155,6 @@ const UsersModule = ({project, startDate, endDate}) => {
   }, []);
 
     useEffect(() => {
-      console.log(project)
       if(project.value === 'orders'){
         setTableData(orders);
       }

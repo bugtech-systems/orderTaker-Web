@@ -71,8 +71,6 @@ const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStar
   
   
   const handleProjectChange = event => {
-    console.log(event.target.value)
-    console.log(classicWidget.projects.find(project => project.value === event.target.value))
 
     setCurrentProject(classicWidget.projects.find(project => project.value === event.target.value));
   };
@@ -87,9 +85,6 @@ const ProjectSwitcher = ({ currentProject, setCurrentProject, startDate, setStar
   const classes = useStyles();
 
   
-console.log(currentProject.value)
-  console.log(currentProject)
-  console.log(classicWidget)
   return (
   
     <CmtCardContent>
@@ -135,7 +130,6 @@ const ProjectWorkedHours = () => {
   const [tableData, setTableData] = useState([]);
 
   const handleOnRevealed = status => {
-    console.log(status)
     setRevealed(status);
   };
 
@@ -185,7 +179,6 @@ const ProjectWorkedHours = () => {
   };
 
   // useEffect(() => {
-  //   console.log(startDate && endDate)
   //   if(startDate  && endDate) dispatch(getOrders({
   //     ...filterType,
   //     startDate: startDate,
@@ -194,8 +187,6 @@ const ProjectWorkedHours = () => {
   // }, [startDate, endDate])
 
 
-
-  console.log(revealed)
   return (
     <PageContainer heading="Sales Reports" breadcrumbs={breadcrumbs}>
     <GridContainer>

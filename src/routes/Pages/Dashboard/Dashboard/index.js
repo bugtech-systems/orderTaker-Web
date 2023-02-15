@@ -115,8 +115,8 @@ const Dashboard = () => {
   useEffect(() => {
     if(loadUser){
     dispatch(getAdminDashboard())
-    dispatch(getInventoryList(filterType));
-    dispatch(getAllNotifications());
+    // dispatch(getInventoryList(filterType));
+    // dispatch(getAllNotifications());
     }
   }, [loadUser, authUser]);
 

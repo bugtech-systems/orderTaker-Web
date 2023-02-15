@@ -21,6 +21,7 @@ if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logout());
+    localStorage.removeItem('idToken')
     window.location.href = "/";
   } else {
     store.dispatch(getUserData(history));
@@ -31,7 +32,7 @@ if (token) {
 const App = () => (
   <Provider store={store}>
     <BrowserRouter 
-     basename='/pos'
+    //  basename='/pos'
      history={history}
      >
       <AppContextProvider>

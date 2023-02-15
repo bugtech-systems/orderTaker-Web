@@ -136,9 +136,7 @@ const CreateCustomer = ({ open, handleDialog }) => {
     const phoneNumbers = values.contacts.filter(item => item.number.trim());
     if (!values.name) {
       setErrors({ ...errors, name: requiredMessage });
-    } else if (!values.email) {
-      setErrors({ ...errors, email: requiredMessage });
-    } else if (!isValidEmail(values.email)) {
+    } else if (!values.address) {
       setErrors({ ...errors, email: requiredMessage });
     } else {
       handleSubmit(phoneNumbers);

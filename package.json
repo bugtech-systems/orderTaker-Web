@@ -1,7 +1,6 @@
 {
   "name": "aja-pos",
   "version": "0.1.0",
-  "homepage": "/pos",
   "private": true,
   "dependencies": {
     "@amcharts/amcharts4": "^4.9.34",

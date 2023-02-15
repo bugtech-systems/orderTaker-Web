@@ -82,14 +82,12 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
     setDateCounter(val);
     setDate(newDate);
 
-    console.log(val)
     dispatch(getOrders({
       dateCounter: val
     }))
     .then(res => {
   
       getEvents(res, newDate)
-      console.log(res)
     })
     .catch(err => {
       console.log(err)
@@ -102,7 +100,6 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
 
   const handleFilter = (val) => {
       let options = {};  
-    console.log(val)
       if(val === 'all'){
         return handleOrders(dateCounter)
       }
@@ -147,8 +144,6 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
   }, []);
 
 
-  console.log(orderData)
-  console.log(filter)
 
   return (
     <CmtCard className={classes.cardRoot}>

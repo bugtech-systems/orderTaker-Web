@@ -1,6 +1,6 @@
 //For expanding sidebar
 import {
-    SET_DASHBOARD_DATA
+    SET_DASHBOARD_DATA, SET_LOADING, STOP_LOADING
   } from './types';
   import { fetchError, fetchStart, fetchSuccess } from './Common';
   import axios from 'axios';
@@ -13,17 +13,18 @@ import {
   //for getting customer categories(in sidebar) count
   export const getAdminDashboard = () => {
     return dispatch => {
-    dispatch(fetchStart())
-
+      dispatch({type: SET_LOADING})
+      
       axios
         .get(`${commonData.apiUrl}/admin/dashboard`, {
             headers: authHeader(),
           })
         .then(({data}) => {
             dispatch({ type: SET_DASHBOARD_DATA, payload: data });
-            dispatch(fetchSuccess())
+            dispatch({type: STOP_LOADING})
         })
         .catch(error => {
+          dispatch({type: STOP_LOADING})
           dispatch(fetchError('Something went wrong'));
         });
     };

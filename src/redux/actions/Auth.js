@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_AUTH_STORE, UPDATE_LOAD_USER, CLEAR_USER, SET_DASHBOARD_DATA } from './types';
+import { SEND_FORGET_PASSWORD_EMAIL, UPDATE_AUTH_USER, UPDATE_AUTH_STORE, UPDATE_LOAD_USER, CLEAR_USER, SET_DASHBOARD_DATA, SET_LOADING, STOP_LOADING } from './types';
 import { fetchError, fetchStart, fetchSuccess } from './Common';
 
 import commonData from '../../utils/commonData';
@@ -73,6 +73,7 @@ export const loginUser = (user, callbackFun) => {
 
 export const getUserData = () => { 
   return (dispatch) => {
+    dispatch({type: SET_LOADING}) 
 
   axios.get(`${commonData.apiUrl}/auth`, { headers: authHeader() }).then(
     (res) => {
@@ -81,11 +82,14 @@ export const getUserData = () => {
       dispatch({type: SET_DASHBOARD_DATA, payload: { business }})
       dispatch(setAuthUser(res.data))
       dispatch(fetchSuccess());
+      dispatch({type: STOP_LOADING}) 
     },
     (err) => {
       console.log(err.response)
       dispatch(fetchError('Something went wrong!'));
       dispatch(logout())
+      dispatch({type: STOP_LOADING}) 
+
     }
   );
 };
@@ -93,7 +97,6 @@ export const getUserData = () => {
 
 export const getStoreData = () => { 
   return (dispatch) => {
-
   axios.get(`${commonData.apiUrl}/store`,)
   .then(
     (res) => {

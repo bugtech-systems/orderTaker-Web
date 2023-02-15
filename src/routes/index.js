@@ -12,6 +12,8 @@ import SalesReport from './Pages/Reports';
 import Users from './Pages/Users';
 import Settings from './Pages/Settings';
 
+//Components
+import Backdrop from '../components/Backdrop';
 
 import Error404 from './Pages/404';
 import Login from './Auth/Login';
@@ -54,6 +56,7 @@ const RestrictedRoute = ({ component: Component, ...rest }) => {
 
 const Routes = () => {
   const { authUser } = useSelector(({ auth }) => auth);
+
   const location = useLocation();
   const token = localStorage.idToken;
 
@@ -70,7 +73,7 @@ const Routes = () => {
   return (
     <React.Fragment>
       {!token && <Redirect to={'/signin'} />}
-      
+      <Backdrop /> 
       <Socket/>
 
       <AddEditUser  />
