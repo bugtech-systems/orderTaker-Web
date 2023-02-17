@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,2BACI,2BACJ","file":"main.5d7f95b7.chunk.css","sourcesContent":[".MuiDrawer-paperAnchorLeft {\r\n    overflow-y: hidden !important;\r\n}\r\n\r\n\r\n/* .MuiDrawer-paper {\r\n    overflow-y: hidden !important;\r\n} */"]}
