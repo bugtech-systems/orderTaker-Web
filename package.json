@@ -87,7 +87,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-<<<<<<< HEAD
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -95,15 +94,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-=======
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
->>>>>>> 960eb4b12869a1394f342586fa9efc007beffa0f
   },
   "browserslist": {
     "production": [
@@ -112,15 +102,11 @@
       "not op_mini all"
     ],
     "development": [
-<<<<<<< HEAD
       "ie 11",
-=======
->>>>>>> 960eb4b12869a1394f342586fa9efc007beffa0f
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.23.0",
@@ -147,7 +133,5 @@
     "*.+(js|jsx|json|css|md)": [
       "prettier --write"
     ]
-=======
->>>>>>> 960eb4b12869a1394f342586fa9efc007beffa0f
   }
 }
