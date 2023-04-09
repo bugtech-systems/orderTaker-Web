@@ -37,7 +37,7 @@ export default function FormDialog({selected, handleSelectDate}) {
 
   return (
     <div>
-         <IconButton className={classes.iconBtn} size="small"  aria-label="upload picture" component="span" onClick={handleClickOpen}>
+         <IconButton className={classes.iconBtn} size="small"  onClick={handleClickOpen}>
               <EventIcon/>
         </IconButton>
       <Dialog open={open} aria-labelledby="form-dialog-title"
