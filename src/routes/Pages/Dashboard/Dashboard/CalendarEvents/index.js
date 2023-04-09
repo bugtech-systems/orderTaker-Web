@@ -14,6 +14,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import HistoryIcon from '@material-ui/icons/History';
 import useStyles from './index.style';
 import Typography from '@material-ui/core/Typography';
+import moment from 'moment';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +22,7 @@ import { getOrders } from 'redux/actions/OrderApp';
 
 //Component
 import FilterMenu from './FilterMenu';
-
+import CalendarButton from './CalendarButton';
 
 
 const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
@@ -40,14 +41,7 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
     let isToday = isDatesSame(new Date, date)
     return (
       <Box display="flex" flexDirection="column">
-        {/* <Box display="flex" color="common.white" alignItems="baseline">
-          <Box component="span" mr={2} fontSize={{ xs: 26, md: 36, xl: 48 }} lineHeight={1} fontWeight="fontWeightBold">
-            {dateObj.date.date}
-          </Box>
-          <Box component="span" fontSize={25}>
-            SALE{}
-          </Box>
-        </Box> */}
+     
         <Box display="flex" color="common.white" alignItems="baseline">
           <Box component="span" mr={2} fontSize={{ xs: 26, md: 36, xl: 48 }} lineHeight={1} fontWeight="fontWeightBold">
             {dateObj.date.date}
@@ -92,10 +86,6 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
     .catch(err => {
       console.log(err)
     });
-
-
-
-  
   };
 
   const handleFilter = (val) => {
@@ -136,7 +126,17 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
       });
   
   };
-
+  
+  
+  const handleSelectDate = (val) => {
+  let diff = moment().diff(val, 'days');
+  console.log(diff)
+  handleOrders(0 - diff)
+    console.log('SELECTED')
+    console.log(val)
+  }
+  
+  
 
   
   useEffect(() => {
@@ -161,6 +161,9 @@ const CalendarEvents = ({setDateCounter, dateCounter, filter, setFilter}) => {
           <IconButton className={classes.iconBtn} size="small" onClick={() => handleOrders(dateCounter + 1)}>
             <ChevronRightIcon />
           </IconButton>
+        </Box>
+        <Box display="flex" alignItems="center" color="common.white" mt={-5}>
+            <CalendarButton handleSelectDate={handleSelectDate}/>
         </Box>
         <Box display="flex" alignItems="center" color="common.white" mt={-5}>
           <FilterMenu 
