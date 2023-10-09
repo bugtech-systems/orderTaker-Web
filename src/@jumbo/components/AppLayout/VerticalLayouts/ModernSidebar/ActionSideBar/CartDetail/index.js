@@ -31,15 +31,15 @@ const useStyles = makeStyles(theme => ({
   rootWrap: {
     // overflowY: 'hidden',
     margin: '10px',
-    height: '100%'
+    // height: '100%'
   },
 }));
 
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { action } = useSelector(({uiReducer}) => uiReducer); 
-  const cart = useSelector(({cartApp}) => cartApp); 
+  const { action } = useSelector(({ uiReducer }) => uiReducer);
+  const cart = useSelector(({ cartApp }) => cartApp);
 
 
 
@@ -48,7 +48,7 @@ const Comments = () => {
   }, [])
 
   useEffect(() => {
-    if(action === 'cart'){
+    if (action === 'cart') {
       localStorage.setItem('cart', JSON.stringify(cart))
     }
   }, [cart])
@@ -56,11 +56,11 @@ const Comments = () => {
 
 
   return (
-      <Box height="100%" className={classes.rootWrap}>
-      {(action === 'cart' || action === 'paidCart' || action === 'viewCart') && <CartItemList/>}
-      {(action === 'payment' || action === 'unpaid') && <ProceedPayment/>}
-      {(action === 'success' || action === 'paidSuccess') && <SuccessPage/>}
-      {cart.order_status !== 'Cancelled' && <CartFooter/>}
+    <Box className={classes.rootWrap} sx={{ overflow: 'scroll' }}>
+      {(action === 'cart' || action === 'paidCart' || action === 'viewCart') && <CartItemList />}
+      {(action === 'payment' || action === 'unpaid') && <ProceedPayment />}
+      {(action === 'success' || action === 'paidSuccess') && <SuccessPage />}
+      {cart.order_status !== 'Cancelled' && <CartFooter />}
     </Box>
   );
 };

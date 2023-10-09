@@ -20,7 +20,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
- 
+
 
 const useStyles = makeStyles(theme => ({
   rootWrap: {
@@ -165,7 +165,7 @@ const useStyles = makeStyles(theme => ({
         visibility: 'visible',
         opacity: 1,
       }
-     }
+    }
   },
   closeButton: {
     position: 'relative',
@@ -194,22 +194,20 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     [theme.breakpoints.up('md')]: {
-    flexDirection: 'row'
+      flexDirection: 'row'
     }
   },
-})); 
+}));
 
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { customersList, currentCustomer }  = useSelector(({customerApp}) => customerApp);
-  const { productsList }  = useSelector(({productApp}) => productApp);
-  const { action } = useSelector(({uiReducer}) => uiReducer); 
+  const { currentCustomer } = useSelector(({ customerApp }) => customerApp);
+  const { productsList } = useSelector(({ productApp }) => productApp);
+  const { action } = useSelector(({ uiReducer }) => uiReducer);
 
-  const { gross_total, amount_due, tax_disc, payment, change, total_vatable, other_amounts }  = useSelector(({cartApp}) => cartApp);
-  const cart  = useSelector(({cartApp}) => cartApp);
-
-  const { create_customer } = useSelector(({ uiReducer }) => uiReducer);
+  const cart = useSelector(({ cartApp }) => cartApp);
+  const { gross_total, amount_due, tax_disc, other_amounts } = action === 'viewCart' ? { ...cart, ...cart.cartItem } : cart;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isSearch, setIsSearch] = useState(false);
   const [addOA, setAddOa] = useState(null);
@@ -221,19 +219,7 @@ const Comments = () => {
     isCart: true
   });
 
-  
 
-  const onCloseDialog = () => {
-    dispatch({
-        type: SET_CREATE_CUSTOMER_DIALOG,
-        payload: false
-      })
-    }
-
-    const handleSelect = (data) => {
-    dispatch(setCurrentCustomer(data));
-    dispatch({type: UPDATE_CART, payload: { customerId: data.id }})
-    }
 
   const handleClickOA = (event) => {
     setAnchorEl(event.currentTarget);
@@ -243,50 +229,52 @@ const Comments = () => {
     setAnchorEl(null);
   }
 
-  const handlePayment = (val, type) => {
+  /* const handlePayment = (val, type) => {
 
-    if(type === 'payment'){
-    if(val >= 0){
-      dispatch({type: UPDATE_CART, payload: { payment: val }})
+    if (type === 'payment') {
+      if (val >= 0) {
+        dispatch({ type: UPDATE_CART, payload: { payment: val } })
+      }
+
+      if (Number(amount_due) < Number(val)) {
+        dispatch({ type: UPDATE_CART, payload: { change: val - amount_due } })
+      }
+
+      if (Number(amount_due) >= Number(val)) {
+        dispatch({ type: UPDATE_CART, payload: { change: 0 } })
+      }
+
+    } else {
+      dispatch({ type: UPDATE_CART, payload: { change: val } })
     }
 
-    if(Number(amount_due) < Number(val) ){
-      dispatch({type: UPDATE_CART, payload: { change: val - amount_due }})
-    }
 
-    if(Number(amount_due) >= Number(val) ){
-      dispatch({type: UPDATE_CART, payload: { change: 0 }})
-    }
-
-  } else{
-    dispatch({type: UPDATE_CART, payload: { change: val }})
   }
+ */
 
-
-  }
 
   const handleOaValue = prop => event => {
-    setOaValue({...oaValue, [prop]: event.target.value})
+    setOaValue({ ...oaValue, [prop]: event.target.value })
   }
 
   const handleOaAdd = prop => {
     let id = Math.random();
 
     setAddOa(prop);
-    setOaValue({ 
+    setOaValue({
       id,
-    type: prop,
-    amount_type: 'rate',
-    value: 0,
-    name: '',
-    isCart: true
-  })
+      type: prop,
+      amount_type: 'rate',
+      value: 0,
+      name: '',
+      isCart: true
+    })
   }
 
   const handleOaRemove = prop => {
     let ind = other_amounts.filter(a => a.id !== prop);
-    dispatch(handleCart({ ...cart, other_amounts: ind}))
- 
+    dispatch(handleCart({ ...cart, other_amounts: ind }))
+
   }
 
   const handleOaClose = prop => {
@@ -302,8 +290,8 @@ const Comments = () => {
 
   const handleOaSave = () => {
     let oa = other_amounts;
-    oa.push({...oaValue, type: addOA});
-    dispatch(handleCart({ ...cart, other_amounts: oa}))
+    oa.push({ ...oaValue, type: addOA });
+    dispatch(handleCart({ ...cart, other_amounts: oa }))
     handleOaClose()
   }
 
@@ -313,154 +301,154 @@ const Comments = () => {
   }, []);
 
   useEffect(() => {
-    if(currentCustomer && isSearch){
-        setIsSearch(false);
+    if (currentCustomer && isSearch) {
+      setIsSearch(false);
     }
   }, [currentCustomer]);
 
 
   useEffect(() => {
-    if(currentCustomer && isSearch){
-        setIsSearch(false);
+    if (currentCustomer && isSearch) {
+      setIsSearch(false);
     }
   }, [productsList]);
 
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
-      return (
-      <GridContainer  key={index} >
+    return (
+      <GridContainer key={index} >
         <Grid item xs={8} lg={8}>
-        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-          {a.description}
-            </Typography>
+          <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
+            {a.description}
+          </Typography>
         </Grid>
         <Grid item xs={2} lg={2} >
           <Box display="flex" alignItems="flex-start" justifyContent="flex-end">
-          <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-          {Number(a.total).toFixed(2)}
+            <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
+              {Number(a.total).toFixed(2)}
             </Typography>
           </Box>
-          </Grid>
-          <Grid item xs={2} lg={2}>
-          </Grid>
-        </GridContainer>
-      )
-  })
-
-const getCharges = tax_disc.filter(a => a.type === 'charges').map((a,index) => {
-    return (
-      <GridContainer key={index} >
-      <Grid item xs={8} lg={8}>
-      <Box display="flex" alignItems="center" justifyContent="flex-start">
-      {a.isCart && <IconButton size="small" 
-                                   style={{marginRight: 3}}
-                              className={classes.closeButton1}
-                              onClick={() => handleOaRemove(a.id)}
-                                >
-                              <CancelIcon fontSize="small"/>
-                            </IconButton>}
-      <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-        {a.description}
-          </Typography>
-          </Box>
-       
-      </Grid>
-      <Grid item xs={2} lg={2} >
-        {/* <Box display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="h5" style={{fontWeight: 'bolder'}}> */}
-        {/* {a.total} */}
-        {/* Add: */}
-          {/* </Typography> */}
-        {/* </Box> */}
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
-        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-          {Number(a.total).toFixed(2)}
-          </Typography>
-        </Box>
         </Grid>
       </GridContainer>
     )
-})
+  })
 
-const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a,index) => {
-  return (
-    <GridContainer key={index} >
-      <Grid item xs={8} lg={8}>
-        <Box display="flex" alignItems="center" justifyContent="flex-start">
-        {a.isCart && <IconButton size="small" 
-                                  //  style={{marginRight: 3}}
-                              className={classes.closeButton1}
-                              onClick={() => handleOaRemove(a.id)}
-                                >
-                              <CancelIcon fontSize="small"/>
-                            </IconButton>}
-                            <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-        {a.description}
-          </Typography>
-        </Box>
-    
-      </Grid>
-      <Grid item xs={2} lg={2} >
-        {/* <Box display="flex" alignItems="center" justifyContent="center">
+  const getCharges = tax_disc.filter(a => a.type === 'charges').map((a, index) => {
+    return (
+      <GridContainer key={index} >
+        <Grid item xs={8} lg={8}>
+          <Box display="flex" alignItems="center" justifyContent="flex-start">
+            {action !== 'viewCart' && a.isCart && <IconButton size="small"
+              style={{ marginRight: 3 }}
+              className={classes.closeButton1}
+              onClick={() => handleOaRemove(a.id)}
+            >
+              <CancelIcon fontSize="small" />
+            </IconButton>}
+            <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
+              {a.description}
+            </Typography>
+          </Box>
+
+        </Grid>
+        <Grid item xs={2} lg={2} >
+          {/* <Box display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="h5" style={{fontWeight: 'bolder'}}> */}
+          {/* {a.total} */}
+          {/* Add: */}
+          {/* </Typography> */}
+          {/* </Box> */}
+        </Grid>
+        <Grid item xs={2} lg={2}>
+          <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+            <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
+              {Number(a.total).toFixed(2)}
+            </Typography>
+          </Box>
+        </Grid>
+      </GridContainer>
+    )
+  })
+
+  const getDiscounts = tax_disc.filter(a => a.type === 'discounts').map((a, index) => {
+    return (
+      <GridContainer key={index} >
+        <Grid item xs={8} lg={8}>
+          <Box display="flex" alignItems="center" justifyContent="flex-start">
+            {(action !== 'viewCart' && a.isCart) && <IconButton size="small"
+              //  style={{marginRight: 3}}
+              className={classes.closeButton1}
+              onClick={() => handleOaRemove(a.id)}
+            >
+              <CancelIcon fontSize="small" />
+            </IconButton>}
+            <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
+              {a.description}
+            </Typography>
+          </Box>
+
+        </Grid>
+        <Grid item xs={2} lg={2} >
+          {/* <Box display="flex" alignItems="center" justifyContent="center">
         <Typography variant="h4" style={{fontWeight: 'bolder'}}> */}
-        {/* {a.total} */}
-        {/* Less: */}
+          {/* {a.total} */}
+          {/* Less: */}
           {/* </Typography>
         </Box> */}
         </Grid>
         <Grid item xs={2} lg={2}>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
-        <Typography variant="h4" style={{fontWeight: 'bolder'}}>
-            ({Number(a.total).toFixed(2)})
-          </Typography>
-        </Box>
+          <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+            <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
+              ({Number(a.total).toFixed(2)})
+            </Typography>
+          </Box>
         </Grid>
       </GridContainer>
 
-  )
-})
+    )
+  })
 
 
-let hasTaxes = tax_disc.filter(a => a.type === 'tax').length !== 0  ? true : false;
 
 
-let hasDiscounts = tax_disc.filter(a => a.type === 'discounts').length !== 0 ? true : false;
+  let hasDiscounts = tax_disc.filter(a => a.type === 'discounts').length !== 0 ? true : false;
 
 
-let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true : false;
+  let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true : false;
+
 
 
 
   return (
     <Box pr={5} pl={3} className={classes.rootWrap}>
-      <Divider/>
+      <Divider />
       <Box mt={3} mr={2} className={classes.sectionTotal}>
         {/* <Box sx={{pr: 10 }} display="flex" flexDirection="column" flexGrow={1}>
         </Box> */}
-        <Box style={{marginTop: 5}}>
-        <GridContainer >
-              <Grid item xs={8} lg={8}>
-              <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                 SUBTOTAL
-                  </Typography>
-              </Grid>
-              <Grid item xs={2} lg={2} >
-                <Box display="flex" alignItems="flex-start" justifyContent="center">
-                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                 
-                  </Typography>
-                </Box>
-                </Grid>
-                <Grid item xs={2} lg={2}>
-                <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
-                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                {gross_total}
-                  </Typography>
-                </Box>
-                </Grid>
+        <Box style={{ marginTop: 5 }}>
+          <GridContainer >
+            <Grid item xs={8} lg={8}>
+              <Typography variant="h3" style={{ fontWeight: 'bolder' }}>
+                SUBTOTAL
+              </Typography>
+            </Grid>
+            <Grid item xs={2} lg={2} >
+              <Box display="flex" alignItems="flex-start" justifyContent="center">
+                <Typography variant="h3" style={{ fontWeight: 'bolder' }}>
+
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={2} lg={2}>
+              <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+                <Typography variant="h3" style={{ fontWeight: 'bolder' }}>
+                  {gross_total}
+                </Typography>
+              </Box>
+            </Grid>
           </GridContainer>
-        {/* <Divider style={{margin: 5}}/>
+          {/* <Divider style={{margin: 5}}/>
         <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  >
         <Grid item xs={8} lg={8}>
         <Typography variant="h4" style={{fontWeight: 'bolder'}}>
@@ -477,11 +465,11 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
           <Grid item xs={2} lg={2}>
           </Grid>
         </GridContainer> */}
-        {getTaxes}
-        <Box className={classes.btnWrap}>
-    
-        {/* <Divider style={{margin: 5}}/> */}
-        {/* <GridContainer >
+          {getTaxes}
+          <Box className={classes.btnWrap}>
+
+            {/* <Divider style={{margin: 5}}/> */}
+            {/* <GridContainer >
               <Grid item xs={8} lg={8}>
               <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
                 <Typography variant="h5" style={{fontWeight: 'bolder'}}>
@@ -499,215 +487,215 @@ let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true 
                 </Box>
                 </Grid>
             </GridContainer> */}
-     {getDiscounts}
-     {getCharges}
-        <Box className={classes.btnWrap}>
-            { addOA === 'discounts' ? (
-                  <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
-                  <Box style={{flexGrow: 1}}>
-                               <IconButton size="small" 
-                               style={{marginRight: 3}}
-                          className={classes.closeButton1}
-                          onClick={() => handleOaClose()}
-                            >
-                          <CancelIcon fontSize="small"/>
-                        </IconButton>
-                  <AppTextInput
-                        fullWidth
-                        variant="outlined"
-                        label="Name"
-                        value={oaValue.name}
-                        onChange={handleOaValue('name')}
-                        style={{width: '200px'}}
-                      />
-                                  </Box>
-                                  <Box >
-      
-               <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
-                onClick={handleClickOA}
-                >
-      <MoreVertIcon fontSize='small'/>
-      </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleCloseOA}
-      >
-        <MenuItem 
-        onClick={(e) => { 
-          setOaValue({...oaValue, amount_type: 'rate'  })
-          handleCloseOA()
-      }}
-        >Rate</MenuItem>
-        <MenuItem 
-        onClick={(e) => {
-          handleCloseOA()
-          setOaValue({...oaValue, amount_type: 'amount'  })
-        }}
-        >Amount</MenuItem>
-      </Menu>
-      <AppTextInput
-                        fullWidth
-                        type="number"
-                        variant="outlined"
-                        label={oaValue.amount_type}
-                        value={oaValue.value}
-                        onChange={handleOaValue('value')}
-                        style={{width: '100px'}}
-                        className={classes.textInput}
-                      />
-                </Box>
-                <IconButton 
-                size="small" 
-                className={classes.closeButton}
-                  onClick={() => handleOaSave()}
-                >
-                   <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
-               </IconButton>
+            {getDiscounts}
+            {getCharges}
+            <Box className={classes.btnWrap}>
+              {addOA === 'discounts' ? (
+                <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
+                  <Box style={{ flexGrow: 1 }}>
+                    <IconButton size="small"
+                      style={{ marginRight: 3 }}
+                      className={classes.closeButton1}
+                      onClick={() => handleOaClose()}
+                    >
+                      <CancelIcon fontSize="small" />
+                    </IconButton>
+                    <AppTextInput
+                      fullWidth
+                      variant="outlined"
+                      label="Name"
+                      value={oaValue.name}
+                      onChange={handleOaValue('name')}
+                      style={{ width: '200px' }}
+                    />
                   </Box>
-                  
-            ) : action === 'cart' &&
-            <Box m={1} display="flex" alignItems="flex-start" >
-              <Box
-            display="flex"
-            alignItems="center"
-            onClick={() => handleOaAdd('discounts')}
-            className={hasDiscounts ? classes.btnTax  : classes.btnTD}
-            color="secondary.main">
-            <RemoveCircleOutlineIcon />
-              <Box ml={2}>Less Discounts</Box>
-          </Box>
+                  <Box >
+
+                    <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
+                      onClick={handleClickOA}
+                    >
+                      <MoreVertIcon fontSize='small' />
+                    </IconButton>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleCloseOA}
+                    >
+                      <MenuItem
+                        onClick={(e) => {
+                          setOaValue({ ...oaValue, amount_type: 'rate' })
+                          handleCloseOA()
+                        }}
+                      >Rate</MenuItem>
+                      <MenuItem
+                        onClick={(e) => {
+                          handleCloseOA()
+                          setOaValue({ ...oaValue, amount_type: 'amount' })
+                        }}
+                      >Amount</MenuItem>
+                    </Menu>
+                    <AppTextInput
+                      fullWidth
+                      type="number"
+                      variant="outlined"
+                      label={oaValue.amount_type}
+                      value={oaValue.value}
+                      onChange={handleOaValue('value')}
+                      style={{ width: '100px' }}
+                      className={classes.textInput}
+                    />
+                  </Box>
+                  <IconButton
+                    size="small"
+                    className={classes.closeButton}
+                    onClick={() => handleOaSave()}
+                  >
+                    <DoneOutlineIcon style={{ color: "green" }} fontSize="small" />
+                  </IconButton>
+                </Box>
+
+              ) : action === 'cart' &&
+              <Box m={1} display="flex" alignItems="flex-start" >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  onClick={() => handleOaAdd('discounts')}
+                  className={hasDiscounts ? classes.btnTax : classes.btnTD}
+                  color="secondary.main">
+                  <RemoveCircleOutlineIcon />
+                  <Box ml={2}>Less Discounts</Box>
+                </Box>
 
               </Box>}
               {addOA === 'charges' ? (
-                      <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
-                      <Box style={{flexGrow: 1}}>
-                                   <IconButton size="small" 
-                                   style={{marginRight: 3}}
-                              className={classes.closeButton1}
-                              onClick={() => handleOaClose()}
-                                >
-                              <CancelIcon fontSize="small"/>
-                            </IconButton>
-                      <AppTextInput
-                            fullWidth
-                            variant="outlined"
-                            label="Name"
-                            value={oaValue.name}
-                            onChange={handleOaValue('name')}
-                            style={{width: '200px'}}
-                          />
-                                      </Box>
-                                      <Box >
-          
-                   <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
-                    onClick={handleClickOA}
+                <Box m={1} display="flex" alignItems="center" justifyContent="space-between" >
+                  <Box style={{ flexGrow: 1 }}>
+                    <IconButton size="small"
+                      style={{ marginRight: 3 }}
+                      className={classes.closeButton1}
+                      onClick={() => handleOaClose()}
                     >
-          <MoreVertIcon fontSize='small'/>
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleCloseOA}
-          >
-            <MenuItem 
-            onClick={(e) => { 
-              setOaValue({...oaValue, amount_type: 'rate'  })
-              handleCloseOA()
-          }}
-            >Rate</MenuItem>
-            <MenuItem 
-            onClick={(e) => {
-              handleCloseOA()
-              setOaValue({...oaValue, amount_type: 'amount'  })
-            }}
-            >Amount</MenuItem>
-          </Menu>
-          <AppTextInput
-                            fullWidth
-                            type="number"
-                            variant="outlined"
-                            label={oaValue.amount_type}
-                            value={oaValue.value}
-                            onChange={handleOaValue('value')}
-                            style={{width: '100px'}}
-                            className={classes.textInput}
-                          />
-                    </Box>
-                    <IconButton 
-                    size="small" 
+                      <CancelIcon fontSize="small" />
+                    </IconButton>
+                    <AppTextInput
+                      fullWidth
+                      variant="outlined"
+                      label="Name"
+                      value={oaValue.name}
+                      onChange={handleOaValue('name')}
+                      style={{ width: '200px' }}
+                    />
+                  </Box>
+                  <Box >
+
+                    <IconButton size='small' aria-controls="simple-menu" aria-haspopup="true"
+                      onClick={handleClickOA}
+                    >
+                      <MoreVertIcon fontSize='small' />
+                    </IconButton>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleCloseOA}
+                    >
+                      <MenuItem
+                        onClick={(e) => {
+                          setOaValue({ ...oaValue, amount_type: 'rate' })
+                          handleCloseOA()
+                        }}
+                      >Rate</MenuItem>
+                      <MenuItem
+                        onClick={(e) => {
+                          handleCloseOA()
+                          setOaValue({ ...oaValue, amount_type: 'amount' })
+                        }}
+                      >Amount</MenuItem>
+                    </Menu>
+                    <AppTextInput
+                      fullWidth
+                      type="number"
+                      variant="outlined"
+                      label={oaValue.amount_type}
+                      value={oaValue.value}
+                      onChange={handleOaValue('value')}
+                      style={{ width: '100px' }}
+                      className={classes.textInput}
+                    />
+                  </Box>
+                  <IconButton
+                    size="small"
                     className={classes.closeButton}
-                      onClick={() => handleOaSave()}
-                    >
-                       <DoneOutlineIcon style={{color: "green"}} fontSize="small"/>
-                   </IconButton>
-                      </Box>
-                  
-            ) : action === 'cart' &&
-            <Box m={1} display="flex" alignItems="flex-start" >
-              <Box
-            display="flex"
-            alignItems="center"
-            onClick={() => handleOaAdd('charges')}
-            className={hasCharges ? classes.btnTax : classes.btnTD}
-            color="primary.main">
-            <AddCircleOutlineIcon />
-              <Box ml={2}>Add Other Charges</Box>
-          </Box>
+                    onClick={() => handleOaSave()}
+                  >
+                    <DoneOutlineIcon style={{ color: "green" }} fontSize="small" />
+                  </IconButton>
+                </Box>
+
+              ) : action === 'cart' &&
+              <Box m={1} display="flex" alignItems="flex-start" >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  onClick={() => handleOaAdd('charges')}
+                  className={hasCharges ? classes.btnTax : classes.btnTD}
+                  color="primary.main">
+                  <AddCircleOutlineIcon />
+                  <Box ml={2}>Add Other Charges</Box>
+                </Box>
               </Box>}
-              <GridContainer style={{paddingRight: 5, paddingLeft: 5}}  >
-              <Grid item xs={8} lg={8}>
-              <Box display="flex">
-                {/* <Typography variant="h5" style={{fontWeight: 'bolder'}}>
+              <GridContainer style={{ paddingRight: 5, paddingLeft: 5 }}  >
+                <Grid item xs={8} lg={8}>
+                  <Box display="flex">
+                    {/* <Typography variant="h5" style={{fontWeight: 'bolder'}}>
                 Total Sales (Vat Inclusive)
                   </Typography> */}
-                </Box>
-              </Grid>
-              <Grid item xs={2} lg={2} >
+                  </Box>
+                </Grid>
+                <Grid item xs={2} lg={2} >
                 </Grid>
                 <Grid item xs={2} lg={2}>
-                <Box display="flex" alignItems="flex-start" justifyContent="center">
-               
-                </Box>
-                </Grid>
-            </GridContainer>
-         
-              </Box>
-              </Box>
+                  <Box display="flex" alignItems="flex-start" justifyContent="center">
 
-
-
-           
-<Divider style={{margin: 5}}/>
-            <GridContainer style={{padding: 5}} >
-              <Grid item xs={8} lg={8}>
-              <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                  AMOUNT DUE
-                  </Typography>
-              </Grid>
-              <Grid item xs={2} lg={2} >
-                <Box display="flex" alignItems="flex-start" justifyContent="center">
-                <Typography variant="h3" style={{fontWeight: 'bolder'}}>
-                 
-                  </Typography>
-                </Box>
+                  </Box>
                 </Grid>
-                <Grid item xs={2} lg={2}>
-                <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
-                <Typography variant="h3" color='primary' style={{fontWeight: 'bolder'}}>
-                {amount_due}
-                  </Typography>
-                </Box>
-                </Grid>
-            </GridContainer>
+              </GridContainer>
 
             </Box>
+          </Box>
+
+
+
+
+          <Divider style={{ margin: 5 }} />
+          <GridContainer style={{ padding: 5 }} >
+            <Grid item xs={8} lg={8}>
+              <Typography variant="h3" style={{ fontWeight: 'bolder' }}>
+                AMOUNT DUE
+              </Typography>
+            </Grid>
+            <Grid item xs={2} lg={2} >
+              <Box display="flex" alignItems="flex-start" justifyContent="center">
+                <Typography variant="h3" style={{ fontWeight: 'bolder' }}>
+
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={2} lg={2}>
+              <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+                <Typography variant="h3" color='primary' style={{ fontWeight: 'bolder' }}>
+                  {amount_due}
+                </Typography>
+              </Box>
+            </Grid>
+          </GridContainer>
+
+        </Box>
       </Box>
-   </Box>
+    </Box>
   );
 };
 

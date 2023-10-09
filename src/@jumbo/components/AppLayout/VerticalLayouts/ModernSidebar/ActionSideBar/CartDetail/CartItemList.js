@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
@@ -87,9 +87,9 @@ const AccordionDetails = withStyles((theme) => ({
 const Comments = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const cart = useSelector(({cartApp}) => cartApp);
-  const { action } = useSelector(({uiReducer}) => uiReducer); 
-  const { filterType, allProducts }  = useSelector(({productApp}) => productApp);
+  const cart = useSelector(({ cartApp }) => cartApp);
+  const { action } = useSelector(({ uiReducer }) => uiReducer);
+  const { filterType, allProducts } = useSelector(({ productApp }) => productApp);
   const [expanded, setExpanded] = React.useState('cartItems');
   const [selected, setSelected] = useState(null);
   const [cartList, setCartList] = useState([]);
@@ -117,40 +117,40 @@ const Comments = () => {
       product: prd
     }
 
-      handleCartItem(cartList, obj).then(a => {
-        dispatch(handleCart({...cart, cart_items: a}))
-      })
+    handleCartItem(cartList, obj).then(a => {
+      dispatch(handleCart({ ...cart, cart_items: a }))
+    })
   }
 
   const handleSelect = (val) => {
-if(val){
-  
-  
-  
-  let prd = allProducts.find(a => a.id === val.id)
-  if(!prd){
-    return dispatch(fetchError("Unable to Find Product!"));
-  }
+    if (val) {
 
-  if(prd.stocks <= 0){
-    return dispatch(fetchError("No Stocks Available!"));
-  } else {
-  let obj = {
-      product: prd,
-      productId: val.id,
-      name: val.name,
-      price: val.price,
-      other_amounts: val.other_amounts ? val.other_amounts : []
+
+
+      let prd = allProducts.find(a => a.id === val.id)
+      if (!prd) {
+        return dispatch(fetchError("Unable to Find Product!"));
+      }
+
+      if (prd.stocks <= 0) {
+        return dispatch(fetchError("No Stocks Available!"));
+      } else {
+        let obj = {
+          product: prd,
+          productId: val.id,
+          name: val.name,
+          price: val.price,
+          other_amounts: val.other_amounts ? val.other_amounts : []
+        }
+
+        handleCartItem(cartList, obj).then(a => {
+          dispatch(handleCart({ ...cart, cart_items: a }))
+        })
+      }
     }
+    setSelected(null);
 
-    handleCartItem(cartList, obj).then(a => {
-      dispatch(handleCart({...cart, cart_items: a}))
-    })
   }
-}
-setSelected(null);
-
-}
 
 
   useEffect(() => {
@@ -164,93 +164,96 @@ setSelected(null);
   }, [filterType, dispatch]);
 
   useEffect(() => {
-    if(!expanded){
+    if (!expanded) {
       setExpanded('cartItems')
     }
   }, [expanded])
 
 
   useEffect(() => {
-    const { cart_items, amount_due } = cart;
+    const { cart_items, amount_due } = action === 'viewCart' ? { ...cart, ...cart.cartItem } : cart;
 
     setCartList(cart_items);
     setAmountDue(amount_due)
   }, [cart])
 
 
- 
+
 
 
   return (
-    <Box flexGrow={1} className={classes.rootWrap}>
-   {action === 'cart' && <SearchProduct
-      value={selected}
-      options={allProducts}
-      handleSelect={handleSelect}
+    <Box flexGrow={1} className={classes.rootWrap} sx={{ overflowY: 'scroll' }}>
+      {action === 'cart' && <SearchProduct
+        value={selected}
+        options={allProducts}
+        handleSelect={handleSelect}
       />}
-      <Divider/>
-      <Box flexGrow={1}>
-      <Box  className={classes.accordionContent} >
-        <Accordion expanded={expanded === 'cartItems'} onChange={() => {cartList.length > 0 && handleChange('cartItems')}}>
-        <AccordionSummary aria-controls="cartItems-content" id="cartItems-header">
-         <Box className={classes.sectionHeading}> <Typography> Cart Items ({cartList.length})</Typography></Box>
-        </AccordionSummary>
-        <AccordionDetails>
+      <Divider />
+      <Box flexGrow={1}
 
-        <Box flexGrow={1} width="100%" style={{ 
-          minHeight: '250px',
-          maxHeight: '45vh', 
-          overflowY: 'auto'
-          }} 
-          >
+      >
+        <Box className={classes.accordionContent} >
+          <Accordion expanded={expanded === 'cartItems'} onChange={() => { cartList.length > 0 && handleChange('cartItems') }}>
+            <AccordionSummary aria-controls="cartItems-content" id="cartItems-header">
+              <Box className={classes.sectionHeading}> <Typography> Cart Items ({cartList.length})</Typography></Box>
+            </AccordionSummary>
+            <AccordionDetails>
 
-        {cartList.length !== 0 ? (
-        <PerfectScrollbar className={classes.scrollbarRoot}>
-          <CmtList data={cartList} renderRow={(item, index) => {
-            return (
-          <CartItem 
-          key={index}
-          // ref={refs[item.productId]}        
-          item={item} handleItem={handleItem}/>)}}/>
-        </PerfectScrollbar>
-        ) : (
-        <Box flexGrow={1} width="100%" height="100%" display="flex" justifyContent="center" alignItems="center">
-        <EmptyResult content="No record found" />
-      </Box>
-      )
-      } 
-      </Box>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'summary'} onChange={() => cartList.length > 0 && handleChange('summary')}>
-        <AccordionSummary aria-controls="summary-content" id="summary-header">
-          <Box height={35} width="100%" display="flex" justifyContent="space-between" alignItems="center">
-        <Box>
-        Amount Due
-        <IconButton>
-          <UnfoldMoreIcon color="primary"/>
-        </IconButton>
+              <Box flexGrow={1} width="100%" style={{
+                minHeight: '250px',
+                maxHeight: '45vh',
+                overflowY: 'auto'
+              }}
+              >
+
+                {cartList.length !== 0 ? (
+                  <PerfectScrollbar className={classes.scrollbarRoot}>
+                    <CmtList data={cartList} renderRow={(item, index) => {
+                      return (
+                        <CartItem
+                          key={index}
+                          // ref={refs[item.productId]}        
+                          item={item} handleItem={handleItem} />)
+                    }} />
+                  </PerfectScrollbar>
+                ) : (
+                  <Box flexGrow={1} width="100%" height="100%" display="flex" justifyContent="center" alignItems="center">
+                    <EmptyResult content="No record found" />
+                  </Box>
+                )
+                }
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion expanded={expanded === 'summary'} onChange={() => cartList.length > 0 && handleChange('summary')}>
+            <AccordionSummary aria-controls="summary-content" id="summary-header">
+              <Box height={35} width="100%" display="flex" justifyContent="space-between" alignItems="center">
+                <Box>
+                  Amount Due
+                  <IconButton>
+                    <UnfoldMoreIcon color="primary" />
+                  </IconButton>
+                </Box>
+                <Box pr={5} fontSize={15} fontWeight={700}>
+                  ₱{amount_due}
+                </Box>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box flexGrow={1} width="100%" style={{
+
+                height: '40vh',
+                overflowX: 'hidden',
+                overflowY: 'auto'
+              }}>
+                <CartSummary />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
         </Box>
-        <Box pr={5} fontSize={15} fontWeight={700}>
-        ₱{amount_due}
-        </Box>
-        </Box>
-        </AccordionSummary>
-        <AccordionDetails>
-        <Box flexGrow={1} width="100%" style={{ 
-          
-          height: '40vh',
-          overflowX: 'hidden', 
-          overflowY: 'auto'
-          }}>
-          <CartSummary/>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
       </Box>
-      </Box>
-     
-        </Box>
+
+    </Box>
   );
 };
 
