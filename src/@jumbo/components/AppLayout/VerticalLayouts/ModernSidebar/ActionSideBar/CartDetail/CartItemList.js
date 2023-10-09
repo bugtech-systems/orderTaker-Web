@@ -171,12 +171,13 @@ const Comments = () => {
 
 
   useEffect(() => {
-    const { cart_items, amount_due } = action === 'viewCart' ? { ...cart, ...cart.cartItem } : cart;
+    const { cart_items, amount_due } = (action === 'viewCart' || action === 'paidCart') ? { ...cart, ...cart.cartItem } : cart;
+
+
 
     setCartList(cart_items);
     setAmountDue(amount_due)
-  }, [cart])
-
+  }, [cart, action])
 
 
 

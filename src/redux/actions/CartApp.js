@@ -190,7 +190,7 @@ export const handleCart = (cartItem) => dispatch => {
   const payload = {
     ...cartItem,
     cart_items: cart_items,
-    tax_disc: tax_disc,
+    tax_disc: cartItem.tax_disc.length !== 0 ? cartItem.tax_disc : tax_disc,
     gross_total: Number(gross_total).toFixed(2),
 
     amount_due: Number(amount_due).toFixed(2),

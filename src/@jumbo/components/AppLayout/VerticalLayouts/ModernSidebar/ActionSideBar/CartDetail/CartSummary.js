@@ -207,7 +207,6 @@ const Comments = () => {
   const { action } = useSelector(({ uiReducer }) => uiReducer);
 
   const cart = useSelector(({ cartApp }) => cartApp);
-  const { gross_total, amount_due, tax_disc, other_amounts } = action === 'viewCart' ? { ...cart, ...cart.cartItem } : cart;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isSearch, setIsSearch] = useState(false);
   const [addOA, setAddOa] = useState(null);
@@ -219,6 +218,7 @@ const Comments = () => {
     isCart: true
   });
 
+  let { gross_total, amount_due, tax_disc, other_amounts } = (action === 'viewCart' || action === 'paidCart') ? { ...cart, ...cart?.cartItem } : cart;
 
 
   const handleClickOA = (event) => {
@@ -313,6 +313,8 @@ const Comments = () => {
     }
   }, [productsList]);
 
+
+
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
     return (
       <GridContainer key={index} >
@@ -339,7 +341,7 @@ const Comments = () => {
       <GridContainer key={index} >
         <Grid item xs={8} lg={8}>
           <Box display="flex" alignItems="center" justifyContent="flex-start">
-            {action !== 'viewCart' && a.isCart && <IconButton size="small"
+            {(action !== 'viewCart' && action !== 'paidCart') && a.isCart && <IconButton size="small"
               style={{ marginRight: 3 }}
               className={classes.closeButton1}
               onClick={() => handleOaRemove(a.id)}
