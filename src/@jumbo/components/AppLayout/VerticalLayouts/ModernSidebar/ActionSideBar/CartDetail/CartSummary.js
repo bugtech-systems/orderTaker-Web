@@ -272,7 +272,8 @@ const Comments = () => {
   }
 
   const handleOaRemove = prop => {
-    let ind = other_amounts.filter(a => a.id !== prop);
+    let ind = other_amounts.filter(a => a.id != prop);
+    console.log(other_amounts, prop)
     dispatch(handleCart({ ...cart, other_amounts: ind }))
 
   }
@@ -314,7 +315,6 @@ const Comments = () => {
   }, [productsList]);
 
 
-
   const getTaxes = tax_disc.filter(a => a.type === 'tax').map((a, index) => {
     return (
       <GridContainer key={index} >
@@ -341,7 +341,7 @@ const Comments = () => {
       <GridContainer key={index} >
         <Grid item xs={8} lg={8}>
           <Box display="flex" alignItems="center" justifyContent="flex-start">
-            {(action !== 'viewCart' && action !== 'paidCart') && a.isCart && <IconButton size="small"
+            {(action !== 'viewCart' && a.isCart) && a.isCart && <IconButton size="small"
               style={{ marginRight: 3 }}
               className={classes.closeButton1}
               onClick={() => handleOaRemove(a.id)}
@@ -420,7 +420,8 @@ const Comments = () => {
   let hasCharges = tax_disc.filter(a => a.type === 'charges').length !== 0 ? true : false;
 
 
-
+  console.log(cart)
+  console.log(tax_disc)
 
   return (
     <Box pr={5} pl={3} className={classes.rootWrap}>
